@@ -1,0 +1,34 @@
+{
+  "name": "thedah",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "format:js": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format:css": "npx stylelint \"**/*.scss\" --fix",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "fix": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "start": "wp-scripts start --webpack-copy-php"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "18.16.0"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^26.8.0",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29",
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "@wordpress/element": "^5.14.0",
+    "@wordpress/i18n": "^4.38.0"
+  }
+}

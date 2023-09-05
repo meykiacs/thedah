@@ -1,0 +1,23 @@
+{
+    "name": "kia/thedah",
+    "authors": [
+        {
+            "name": "Meysam Kia",
+            "email": "meykiacs@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "php-stubs/wordpress-stubs": "^6.2",
+        "php-stubs/woocommerce-stubs": "^8.0"
+    },
+    "require": {
+        "php-di/php-di": "^7.0",
+        "vlucas/phpdotenv": "^5.5",
+        "automattic/woocommerce": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Thedah\\": "includes/"
+        }
+    }
+}

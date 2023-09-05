@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "thedah/bookpage",
+	"version": "1.0.0",
+	"title": "Book Page",
+	"category": "theme",
+	"icon": "menu",
+	"description": "The Book page for The DAH",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "thedah",
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"viewScript": "file:./front.js",
+	"style":"file:./front.css"
+}

@@ -1,0 +1,3 @@
+GET http://127.0.0.1:8003/wp-json/wc/v3/products HTTP/1.1
+Authorization: OAuth oauth_consumer_key="ck_d80bda4aa7b8d4d2de88c828e78c25ea9047bf5b", oauth_consumer_secret="cs_147045fecbcf51214a1fcf39ac3c62ec02e1eaaa"
+Content-Type: application/application/json
