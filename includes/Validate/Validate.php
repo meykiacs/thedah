@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Woochak\Validate;
+namespace Thedah\Validate;
 
 class Validate
 {

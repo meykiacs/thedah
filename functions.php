@@ -1,14 +1,11 @@
 <?php
 declare(strict_types=1);
 use Thedah\Block\Block;
-use Woochak\Rest\Model\Endpoints\ProductsGet;
-use Woochak\Rest\Model\Route\Route;
-use Woochak\Rest\Service\Rest;
 use DI\ContainerBuilder;
-use Woochak\Taxonomy\Model\MetaBoxTaxonomy;
-use Woochak\Taxonomy\Model\Taxonomy;
-use Woochak\Taxonomy\Service\MetaBoxTaxonomyController;
-use Woochak\Taxonomy\Service\TaxonomyController;
+use Thedah\CPTResource\Model\CPT;
+use Thedah\CPTResource\Model\CPTResource;
+use Thedah\CPTResource\Service\RegisterCPTResource;
+use Thedah\Models\Meta\BookMeta;
 
 function thedah_woocommerce_support()
 {
@@ -45,6 +42,7 @@ function remove_global_styles()
   wp_dequeue_style('global-styles');
 }
 
+define('TEXTDOMAIN', 'thedah');
 require __DIR__ . '/vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -53,13 +51,22 @@ $dotenv->load();
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
   'block.dirpath' => get_theme_file_path('build/blocks/'),
-  'plugin.filepath' => get_theme_file_path(),
   'rest.namespace' => 'thedah/v1',
+  'prefix'  => 'thedah'
 ]);
 
 $container = $containerBuilder->build();
 
-$container->get(Block::class)->add('bookpage')->register();
+$container->get(Block::class)->add('bookpage')->add('crudbookpage')->register();
+
+$bookCPT = new CPT('book', 'Book');
+$bookCPTFa = new CPT('bookfa', 'BookFa');
+$bookCPT->metas[] = new BookMeta();
+$bookCPTFa->metas[] = new BookMeta();
+$bookCPTResource = new CPTResource($bookCPT);
+$bookCPTFaResource = new CPTResource($bookCPTFa);
+
+$container->get(RegisterCPTResource::class)->add($bookCPTResource)->add($bookCPTFaResource)->register();
 
 // $productsGet = $container->make(ProductsGet::class);
 // $productsRoute = new Route($container->get('rest.namespace'), 'products');

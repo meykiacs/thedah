@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "thedah/crudbookpage",
+	"version": "1.0.0",
+	"title": "Book Crud Page",
+	"category": "theme",
+	"icon": "menu",
+	"description": "The Book Crud Page for The DAH",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "thedah",
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"viewScript": "file:./front.js"
+}

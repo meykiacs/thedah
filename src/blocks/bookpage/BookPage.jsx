@@ -1,5 +1,5 @@
 import { WPProvider } from "../../context/WPContext"
-import '../../globals.css'
+import '../../tailwind.css'
 export default function BookPage({ providedValues }) {
     
   return (
