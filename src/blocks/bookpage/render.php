@@ -6,8 +6,6 @@ use DI\Container;
  */
 global $container;
 $books = [];
-// $shop_page_id = wc_get_page_id('shop');
-// $shop_page_url = get_permalink($shop_page_id);
 ?>
 <div 
   id="thedah-bookpage"

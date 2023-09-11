@@ -52,12 +52,16 @@ $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
   'block.dirpath' => get_theme_file_path('build/blocks/'),
   'rest.namespace' => 'thedah/v1',
-  'prefix'  => 'thedah'
+  'prefix'  => 'thedah',
+  'assets.fonts.url'  =>  get_theme_file_uri('assets/fonts'),
+  'assets.images.url'  =>  get_theme_file_uri('assets/images')
 ]);
 
 $container = $containerBuilder->build();
 
-$container->get(Block::class)->add('bookpage')->add('crudbookpage')->register();
+$container->get(Block::class)->add('bookpage')->add('crudbookpage')
+  ->add('dashboard')
+  ->register();
 
 $bookCPT = new CPT('book', 'Book');
 $bookCPTFa = new CPT('bookfa', 'BookFa');

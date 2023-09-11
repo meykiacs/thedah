@@ -8,7 +8,7 @@ use Thedah\CPTResource\Model\Meta;
 
 class BookMeta extends Meta {
 
-  public string $slug = 'bookmeta';
+  public string $slug = 'book';
   public string $type = 'object';
 
 
@@ -20,21 +20,24 @@ class BookMeta extends Meta {
         // 'required'  => true,
       ],
       'year'  =>  [
-        'type'  =>  'integer',
+        'type'  =>  'string',
       ],
       'author'  =>  [
         'type'  =>  'string'
       ],
       'edition' =>  [
-        'type'  =>  'integer',
+        'type'  =>  'string',
+      ],
+      'numberOfPages' =>  [
+        'type'  =>  'string'
       ],
       'isbn'  =>  [
-        'type'  =>  'integer'
+        'type'  =>  'string'
       ],
       'price' =>  [
-        'type'  =>  'integer'
+        'type'  =>  'string'
       ],
-      'coauthor'  =>  [
+      'coauthors'  =>  [
         'type'  =>  'array',
         'items' =>  [
           'type'  =>  'string'
@@ -42,7 +45,7 @@ class BookMeta extends Meta {
       ],
       'availability'  =>  [
         'type'  =>  'string',
-        'enum'  =>  ['soon', 'available', 'out-of-stock']
+        'enum'  =>  ['soon', 'available', 'unavailable']
       ]
     ]
   ];
