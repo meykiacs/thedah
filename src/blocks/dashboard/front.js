@@ -3,7 +3,7 @@ import { LanguageProvider } from "../../context/LanguageContext"
 import Dashboard from "./Dashboard"
 
 window.addEventListener("DOMContentLoaded", () => {
-  const root = document.getElementById("thedah-crudbookpage")
+  const root = document.getElementById("thedah-dashboard")
   document.documentElement.setAttribute("lang", "fa")
   document.body.dir = "rtl"
 
