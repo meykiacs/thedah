@@ -7,7 +7,8 @@ export const lightTheme = {
     background: "#ffffff",
     gray: "#E7E3CF",
     black: "#231E1A",
-    green: "#81BA62"
+    green: "#81BA62",
+    white: '#FFFFFF'
   },
 }
 
@@ -19,7 +20,8 @@ export const darkTheme = {
     text: "#ffffff",
     background: "#000000",
     gray: "#121212",
-    white: "#959290",
-    green: '#acd195'
+    black: "#959290",
+    green: '#acd195',
+    white: '#000000'
   },
 }

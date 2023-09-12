@@ -11,6 +11,7 @@ import "../../utils/i18n"
 import { breakpoints } from "../../utils/mq"
 import { RtlProvider } from "../../context/RtlProvider"
 import { lightTheme, darkTheme } from "../../utils/theme"
+import SuperBar from "../../components/common/SuperBar"
 
 export default function BookPage({ providedValues }) {
   const { t } = useTranslation()
@@ -34,6 +35,7 @@ export default function BookPage({ providedValues }) {
         <WPProvider providedValues={providedValues}>
           <BooksProvider providedValues={providedValues}>
             <GlobalCss />
+            <SuperBar />
             <div
               dir={theme.direction}
               style={{

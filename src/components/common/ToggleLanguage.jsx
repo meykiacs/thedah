@@ -20,26 +20,37 @@ export default function ToggleLanguage() {
     document.body.dir = "rtl"
   }
   return (
-    <div>
-      <Button onClick={changeToEn}>En</Button>
-      <br />
-      <Button onClick={changeToFa}>فا</Button>
-    </div>
+    <Wrapper>
+      <Btn onClick={changeToEn}>En</Btn>
+      <Btn onClick={changeToFa}>فا</Btn>
+    </Wrapper>
   )
 }
 
-const Button = styled.button`
-  background-color: ${(props) => props.theme.colors.secondary};
-  border: none;
-  color: ${(props) => props.theme.colors.text};
-  padding: 15px 32px;
-  padding-left: 200px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-family: ${(props) => props.theme.fontFamily};
-  ${mq("sm")} {
-    font-size: 16px; // larger font size for screens wider than 'sm'
+const Btn = styled.div`
+  background-color: transparent;
+  color: ${(p) => p.theme.colors.white};
+  box-shadow: none;
+  font-size: 1.1rem;
+`
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 40px;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    height: 65%;
+    width: 2px;
+    background-color: ${(p) => p.theme.colors.white};
+    left: 50%;
+  }
+
+  & > * {
+    cursor: pointer;
   }
 `
