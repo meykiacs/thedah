@@ -1,17 +1,33 @@
 import { render } from "@wordpress/element"
+import { LanguageProvider } from "../../context/LanguageContext"
 import BookPage from "./BookPage"
+import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-bookpage")
+  document.documentElement.setAttribute("lang", "fa")
+  document.body.dir = "rtl"
 
   const providedValues = {
-    isRtl: Boolean(root.dataset.isRtl),
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,
-    books: JSON.parse(
-      document.getElementById('books').innerHTML
-    )
+    restNonce: root.dataset.restNonce,
+    bookRestUrlEn: root.dataset.bookRestUrlEn,
+    bookRestUrlFa: root.dataset.bookRestUrlFa,
+    mediaRestUrl: root.dataset.mediaRestUrl,
+    assetsFontsUrl: root.dataset.assetsFontsUrl,
+    assetsImagesUrl: root.dataset.assetsImagesUrl,
+    isBooksFaFetched: !!root.dataset.booksFaFetched,
+    isBooksEnFetched: !!root.dataset.booksEnFetched,
+    booksFa: JSON.parse(document.getElementById("books-fa").innerHTML),
+    booksEn: JSON.parse(document.getElementById("books-en").innerHTML),
   }
-
-  render(<BookPage providedValues={providedValues} />, root)
+  render(
+    <LanguageProvider>
+      <ColorSchemeProvider>
+        <BookPage providedValues={providedValues} />
+      </ColorSchemeProvider>
+    </LanguageProvider>,
+    root
+  )
 })
