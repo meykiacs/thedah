@@ -27,6 +27,7 @@ if ($query->have_posts()) {
       'title' => get_the_title(),
       'description' => get_the_content(),
       'picture' => get_the_post_thumbnail_url($id, 'full'),
+      'pictureId' => get_post_thumbnail_id($id),
       'meta'  =>  get_post_meta($id, '_thedah_book', true),
     );
     array_push($booksFa, $book);

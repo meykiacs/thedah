@@ -59,7 +59,7 @@ $containerBuilder->addDefinitions([
 
 $container = $containerBuilder->build();
 
-$container->get(Block::class)->add('bookpage')->add('crudbookpage')
+$container->get(Block::class)->add('bookpage')
   ->add('dashboard')
   ->register();
 

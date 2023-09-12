@@ -1,23 +1,20 @@
 import { useEffect, useState } from "@wordpress/element"
 import useWPContext from "../context/useWPContext"
 
-export default function useDeleteBook({
-  bookId,
+export default function useDelete({
+  id,
   isDeleting,
   setIsDeleting,
-  bookType,
+  restUrl
 }) {
-  const { restNonce, bookRestUrlFa, bookRestUrlEn } = useWPContext()
-  const bookRestUrl = bookType === "thedah_book" ? bookRestUrlEn : bookRestUrlFa
-  
+  const { restNonce } = useWPContext()
   const [responseData, setResponseData] = useState(null)
   const [error, setError] = useState(null)
-
   useEffect(() => {
-    const deleteBook = async () => {
+    const deleteResource = async () => {
       try {
         const response = await fetch(
-          `${bookRestUrl}/${bookId}?force=1`,
+          `${restUrl}/${id}?force=1`,
           {
             method: "DELETE",
             headers: {
@@ -33,8 +30,8 @@ export default function useDeleteBook({
       }
     }
     if (isDeleting) {
-      deleteBook()
+      deleteResource()
     }
-  }, [isDeleting, setIsDeleting, bookId, bookRestUrl, restNonce])
+  }, [isDeleting, setIsDeleting, id, restUrl, restNonce])
   return [responseData, error]
 }

@@ -11,10 +11,55 @@ import {
   List,
   Button,
 } from "@mantine/core"
+import { useEffect, useState } from "@wordpress/element"
 import { useTranslation } from "react-i18next"
+import useDelete from "../../hooks/useDelete"
+import useWPContext from "../../context/useWPContext"
+import useBooksContext from "../../context/useBooksContext"
 
-export function BookCard({ book, isDeleting, setIsDeleting }) {
+export function BookCard({ book }) {
   const { t } = useTranslation()
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [isMediaDeleting, setIsMediaDeleting] = useState(false)
+  const { bookRestUrlFa, bookRestUrlEn, mediaRestUrl } = useWPContext()
+  const { setBooksFa, setBooksEn } = useBooksContext()
+  const [deleteResponseData, deleteError] = useDelete({
+    id: book.id,
+    isDeleting,
+    setIsDeleting,
+    restUrl: book.type === "thedah_book" ? bookRestUrlEn : bookRestUrlFa,
+  })
+  const [deleteMediaResponseData, deleteMediaError] = useDelete({
+    id: book.pictureId,
+    isDeleting: isMediaDeleting,
+    setIsDeleting: setIsMediaDeleting,
+    restUrl: mediaRestUrl,
+  })
+
+  if (deleteMediaResponseData) {
+    console.log(deleteMediaResponseData)
+  }
+
+  useEffect(() => {
+    if (deleteResponseData) {
+      const bookId = deleteResponseData.previous.id
+      if (book.type === "thedah_book") {
+        setBooksEn((prev) => prev.filter((b) => b.id !== bookId))
+      } else if (book.type === "thedah_bookfa") {
+        setBooksFa((prev) => prev.filter((b) => b.id !== bookId))
+      } else {
+        throw new Error("Unknown book type")
+      }
+      // }
+    }
+  }, [book, deleteResponseData, setBooksEn, setBooksFa])
+
+  if (deleteError) {
+    console.log(deleteError)
+  }
+  if (deleteMediaError) {
+    console.log(deleteMediaError)
+  }
 
   return (
     <Card withBorder radius="md" p={0}>
@@ -79,7 +124,12 @@ export function BookCard({ book, isDeleting, setIsDeleting }) {
             bottom="40px"
             right="55px"
             loading={isDeleting}
-            onClick={setIsDeleting(true)}
+            onClick={() => {
+              if (book.pictureId > 0) {
+                setIsMediaDeleting(true)
+              }
+              setIsDeleting(true)
+            }}
           >
             {t("Remove")}
           </Button>

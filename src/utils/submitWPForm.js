@@ -7,7 +7,6 @@ export default async function submitWPForm(
   let responseData = null
   let error = null
   const body = JSON.stringify(data)
-  console.log(body)
   try {
     setIsSubmitting(true)
     const response = await fetch(restUrl, {

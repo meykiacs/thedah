@@ -4,7 +4,7 @@ import {
   createEmotionCache,
 } from "@mantine/core"
 import rtlPlugin from "stylis-plugin-rtl"
-import Fonts from "../../components/Fonts"
+import Fonts from "../../components/MantineFonts"
 import "../../components/dashboard/i18n"
 import { BooksProvider } from "../../context/BooksContext"
 import { WPProvider } from "../../context/WPContext"

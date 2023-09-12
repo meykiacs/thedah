@@ -15,7 +15,7 @@ import useWPContext from "../../context/useWPContext"
 import useLanguageContext from "../../context/useLanguageContext"
 import useFetchPicture from "../../hooks/useFetchPicture"
 import DynamicInput from "./DynamicInput"
-import useDeleteMedia from "../../hooks/useDeleteMedia"
+import useDelete from "../../hooks/useDelete"
 import submitWPForm from "../../utils/submitWPForm"
 import { useTranslation } from "react-i18next"
 
@@ -49,10 +49,11 @@ export default function BookForm() {
   const [isMediaUploading, mediaUploadResponseData, mediaUploadError] =
     useFetchPicture({ pictureFile: file, mediaRestUrl, restNonce })
 
-  const [mediaDeleteResponseData, mediaDeleteError] = useDeleteMedia({
-    featuredMediaId,
+  const [mediaDeleteResponseData, mediaDeleteError] = useDelete({
+    id: featuredMediaId,
     isDeleting: isMediaDeleting,
     setIsDeleting: setIsMediaDeleting,
+    restUrl: mediaRestUrl
   })
 
   useEffect(() => {
@@ -110,15 +111,15 @@ export default function BookForm() {
     if (responseData) {
       if ("id" in responseData && responseData.id > 0) {
         book.id = responseData.id
-        book.picture = responseData.featuredMediaId
+        book.type = responseData.type
         book.title = responseData.title.raw
         book.description = responseData.content.raw
         book.picture = featuredMediaUrl
+        book.pictureId = featuredMediaId
         book.meta = responseData.meta._thedah_book
         if (responseData.type === "thedah_book") {
           setBooksEn([book, ...booksEn])
         } else if (responseData.type === "thedah_bookfa") {
-          console.log(responseData)
 
           setBooksFa([book, ...booksFa])
         } else {
