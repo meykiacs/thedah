@@ -29,7 +29,7 @@ export default function ToggleLanguage() {
 }
 
 const Button = styled.button`
-  background-color: blue;
+  background-color: ${(props) => props.theme.colors.secondary};
   border: none;
   color: ${(props) => props.theme.colors.text};
   padding: 15px 32px;

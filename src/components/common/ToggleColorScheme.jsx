@@ -14,7 +14,7 @@ export default function ToggleColorScheme() {
 }
 
 const Button = styled.button`
-  background-color: ${(props) => props.theme.colors.background};
+  background-color: ${(props) => props.theme.colors.primary};
   border: none;
   color: ${(props) => props.theme.colors.text};
   padding: 15px 32px;

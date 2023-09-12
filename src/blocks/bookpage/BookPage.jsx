@@ -1,5 +1,5 @@
-import { CacheProvider, ThemeProvider } from "@emotion/react"
-import Fonts from "../../components/Fonts"
+import { ThemeProvider } from "@emotion/react"
+import GlobalCss from "../../components/GlobalCss"
 import { BooksProvider } from "../../context/BooksContext"
 import { WPProvider } from "../../context/WPContext"
 import useLanguageContext from "../../context/useLanguageContext"
@@ -10,6 +10,7 @@ import { useColorSchemeContext } from "../../context/useColorSchemeContext"
 import "../../utils/i18n"
 import { breakpoints } from "../../utils/mq"
 import { RtlProvider } from "../../context/RtlProvider"
+import { lightTheme, darkTheme } from "../../utils/theme"
 
 export default function BookPage({ providedValues }) {
   const { t } = useTranslation()
@@ -22,14 +23,8 @@ export default function BookPage({ providedValues }) {
     direction: dir,
     colors:
       colorScheme === "dark"
-        ? {
-            background: "#333",
-            text: "#FFF",
-          }
-        : {
-            background: "#FFF",
-            text: "#333",
-          },
+        ? darkTheme.colors
+        : lightTheme.colors,
     breakpoints,
   }
 
@@ -38,7 +33,7 @@ export default function BookPage({ providedValues }) {
       <ThemeProvider theme={theme}>
         <WPProvider providedValues={providedValues}>
           <BooksProvider providedValues={providedValues}>
-            <Fonts />
+            <GlobalCss />
             <div
               dir={theme.direction}
               style={{
