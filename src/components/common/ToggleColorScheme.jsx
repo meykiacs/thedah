@@ -18,6 +18,7 @@ const Button = styled.button`
   border: none;
   color: ${(props) => props.theme.colors.text};
   padding: 15px 32px;
+  padding-left: 200px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

@@ -17,8 +17,8 @@ const GlobalCss = () => {
       @font-face {
         font-family: 'Vazirmatn';
         font-style: normal;
-        font-weight: 400;
-        src: url('${assetsFontsUrl}/Vazirmatn-Regular.woff2') format('woff2');
+        font-weight: 500;
+        src: url('${assetsFontsUrl}/Vazirmatn-Medium.woff2') format('woff2');
       }
       @font-face {
         font-family: 'Vazirmatn';
@@ -83,7 +83,7 @@ const GlobalCss = () => {
       *::before,
       *::after {
         box-sizing: border-box;
-        line-height: 1.45;	
+        line-height: 1.5;	
       }
       
       html {

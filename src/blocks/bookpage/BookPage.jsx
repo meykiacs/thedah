@@ -11,7 +11,7 @@ import "../../utils/i18n"
 import { breakpoints } from "../../utils/mq"
 import { RtlProvider } from "../../context/RtlProvider"
 import { lightTheme, darkTheme } from "../../utils/theme"
-import SuperBar from "../../components/common/SuperBar"
+import Header from "../../components/common/Header"
 
 export default function BookPage({ providedValues }) {
   const { t } = useTranslation()
@@ -22,10 +22,7 @@ export default function BookPage({ providedValues }) {
   const theme = {
     fontFamily: "Vazirmatn, sans-serif",
     direction: dir,
-    colors:
-      colorScheme === "dark"
-        ? darkTheme.colors
-        : lightTheme.colors,
+    colors: colorScheme === "dark" ? darkTheme.colors : lightTheme.colors,
     breakpoints,
   }
 
@@ -35,18 +32,11 @@ export default function BookPage({ providedValues }) {
         <WPProvider providedValues={providedValues}>
           <BooksProvider providedValues={providedValues}>
             <GlobalCss />
-            <SuperBar />
-            <div
-              dir={theme.direction}
-              style={{
-                backgroundColor: theme.colors.background,
-                color: theme.colors.text,
-              }}
-            >
-              <ToggleLanguage />
-              <ToggleColorScheme />
-              <p>{t("Dashboard")}</p>
-            </div>
+            <Header />
+
+            <ToggleLanguage />
+            <ToggleColorScheme />
+            <p>{t("Dashboard")}</p>
           </BooksProvider>
         </WPProvider>
       </ThemeProvider>

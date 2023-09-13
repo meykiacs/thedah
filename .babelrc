@@ -1,0 +1,4 @@
+{
+  "plugins": ["@emotion"],
+  "presets": ["@wordpress/babel-preset-default"]
+}

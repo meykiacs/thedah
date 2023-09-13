@@ -27,10 +27,12 @@ i18n.use(initReactI18next).init({
         Papers: "Papers",
         Submit: "Submit",
         Remove: "Remove",
+        Home: "Home",
       },
     },
     fa: {
       translation: {
+        Home: "خانه",
         Title: "عنوان",
         Dashboard: "داشبورد",
         Description: "توضیحات",
