@@ -10,7 +10,10 @@ export default function SuperBar() {
 }
 
 const Wrapper = styled.div`
+  display: flex;
   padding-left: 40px;
+  padding-right: 40px;
+  justify-content: flex-end;
   background-color: ${(p) => p.theme.colors.black};
   height: 25px;
 `

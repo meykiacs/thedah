@@ -1,7 +1,6 @@
 import i18n from "../dashboard/i18n"
 import useLanguageContext from "../../context/useLanguageContext"
 import styled from "@emotion/styled"
-import { mq } from "../../utils/mq"
 
 export default function ToggleLanguage() {
   const { setDir, setLang } = useLanguageContext()
@@ -21,8 +20,8 @@ export default function ToggleLanguage() {
   }
   return (
     <Wrapper>
-      <Btn onClick={changeToEn}>En</Btn>
       <Btn onClick={changeToFa}>فا</Btn>
+      <Btn onClick={changeToEn}>En</Btn>
     </Wrapper>
   )
 }
