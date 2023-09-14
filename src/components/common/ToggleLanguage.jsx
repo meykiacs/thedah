@@ -44,7 +44,7 @@ const Wrapper = styled.div`
     content: "";
     position: absolute;
     height: 65%;
-    width: 2px;
+    width: 1px;
     background-color: ${(p) => p.theme.colors.white};
     left: 50%;
   }
