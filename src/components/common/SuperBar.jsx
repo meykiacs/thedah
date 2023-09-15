@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import ToggleLanguage from "./ToggleLanguage"
+import { mq } from "../../utils/mq"
 
 export default function SuperBar() {
   return (
@@ -16,4 +17,17 @@ const Wrapper = styled.div`
   justify-content: flex-end;
   background-color: ${(p) => p.theme.colors.black};
   height: 25px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  ${mq("sm")} {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  ${mq("lg")} {
+    padding-left: 95px;
+    padding-right: 95px;
+  }
+
 `

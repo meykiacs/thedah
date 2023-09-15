@@ -8,7 +8,8 @@ export const lightTheme = {
     gray: "#E7E3CF",
     black: "#231E1A",
     green: "#81BA62",
-    white: '#FFFFFF'
+    white: '#FFFFFF',
+    backdrop: 'rgba(32, 34, 36, 0.9)'
   },
 }
 
@@ -22,6 +23,7 @@ export const darkTheme = {
     gray: "#121212",
     black: "#959290",
     green: '#acd195',
-    white: '#000000'
+    white: '#000000',
+    backdrop: 'rgba(32, 34, 36, 0.9)'
   },
 }
