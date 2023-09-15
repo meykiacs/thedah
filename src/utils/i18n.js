@@ -8,6 +8,11 @@ i18n.use(initReactI18next).init({
       translation: {
         About: "About me",
         Author: "Author",
+        bookQuoteMain:
+          "Learning without thinking is useless, thinking without learning is dangerous.",
+        bookQuoteBody:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa distinctio, officiis, possimus hic officia pariatur id perferendis error porro quia quibusdam et voluptas animi suscipit ipsam tempore soluta quod amet?",
+        bookQuoteFrom: "Confucius",
         Books: "Books",
         Available: "Available",
         CoAuthor: "Co-Author",
@@ -22,6 +27,8 @@ i18n.use(initReactI18next).init({
         imageDrop: "Click to add Image or Drop your image here",
         ISBN: "ISBN",
         numberOfPages: "Number of pages",
+        openQuote: "“",
+        closeQuote: "”",
         Papers: "Papers",
         Price: "Price",
         Publisher: "Publisher",
@@ -43,6 +50,12 @@ i18n.use(initReactI18next).init({
         Author: "نویسنده",
         Available: "موجود",
         Books: "کتابنامه",
+        bookQuoteMain:
+          "خواندن بی اندیشیدن بیهوده است، و اندیشیدن بدون خواندن خطرناک...",
+        bookQuoteBody:
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ",
+        bookQuoteFrom: "کنفسیوس",
+        closeQuote: '”',
         CoAuthors: "همکاران",
         CoAuthor: "همکار",
         Contact: "تماس با من",
@@ -53,9 +66,10 @@ i18n.use(initReactI18next).init({
         Gallery: "گالری",
         Home: "خانه",
         imageDrop:
-        "برای افزودن تصویر کلیک کنید یا تصویر را در این محل رها کنید.",
+          "برای افزودن تصویر کلیک کنید یا تصویر را در این محل رها کنید.",
         ISBN: "شابک",
         numberOfPages: "تعداد صفحات",
+        openQuote: "“",
         Papers: "مقالات",
         Price: "قیمت",
         Publisher: "ناشر",

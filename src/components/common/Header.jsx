@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import SuperBar from "./SuperBar"
+import SuperHeader from "./SuperHeader"
 import { mq } from "../../utils/mq"
 import SiteLogo from "./SiteLogo"
 import NavLink from "./NavLink"
@@ -17,7 +17,7 @@ export default function Header() {
   const { t } = useTranslation()
   return (
     <header>
-      <SuperBar />
+      <SuperHeader />
       <MainHeader>
         <LogoWrapper>
           <SiteLogo />

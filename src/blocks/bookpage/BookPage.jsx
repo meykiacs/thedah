@@ -3,18 +3,17 @@ import GlobalCss from "../../components/GlobalCss"
 import { BooksProvider } from "../../context/BooksContext"
 import { WPProvider } from "../../context/WPContext"
 import useLanguageContext from "../../context/useLanguageContext"
-import { useTranslation } from "react-i18next"
 import ToggleColorScheme from "../../components/common/ToggleColorScheme"
-import ToggleLanguage from "../../components/common/ToggleLanguage"
 import { useColorSchemeContext } from "../../context/useColorSchemeContext"
 import "../../utils/i18n"
 import { breakpoints } from "../../utils/mq"
 import { RtlProvider } from "../../context/RtlProvider"
 import { lightTheme, darkTheme } from "../../utils/theme"
 import Header from "../../components/common/Header"
+import BookBanner from "../../components/bookpage/BookBanner"
+import PageContainer from "../../components/common/PageContainer"
 
 export default function BookPage({ providedValues }) {
-  const { t } = useTranslation()
   const { colorScheme } = useColorSchemeContext()
 
   const { dir } = useLanguageContext()
@@ -33,10 +32,10 @@ export default function BookPage({ providedValues }) {
           <BooksProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-
-            <ToggleLanguage />
+            <PageContainer>
+              <BookBanner />
+            </PageContainer>
             <ToggleColorScheme />
-            <p>{t("Dashboard")}</p>
           </BooksProvider>
         </WPProvider>
       </ThemeProvider>

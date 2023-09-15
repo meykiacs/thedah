@@ -1,4 +1,4 @@
-import i18n from "../dashboard/i18n"
+import i18n from "../../utils/i18n"
 import useLanguageContext from "../../context/useLanguageContext"
 import styled from "@emotion/styled"
 

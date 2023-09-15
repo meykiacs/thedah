@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import ToggleLanguage from "./ToggleLanguage"
 import { mq } from "../../utils/mq"
 
-export default function SuperBar() {
+export default function SuperHeader() {
   return (
     <Wrapper>
       <ToggleLanguage />
