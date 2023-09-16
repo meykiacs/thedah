@@ -25,10 +25,10 @@ if ($query->have_posts()) {
       'id'  =>  get_the_ID(),
       'type'  =>  get_post_type(get_the_ID()),
       'title' => get_the_title(),
-      'description' => get_the_content(),
-      'picture' => get_the_post_thumbnail_url($id, 'full'),
-      'pictureId' => get_post_thumbnail_id($id),
-      'meta'  =>  get_post_meta($id, '_thedah_book', true),
+      'content' => get_the_content(),
+      'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
+      'featured_media' => get_post_thumbnail_id($id),
+      'meta'  =>  ['_thedah_book' => get_post_meta($id, '_thedah_book', true)],
     );
     array_push($booksFa, $book);
   }

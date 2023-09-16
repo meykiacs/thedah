@@ -2,8 +2,12 @@ export default async function submitWPForm(
   restUrl,
   restNonce,
   data,
-  setIsSubmitting
+  setIsSubmitting,
+  editingBookId
 ) {
+  if (editingBookId !== 0) {
+    restUrl = `${restUrl}/${editingBookId}`
+  }
   let responseData = null
   let error = null
   const body = JSON.stringify(data)

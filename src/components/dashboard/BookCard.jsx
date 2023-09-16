@@ -16,13 +16,16 @@ import { useTranslation } from "react-i18next"
 import useDelete from "../../hooks/useDelete"
 import useWPContext from "../../context/useWPContext"
 import useBooksContext from "../../context/useBooksContext"
+import useEditContext from "../../context/useEditContext"
 
 export function BookCard({ book }) {
   const { t } = useTranslation()
+  const { setBooksFa, setBooksEn } = useBooksContext()
+  const { bookRestUrlFa, bookRestUrlEn, mediaRestUrl } = useWPContext()
+  const { setResource } = useEditContext()
   const [isDeleting, setIsDeleting] = useState(false)
   const [isMediaDeleting, setIsMediaDeleting] = useState(false)
-  const { bookRestUrlFa, bookRestUrlEn, mediaRestUrl } = useWPContext()
-  const { setBooksFa, setBooksEn } = useBooksContext()
+
   const [deleteResponseData, deleteError] = useDelete({
     id: book.id,
     isDeleting,
@@ -30,7 +33,7 @@ export function BookCard({ book }) {
     restUrl: book.type === "thedah_book" ? bookRestUrlEn : bookRestUrlFa,
   })
   const [deleteMediaResponseData, deleteMediaError] = useDelete({
-    id: book.pictureId,
+    id: book.featured_media,
     isDeleting: isMediaDeleting,
     setIsDeleting: setIsMediaDeleting,
     restUrl: mediaRestUrl,
@@ -66,9 +69,9 @@ export function BookCard({ book }) {
       <Flex wrap="wrap" gap={50} justify="space-between">
         <Group noWrap spacing={25} align="start">
           <Center pos="relative">
-            {book.picture ? (
+            {book.featured_media_url ? (
               <Image
-                src={book.picture}
+                src={book.featured_media_url}
                 height={300}
                 width={230}
                 alt={book.title}
@@ -77,7 +80,7 @@ export function BookCard({ book }) {
               <Image src={null} height={300} width={230} withPlaceholder />
             )}
             <Badge pos="absolute" bottom={5}>
-              {book.meta.availability}
+              {book.meta._thedah_book.availability}
             </Badge>
           </Center>
           <Box pt={25}>
@@ -86,55 +89,66 @@ export function BookCard({ book }) {
             </Title>
             <List listStyleType="none" spacing="xs">
               <List.Item fz="sm">
-                {t("Author")}: {book.meta.author}
+                {t("Author")}: {book.meta._thedah_book.author}
               </List.Item>
               <List.Item>
                 {t("CoAuthors")}:
-                {book.meta.coauthors &&
-                  book.meta.coauthors.map((author) => (
+                {book.meta._thedah_book.coauthors &&
+                  book.meta._thedah_book.coauthors.map((author) => (
                     <span key={author}> {author}</span>
                   ))}
               </List.Item>
               <List.Item>
-                {t("Publisher")}: {book.meta.publisher}
+                {t("Publisher")}: {book.meta._thedah_book.publisher}
               </List.Item>
 
               <List.Item>
-                {t("Edition")}: {book.meta.edition}
+                {t("Edition")}: {book.meta._thedah_book.edition}
               </List.Item>
               <List.Item>
-                {t("numberOfPages")}: {book.meta.numberOfPages}
+                {t("numberOfPages")}: {book.meta._thedah_book.numberOfPages}
               </List.Item>
               <List.Item>
-                {t("ISBN")}: {book.meta.isbn}
+                {t("ISBN")}: {book.meta._thedah_book.isbn}
               </List.Item>
               <List.Item>
-                {t("Price")}: {book.meta.price} {t("T")}
+                {t("Price")}: {book.meta._thedah_book.price} {t("T")}
               </List.Item>
             </List>
           </Box>
         </Group>
         <Box pt={25}>
-          <Text>{book.description}</Text>
-        </Box>
-        <Box pos="relative" miw="200px" mih="200px">
-          <Button
-            color="red"
-            pos="absolute"
-            bottom="40px"
-            right="55px"
-            loading={isDeleting}
-            onClick={() => {
-              if (book.pictureId > 0) {
-                setIsMediaDeleting(true)
-              }
-              setIsDeleting(true)
-            }}
-          >
-            {t("Remove")}
-          </Button>
+          <Text>{book.content}</Text>
         </Box>
       </Flex>
+      <Box pos="relative" miw="200px" mih="200px">
+        <Button
+          color="red"
+          pos="absolute"
+          bottom="40px"
+          right="55px"
+          loading={isDeleting}
+          onClick={() => {
+            if (book.pictureId > 0) {
+              setIsMediaDeleting(true)
+            }
+            setIsDeleting(true)
+          }}
+        >
+          {t("Remove")}
+        </Button>
+        <Button
+          color="green"
+          pos="absolute"
+          bottom="40px"
+          right="250px"
+          onClick={() => {
+            setResource(book)
+          }}
+        >
+          {t("Edit")}
+        </Button>
+      </Box>
     </Card>
   )
 }

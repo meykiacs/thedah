@@ -10,7 +10,7 @@ import {
   Stack,
 } from "@mantine/core"
 import PictureDrop from "./PictureDrop"
-import { useEffect, useState } from "@wordpress/element"
+import { useEffect, useRef, useState } from "@wordpress/element"
 import useWPContext from "../../context/useWPContext"
 import useLanguageContext from "../../context/useLanguageContext"
 import useFetchPicture from "../../hooks/useFetchPicture"
@@ -20,49 +20,88 @@ import submitWPForm from "../../utils/submitWPForm"
 import { useTranslation } from "react-i18next"
 
 import useBooksContext from "../../context/useBooksContext"
-let book = {}
-const inputs = [
-  "Title",
-  "Author",
-  "Publisher",
-  "Year",
-  "Edition",
-  "numberOfPages",
-  "ISBN",
-  "Price",
-]
+import useEditContext from "../../context/useEditContext"
+// import useGet from "../../hooks/useGet"
+
 export default function BookForm() {
+
+  let book = {}
   const { t } = useTranslation()
+  const { lang } = useLanguageContext()
+  const { restNonce, bookRestUrlEn, bookRestUrlFa, mediaRestUrl } =
+    useWPContext()
+  const { booksFa, booksEn, setBooksFa, setBooksEn } = useBooksContext()
+  const { resource: editingBook, setResource: setEditingBook } =
+    useEditContext()
+
+  console.log(editingBook)
   const [files, setFiles] = useState([])
   const [featuredMediaId, setFeaturedMediaId] = useState(0)
   const [featuredMediaUrl, setFeaturedMediaUrl] = useState("")
   const [coAuthors, setCoAuthors] = useState([""])
+  const [availability, setAvailability] = useState('available')
   const [isMediaDeleting, setIsMediaDeleting] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { restNonce, bookRestUrlEn, bookRestUrlFa, mediaRestUrl } =
-    useWPContext()
-  const { lang } = useLanguageContext()
+
+  const formRef = useRef(null)
+
   const bookRestUrl = lang === "fa" ? bookRestUrlFa : bookRestUrlEn
-  const { booksFa, booksEn, setBooksFa, setBooksEn } = useBooksContext()
-
   const file = files[0] ?? null
-  const [isMediaUploading, mediaUploadResponseData, mediaUploadError] =
-    useFetchPicture({ pictureFile: file, mediaRestUrl, restNonce })
-
-  const [mediaDeleteResponseData, mediaDeleteError] = useDelete({
-    id: featuredMediaId,
-    isDeleting: isMediaDeleting,
-    setIsDeleting: setIsMediaDeleting,
-    restUrl: mediaRestUrl
-  })
+  const inputs = [
+    { name: "title", placeholder: "Title", default: editingBook?.title ?? "" },
+    {
+      name: "author",
+      placeholder: "Author",
+      default: editingBook?.meta?._thedah_book?.author ?? "",
+    },
+    {
+      name: "publisher",
+      placeholder: "Publisher",
+      default: editingBook?.meta?._thedah_book?.publisher ?? "",
+    },
+    {
+      name: "year",
+      placeholder: "Year",
+      default: editingBook?.meta?._thedah_book?.year ?? "",
+    },
+    {
+      name: "edition",
+      placeholder: "Edition",
+      default: editingBook?.meta?._thedah_book?.edition ?? "",
+    },
+    {
+      name: "numberOfPages",
+      placeholder: "numberOfPages",
+      default: editingBook?.meta?._thedah_book?.numberOfPages ?? "",
+    },
+    {
+      name: "isbn",
+      placeholder: "ISBN",
+      default: editingBook?.meta?._thedah_book?.isbn ?? "",
+    },
+    {
+      name: "price",
+      placeholder: "Price",
+      default: editingBook?.meta?._thedah_book?.price ?? "",
+    },
+  ]
 
   useEffect(() => {
-    if (mediaDeleteResponseData) {
-      // console.log(`Picture Delete Response: ${mediaDeleteError}`)
-      setFeaturedMediaId(0)
-      setFeaturedMediaUrl("")
+    if (editingBook !== null) {
+
+      setFeaturedMediaId(editingBook.featured_media)
+      setFeaturedMediaUrl(editingBook.featured_media_url)
+      setCoAuthors(editingBook.meta._thedah_book.coauthors)
+      setAvailability(editingBook.meta._thedah_book.availability)
+      formRef.current.scrollIntoView({behavior: 'smooth'})
+      formRef.current.focus()
+  
+      // console.log(editingBook)
     }
-  }, [mediaDeleteResponseData, mediaDeleteError])
+  }, [editingBook])
+
+  const [isMediaUploading, mediaUploadResponseData, mediaUploadError] =
+    useFetchPicture({ pictureFile: file, mediaRestUrl, restNonce })
 
   useEffect(() => {
     if (mediaUploadResponseData) {
@@ -75,6 +114,21 @@ export default function BookForm() {
     console.log(`Picture Post Error: ${mediaUploadError}`)
   }
 
+  const [mediaDeleteResponseData, mediaDeleteError] = useDelete({
+    id: featuredMediaId,
+    isDeleting: isMediaDeleting,
+    setIsDeleting: setIsMediaDeleting,
+    restUrl: mediaRestUrl,
+  })
+
+  useEffect(() => {
+    if (mediaDeleteResponseData) {
+      // console.log(`Picture Delete Response: ${mediaDeleteError}`)
+      setFeaturedMediaId(0)
+      setFeaturedMediaUrl("")
+    }
+  }, [mediaDeleteResponseData, mediaDeleteError])
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -82,19 +136,20 @@ export default function BookForm() {
     formData.append("status", "publish")
     // coAuthors.forEach((c) => formData.append("ca[]", c))
     const bookData = {
-      title: formData.get("Title"),
+      title: formData.get("title"),
       content: formData.get("content"),
       status: "publish",
       featured_media: featuredMediaId,
       meta: {
         _thedah_book: {
-          publisher: formData.get("Publisher"),
-          year: formData.get("Year"),
-          author: formData.get("Author"),
-          edition: formData.get("Edition"),
-          isbn: formData.get("ISBN"),
-          price: formData.get("Price"),
-          availability: formData.get("Availability"),
+          publisher: formData.get("publisher"),
+          year: formData.get("year"),
+          author: formData.get("author"),
+          edition: formData.get("edition"),
+          isbn: formData.get("isbn"),
+          price: formData.get("price"),
+          // availability: formData.get("availability"),
+          availability,
           coauthors: coAuthors,
           numberOfPages: formData.get("numberOfPages"),
         },
@@ -105,7 +160,8 @@ export default function BookForm() {
       bookRestUrl,
       restNonce,
       bookData,
-      setIsSubmitting
+      setIsSubmitting,
+      editingBook?.id ?? 0
     )
 
     if (responseData) {
@@ -113,19 +169,27 @@ export default function BookForm() {
         book.id = responseData.id
         book.type = responseData.type
         book.title = responseData.title.raw
-        book.description = responseData.content.raw
-        book.picture = featuredMediaUrl
-        book.pictureId = featuredMediaId
-        book.meta = responseData.meta._thedah_book
+        book.content = responseData.content.raw
+        book.featured_media_url = featuredMediaUrl
+        book.featured_media = featuredMediaId
+        book.meta = responseData.meta
         if (responseData.type === "thedah_book") {
-          setBooksEn([book, ...booksEn])
+          if (editingBook) {
+            setBooksEn(booksEn.map((b) => (b.id === book.id ? book : b)))
+          } else {
+            setBooksEn([book, ...booksEn])
+          }
         } else if (responseData.type === "thedah_bookfa") {
-
-          setBooksFa([book, ...booksFa])
+          if (editingBook) {
+            setBooksFa(booksFa.map((b) => (b.id === book.id ? book : b)))
+          } else {
+            setBooksFa([book, ...booksFa])
+          }
         } else {
-          throw new Error('Error getting the submitted object back')
+          throw new Error("Error getting the submitted object back")
         }
       }
+      setEditingBook(null)
     }
     if (error) console.error("Error submitting book", error)
 
@@ -138,7 +202,7 @@ export default function BookForm() {
 
   return (
     <Card withBorder radius="md" p={15}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <Flex wrap="wrap" gap={50} align="center">
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
@@ -155,10 +219,11 @@ export default function BookForm() {
               {inputs.map((i) => (
                 <TextInput
                   key={i}
-                  placeholder={t(i)}
-                  aria-label={t(i)}
+                  placeholder={t(i.placeholder)}
+                  aria-label={t(i.placeholder)}
                   mb={15}
-                  name={i}
+                  name={i.name}
+                  defaultValue={i.default}
                 />
               ))}
               <DynamicInput
@@ -167,13 +232,18 @@ export default function BookForm() {
                 label={t("CoAuthor")}
               />
               <SegmentedControl
-                name="Availability"
+                name="availability"
+                value={availability}
                 data={[
                   { label: t("Available"), value: "available" },
                   { label: t("Unavailable"), value: "unavailable" },
                   { label: t("Soon"), value: "soon" },
                 ]}
                 aria-label={t("Availability")}
+                onChange={setAvailability}
+                // defaultValue={
+                //   editingBook?.meta?._thedah_book?.availability ?? "available"
+                // }
               />
             </Box>
           </Group>
@@ -186,6 +256,7 @@ export default function BookForm() {
               maxRows={10}
               miw="350px"
               name="content"
+              defaultValue={editingBook?.content ?? ""}
             />
             <Button type="submit" loading={isSubmitting}>
               {t("Submit")}

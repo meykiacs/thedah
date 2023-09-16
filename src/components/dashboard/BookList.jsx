@@ -27,10 +27,10 @@ export default function BookList() {
       const data = await response.json()
       const books = data.map((book) => ({
         id: book.id,
-        picture: book.thumbnail,
+        featured_media_urk: book.thumbnail,
         title: book.title.rendered,
-        description: book.content.rendered,
-        meta: book.meta._thedah_book,
+        content: book.content.rendered,
+        meta: book.meta
       }))
       setBooks(books)
       setFetched(true)
