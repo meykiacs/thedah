@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 
-export default function GenericText({ children }) {
-  return <P>{children}</P>
+export default function GenericText({ children, ...delegated }) {
+  return <P {...delegated}>{children}</P>
 }
 
 const P = styled.p`
