@@ -12,6 +12,8 @@ import { lightTheme, darkTheme } from "../../utils/theme"
 import Header from "../../components/common/Header"
 import BookBanner from "../../components/bookpage/BookBanner"
 import PageContainer from "../../components/common/PageContainer"
+import Main from "../../components/common/Main"
+import BookList from "../../components/bookpage/BookList"
 
 export default function BookPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -32,8 +34,11 @@ export default function BookPage({ providedValues }) {
           <BooksProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            <PageContainer>
+            <PageContainer color={theme.colors.white}>
               <BookBanner />
+            </PageContainer>
+            <PageContainer color={theme.colors.gray}>
+                <BookList />
             </PageContainer>
             <ToggleColorScheme />
           </BooksProvider>

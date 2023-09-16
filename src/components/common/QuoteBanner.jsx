@@ -27,8 +27,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
   ${mq("md")} {
     flex-direction: row-reverse;
+    justify-content: center;
   }
 `
 
