@@ -11,6 +11,7 @@ import { WPProvider } from "../../context/WPContext"
 import useLanguageContext from "../../context/useLanguageContext"
 import Shell from "../../components/dashboard/Shell"
 import { useState } from "@wordpress/element"
+import { ResourceProvider } from "../../context/ResourceContext"
 
 const rtlCache = createEmotionCache({
   key: "mantine-rtl",
@@ -43,10 +44,12 @@ export default function Dashboard({ providedValues }) {
         emotionCache={dir === "rtl" ? rtlCache : undefined}
       >
         <WPProvider providedValues={providedValues}>
-          <BooksProvider providedValues={providedValues}>
-            <Fonts />
-            <Shell />
-          </BooksProvider>
+          <ResourceProvider providedValues={providedValues}>
+            <BooksProvider providedValues={providedValues}>
+              <Fonts />
+              <Shell />
+            </BooksProvider>
+          </ResourceProvider>
         </WPProvider>
       </MantineProvider>
     </ColorSchemeProvider>

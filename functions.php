@@ -6,6 +6,7 @@ use Thedah\CPTResource\Model\CPT;
 use Thedah\CPTResource\Model\CPTResource;
 use Thedah\CPTResource\Service\RegisterCPTResource;
 use Thedah\Models\Meta\BookMeta;
+use Thedah\Models\Meta\PaperMeta;
 
 function thedah_woocommerce_support()
 {
@@ -70,7 +71,19 @@ $bookCPTFa->metas[] = new BookMeta();
 $bookCPTResource = new CPTResource($bookCPT);
 $bookCPTFaResource = new CPTResource($bookCPTFa);
 
-$container->get(RegisterCPTResource::class)->add($bookCPTResource)->add($bookCPTFaResource)->register();
+$paperCPT = new CPT('paper', 'Paper');
+$paperCPTFa = new CPT('paperfa', 'PaperFa');
+$paperCPT->metas[] = new PaperMeta();
+$paperCPTFa->metas[] = new PaperMeta();
+$paperCPTResource = new CPTResource($paperCPT);
+$paperCPTFaResource = new CPTResource($paperCPTFa);
+
+$container->get(RegisterCPTResource::class)
+->add($bookCPTResource)
+->add($bookCPTFaResource)
+->add($paperCPTResource)
+->add($paperCPTFaResource)
+->register();
 
 // $productsGet = $container->make(ProductsGet::class);
 // $productsRoute = new Route($container->get('rest.namespace'), 'products');

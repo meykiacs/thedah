@@ -13,6 +13,8 @@ window.addEventListener("DOMContentLoaded", () => {
     restNonce: root.dataset.restNonce,
     bookRestUrlEn: root.dataset.bookRestUrlEn,
     bookRestUrlFa: root.dataset.bookRestUrlFa,
+    paperRestUrlEn: root.dataset.paperRestUrlEn,
+    paperRestUrlFa: root.dataset.paperRestUrlFa,
     mediaRestUrl: root.dataset.mediaRestUrl,
     assetsFontsUrl: root.dataset.assetsFontsUrl,
     assetsImagesUrl: root.dataset.assetsImagesUrl,
@@ -20,6 +22,10 @@ window.addEventListener("DOMContentLoaded", () => {
     isBooksEnFetched: !!root.dataset.booksEnFetched,
     booksFa: JSON.parse(document.getElementById("books-fa").innerHTML),
     booksEn: JSON.parse(document.getElementById("books-en").innerHTML),
+    isPapersFaFetched: !!root.dataset.papersFaFetched,
+    isPapersEnFetched: !!root.dataset.papersEnFetched,
+    papersFa: JSON.parse(document.getElementById("papers-fa").innerHTML),
+    papersEn: JSON.parse(document.getElementById("papers-en").innerHTML),
   }
   render(
     <LanguageProvider>

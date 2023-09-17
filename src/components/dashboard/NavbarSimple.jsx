@@ -15,6 +15,7 @@ import {
   IconArticle,
 } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
+import useResourceContext from "../../context/useResourceContext"
 // import { MantineLogo } from "@mantine/ds"
 
 const useStyles = createStyles((theme) => ({
@@ -87,25 +88,27 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export function NavbarSimple() {
+  const { resourceName, setResourceName } = useResourceContext()
   const { t } = useTranslation()
   const data = [
-    { link: "", label: t("Books"), icon: IconBook },
-    { link: "", label: t("Papers"), icon: IconArticle },
+    { link: "", label: t("Books"), icon: IconBook, name: 'book' },
+    { link: "", label: t("Papers"), icon: IconArticle, name: 'paper' },
   ]
   
   const { classes, cx } = useStyles()
-  const [active, setActive] = useState("Billing")
+  const [active, setActive] = useState(resourceName)
 
   const links = data.map((item) => (
     <a
       className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
+        [classes.linkActive]: item.name === active,
       })}
       href={item.link}
       key={item.label}
       onClick={(event) => {
         event.preventDefault()
-        setActive(item.label)
+        setResourceName(item.name)
+        setActive(item.name)
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
