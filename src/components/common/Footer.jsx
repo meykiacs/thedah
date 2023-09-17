@@ -2,10 +2,14 @@ import styled from "@emotion/styled"
 import useWPContext from "../../context/useWPContext"
 import { mq } from "../../utils/mq"
 import { useTranslation } from "react-i18next"
+import Button from "./Button"
+import { useTheme } from "@emotion/react"
+import Input from "./Input"
 
 export default function Footer() {
   const { assetsImagesUrl } = useWPContext()
   const { t } = useTranslation()
+  const theme = useTheme()
   return (
     <Wrapper>
       <Introduction>
@@ -23,9 +27,31 @@ export default function Footer() {
       </Introduction>
       <Subscription>
         <SubscriptionTitle>{t("subscribeTitle")}</SubscriptionTitle>
-        <SubscriptionDescription>{t("subscribeDescription")}</SubscriptionDescription>
+        <SubscriptionDescription>
+          {t("subscribeDescription")}
+        </SubscriptionDescription>
         <Form>
-
+          <Button
+            variant="fill"
+            color={theme.colors.secondary}
+            colorHover={theme.colors.secondary}
+            fz="1.6rem"
+            fw="700"
+            p="7px 25px"
+            br="10px"
+            type="submit"
+          >
+            {t("Send")}
+          </Button>
+          <Input
+            label={t("Email")}
+            w={238}
+            fz={1.2}
+            borderThickness={0}
+            h={40}
+            type="email"
+            br='10'
+          />
         </Form>
       </Subscription>
     </Wrapper>
@@ -33,23 +59,29 @@ export default function Footer() {
 }
 
 const Wrapper = styled.footer`
-  height: 442px;
   background-color: ${(p) => p.theme.colors.primary};
   border-top: 7px solid ${(p) => p.theme.colors.accent};
-
+  padding-bottom: 50px;
   display: flex;
   flex-direction: column;
-
-  ${mq("sm")} {
+  align-items: center;
+  ${mq("lg")} {
     flex-direction: row;
     justify-content: space-between;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 95px;
+    padding-right: 95px;
+    align-items: baseline;
+    height: 442px;
+    padding-bottom: 0;
   }
 
   ${mq("xl")} {
     padding-left: 125px;
     padding-right: 125px;
+  }
+  ${mq("xxl")} {
+    padding-left: 300px;
+    padding-right: 300px;
   }
 `
 
@@ -79,10 +111,10 @@ const FooterTitle = styled.p`
 const Subscription = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  ${mq("sm")} {
-    margin-top: 145px;
-  }
+  align-items: flex-end;
+  gap: 15px;
+  width: 340px;
+  margin-top: 75px;
 `
 
 const SubscriptionTitle = styled.h5`
@@ -95,6 +127,7 @@ const SubscriptionDescription = styled.p`
   color: ${(p) => p.theme.colors.white};
   font-size: 1.2rem;
   font-weight: 400;
+  text-align: justify;
 `
 
 const Form = styled.form`

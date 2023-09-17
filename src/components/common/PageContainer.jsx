@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
 import { mq } from "../../utils/mq"
 
-export default function PageContainer({ children, color }) {
-  return <Wrapper color={color}>{children}</Wrapper>
+export default function PageContainer({ children, color, ...delegated }) {
+  return <Wrapper color={color} {...delegated}>{children}</Wrapper>
 }
 
 

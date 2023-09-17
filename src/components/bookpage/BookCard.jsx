@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next"
 import useWPContext from "../../context/useWPContext"
 import styled from "@emotion/styled"
-import Button from "../common/Buttons"
+import Button from "../common/Button"
 import { useTheme } from "@emotion/react"
 import GenericText from "../common/GenericText"
 import { mq } from "../../utils/mq"
@@ -49,11 +49,12 @@ export function BookCard({ book }) {
           </ImageWrapper>
           <Button
             variant="fill"
-            paddding="5px 23px"
-            fontSize="1.5rem"
-            borderRadius="7px"
+            p="5px 23px"
+            fz="1.5rem"
+            br="7px"
             color={buttonColor}
             colorHover={buttonColorHover}
+            fw='400'
           >
             {t(buttonText)}
           </Button>
@@ -120,12 +121,12 @@ const ButDescription = styled.div`
 
 const ImageWrapper = styled.div`
   width: 130px;
-  height: 172px;
+  height: 170px;
   border-radius: 5px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   img {
     width: 100%;
-    object-fit: cover;
+    height: 100%;
   }
   overflow: hidden;
 `

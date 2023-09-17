@@ -14,6 +14,8 @@ import BookBanner from "../../components/bookpage/BookBanner"
 import PageContainer from "../../components/common/PageContainer"
 import BookList from "../../components/bookpage/BookList"
 import Footer from "../../components/common/Footer"
+import styled from "@emotion/styled"
+import SubFooter from "../../components/common/SubFooter"
 
 export default function BookPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -37,10 +39,11 @@ export default function BookPage({ providedValues }) {
             <PageContainer color={theme.colors.white}>
               <BookBanner />
             </PageContainer>
-            <PageContainer color={theme.colors.gray}>
+            <BookListContainer color={theme.colors.gray}>
                 <BookList />
-            </PageContainer>
+            </BookListContainer>
             <Footer />
+            <SubFooter />
             <ToggleColorScheme />
           </BooksProvider>
         </WPProvider>
@@ -48,3 +51,8 @@ export default function BookPage({ providedValues }) {
     </RtlProvider>
   )
 }
+
+const BookListContainer = styled(PageContainer)`
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 20px;
+`

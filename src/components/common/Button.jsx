@@ -5,10 +5,12 @@ const Button = ({
   variant,
   color,
   colorHover,
-  borderRadius,
-  fontSize,
-  paddding,
+  br,
+  fz,
+  p,
+  fw,
   children,
+  type,
   ...delegated
 }) => {
   let Component
@@ -24,12 +26,14 @@ const Button = ({
 
   return (
     <Component
-      br={borderRadius}
-      fz={fontSize}
-      p={paddding}
+      br={br}
+      fz={fz}
+      p={p}
       color={color}
       colorHover={colorHover}
+      fw={fw}
       {...delegated}
+      type={type}
     >
       {children}
     </Component>
@@ -38,6 +42,8 @@ const Button = ({
 
 const ButtonBase = styled.button`
   font-size: ${(p) => p.fz};
+  font-weight: ${(p) => p.fw};
+
   padding: ${(p) => p.p};
   border-radius: ${(p) => p.br};
   border: 2px solid transparent;

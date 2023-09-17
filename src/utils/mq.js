@@ -3,5 +3,6 @@ export const breakpoints = {
   md: 768,
   lg: 992,
   xl: 1200,
+  xxl: 1600,
 }
 export const mq = n => `@media (min-width: ${breakpoints[n]}px)`;

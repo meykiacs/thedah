@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 import { Search, X, Menu } from "react-feather"
-
 const icons = {
   search: Search,
   close: X,
