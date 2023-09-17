@@ -7,7 +7,7 @@ const SiteLogo = (props) => {
   return (
     <A href={homeUrl}>
       <Wrapper {...props}>
-        <img src={`${assetsImagesUrl}/site-logo.png`} alt="site-logo" />
+        <img src={`${assetsImagesUrl}/site-logo-200x65.png`} alt="site-logo" />
       </Wrapper>
     </A>
   )

@@ -12,8 +12,8 @@ import { lightTheme, darkTheme } from "../../utils/theme"
 import Header from "../../components/common/Header"
 import BookBanner from "../../components/bookpage/BookBanner"
 import PageContainer from "../../components/common/PageContainer"
-import Main from "../../components/common/Main"
 import BookList from "../../components/bookpage/BookList"
+import Footer from "../../components/common/Footer"
 
 export default function BookPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -40,6 +40,7 @@ export default function BookPage({ providedValues }) {
             <PageContainer color={theme.colors.gray}>
                 <BookList />
             </PageContainer>
+            <Footer />
             <ToggleColorScheme />
           </BooksProvider>
         </WPProvider>

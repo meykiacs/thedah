@@ -32,6 +32,8 @@ const Wrapper = styled.div`
     flex-direction: row-reverse;
     justify-content: center;
   }
+
+  gap: ${p => p.theme.direction === 'ltr' ? '50px' : 0};
 `
 
 const ImageWrapper = styled.div`
