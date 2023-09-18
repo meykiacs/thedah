@@ -2,6 +2,7 @@ import { AppShell, useMantineTheme } from "@mantine/core"
 import { NavbarSimple } from "./NavbarSimple"
 import { HeaderResponsive } from "./HeaderResponsive"
 import App from "./App"
+import { EditContextProvider } from "../../context/EditContext"
 
 const links = [
   {
@@ -25,6 +26,7 @@ const links = [
 export default function Shell() {
   const theme = useMantineTheme()
   return (
+    <EditContextProvider>
     <AppShell
       fixed={false}
       styles={{
@@ -43,5 +45,7 @@ export default function Shell() {
     >
       <App />
     </AppShell>
+    </EditContextProvider>
+
   )
 }

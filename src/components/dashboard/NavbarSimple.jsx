@@ -9,13 +9,13 @@ import {
 } from "@mantine/core"
 import {
   IconBook,
-
   IconSwitchHorizontal,
   IconLogout,
   IconArticle,
 } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import useResourceContext from "../../context/useResourceContext"
+import useEditContext from "../../context/useEditContext"
 // import { MantineLogo } from "@mantine/ds"
 
 const useStyles = createStyles((theme) => ({
@@ -89,12 +89,13 @@ const useStyles = createStyles((theme) => ({
 
 export function NavbarSimple() {
   const { resourceName, setResourceName } = useResourceContext()
+  const { setResource: setEditingResource } = useEditContext()
   const { t } = useTranslation()
   const data = [
-    { link: "", label: t("Books"), icon: IconBook, name: 'book' },
-    { link: "", label: t("Papers"), icon: IconArticle, name: 'paper' },
+    { link: "", label: t("Books"), icon: IconBook, name: "book" },
+    { link: "", label: t("Papers"), icon: IconArticle, name: "paper" },
   ]
-  
+
   const { classes, cx } = useStyles()
   const [active, setActive] = useState(resourceName)
 
@@ -107,6 +108,9 @@ export function NavbarSimple() {
       key={item.label}
       onClick={(event) => {
         event.preventDefault()
+        if (resourceName !== item.name) {
+          setEditingResource(null)
+        }
         setResourceName(item.name)
         setActive(item.name)
       }}
@@ -120,7 +124,7 @@ export function NavbarSimple() {
     <Navbar height={700} width={{ sm: 300 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
-          <Text>{t('Dashboard')}</Text>
+          <Text>{t("Dashboard")}</Text>
           {/* <MantineLogo size={28} /> */}
         </Group>
         {links}

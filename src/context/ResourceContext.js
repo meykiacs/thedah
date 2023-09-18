@@ -22,7 +22,7 @@ export const ResourceProvider = ({ providedValues, children }) => {
   const [isPapersEnFetched, setIsPapersEnFetched] = useState(
     providedValues.isBooksEnFetched
   )
-  const { paperRestUrlEn, paperRestUrlFa } = providedValues
+  const { paperRestUrlEn, paperRestUrlFa, mediaRestUrl, restNonce } = providedValues
 
   const bookResource = {
     fa: booksFa,
@@ -46,8 +46,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
     isEnFetched: isPapersEnFetched,
     setIsFaFetched: setIsPapersFaFetched,
     setIsEnFetched: setIsPapersEnFetched,
-    RestUrlEn: paperRestUrlEn,
-    RestUrlFa: paperRestUrlFa,
+    restUrlEn: paperRestUrlEn,
+    restUrlFa: paperRestUrlFa,
   }
 
   let resource
@@ -60,7 +60,7 @@ export const ResourceProvider = ({ providedValues, children }) => {
       break
   }
   return (
-    <ResourceContext.Provider value={{ resource, resourceName, setResourceName }}>
+    <ResourceContext.Provider value={{ resource, resourceName, setResourceName, mediaRestUrl, restNonce }}>
       {children}
     </ResourceContext.Provider>
   )

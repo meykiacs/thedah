@@ -20,12 +20,12 @@ window.addEventListener("DOMContentLoaded", () => {
     assetsImagesUrl: root.dataset.assetsImagesUrl,
     isBooksFaFetched: !!root.dataset.booksFaFetched,
     isBooksEnFetched: !!root.dataset.booksEnFetched,
-    booksFa: JSON.parse(document.getElementById("books-fa").innerHTML),
-    booksEn: JSON.parse(document.getElementById("books-en").innerHTML),
+    booksFa: JSON.parse(document.getElementById("books-fa").textContent),
+    booksEn: JSON.parse(document.getElementById("books-en").textContent),
     isPapersFaFetched: !!root.dataset.papersFaFetched,
     isPapersEnFetched: !!root.dataset.papersEnFetched,
-    papersFa: JSON.parse(document.getElementById("papers-fa").innerHTML),
-    papersEn: JSON.parse(document.getElementById("papers-en").innerHTML),
+    papersFa: JSON.parse(document.getElementById("papers-fa").textContent),
+    papersEn: JSON.parse(document.getElementById("papers-en").textContent),
   }
   render(
     <LanguageProvider>
