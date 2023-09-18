@@ -54,10 +54,11 @@ export default function PaperCard({ r, isDeleting, setIsMediaDeleting, setIsDele
                 {t("Publisher")}: {r.meta._thedah_paper.publisher}
               </List.Item>
               <List.Item>
-                {t("Link")}: {r.meta._thedah_paper.link}
+                {t("Year")}: {r.meta._thedah_paper.year}
               </List.Item>
-
-
+              <List.Item>
+                {t("Link")}: <a href={r.meta._thedah_paper.link} target="_blank" rel="noreferrer">{r.meta._thedah_paper.link}</a>
+              </List.Item>
             </List>
           </Box>
         </Group>

@@ -3,7 +3,7 @@ import GenericText from "./GenericText"
 import { useTranslation } from "react-i18next"
 import { mq } from "../../utils/mq"
 
-export default function QuoteBanner({ pathToImgFile, alt }) {
+export default function QuoteBanner({ pathToImgFile, alt, quote }) {
   const { t } = useTranslation()
   return (
     <Wrapper>
@@ -12,10 +12,10 @@ export default function QuoteBanner({ pathToImgFile, alt }) {
       </ImageWrapper>
       <QuoteWrapper>
         <MainQuote>
-          {t("openQuote") + t("bookQuoteMain") + t("closeQuote")}
-          <QuoteFrom> {t("bookQuoteFrom")}</QuoteFrom>
+          {t("openQuote") + t(quote.main) + t("closeQuote")}
+          <QuoteFrom> {t(quote.from)}</QuoteFrom>
         </MainQuote>
-        <GenericText>{t("bookQuoteBody")}</GenericText>
+        <GenericText>{t(quote.body)}</GenericText>
       </QuoteWrapper>
     </Wrapper>
   )

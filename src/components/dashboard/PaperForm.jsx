@@ -3,31 +3,50 @@ import useEditContext from "../../context/useEditContext"
 import submitWPForm from "../../utils/submitWPForm"
 import useLanguageContext from "../../context/useLanguageContext"
 import useResourceContext from "../../context/useResourceContext"
-import { Box, Button, Card, Flex, Group, Stack, TextInput, Textarea } from "@mantine/core"
+import {
+  Box,
+  Button,
+  Card,
+  Flex,
+  Group,
+  Stack,
+  TextInput,
+  Textarea,
+} from "@mantine/core"
 import PictureDrop from "./PictureDrop"
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
 
-export default function PaperForm({ featuredMediaId, featuredMediaUrl, setFeaturedMediaId, setFeaturedMediaUrl, setFiles, isMediaUploading, setIsMediaDeleting, isMediaDeleting, }) {
-  const {t} = useTranslation()
+export default function PaperForm({
+  featuredMediaId,
+  featuredMediaUrl,
+  setFeaturedMediaId,
+  setFeaturedMediaUrl,
+  setFiles,
+  isMediaUploading,
+  setIsMediaDeleting,
+  isMediaDeleting,
+}) {
+  const { t } = useTranslation()
   const { lang } = useLanguageContext()
   const { resource, restNonce } = useResourceContext()
   const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resource
-  const { resource: editingPaper, setResource: setEditingPaper } = useEditContext()
-  
+  const { resource: editingPaper, setResource: setEditingPaper } =
+    useEditContext()
+
   const [isSubmitting, setIsSubmitting] = useState(false)
-  
+
   const [coAuthors, setCoAuthors] = useState([""])
 
   const formRef = useRef(null)
-  
+
   const restUrl = lang === "fa" ? restUrlFa : restUrlEn
 
   const paper = {}
 
   useEffect(() => {
     if (editingPaper !== null) {
-      setCoAuthors(editingPaper?.meta?._thedah_paper?.coauthors ?? [''])
+      setCoAuthors(editingPaper?.meta?._thedah_paper?.coauthors ?? [""])
 
       formRef.current.scrollIntoView({ behavior: "smooth" })
       formRef.current.focus()
@@ -50,11 +69,6 @@ export default function PaperForm({ featuredMediaId, featuredMediaUrl, setFeatur
       name: "year",
       placeholder: "Year",
       default: editingPaper?.meta?._thedah_paper?.year ?? "",
-    },
-    {
-      name: "summary",
-      placeholder: "Summary",
-      default: editingPaper?.meta?._thedah_paper?.summary ?? "",
     },
     {
       name: "link",
@@ -164,7 +178,7 @@ export default function PaperForm({ featuredMediaId, featuredMediaUrl, setFeatur
           </Group>
           <Stack pt={25} spacing={50} align="center">
             <Textarea
-              // label="Autosize with 4 rows max"
+              aria-label={t("Summary")}
               placeholder={t("Summary")}
               autosize
               minRows={5}

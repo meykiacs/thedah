@@ -14,6 +14,11 @@ i18n.use(initReactI18next).init({
         bookQuoteBody:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa distinctio, officiis, possimus hic officia pariatur id perferendis error porro quia quibusdam et voluptas animi suscipit ipsam tempore soluta quod amet?",
         bookQuoteFrom: "Confucius",
+        paperQuoteMain:
+          "The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking...",
+        paperQuoteBody:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam perspiciatis, omnis officia fugiat modi nulla sed neque ducimus odit qui minus quas facere odio adipisci doloribus delectus tenetur dignissimos officiis?",
+        paperQuoteFrom: "Albert Einstein",
         Books: "Books",
         closeQuote: "”",
         CoAuthor: "Co-Author",
@@ -37,6 +42,7 @@ i18n.use(initReactI18next).init({
         Home: "Home",
         imageDrop: "Click to add Image or Drop your image here",
         ISBN: "ISBN",
+        Link: "Link",
         numberOfPages: "Number of pages",
         Order: "Order",
         openQuote: "“",
@@ -72,6 +78,11 @@ i18n.use(initReactI18next).init({
         bookQuoteBody:
           "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ",
         bookQuoteFrom: "کنفسیوس",
+        paperQuoteMain:
+          "جهانی که خلق کرده‌ایم، فرآیند افکار ماست. بدون تغییر افکارمان، نمی‌توان جهان را تغییر داد...",
+        paperQuoteBody:
+          "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ",
+        paperQuoteFrom: "آلبرت اینشتین",
         closeQuote: "”",
         CoAuthors: "همکاران",
         CoAuthor: "همکار",
@@ -95,6 +106,7 @@ i18n.use(initReactI18next).init({
         imageDrop:
           "برای افزودن تصویر کلیک کنید یا تصویر را در این محل رها کنید.",
         ISBN: "شابک",
+        Link: "لینک",
         numberOfPages: "تعداد صفحات",
         Order: "سفارش خرید",
         openQuote: "“",

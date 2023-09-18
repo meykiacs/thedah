@@ -2,16 +2,16 @@ import React from "react"
 import QuoteBanner from "../common/QuoteBanner"
 import useWPContext from "../../context/useWPContext"
 
-export default function BookBanner() {
+export default function PaperBanner() {
   const { assetsImagesUrl } = useWPContext()
   return (
     <QuoteBanner
-      pathToImgFile={`${assetsImagesUrl}/banner-book.png`}
-      alt="book banner"
+      pathToImgFile={`${assetsImagesUrl}/banner-paper.png`}
+      alt="paper banner"
       quote={{
-        main: "bookQuoteMain",
-        from: "bookQuoteFrom",
-        body: "bookQuoteBody",
+        main: "paperQuoteMain",
+        from: "paperQuoteFrom",
+        body: "paperQuoteBody",
       }}
     />
   )

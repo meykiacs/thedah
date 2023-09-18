@@ -3,7 +3,8 @@ import { createContext, useState } from "@wordpress/element"
 const ResourceContext = createContext()
 
 export const ResourceProvider = ({ providedValues, children }) => {
-  const [resourceName, setResourceName] = useState("book")
+  const [resourceName, setResourceName] = useState(providedValues.resourceName)
+
   const [booksFa, setBooksFa] = useState(providedValues.booksFa)
   const [booksEn, setBooksEn] = useState(providedValues.booksEn)
   const [isBooksFaFetched, setIsBooksFaFetched] = useState(
@@ -22,7 +23,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
   const [isPapersEnFetched, setIsPapersEnFetched] = useState(
     providedValues.isBooksEnFetched
   )
-  const { paperRestUrlEn, paperRestUrlFa, mediaRestUrl, restNonce } = providedValues
+  const { paperRestUrlEn, paperRestUrlFa, mediaRestUrl, restNonce } =
+    providedValues
 
   const bookResource = {
     fa: booksFa,
@@ -60,7 +62,15 @@ export const ResourceProvider = ({ providedValues, children }) => {
       break
   }
   return (
-    <ResourceContext.Provider value={{ resource, resourceName, setResourceName, mediaRestUrl, restNonce }}>
+    <ResourceContext.Provider
+      value={{
+        resource,
+        resourceName,
+        setResourceName,
+        mediaRestUrl,
+        restNonce,
+      }}
+    >
       {children}
     </ResourceContext.Provider>
   )

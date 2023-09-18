@@ -62,6 +62,7 @@ $container = $containerBuilder->build();
 
 $container->get(Block::class)->add('bookpage')
   ->add('dashboard')
+  ->add('paperpage')
   ->register();
 
 $bookCPT = new CPT('book', 'Book');
