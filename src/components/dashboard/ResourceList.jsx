@@ -5,7 +5,7 @@ import useResourceContext from "../../context/useResourceContext"
 import { ResourceCard } from "./ResourceCard"
 
 export default function ResourceList() {
-  const {resource} = useResourceContext()
+  const { resource } = useResourceContext()
   const {
     fa,
     en,
@@ -16,7 +16,7 @@ export default function ResourceList() {
     setFa,
     setEn,
     restUrlFa,
-    restUrlEn
+    restUrlEn,
   } = resource
   const { lang } = useLanguageContext()
   const resources = lang === "fa" ? fa : en
@@ -25,12 +25,12 @@ export default function ResourceList() {
     const fetchResource = async (url, setResource, setFetched) => {
       const response = await fetch(url)
       const data = await response.json()
-      const resources = data.map(r => ({
+      const resources = data.map((r) => ({
         id: r.id,
         featured_media_urk: r.thumbnail,
         title: r.title.rendered,
         content: r.content.rendered,
-        meta: r.meta
+        meta: r.meta,
       }))
       setResource(resources)
       setFetched(true)
@@ -57,7 +57,7 @@ export default function ResourceList() {
 
   return (
     <Stack maxW="container.md">
-      {resources.map(r => (
+      {resources.map((r) => (
         <ResourceCard key={r.id} r={r} />
       ))}
     </Stack>

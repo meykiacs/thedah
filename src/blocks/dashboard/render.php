@@ -79,6 +79,7 @@ wp_reset_query();
   data-books-fa-fetched="1"
   data-papers-en-fetched=""
   data-papers-fa-fetched="1"
+  data-resource-name="book"
   >
 </div>
 

@@ -24,6 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
     booksEn: JSON.parse(document.getElementById("books-en").textContent),
     isPapersFaFetched: !!root.dataset.papersFaFetched,
     isPapersEnFetched: !!root.dataset.papersEnFetched,
+    resourceName: root.dataset.resourceName,
     papersFa: JSON.parse(document.getElementById("papers-fa").textContent),
     papersEn: JSON.parse(document.getElementById("papers-en").textContent),
   }
