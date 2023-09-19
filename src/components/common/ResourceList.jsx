@@ -3,6 +3,7 @@ import useLanguageContext from "../../context/useLanguageContext"
 import styled from "@emotion/styled"
 import useResourceContext from "../../context/useResourceContext"
 import { PaperCard } from "../paperpage/PaperCard"
+import { RecentPaperCard } from "../paperpage/RecentPaperCard"
 
 export default function ResourceList() {
   const { resource, resourceName } = useResourceContext()
@@ -17,7 +18,7 @@ export default function ResourceList() {
     setFa,
     setEn,
     restUrlEn,
-    restUrlFa
+    restUrlFa,
   } = resource
   const { lang } = useLanguageContext()
   const rs = lang === "fa" ? fa : en
@@ -26,7 +27,7 @@ export default function ResourceList() {
     const fetchResource = async (url, setResource, setFetched) => {
       const response = await fetch(url)
       const data = await response.json()
-      const resource = data.map(r => ({
+      const resource = data.map((r) => ({
         id: r.id,
         picture: r.thumbnail,
         title: r.title.rendered,
@@ -58,16 +59,19 @@ export default function ResourceList() {
 
   let Component
   switch (resourceName) {
-    case 'paper':
+    case "paper":
       Component = PaperCard
-      break;
+      break
     default:
-      break;
+      break
   }
   return (
     <Wrapper>
       {rs.map((r) => (
-        <Component key={r.id} r={r} />
+        <>
+          <Component key={r.id} r={r} />
+          <RecentPaperCard key={r.id} r={r} />
+        </>
       ))}
     </Wrapper>
   )
