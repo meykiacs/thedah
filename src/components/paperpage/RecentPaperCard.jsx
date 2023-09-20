@@ -8,7 +8,7 @@ import { useTheme } from "@emotion/react"
 export function RecentPaperCard({ r }) {
   const paper = r
   const { t } = useTranslation()
-  const  theme  = useTheme()
+  const theme = useTheme()
   const { assetsImagesUrl } = useWPContext()
 
   return (
@@ -24,42 +24,48 @@ export function RecentPaperCard({ r }) {
         )}
       </ImageWrapper>
       <InfoWrapper>
-      <PaperInfo>
-        <Title>{paper.title}</Title>
-        <Author>
-          {paper.meta._thedah_paper.author}
-          {paper.meta._thedah_paper.coauthors &&
-            paper.meta._thedah_paper.coauthors[0] !== "" &&
-            paper.meta._thedah_paper.coauthors.map((c) => (
-              <span key={c}>
-                {t("comma")} {c}
-              </span>
-            ))}
-        </Author>
-        <PubAndYear>
-          {paper.meta._thedah_paper.publisher} - {paper.meta._thedah_paper.year}
-        </PubAndYear>
-        <SummaryTitle>{t('Summary')}</SummaryTitle>
-        <Summary>
-          {t("Summary")} {paper.meta._thedah_paper.summary}
-        </Summary>
-          </PaperInfo>
-          <ActionWrapper>
-              <Button variant='fill' color={theme.colors.secondary} colorHover={theme.colors.secondary} br='7px' fz='1.5rem' fw='500' p='10px 50px'>
-                {t('Read')}
-              </Button>
-        <ReadMore>
-          <a
+        <PaperInfo>
+          <Title>{paper.title}</Title>
+          <Author>
+            {paper.meta._thedah_paper.author}
+            {paper.meta._thedah_paper.coauthors &&
+              paper.meta._thedah_paper.coauthors[0] !== "" &&
+              paper.meta._thedah_paper.coauthors.map((c) => (
+                <span key={c}>
+                  {t("comma")} {c}
+                </span>
+              ))}
+          </Author>
+          <PubAndYear>
+            {paper.meta._thedah_paper.publisher} -{" "}
+            {paper.meta._thedah_paper.year}
+          </PubAndYear>
+          <SummaryTitle>{t("Summary")}</SummaryTitle>
+          <Summary>
+            {t("Summary")} {paper.meta._thedah_paper.summary}
+          </Summary>
+        </PaperInfo>
+        <ActionWrapper>
+          <ReadMore
             href={paper.meta._thedah_paper.link}
             target="_blank"
             rel="noreferrer"
           >
             {t("ReadMore")}
-          </a>
-        </ReadMore>
-          </ActionWrapper>
+          </ReadMore>
+          <Button
+            variant="fill"
+            color={theme.colors.secondary}
+            colorHover={theme.colors.secondary}
+            br="7px"
+            fz="1.5rem"
+            fw="500"
+            p="10px 50px"
+          >
+            {t("Read")}
+          </Button>
+        </ActionWrapper>
       </InfoWrapper>
-
     </Wrapper>
   )
 }
@@ -70,19 +76,27 @@ const Wrapper = styled.article`
   flex-direction: column;
   box-shadow: 0px 1px 7px 0px rgba(35, 30, 26, 0.4);
   border-radius: 10px;
-  width: clamp(350px, 90%, 1000px);
-  align-items: center;
+  gap: 25px;
+  width: 300px;
 
   ${mq("md")} {
     flex-direction: row;
-    justify-content: space-between;
+    align-items: stretch;
     padding: 50px 70px;
+    width: 90vw;
+    gap: 40px;
+  }
+  ${mq("xl")} {
+    width: 1000px;
   }
 `
 
 const ImageWrapper = styled.div`
   width: clamp(300px, 30%, 390px);
   height: 300px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+  overflow: hidden;
   > img {
     width: 100%;
     height: 100%;
@@ -91,8 +105,14 @@ const ImageWrapper = styled.div`
 
 const InfoWrapper = styled.div`
   display: flex;
+  padding: 0 20px;
   flex-direction: column;
   justify-content: space-between;
+
+  ${mq("md")} {
+    padding: 0;
+    width: clamp(300px, 60%, 445px);
+  }
 `
 
 const PaperInfo = styled.div`
@@ -109,7 +129,7 @@ const Title = styled.h3`
 const Author = styled.p`
   font-size: 1.2rem;
   font-weight: 400;
-  `
+`
 
 const PubAndYear = styled.p`
   font-size: 1rem;
@@ -125,6 +145,16 @@ const Summary = styled.p`
   font-weight: 400;
 `
 
-const ActionWrapper = styled.div``
+const ActionWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+`
 
-const ReadMore = styled.div``
+const ReadMore = styled.a`
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: ${(p) => p.theme.colors.primary};
+`
