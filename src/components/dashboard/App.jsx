@@ -19,7 +19,7 @@ export default function App() {
       <Box mb={20}>
         <ResourceForm />
       </Box>
-      <ResourceList />
+      {resourceName !== 'about' && <ResourceList />}
     </>
   )
 }

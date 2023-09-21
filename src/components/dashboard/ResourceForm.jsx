@@ -6,6 +6,7 @@ import useEditContext from "../../context/useEditContext"
 import useResourceContext from "../../context/useResourceContext"
 import PaperForm from "./PaperForm"
 import BookForm from "./BookForm"
+import AboutForm from "./AboutForm"
 
 export default function ResourceForm() {
   const { resourceName, mediaRestUrl, restNonce } =
@@ -63,6 +64,9 @@ export default function ResourceForm() {
       break
     case "book":
       Component = BookForm
+      break
+    case "about":
+      Component = AboutForm
       break
     default:
   }

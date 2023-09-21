@@ -5,6 +5,7 @@ use DI\ContainerBuilder;
 use Thedah\CPTResource\Model\CPT;
 use Thedah\CPTResource\Model\CPTResource;
 use Thedah\CPTResource\Service\RegisterCPTResource;
+use Thedah\Models\Meta\AboutMeta;
 use Thedah\Models\Meta\BookMeta;
 use Thedah\Models\Meta\PaperMeta;
 
@@ -79,11 +80,20 @@ $paperCPTFa->metas[] = new PaperMeta();
 $paperCPTResource = new CPTResource($paperCPT);
 $paperCPTFaResource = new CPTResource($paperCPTFa);
 
+$aboutCPT = new CPT('about', 'About');
+$aboutCPTFa = new CPT('aboutfa', 'AboutFa');
+$aboutCPT->metas[] = new AboutMeta();
+$aboutCPTFa->metas[] = new AboutMeta();
+$aboutCPTResource = new CPTResource($aboutCPT);
+$aboutCPTFaResource = new CPTResource($aboutCPTFa);
+
 $container->get(RegisterCPTResource::class)
 ->add($bookCPTResource)
 ->add($bookCPTFaResource)
 ->add($paperCPTResource)
 ->add($paperCPTFaResource)
+->add($aboutCPTResource)
+->add($aboutCPTFaResource)
 ->register();
 
 // $productsGet = $container->make(ProductsGet::class);

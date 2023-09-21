@@ -34,7 +34,6 @@ export default function BookForm() {
   const { resource: editingBook, setResource: setEditingBook } =
     useEditContext()
 
-  console.log(editingBook)
   const [files, setFiles] = useState([])
   const [featuredMediaId, setFeaturedMediaId] = useState(0)
   const [featuredMediaUrl, setFeaturedMediaUrl] = useState("")

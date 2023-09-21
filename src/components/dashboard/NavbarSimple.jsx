@@ -9,14 +9,13 @@ import {
 } from "@mantine/core"
 import {
   IconBook,
-  IconSwitchHorizontal,
   IconLogout,
   IconArticle,
+  IconUser,
 } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import useResourceContext from "../../context/useResourceContext"
 import useEditContext from "../../context/useEditContext"
-// import { MantineLogo } from "@mantine/ds"
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -88,12 +87,13 @@ const useStyles = createStyles((theme) => ({
 }))
 
 export function NavbarSimple() {
-  const { resourceName, setResourceName } = useResourceContext()
+  const { resourceName, setResourceName, setResourceHuman } = useResourceContext()
   const { setResource: setEditingResource } = useEditContext()
   const { t } = useTranslation()
   const data = [
-    { link: "", label: t("Books"), icon: IconBook, name: "book" },
-    { link: "", label: t("Papers"), icon: IconArticle, name: "paper" },
+    { link: "", label: "Books", icon: IconBook, name: "book" },
+    { link: "", label: "Papers", icon: IconArticle, name: "paper" },
+    { link: "", label: "About", icon: IconUser, name: "about" },
   ]
 
   const { classes, cx } = useStyles()
@@ -112,11 +112,12 @@ export function NavbarSimple() {
           setEditingResource(null)
         }
         setResourceName(item.name)
+        setResourceHuman(item.label)
         setActive(item.name)
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
+      <span>{t(item.label)}</span>
     </a>
   ))
 
@@ -131,15 +132,6 @@ export function NavbarSimple() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
         <a
           href="#"
           className={classes.link}

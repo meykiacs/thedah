@@ -15,19 +15,28 @@ window.addEventListener("DOMContentLoaded", () => {
     bookRestUrlFa: root.dataset.bookRestUrlFa,
     paperRestUrlEn: root.dataset.paperRestUrlEn,
     paperRestUrlFa: root.dataset.paperRestUrlFa,
+    aboutRestUrlEn: root.dataset.aboutRestUrlEn,
+    aboutRestUrlFa: root.dataset.aboutRestUrlFa,
     mediaRestUrl: root.dataset.mediaRestUrl,
     assetsFontsUrl: root.dataset.assetsFontsUrl,
     assetsImagesUrl: root.dataset.assetsImagesUrl,
     isBooksFaFetched: !!root.dataset.booksFaFetched,
     isBooksEnFetched: !!root.dataset.booksEnFetched,
-    booksFa: JSON.parse(document.getElementById("books-fa").textContent),
-    booksEn: JSON.parse(document.getElementById("books-en").textContent),
     isPapersFaFetched: !!root.dataset.papersFaFetched,
     isPapersEnFetched: !!root.dataset.papersEnFetched,
-    resourceName: root.dataset.resourceName,
+    isAboutFaFetched: !!root.dataset.aboutFaFetched,
+    isAboutEnFetched: !!root.dataset.aboutEnFetched,
+    booksFa: JSON.parse(document.getElementById("books-fa").textContent),
+    booksEn: JSON.parse(document.getElementById("books-en").textContent),
     papersFa: JSON.parse(document.getElementById("papers-fa").textContent),
     papersEn: JSON.parse(document.getElementById("papers-en").textContent),
+    aboutFa: JSON.parse(document.getElementById("about-fa").textContent),
+    aboutEn: JSON.parse(document.getElementById("about-en").textContent),
+    resourceName: root.dataset.resourceName,
+    resourceHuman: root.dataset.resourceHuman,
   }
+
+  console.log(providedValues.aboutFa)
   render(
     <LanguageProvider>
       <Dashboard providedValues={providedValues} />

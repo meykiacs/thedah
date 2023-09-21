@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "thedah/aboutpage",
+	"version": "1.0.0",
+	"title": "About Page",
+	"category": "theme",
+	"icon": "menu",
+	"description": "The About page for The DAH",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "thedah",
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php",
+	"viewScript": "file:./front.js",
+	"style":"file:./front.css"
+}

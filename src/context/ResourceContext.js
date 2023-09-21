@@ -4,6 +4,7 @@ const ResourceContext = createContext()
 
 export const ResourceProvider = ({ providedValues, children }) => {
   const [resourceName, setResourceName] = useState(providedValues.resourceName)
+  const [ resourceHuman, setResourceHuman ] = useState(providedValues.resourceHuman)
 
   const [booksFa, setBooksFa] = useState(providedValues.booksFa)
   const [booksEn, setBooksEn] = useState(providedValues.booksEn)
@@ -24,6 +25,17 @@ export const ResourceProvider = ({ providedValues, children }) => {
     providedValues.isBooksEnFetched
   )
   const { paperRestUrlEn, paperRestUrlFa, mediaRestUrl, restNonce } =
+    providedValues
+
+  const [aboutFa, setAboutFa] = useState(providedValues.aboutFa)
+  const [aboutEn, setAboutEn] = useState(providedValues.aboutEn)
+  const [isAboutFaFetched, setIsAboutFaFetched] = useState(
+    providedValues.isAboutFaFetched
+  )
+  const [isAboutEnFetched, setIsAboutEnFetched] = useState(
+    providedValues.isBooksEnFetched
+  )
+  const { aboutRestUrlEn, aboutRestUrlFa } =
     providedValues
 
   const bookResource = {
@@ -52,6 +64,19 @@ export const ResourceProvider = ({ providedValues, children }) => {
     restUrlFa: paperRestUrlFa,
   }
 
+  const aboutResource = {
+    fa: aboutFa,
+    en: aboutEn,
+    setEn: setAboutEn,
+    setFa: setAboutFa,
+    isFaFetched: isAboutFaFetched,
+    isEnFetched: isAboutEnFetched,
+    setIsFaFetched: setIsAboutFaFetched,
+    setIsEnFetched: setIsAboutEnFetched,
+    restUrlEn: aboutRestUrlEn,
+    restUrlFa: aboutRestUrlFa,
+  }
+
   let resource
   switch (resourceName) {
     case "book":
@@ -60,6 +85,9 @@ export const ResourceProvider = ({ providedValues, children }) => {
     case "paper":
       resource = paperResource
       break
+    case "about":
+      resource = aboutResource
+      break
   }
   return (
     <ResourceContext.Provider
@@ -67,6 +95,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
         resource,
         resourceName,
         setResourceName,
+        resourceHuman,
+        setResourceHuman,
         mediaRestUrl,
         restNonce,
       }}
