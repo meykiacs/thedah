@@ -36,9 +36,9 @@ export default function BookPage({ providedValues }) {
           <BooksProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            <PageContainer color={theme.colors.white}>
+            {/* <PageContainer color={theme.colors.white}> */}
               <BookBanner />
-            </PageContainer>
+            {/* </PageContainer> */}
             <BookListContainer color={theme.colors.gray}>
                 <BookList />
             </BookListContainer>

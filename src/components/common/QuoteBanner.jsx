@@ -27,13 +27,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: ${p => p.theme.direction === 'ltr' ? '50px' : 0};
   
   ${mq("md")} {
     flex-direction: row-reverse;
     justify-content: center;
+    gap: ${p => p.theme.direction === 'ltr' ? '50px' : '25px'};
   }
 
-  gap: ${p => p.theme.direction === 'ltr' ? '50px' : 0};
 `
 
 const ImageWrapper = styled.div`
@@ -42,7 +43,8 @@ const ImageWrapper = styled.div`
   }
 
   ${mq("md")} {
-    width: clamp(300px, 100%, 768px);
+    max-width: 768px;
+    min-width: 440px;
   }
 `
 
@@ -51,16 +53,23 @@ const QuoteWrapper = styled.div`
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  width: clamp(300px, 90%, 500px);
+  /* width: clamp(300px, 90%, 500px); */
+  max-width: 440px;
 
   gap: 25px;
+  ${mq("md")} {
+    gap: 50px;
+    margin-left: 16px;
+  }
   ${mq("lg")} {
     gap: 50px;
+    margin-left: 90px;
   }
 `
 
 const MainQuote = styled.h3`
-  font-size: 2.4rem;
+  /* font-size: 2.4rem; */
+  font-size: clamp(1.2rem, calc(1vw + 1rem), 2.4rem);
   color: ${(p) => p.theme.colors.primary};
   font-weight: 700;
 `

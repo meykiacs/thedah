@@ -36,9 +36,9 @@ export default function PaperPage({ providedValues }) {
           <ResourceProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            <PageContainer color={theme.colors.white}>
+            {/* <PageContainer color={theme.colors.white}> */}
               <PaperBanner />
-            </PageContainer>
+            {/* </PageContainer> */}
             <PaperListContainer color={theme.colors.white}>
               <ResourceList />
             </PaperListContainer>

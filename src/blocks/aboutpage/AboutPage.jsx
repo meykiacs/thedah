@@ -14,9 +14,8 @@ import Footer from "../../components/common/Footer"
 import styled from "@emotion/styled"
 import SubFooter from "../../components/common/SubFooter"
 import { ResourceProvider } from "../../context/ResourceContext"
-import PaperBanner from "../../components/paperpage/PaperBanner"
-import ResourceList from "../../components/common/ResourceList"
 import AboutBanner from "../../components/paperpage/AboutBanner"
+import { SectionTitle } from "../../components/common/SectionTitle"
 
 export default function AboutPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -37,12 +36,10 @@ export default function AboutPage({ providedValues }) {
           <ResourceProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            <PageContainer color={theme.colors.white}>
               <AboutBanner />
+            <PageContainer color={theme.colors.gray}>
+              <SectionTitle />
             </PageContainer>
-            {/* <BookListContainer color={theme.colors.white}>
-              <ResourceList />
-            </BookListContainer> */}
             <Footer />
             <SubFooter />
             <ToggleColorScheme />
@@ -52,8 +49,3 @@ export default function AboutPage({ providedValues }) {
     </RtlProvider>
   )
 }
-
-const BookListContainer = styled(PageContainer)`
-  box-shado w: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
-  margin-bottom: 20px;
-`
