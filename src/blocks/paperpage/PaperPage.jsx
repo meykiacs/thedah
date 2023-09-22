@@ -39,9 +39,9 @@ export default function PaperPage({ providedValues }) {
             <PageContainer color={theme.colors.white}>
               <PaperBanner />
             </PageContainer>
-            <BookListContainer color={theme.colors.white}>
+            <PaperListContainer color={theme.colors.white}>
               <ResourceList />
-            </BookListContainer>
+            </PaperListContainer>
             <Footer />
             <SubFooter />
             <ToggleColorScheme />
@@ -52,7 +52,7 @@ export default function PaperPage({ providedValues }) {
   )
 }
 
-const BookListContainer = styled(PageContainer)`
+const PaperListContainer = styled(PageContainer)`
   box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
   margin-bottom: 20px;
 `

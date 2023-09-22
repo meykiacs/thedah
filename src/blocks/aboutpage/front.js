@@ -4,7 +4,7 @@ import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 import AboutPage from "./AboutPage"
 
 window.addEventListener("DOMContentLoaded", () => {
-  const root = document.getElementById("thedah-paperpage")
+  const root = document.getElementById("thedah-aboutpage")
   document.documentElement.setAttribute("lang", "fa")
   document.body.dir = "rtl"
 
@@ -12,17 +12,18 @@ window.addEventListener("DOMContentLoaded", () => {
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,
     restNonce: root.dataset.restNonce,
-    paperRestUrlEn: root.dataset.paperRestUrlEn,
-    paperRestUrlFa: root.dataset.paperRestUrlFa,
+    aboutRestUrlEn: root.dataset.aboutRestUrlEn,
+    aboutRestUrlFa: root.dataset.aboutRestUrlFa,
     mediaRestUrl: root.dataset.mediaRestUrl,
     assetsFontsUrl: root.dataset.assetsFontsUrl,
     assetsImagesUrl: root.dataset.assetsImagesUrl,
-    isPapersFaFetched: !!root.dataset.papersFaFetched,
-    isPapersEnFetched: !!root.dataset.papersEnFetched,
+    isAboutFaFetched: !!root.dataset.aboutFaFetched,
+    isAboutEnFetched: !!root.dataset.aboutEnFetched,
     resourceName: root.dataset.resourceName,
-    papersFa: JSON.parse(document.getElementById("papers-fa").textContent),
-    papersEn: JSON.parse(document.getElementById("papers-en").textContent),
+    aboutFa: JSON.parse(document.getElementById("about-fa").textContent),
+    aboutEn: JSON.parse(document.getElementById("about-en").textContent),
   }
+
   render(
     <LanguageProvider>
       <ColorSchemeProvider>

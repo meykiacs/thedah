@@ -1,17 +1,8 @@
 import { useEffect, useRef, useState } from "@wordpress/element"
-import useEditContext from "../../context/useEditContext"
 import submitWPForm from "../../utils/submitWPForm"
 import useLanguageContext from "../../context/useLanguageContext"
 import useResourceContext from "../../context/useResourceContext"
-import {
-  Box,
-  Button,
-  Card,
-  Flex,
-  Group,
-  Stack,
-  TextInput,
-} from "@mantine/core"
+import { Box, Button, Card, Flex, Group, Stack, TextInput } from "@mantine/core"
 import PictureDrop from "./PictureDrop"
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
@@ -28,16 +19,14 @@ export default function AboutForm({
   const { lang } = useLanguageContext()
   const { resource, restNonce } = useResourceContext()
   const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resource
-  const {  resource: editingResource, setResource: setEditingResource } =
-    useEditContext()
+  // const {  resource: editingResource, setResource: setEditingResource } =
+  // useEditContext()
   const aboutFromContext = lang === "fa" ? fa : en
-  const [about,] = useState(aboutFromContext)
-  // console.log(about);
-  // console.log(editingResource);
-    useEffect(() => {
-      setEditingResource(about)
-    },[about, setEditingResource])
-  
+  const [about, setAbout] = useState(aboutFromContext)
+  // useEffect(() => {
+  // setEditingResource(about)
+  // },[about, setEditingResource])
+
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [education, setEducation] = useState([""])
@@ -48,33 +37,39 @@ export default function AboutForm({
   const formRef = useRef(null)
 
   const restUrl = lang === "fa" ? restUrlFa : restUrlEn
-  const newAbout = {}
 
   useEffect(() => {
-    if (editingResource !== null) {
+    setAbout(lang === 'fa' ? fa : en)
+    formRef.current.reset()
+  }, [lang, en, fa])
 
-      setEducation(about?.meta?._thedah_about?.education ?? [""])
-      setActivities(about?.meta?._thedah_about?.activities ?? [""])
-      setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
-      setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
+  useEffect(() => {
+    setEducation(about?.meta?._thedah_about?.education ?? [""])
+    setActivities(about?.meta?._thedah_about?.activities ?? [""])
+    setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
+    setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
 
-      formRef.current.scrollIntoView({ behavior: "smooth" })
-      formRef.current.focus()
-    }
-}, [setEducation, about, editingResource])
+    formRef.current.scrollIntoView({ behavior: "smooth" })
+    formRef.current.focus()
+  }, [setEducation, about])
 
   const inputs = [
-    { name: "academicRank", placeholder: "Academic Rank", default: about?.meta._thedah_about?.academicRank ?? "" },
+    {
+      name: "academicRank",
+      placeholder: "Academic Rank",
+      default: about?.meta._thedah_about?.academicRank ?? "",
+    },
   ]
 
+  console.log(inputs)
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     const formData = new FormData(event.target)
     formData.append("status", "publish")
     const aboutData = {
-      title: '',
-      content: '',
+      title: "",
+      content: "",
       status: "publish",
       featured_media: featuredMediaId,
       meta: {
@@ -92,9 +87,9 @@ export default function AboutForm({
       restNonce,
       aboutData,
       setIsSubmitting,
-      editingResource?.id ?? 0
-      )
-      console.log(responseData)
+      about?.id ?? 0
+    )
+    const newAbout = {}
     if (responseData) {
       if ("id" in responseData && responseData.id > 0) {
         newAbout.id = responseData.id
@@ -122,7 +117,7 @@ export default function AboutForm({
           throw new Error("Error getting the submitted object back")
         }
       }
-      // setEditingPaper(null)
+      setAbout(newAbout)
     }
     if (error) console.error("Error submitting About", error)
 

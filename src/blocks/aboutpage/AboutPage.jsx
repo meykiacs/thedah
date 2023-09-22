@@ -16,6 +16,7 @@ import SubFooter from "../../components/common/SubFooter"
 import { ResourceProvider } from "../../context/ResourceContext"
 import PaperBanner from "../../components/paperpage/PaperBanner"
 import ResourceList from "../../components/common/ResourceList"
+import AboutBanner from "../../components/paperpage/AboutBanner"
 
 export default function AboutPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -37,11 +38,11 @@ export default function AboutPage({ providedValues }) {
             <GlobalCss />
             <Header />
             <PageContainer color={theme.colors.white}>
-              <PaperBanner />
+              <AboutBanner />
             </PageContainer>
-            <BookListContainer color={theme.colors.white}>
+            {/* <BookListContainer color={theme.colors.white}>
               <ResourceList />
-            </BookListContainer>
+            </BookListContainer> */}
             <Footer />
             <SubFooter />
             <ToggleColorScheme />
@@ -53,6 +54,6 @@ export default function AboutPage({ providedValues }) {
 }
 
 const BookListContainer = styled(PageContainer)`
-  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
+  box-shado w: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
   margin-bottom: 20px;
 `
