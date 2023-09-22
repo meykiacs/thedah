@@ -19,11 +19,10 @@ const Wrapper = styled.div`
   }
 
   ${mq('xl')} {
-    padding: 0 50px;
+    padding: 0 150px;
   }
 
   display: flex;
   flex-direction: column;
   align-items: center;
-
 `

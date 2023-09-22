@@ -1,21 +1,25 @@
 import { ThemeProvider } from "@emotion/react"
 import GlobalCss from "../../components/GlobalCss"
-import { WPProvider } from "../../context/WPContext"
-import useLanguageContext from "../../context/useLanguageContext"
-import ToggleColorScheme from "../../components/common/ToggleColorScheme"
-import { useColorSchemeContext } from "../../context/useColorSchemeContext"
-import "../../utils/i18n"
-import { breakpoints } from "../../utils/mq"
-import { RtlProvider } from "../../context/RtlProvider"
-import { lightTheme, darkTheme } from "../../utils/theme"
+import Footer from "../../components/common/Footer"
 import Header from "../../components/common/Header"
 import PageContainer from "../../components/common/PageContainer"
-import Footer from "../../components/common/Footer"
-import styled from "@emotion/styled"
-import SubFooter from "../../components/common/SubFooter"
-import { ResourceProvider } from "../../context/ResourceContext"
-import AboutBanner from "../../components/paperpage/AboutBanner"
 import { SectionTitle } from "../../components/common/SectionTitle"
+import SubFooter from "../../components/common/SubFooter"
+import ToggleColorScheme from "../../components/common/ToggleColorScheme"
+import AboutBanner from "../../components/paperpage/AboutBanner"
+import { ResourceProvider } from "../../context/ResourceContext"
+import { RtlProvider } from "../../context/RtlProvider"
+import { WPProvider } from "../../context/WPContext"
+import { useColorSchemeContext } from "../../context/useColorSchemeContext"
+import useLanguageContext from "../../context/useLanguageContext"
+import "../../utils/i18n"
+import { breakpoints } from "../../utils/mq"
+import { darkTheme, lightTheme } from "../../utils/theme"
+import styled from "@emotion/styled"
+import { Education } from "../../components/aboutpage/Education"
+import { ExecutiveRecords } from "../../components/aboutpage/ExecutiveRecords"
+import { Activities } from "../../components/aboutpage/Activities"
+import { AwardsAndHonors } from "../../components/aboutpage/AwardsAndHonors"
 
 export default function AboutPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -36,9 +40,18 @@ export default function AboutPage({ providedValues }) {
           <ResourceProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-              <AboutBanner />
+            <AboutBanner />
             <PageContainer color={theme.colors.gray}>
-              <SectionTitle />
+              <Education />
+            </PageContainer>
+            <PageContainer color={theme.colors.white}>
+              <Activities />
+            </PageContainer>
+            <PageContainer color={theme.colors.gray}>
+              <ExecutiveRecords />
+            </PageContainer>
+            <PageContainer color={theme.colors.white}>
+              <AwardsAndHonors />
             </PageContainer>
             <Footer />
             <SubFooter />
@@ -49,3 +62,7 @@ export default function AboutPage({ providedValues }) {
     </RtlProvider>
   )
 }
+
+const Ol = styled.ol`
+  width: 100%;
+`
