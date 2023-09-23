@@ -5,8 +5,8 @@ import AboutPage from "./AboutPage"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-aboutpage")
-  document.documentElement.setAttribute("lang", "fa")
-  document.body.dir = "rtl"
+  document.documentElement.setAttribute("lang", root.dataset.lang)
+  document.body.dir = root.dataset.direction
 
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
@@ -25,7 +25,10 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   render(
-    <LanguageProvider>
+    <LanguageProvider
+      language={root.dataset.lang}
+      direction={root.dataset.direction}
+    >
       <ColorSchemeProvider>
         <AboutPage providedValues={providedValues} />
       </ColorSchemeProvider>

@@ -45,7 +45,17 @@ if ($query->have_posts()) {
 wp_reset_query();
 
 ?>
-<div id="thedah-paperpage" data-lang="<?php echo esc_attr($lang); ?>" data-direction="<?php echo esc_attr($direction) ?>" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>" data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>" data-paper-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paper')); ?>" data-paper-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paperfa')); ?>" data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>" data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>" data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>" data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>" data-papers-en-fetched="<?php echo esc_attr($enFetched) ?>" data-papers-fa-fetched="<?php echo esc_attr($faFetched) ?>" data-resource-name="paper">
+<div id="thedah-paperpage" data-lang="<?php echo esc_attr($lang); ?>"
+  data-direction="<?php echo esc_attr($direction) ?>" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>"
+  data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>"
+  data-paper-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paper')); ?>"
+  data-paper-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paperfa')); ?>"
+  data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>"
+  data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>"
+  data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>"
+  data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>"
+  data-papers-en-fetched="<?php echo esc_attr($enFetched) ?>"
+  data-papers-fa-fetched="<?php echo esc_attr($faFetched) ?>" data-resource-name="paper">
 
 </div>
 

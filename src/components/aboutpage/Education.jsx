@@ -17,7 +17,7 @@ export const Education = () => {
   return (
     <Section>
       <SectionTitle title={t("Education")} />
-      <StyledOrderedList list={about.meta._thedah_about.education} />
+      <StyledOrderedList list={about?.meta?._thedah_about?.education} />
     </Section>
   )
 }

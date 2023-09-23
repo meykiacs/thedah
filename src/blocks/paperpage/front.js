@@ -7,7 +7,6 @@ window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-paperpage")
   document.documentElement.setAttribute("lang", root.dataset.lang)
   document.body.dir = root.dataset.direction
-  console.log(root.dataset.lang);
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,

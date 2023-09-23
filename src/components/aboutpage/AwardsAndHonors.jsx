@@ -17,7 +17,7 @@ export const AwardsAndHonors = () => {
   return (
     <Section>
       <SectionTitle title={t("awardsAndHonors")} />
-      <StyledUnorderedList list={about.meta._thedah_about.awardsAndHonors} />
+      <StyledUnorderedList list={about?.meta?._thedah_about?.awardsAndHonors} />
     </Section>
   )
 }

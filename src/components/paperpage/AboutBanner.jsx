@@ -22,7 +22,7 @@ export default function AboutBanner() {
         <BannerLogo>
           <img src={`${assetsImagesUrl}/banner-logo.png`} alt="banner logo" />
         </BannerLogo>
-        <Rank>{about.meta._thedah_about.academicRank}</Rank>
+        <Rank>{about?.meta?._thedah_about?.academicRank}</Rank>
       </AboutWrapper>
     </Wrapper>
   )

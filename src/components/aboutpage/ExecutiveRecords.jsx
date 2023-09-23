@@ -17,7 +17,7 @@ export const ExecutiveRecords = () => {
   return (
     <Section>
       <SectionTitle title={t("executiveRecords")} />
-      <StyledUnorderedList list={about.meta._thedah_about.executiveRecords} />
+      <StyledUnorderedList list={about?.meta?._thedah_about?.executiveRecords} />
     </Section>
   )
 }

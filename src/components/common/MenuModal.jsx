@@ -1,40 +1,73 @@
-import { Portal, Close, Content, Overlay } from "@radix-ui/react-dialog"
+import { Portal, Close, Content } from "@radix-ui/react-dialog"
 // import SiteLogo from "./SiteLogo"
 import styled from "@emotion/styled"
-import Icon from "./Icon"
 import UnstyledButton from "./UnstyledButton"
 import { useTranslation } from "react-i18next"
 import VisuallyHidden from "./VisuallyHidden"
 import { keyframes } from "@emotion/react"
+import { IconX } from "@tabler/icons-react"
+import useWPContext from "../../context/useWPContext"
+import useResourceContext from "../../context/useResourceContext"
+import useLanguageContext from "../../context/useLanguageContext"
 
 export default function MenuModal() {
   const { t } = useTranslation()
+  const { homeUrl } = useWPContext()
+  const { resourceName } = useResourceContext()
+  const { lang } = useLanguageContext()
+
   return (
     <Portal>
       {/* <MenuOverlay /> */}
       <MenuContent aria-label="Menu">
         <InnerWrapper>
           <Close asChild>
-            <Icon id="close" />
-            {/* <VisuallyHidden>Dismiss menu</VisuallyHidden> */}
+            <CloseButton>
+              <IconX color="white" />
+              <VisuallyHidden>Dismiss menu</VisuallyHidden>
+            </CloseButton>
           </Close>
           <Filler />
           <Nav>
-            <NavLink href="/sale">Sale</NavLink>
-            <NavLink href="/new">New&nbsp;Releases</NavLink>
-            <NavLink href="/men">Men</NavLink>
-            <NavLink href="/women">Women</NavLink>
-            <NavLink href="/kids">Kids</NavLink>
-            <NavLink href="/collections">Collections</NavLink>
+            <NavLink href={`${homeUrl}?lang=${lang}`}>{t("Home")}</NavLink>
+            <NavLink
+              href={`${homeUrl}book?lang=${lang}`}
+              className={resourceName === "book" && "current-page"}
+            >
+              {t("Books")}
+            </NavLink>
+            <NavLink
+              href={`${homeUrl}gallery?lang=${lang}`}
+              className={resourceName === "gallery" && "current-page"}
+            >
+              {t("Gallery")}
+            </NavLink>
+            <NavLink
+              href={`${homeUrl}paper?lang=${lang}`}
+              className={resourceName === "paper" && "current-page"}
+            >
+              {t("Papers")}
+            </NavLink>
+            <NavLink href={`${homeUrl}course?lang=${lang}`}>
+              {t("Courses")}
+            </NavLink>
+            <NavLink
+              href={`${homeUrl}about?lang=${lang}`}
+              className={resourceName === "about" && "current-page"}
+            >
+              {t("About")}
+            </NavLink>
+            <NavLink href={`${homeUrl}contact?lang=${lang}`}>
+              {t("Contact")}
+            </NavLink>
           </Nav>
           <Footer>
-            <SubLink href="/terms">Terms and Conditions</SubLink>
-            <SubLink href="/privacy">Privacy Policy</SubLink>
-            <SubLink href="/contact">Contact Us</SubLink>
+          <SubLink href={`${homeUrl}contact?lang=${lang}`}>
+              {t("Contact")}
+            </SubLink>
           </Footer>
         </InnerWrapper>
       </MenuContent>
-
     </Portal>
   )
 }
@@ -82,6 +115,13 @@ const InnerWrapper = styled.div`
   animation-delay: 400ms;
 `
 
+const CloseButton = styled(UnstyledButton)`
+  position: absolute;
+  top: 50px;
+  right: var(--overfill);
+  padding: 16px;
+`
+
 const Filler = styled.div`
   flex: 1;
 `
@@ -96,10 +136,10 @@ const NavLink = styled.a`
   color: ${(p) => p.theme.colors.gray};
   font-weight: 400;
   text-decoration: none;
-  font-size: 1.125rem;
+  font-size: 1.8rem;
   text-transform: uppercase;
 
-  &:first-of-type {
+  &.current-page {
     color: ${(p) => p.theme.colors.secondary};
   }
 `
@@ -113,44 +153,7 @@ const Footer = styled.footer`
 `
 
 const SubLink = styled.a`
-  color: var(--color-gray-700);
-  font-size: 0.875rem;
-  text-decoration: none;
-`
-
-const SearchButton = styled(UnstyledButton)`
-  padding-top: 3px;
-  padding-left: 7px;
-`
-
-const Form = styled.form`
-  position: absolute;
-  top: 200px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  width: clamp(300px, 90%, 775px);
-`
-
-const Title = styled.h2`
-  color: #fff;
-  font-size: 2.3rem;
-  font-weight: 400;
-`
-
-const Input = styled.input`
-  border: none;
-  background: transparent;
-  border-bottom: 1px solid ${(p) => p.theme.colors.gray};
-  padding-left: 10px;
-  max-width: 775px;
-  font-size: 2.3rem;
   color: ${(p) => p.theme.colors.gray};
-  outline-offset: 4px;
-  width: clamp(300px, 90%, 775px);
-  margin-top: 40px;
-
-  &::placeholder {
-    color: ${(p) => p.theme.colors.gray};
-  }
+  font-size: 1.4rem;
+  text-decoration: none;
 `
