@@ -24,12 +24,12 @@ export default function Header() {
         </LogoWrapper>
         <DesktopNav>
           <NavLink href={homeUrl}>{t("Home")}</NavLink>
-          <NavLink href={`${homeUrl}/book`}>{t("Books")}</NavLink>
-          <NavLink href={`${homeUrl}/gallery`}>{t("Gallery")}</NavLink>
-          <NavLink href={`${homeUrl}/paper`}>{t("Papers")}</NavLink>
-          <NavLink href={`${homeUrl}/course`}>{t("Courses")}</NavLink>
-          <NavLink href={`${homeUrl}/about`}>{t("About")}</NavLink>
-          <NavLink href={`${homeUrl}/contact`}>{t("Contact")}</NavLink>
+          <NavLink href={`${homeUrl}book`}>{t("Books")}</NavLink>
+          <NavLink href={`${homeUrl}gallery`}>{t("Gallery")}</NavLink>
+          <NavLink href={`${homeUrl}paper`}>{t("Papers")}</NavLink>
+          <NavLink href={`${homeUrl}course`}>{t("Courses")}</NavLink>
+          <NavLink href={`${homeUrl}about`}>{t("About")}</NavLink>
+          <NavLink href={`${homeUrl}contact`}>{t("Contact")}</NavLink>
         </DesktopNav>
         <IconsWrapper>
           <Root>
