@@ -132,7 +132,11 @@ i18n.use(initReactI18next).init({
       },
     },
   },
-  lng: "fa",
+  // detection: {
+  //   order: ['querystring'],
+  //   lookupQuerystring: 'lang',
+  // },
+  // lng: "fa",
   interpolation: {
     escapeValue: false,
   },

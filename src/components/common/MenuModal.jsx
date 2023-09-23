@@ -5,53 +5,117 @@ import Icon from "./Icon"
 import UnstyledButton from "./UnstyledButton"
 import { useTranslation } from "react-i18next"
 import VisuallyHidden from "./VisuallyHidden"
+import { keyframes } from "@emotion/react"
 
 export default function MenuModal() {
   const { t } = useTranslation()
   return (
     <Portal>
-      <Overlay />
-      <SearchContent>
-        <Close asChild>
-          <SearchButton>
-            <Icon id="close" color="#fff" size="48px" strokeWidth="1" />
-          </SearchButton>
-        </Close>
-        <Form>
-          <Title>{t("SearchInTheSite")}</Title>
-          <label htmlFor="search">
-            <VisuallyHidden>{t("Search")}</VisuallyHidden>
-            <Input id="search" placeholder={t("SearchFor")} />
-          </label>
-        </Form>
-      </SearchContent>
+      {/* <MenuOverlay /> */}
+      <MenuContent aria-label="Menu">
+        <InnerWrapper>
+          <Close asChild>
+            <Icon id="close" />
+            {/* <VisuallyHidden>Dismiss menu</VisuallyHidden> */}
+          </Close>
+          <Filler />
+          <Nav>
+            <NavLink href="/sale">Sale</NavLink>
+            <NavLink href="/new">New&nbsp;Releases</NavLink>
+            <NavLink href="/men">Men</NavLink>
+            <NavLink href="/women">Women</NavLink>
+            <NavLink href="/kids">Kids</NavLink>
+            <NavLink href="/collections">Collections</NavLink>
+          </Nav>
+          <Footer>
+            <SubLink href="/terms">Terms and Conditions</SubLink>
+            <SubLink href="/privacy">Privacy Policy</SubLink>
+            <SubLink href="/contact">Contact Us</SubLink>
+          </Footer>
+        </InnerWrapper>
+      </MenuContent>
+
     </Portal>
   )
 }
 
-const SearchContent = styled(Content)`
-  background-color: ${(p) => p.theme.colors.backdrop};
-  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.25);
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+`
+
+const MenuContent = styled(Content)`
+  --overfill: 16px;
   position: fixed;
+  background-color: ${(p) => p.theme.colors.backdrop};
+  width: calc(300px + var(--overfill));
+  height: 100%;
+  margin-right: calc(var(--overfill) * -1);
+  padding: 24px 32px;
   top: 0;
   left: 0;
-  width: 100%;
-  max-height: 90vh%;
-  min-height: 80vh;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  /* overflow: scroll; */
 
-  &::-webkit-scrollbar: {
-    display: none;
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${slideIn} 500ms both cubic-bezier(0, 0.6, 0.32, 1.06);
+    animation-delay: 200ms;
   }
+`
 
-  &:focus {
-    outline: none;
+const InnerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  animation: ${fadeIn} 600ms both;
+  animation-delay: 400ms;
+`
+
+const Filler = styled.div`
+  flex: 1;
+`
+
+const Nav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`
+
+const NavLink = styled.a`
+  color: ${(p) => p.theme.colors.gray};
+  font-weight: 400;
+  text-decoration: none;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+
+  &:first-of-type {
+    color: ${(p) => p.theme.colors.secondary};
   }
+`
+
+const Footer = styled.footer`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: flex-end;
+`
+
+const SubLink = styled.a`
+  color: var(--color-gray-700);
+  font-size: 0.875rem;
+  text-decoration: none;
 `
 
 const SearchButton = styled(UnstyledButton)`

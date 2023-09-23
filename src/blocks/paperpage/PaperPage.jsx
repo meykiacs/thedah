@@ -2,9 +2,9 @@ import { ThemeProvider } from "@emotion/react"
 import GlobalCss from "../../components/GlobalCss"
 import { WPProvider } from "../../context/WPContext"
 import useLanguageContext from "../../context/useLanguageContext"
-import ToggleColorScheme from "../../components/common/ToggleColorScheme"
 import { useColorSchemeContext } from "../../context/useColorSchemeContext"
 import "../../utils/i18n"
+import i18n from "../../utils/i18n"
 import { breakpoints } from "../../utils/mq"
 import { RtlProvider } from "../../context/RtlProvider"
 import { lightTheme, darkTheme } from "../../utils/theme"
@@ -20,8 +20,13 @@ import ResourceList from "../../components/common/ResourceList"
 export default function PaperPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
 
-  const { dir } = useLanguageContext()
-
+  const { lang, dir } = useLanguageContext()
+  if (lang === "en") {
+    i18n.changeLanguage("en")
+  }
+  if (lang === "fa") {
+    i18n.changeLanguage("fa")
+  }
   const theme = {
     fontFamily: "Vazirmatn, sans-serif",
     direction: dir,

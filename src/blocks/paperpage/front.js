@@ -5,9 +5,9 @@ import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-paperpage")
-  document.documentElement.setAttribute("lang", "fa")
-  document.body.dir = "rtl"
-
+  document.documentElement.setAttribute("lang", root.dataset.lang)
+  document.body.dir = root.dataset.direction
+  console.log(root.dataset.lang);
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,
@@ -24,7 +24,10 @@ window.addEventListener("DOMContentLoaded", () => {
     papersEn: JSON.parse(document.getElementById("papers-en").textContent),
   }
   render(
-    <LanguageProvider>
+    <LanguageProvider
+      language={root.dataset.lang}
+      direction={root.dataset.direction}
+    >
       <ColorSchemeProvider>
         <PaperPage providedValues={providedValues} />
       </ColorSchemeProvider>

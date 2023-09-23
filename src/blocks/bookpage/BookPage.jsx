@@ -5,6 +5,7 @@ import { WPProvider } from "../../context/WPContext"
 import useLanguageContext from "../../context/useLanguageContext"
 import { useColorSchemeContext } from "../../context/useColorSchemeContext"
 import "../../utils/i18n"
+import i18n from "../../utils/i18n"
 import { breakpoints } from "../../utils/mq"
 import { RtlProvider } from "../../context/RtlProvider"
 import { lightTheme, darkTheme } from "../../utils/theme"
@@ -20,8 +21,13 @@ import { ResourceProvider } from "../../context/ResourceContext"
 export default function BookPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
 
-  const { dir } = useLanguageContext()
-
+  const { lang, dir } = useLanguageContext()
+  if (lang === "en") {
+    i18n.changeLanguage("en")
+  }
+  if (lang === "fa") {
+    i18n.changeLanguage("fa")
+  }
   const theme = {
     fontFamily: "Vazirmatn, sans-serif",
     direction: dir,

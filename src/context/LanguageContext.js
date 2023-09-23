@@ -2,9 +2,9 @@ import { createContext, useState } from "@wordpress/element"
 
 const LanguageContext = createContext()
 
-export const LanguageProvider = ({ children }) => {
-  const [lang, setLang] = useState("fa")
-  const [dir, setDir] = useState("rtl")
+export const LanguageProvider = ({ direction, language, children }) => {
+  const [lang, setLang] = useState(language)
+  const [dir, setDir] = useState(direction)
   return (
     <LanguageContext.Provider value={{ lang, dir, setDir, setLang }}>
       {children}
