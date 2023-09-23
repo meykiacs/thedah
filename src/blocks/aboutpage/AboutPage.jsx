@@ -55,7 +55,6 @@ export default function AboutPage({ providedValues }) {
             </PageContainer>
             <Footer />
             <SubFooter />
-            <ToggleColorScheme />
           </ResourceProvider>
         </WPProvider>
       </ThemeProvider>

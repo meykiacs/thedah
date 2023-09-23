@@ -36,15 +36,12 @@ export default function PaperPage({ providedValues }) {
           <ResourceProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            {/* <PageContainer color={theme.colors.white}> */}
-              <PaperBanner />
-            {/* </PageContainer> */}
+            <PaperBanner />
             <PaperListContainer color={theme.colors.white}>
               <ResourceList />
             </PaperListContainer>
             <Footer />
             <SubFooter />
-            <ToggleColorScheme />
           </ResourceProvider>
         </WPProvider>
       </ThemeProvider>

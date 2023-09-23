@@ -1,9 +1,11 @@
 import styled from "@emotion/styled"
-import { Search, X, Menu } from "react-feather"
+import { Search, X, Menu, Moon, Sun } from "react-feather"
 const icons = {
   search: Search,
   close: X,
   menu: Menu,
+  moon: Moon,
+  sun: Sun
 }
 
 const Icon = ({ id, color, size, strokeWidth, ...delegated }) => {

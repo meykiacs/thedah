@@ -11,10 +11,12 @@ import VisuallyHidden from "./VisuallyHidden.jsx"
 import { Root, Trigger } from "@radix-ui/react-dialog"
 import SearchModal from "./SearchModal"
 import MenuModal from "./MenuModal"
+import useResourceContext from "../../context/useResourceContext"
 
 export default function Header() {
   const { homeUrl } = useWPContext()
   const { t } = useTranslation()
+  const { resourceName } = useResourceContext()
   return (
     <header>
       <SuperHeader />
@@ -24,11 +26,31 @@ export default function Header() {
         </LogoWrapper>
         <DesktopNav>
           <NavLink href={homeUrl}>{t("Home")}</NavLink>
-          <NavLink href={`${homeUrl}book`}>{t("Books")}</NavLink>
-          <NavLink href={`${homeUrl}gallery`}>{t("Gallery")}</NavLink>
-          <NavLink href={`${homeUrl}paper`}>{t("Papers")}</NavLink>
+          <NavLink
+            href={`${homeUrl}book`}
+            className={resourceName === "book" && "current-page"}
+          >
+            {t("Books")}
+          </NavLink>
+          <NavLink
+            href={`${homeUrl}gallery`}
+            className={resourceName === "gallery" && "current-page"}
+          >
+            {t("Gallery")}
+          </NavLink>
+          <NavLink
+            href={`${homeUrl}paper`}
+            className={resourceName === "paper" && "current-page"}
+          >
+            {t("Papers")}
+          </NavLink>
           <NavLink href={`${homeUrl}course`}>{t("Courses")}</NavLink>
-          <NavLink href={`${homeUrl}about`}>{t("About")}</NavLink>
+          <NavLink
+            href={`${homeUrl}about`}
+            className={resourceName === "about" && "current-page"}
+          >
+            {t("About")}
+          </NavLink>
           <NavLink href={`${homeUrl}contact`}>{t("Contact")}</NavLink>
         </DesktopNav>
         <IconsWrapper>

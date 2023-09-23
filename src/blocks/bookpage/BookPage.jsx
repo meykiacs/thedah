@@ -3,7 +3,6 @@ import GlobalCss from "../../components/GlobalCss"
 import { BooksProvider } from "../../context/BooksContext"
 import { WPProvider } from "../../context/WPContext"
 import useLanguageContext from "../../context/useLanguageContext"
-import ToggleColorScheme from "../../components/common/ToggleColorScheme"
 import { useColorSchemeContext } from "../../context/useColorSchemeContext"
 import "../../utils/i18n"
 import { breakpoints } from "../../utils/mq"
@@ -16,6 +15,7 @@ import BookList from "../../components/bookpage/BookList"
 import Footer from "../../components/common/Footer"
 import styled from "@emotion/styled"
 import SubFooter from "../../components/common/SubFooter"
+import { ResourceProvider } from "../../context/ResourceContext"
 
 export default function BookPage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -34,17 +34,16 @@ export default function BookPage({ providedValues }) {
       <ThemeProvider theme={theme}>
         <WPProvider providedValues={providedValues}>
           <BooksProvider providedValues={providedValues}>
-            <GlobalCss />
-            <Header />
-            {/* <PageContainer color={theme.colors.white}> */}
+            <ResourceProvider providedValues={providedValues}>
+              <GlobalCss />
+              <Header />
               <BookBanner />
-            {/* </PageContainer> */}
-            <BookListContainer color={theme.colors.gray}>
+              <BookListContainer color={theme.colors.gray}>
                 <BookList />
-            </BookListContainer>
-            <Footer />
-            <SubFooter />
-            <ToggleColorScheme />
+              </BookListContainer>
+              <Footer />
+              <SubFooter />
+            </ResourceProvider>
           </BooksProvider>
         </WPProvider>
       </ThemeProvider>

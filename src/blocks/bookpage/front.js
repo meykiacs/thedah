@@ -19,6 +19,8 @@ window.addEventListener("DOMContentLoaded", () => {
     assetsImagesUrl: root.dataset.assetsImagesUrl,
     isBooksFaFetched: !!root.dataset.booksFaFetched,
     isBooksEnFetched: !!root.dataset.booksEnFetched,
+    resourceName: root.dataset.resourceName,
+    resourceHuman: root.dataset.resourceHuman,
     booksFa: JSON.parse(document.getElementById("books-fa").innerHTML),
     booksEn: JSON.parse(document.getElementById("books-en").innerHTML),
   }

@@ -1,30 +1,20 @@
-import styled from "@emotion/styled"
-import { mq } from "../../utils/mq"
-import { useTheme } from "@emotion/react"
 import { useColorSchemeContext } from "../../context/useColorSchemeContext"
+import UnstyledButton from "./UnstyledButton"
+import Icon from "./Icon"
+import VisuallyHidden from "./VisuallyHidden"
+import { useTheme } from "@emotion/react"
 
 export default function ToggleColorScheme() {
-  const theme = useTheme()
-  const {toggleColorScheme} = useColorSchemeContext()
+  const { colorScheme, toggleColorScheme } = useColorSchemeContext()
+  const theme  = useTheme()
   return (
-    <Button onClick={toggleColorScheme}>
-      {theme.colorScheme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-    </Button>
+    <UnstyledButton onClick={toggleColorScheme}>
+      <Icon
+        id={colorScheme === "dark" ? "sun" : "moon"}
+        size={15}
+        color={theme.colors.white}
+      />
+      <VisuallyHidden>Toggle theme</VisuallyHidden>
+    </UnstyledButton>
   )
 }
-
-const Button = styled.button`
-  background-color: ${(props) => props.theme.colors.primary};
-  border: none;
-  color: ${(props) => props.theme.colors.text};
-  padding: 15px 32px;
-  padding-left: 200px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-family: ${(props) => props.theme.fontFamily};
-  ${mq("sm")} {
-    font-size: 16px; // larger font size for screens wider than 'sm'
-  }
-`
