@@ -27,7 +27,10 @@ export default function Header() {
           <SiteLogo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href={`${homeUrl}?lang=${lang}`}>{t("Home")}</NavLink>
+          <NavLink href={`${homeUrl}`}
+            className={resourceName === "home" && "current-page"}
+          
+          >{t("Home")}</NavLink>
           <NavLink
             href={`${homeUrl}book?lang=${lang}`}
             className={resourceName === "book" && "current-page"}

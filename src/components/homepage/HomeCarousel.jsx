@@ -8,7 +8,7 @@ import { mq } from "../../utils/mq"
 import { SlickSliderWrapper } from "./SlickSliderWrapper"
 import { useState } from "@wordpress/element"
 import { useTheme } from "@emotion/react"
-export const HomeCarousel = () => {
+export const HomeCarousel = ({ className }) => {
   const images = [img1, img2, img3]
   const [imageIndex, setImageIndex] = useState(0)
   const theme = useTheme()
@@ -23,11 +23,11 @@ export const HomeCarousel = () => {
     speed: 500,
     arrows: false,
     adaptiveHeight: true,
-    beforeChange: (current, next) => setImageIndex(next)
+    beforeChange: (current, next) => setImageIndex(next),
   }
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <SlickSliderWrapper>
         <Slider {...settings}>
           {images.map((image, index) => (
@@ -38,9 +38,14 @@ export const HomeCarousel = () => {
         </Slider>
       </SlickSliderWrapper>
       <Dots>
-        {images.map((image, index) => <Circle key={index}
-            color={imageIndex === index ? theme.colors.accent : theme.colors.primary} />
-         )}
+        {images.map((image, index) => (
+          <Circle
+            key={index}
+            color={
+              imageIndex === index ? theme.colors.accent : theme.colors.primary
+            }
+          />
+        ))}
       </Dots>
     </Wrapper>
   )
@@ -72,7 +77,15 @@ const Dots = styled.ul`
 `
 const Circle = styled.div`
   border-radius: 100px;
-  background-color: ${p => p.color};
-  width: 32px;
-  height: 32px;
+  background-color: ${(p) => p.color};
+  width: 16px;
+  height: 16px;
+  ${mq("lg")} {
+    width: 24px;
+    height: 24px;
+  }
+  ${mq("xl")} {
+    width: 32px;
+    height: 32px;
+  }
 `

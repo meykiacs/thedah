@@ -29,7 +29,12 @@ export default function MenuModal() {
           </Close>
           <Filler />
           <Nav>
-            <NavLink href={`${homeUrl}?lang=${lang}`}>{t("Home")}</NavLink>
+            <NavLink
+              href={`${homeUrl}`}
+              className={resourceName === "home" && "current-page"}
+            >
+              {t("Home")}
+            </NavLink>
             <NavLink
               href={`${homeUrl}book?lang=${lang}`}
               className={resourceName === "book" && "current-page"}
@@ -62,7 +67,7 @@ export default function MenuModal() {
             </NavLink>
           </Nav>
           <Footer>
-          <SubLink href={`${homeUrl}contact?lang=${lang}`}>
+            <SubLink href={`${homeUrl}contact?lang=${lang}`}>
               {t("Contact")}
             </SubLink>
           </Footer>

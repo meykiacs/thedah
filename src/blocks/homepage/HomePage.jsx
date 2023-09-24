@@ -2,7 +2,6 @@ import { ThemeProvider } from "@emotion/react"
 import GlobalCss from "../../components/GlobalCss"
 import Footer from "../../components/common/Footer"
 import Header from "../../components/common/Header"
-import PageContainer from "../../components/common/PageContainer"
 import SubFooter from "../../components/common/SubFooter"
 import { ResourceProvider } from "../../context/ResourceContext"
 import { RtlProvider } from "../../context/RtlProvider"
@@ -11,9 +10,10 @@ import { useColorSchemeContext } from "../../context/useColorSchemeContext"
 import useLanguageContext from "../../context/useLanguageContext"
 import "../../utils/i18n"
 import i18n from "../../utils/i18n"
-import { breakpoints } from "../../utils/mq"
+import { breakpoints, mq } from "../../utils/mq"
 import { darkTheme, lightTheme } from "../../utils/theme"
 import { HomeCarousel } from "../../components/homepage/HomeCarousel"
+import styled from "@emotion/styled"
 
 export default function HomePage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -40,7 +40,7 @@ export default function HomePage({ providedValues }) {
           <ResourceProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            <HomeCarousel />
+            <StyledHomeCarousel />
             <Footer />
             <SubFooter />
           </ResourceProvider>
@@ -49,3 +49,11 @@ export default function HomePage({ providedValues }) {
     </RtlProvider>
   )
 }
+
+const StyledHomeCarousel = styled(HomeCarousel)`
+  display: none;
+
+  ${mq('md')} {
+    display: block;
+  }
+`

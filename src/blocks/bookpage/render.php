@@ -9,14 +9,12 @@ global $container;
 
 $postType = 'thedah_bookfa';
 
-if (get_query_var('lang')) {
-  $lang = get_query_var('lang');
-  $postType = $lang === 'fa' ? 'thedah_bookfa' : 'thedah_book';
-  $books = $lang === 'fa' ? 'booksFa' : 'booksEn';
-  $faFetched = $lang === 'fa' ? '1' : '';
-  $enFetched = $lang === 'en' ? '1' : '';
-  $direction = $lang === 'en' ? 'ltr' : 'rtl';
-}
+$lang = get_query_var('lang') === 'en' ? 'en' : 'fa';
+$postType = $lang === 'fa' ? 'thedah_bookfa' : 'thedah_book';
+$books = $lang === 'fa' ? 'booksFa' : 'booksEn';
+$faFetched = $lang === 'fa' ? '1' : '';
+$enFetched = $lang === 'en' ? '1' : '';
+$direction = $lang === 'en' ? 'ltr' : 'rtl';
 $booksEn = [];
 $booksFa = [];
 
