@@ -14,6 +14,7 @@ i18n.use(initReactI18next).init({
         bookQuoteBody:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa distinctio, officiis, possimus hic officia pariatur id perferendis error porro quia quibusdam et voluptas animi suscipit ipsam tempore soluta quod amet?",
         bookQuoteFrom: "Confucius",
+        buyBooks: 'Buy Books',
         paperQuoteMain:
           "The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking...",
         paperQuoteBody:
@@ -32,6 +33,7 @@ i18n.use(initReactI18next).init({
         Designer: "Yalda Dehshiri",
         Edition: "Edition",
         edition: "edition",
+        enrollInCourses: 'Enroll in Courses',
         firstFooterTitle:
           "PhD in philosophy of education, member of the faculty of Tehran University",
         secondFooterTitle:
@@ -67,6 +69,7 @@ i18n.use(initReactI18next).init({
         T: "T",
         Title: "Title",
         Unavailable: "Unavailable",
+        watch: 'Watch',
         Year: "Year of publish",
       },
     },
@@ -81,6 +84,7 @@ i18n.use(initReactI18next).init({
         bookQuoteBody:
           "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ",
         bookQuoteFrom: "کنفسیوس",
+        buyBooks: 'خرید کتاب‌ها',
         paperQuoteMain:
           "جهانی که خلق کرده‌ایم، فرآیند افکار ماست. بدون تغییر افکارمان، نمی‌توان جهان را تغییر داد...",
         paperQuoteBody:
@@ -98,6 +102,7 @@ i18n.use(initReactI18next).init({
         Designer: "یلدا دهشیری",
         Edition: "نوبت چاپ",
         edition: "چاپ",
+        enrollInCourses: 'ثبت‌نام در دوره‌ها',
         firstFooterTitle:
           "دکترای فلسفه تعلیم و تربیت, عضو هیئت علمی دانشگاه تهران",
         secondFooterTitle:
@@ -134,6 +139,7 @@ i18n.use(initReactI18next).init({
         T: "تومان",
         Title: "عنوان",
         Unavailable: "ناموجود",
+        watch: 'ببینید',
         Year: "سال نشر",
       },
     },

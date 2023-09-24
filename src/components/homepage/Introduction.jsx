@@ -16,9 +16,11 @@ export const Introduction = () => {
         <img src={`${assetsImagesUrl}/intro.png`} alt="" />
       </ImageWrapper>
       <TextAndActionWrapper>
-        <Text>{t("firstFooterTitle")}</Text>
-        <Text>{t("secondFooterTitle")}</Text>
-        <Text>{t("thirdFooterTitle")}</Text>
+        <div>
+          <Text>{t("firstFooterTitle")}</Text>
+          <Text>{t("secondFooterTitle")}</Text>
+          <Text>{t("thirdFooterTitle")}</Text>
+        </div>
         <Text pt={12}>{t("intro")}</Text>
         <StyledButton
           as="a"
@@ -44,6 +46,12 @@ const StyledSection = styled(Section)`
     flex-direction: row;
     justify-content: space-around;
   }
+  ${mq("xl")} {
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+  }
+
 `
 
 const ImageWrapper = styled.div`
@@ -53,6 +61,7 @@ const ImageWrapper = styled.div`
     width: 100%;
     height: 100%;
   }
+  flex-shrink: 0;
 `
 const TextAndActionWrapper = styled.div`
   display: flex;
