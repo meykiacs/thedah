@@ -41,8 +41,11 @@ i18n.use(initReactI18next).init({
         Gallery: "Gallery",
         Home: "Home",
         imageDrop: "Click to add Image or Drop your image here",
+        intro:
+          "Dr. Afzal al-Sadat Hosseini, though being a professor at the University of Tehran, has always been concerned with educational reforms in the educational system and schools. She has worked for many years to achieve educational reforms and has designed a model that has trained thousands of teachers, administrators, and university professors over several decades…",
         ISBN: "ISBN",
         Link: "Link",
+        moreInfo: 'More information',
         numberOfPages: "Number of pages",
         Order: "Order",
         openQuote: "“",
@@ -105,8 +108,11 @@ i18n.use(initReactI18next).init({
         Home: "خانه",
         imageDrop:
           "برای افزودن تصویر کلیک کنید یا تصویر را در این محل رها کنید.",
+        intro:
+          "دکتر افضل السادات حسینی هرچند استاد دانشگاه تهران است، اما همواره دغدغه اصلاحات آموزشی در نظام آموزشی و مدارس را داشته است. او سالیان طولانی برای تحقق اصلاحات آموزشی تلاش کرده و مدلی را طراحی کرده است که طی چند دهه هزاران معلم، مدیر و استاد دانشگاه را آموزش داده...",
         ISBN: "شابک",
         Link: "لینک",
+        moreInfo: 'آشنایی بیشتر',
         numberOfPages: "تعداد صفحات",
         Order: "سفارش خرید",
         openQuote: "“",

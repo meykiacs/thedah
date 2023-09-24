@@ -1,6 +1,5 @@
 import styled from "@emotion/styled"
 
-
 const Button = ({
   variant,
   color,
@@ -41,6 +40,7 @@ const Button = ({
 }
 
 const ButtonBase = styled.button`
+  cursor: pointer;
   font-size: ${(p) => p.fz};
   font-weight: ${(p) => p.fw};
 

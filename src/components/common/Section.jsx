@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 
-export const Section = ({ children }) => {
-  return <Wrapper>{children}</Wrapper>
+export const Section = ({ children, ...delegated }) => {
+  return <Wrapper {...delegated}>{children}</Wrapper>
 }
 
 const Wrapper = styled.section`

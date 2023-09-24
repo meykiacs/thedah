@@ -14,6 +14,8 @@ import { breakpoints, mq } from "../../utils/mq"
 import { darkTheme, lightTheme } from "../../utils/theme"
 import { HomeCarousel } from "../../components/homepage/HomeCarousel"
 import styled from "@emotion/styled"
+import { Introduction } from "../../components/homepage/Introduction"
+import PageContainer from "../../components/common/PageContainer"
 
 export default function HomePage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -41,6 +43,9 @@ export default function HomePage({ providedValues }) {
             <GlobalCss />
             <Header />
             <StyledHomeCarousel />
+            <PageContainer color={theme.colors.white}>
+              <Introduction />
+            </PageContainer>
             <Footer />
             <SubFooter />
           </ResourceProvider>
@@ -53,7 +58,7 @@ export default function HomePage({ providedValues }) {
 const StyledHomeCarousel = styled(HomeCarousel)`
   display: none;
 
-  ${mq('md')} {
+  ${mq("md")} {
     display: block;
   }
 `
