@@ -71,6 +71,7 @@ $container->get(Block::class)->add('bookpage')
   ->add('dashboard')
   ->add('paperpage')
   ->add('aboutpage')
+  ->add('homepage')
   ->register();
 
 $bookCPT = new CPT('book', 'Book');
