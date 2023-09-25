@@ -16,6 +16,7 @@ import { HomeCarousel } from "../../components/homepage/HomeCarousel"
 import styled from "@emotion/styled"
 import { Introduction } from "../../components/homepage/Introduction"
 import PageContainer from "../../components/common/PageContainer"
+import { HomeBookSection } from "../../components/homepage/HomeBookSection"
 
 export default function HomePage({ providedValues }) {
   const { colorScheme } = useColorSchemeContext()
@@ -46,6 +47,7 @@ export default function HomePage({ providedValues }) {
             <PageContainer color={theme.colors.white}>
               <Introduction />
             </PageContainer>
+            <HomeBookSection />
             <Footer />
             <SubFooter />
           </ResourceProvider>
