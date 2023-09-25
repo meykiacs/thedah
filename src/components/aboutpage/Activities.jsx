@@ -7,11 +7,11 @@ import { useTranslation } from "react-i18next"
 import styled from "@emotion/styled"
 
 export const Activities = () => {
-  const { resource } = useResourceContext()
+  const { resources, resourceName } = useResourceContext()
   const { t } = useTranslation()
 
   const { lang } = useLanguageContext()
-  const { fa, en } = resource
+  const { fa, en } = resources[resourceName]
   const about = lang === "fa" ? fa : en
 
   return (

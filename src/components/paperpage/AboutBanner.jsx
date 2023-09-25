@@ -7,8 +7,8 @@ import useLanguageContext from "../../context/useLanguageContext"
 export default function AboutBanner() {
   const { lang } = useLanguageContext()
   const { assetsImagesUrl } = useWPContext()
-  const { resource } = useResourceContext()
-  const { fa, en } = resource
+  const { resources, resourceName } = useResourceContext()
+  const { fa, en } = resources[resourceName]
   const about = lang == "fa" ? fa : en
   return (
     <Wrapper>

@@ -7,11 +7,11 @@ import styled from "@emotion/styled"
 import { UnorderedList } from "./UnorderedList"
 
 export const ExecutiveRecords = () => {
-  const { resource } = useResourceContext()
+  const { resources, resourceName } = useResourceContext()
   const { t } = useTranslation()
 
   const { lang } = useLanguageContext()
-  const { fa, en } = resource
+  const { fa, en } = resources[resourceName]
   const about = lang === "fa" ? fa : en
 
   return (
