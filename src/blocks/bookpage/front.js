@@ -5,8 +5,6 @@ import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-bookpage")
-  document.documentElement.setAttribute("lang", root.dataset.lang)
-  document.body.dir = root.dataset.direction
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,
@@ -24,10 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
     booksEn: JSON.parse(document.getElementById("books-en").innerHTML),
   }
   render(
-    <LanguageProvider
-      language={root.dataset.lang}
-      direction={root.dataset.direction}
-    >
+    <LanguageProvider>
       <ColorSchemeProvider>
         <BookPage providedValues={providedValues} />
       </ColorSchemeProvider>

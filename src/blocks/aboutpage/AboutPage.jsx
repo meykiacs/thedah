@@ -12,30 +12,13 @@ import AboutBanner from "../../components/paperpage/AboutBanner"
 import { ResourceProvider } from "../../context/ResourceContext"
 import { RtlProvider } from "../../context/RtlProvider"
 import { WPProvider } from "../../context/WPContext"
-import { useColorSchemeContext } from "../../context/useColorSchemeContext"
-import useLanguageContext from "../../context/useLanguageContext"
+import { useCustomTheme } from "../../hooks/useCustomTheme"
+import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
-import i18n from "../../utils/i18n"
-import { breakpoints } from "../../utils/mq"
-import { darkTheme, lightTheme } from "../../utils/theme"
 
 export default function AboutPage({ providedValues }) {
-  const { colorScheme } = useColorSchemeContext()
-
-  const { lang, dir } = useLanguageContext()
-  if (lang === "en") {
-    i18n.changeLanguage("en")
-  }
-  if (lang === "fa") {
-    i18n.changeLanguage("fa")
-  }
-
-  const theme = {
-    fontFamily: "Vazirmatn, sans-serif",
-    direction: dir,
-    colors: colorScheme === "dark" ? darkTheme.colors : lightTheme.colors,
-    breakpoints,
-  }
+  useLanguageAndDirection()
+  const theme = useCustomTheme()
 
   return (
     <RtlProvider>
