@@ -29,8 +29,8 @@ export default function PaperForm({
 }) {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
-  const { resource, restNonce } = useResourceContext()
-  const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resource
+  const { resources, restNonce } = useResourceContext()
+  const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resources.paper
   const { resource: editingPaper, setResource: setEditingPaper } =
     useEditContext()
 

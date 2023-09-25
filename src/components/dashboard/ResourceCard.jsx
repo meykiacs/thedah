@@ -2,10 +2,11 @@ import { useEffect, useState } from "@wordpress/element"
 import useDelete from "../../hooks/useDelete"
 import useResourceContext from "../../context/useResourceContext"
 import PaperCard from "./PaperCard"
+import { BookCard } from "./BookCard"
 
-export function ResourceCard({ r }) {
-  const { resource, resourceName, mediaRestUrl } = useResourceContext()
-  const { setFa, setEn, restUrlEn, restUrlFa } = resource
+export function ResourceCard({ r, resourceName }) {
+  const { resources, mediaRestUrl } = useResourceContext()
+  const { setFa, setEn, restUrlEn, restUrlFa } = resources[resourceName]
   const [isDeleting, setIsDeleting] = useState(false)
   const [isMediaDeleting, setIsMediaDeleting] = useState(false)
 
@@ -26,7 +27,6 @@ export function ResourceCard({ r }) {
     console.log(deleteMediaResponseData)
   }
 
-  
   useEffect(() => {
     if (deleteResponseData && deleteResponseData.deleted === true) {
       const id = deleteResponseData.previous.id
@@ -47,11 +47,14 @@ export function ResourceCard({ r }) {
 
   let C
   switch (resourceName) {
-    case 'paper':
+    case "paper":
       C = PaperCard
-      break;
+      break
+    case "book":
+      C = BookCard
+      break
     default:
-      break;
+      break
   }
   return (
     <C

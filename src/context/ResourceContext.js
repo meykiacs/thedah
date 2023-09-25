@@ -38,72 +38,59 @@ export const ResourceProvider = ({ providedValues, children }) => {
   const { aboutRestUrlEn, aboutRestUrlFa } =
     providedValues
 
-  const bookResource = {
-    fa: booksFa,
-    en: booksEn,
-    setEn: setBooksEn,
-    setFa: setBooksFa,
-    isFaFetched: isBooksFaFetched,
-    isEnFetched: isBooksEnFetched,
-    setIsFaFetched: setIsBooksFaFetched,
-    setIsEnFetched: setIsBooksEnFetched,
-    restUrlEn: bookRestUrlEn,
-    restUrlFa: bookRestUrlFa,
+    const resources = {
+      book: {
+        fa: booksFa,
+        en: booksEn,
+        setEn: setBooksEn,
+        setFa: setBooksFa,
+        isFaFetched: isBooksFaFetched,
+        isEnFetched: isBooksEnFetched,
+        setIsFaFetched: setIsBooksFaFetched,
+        setIsEnFetched: setIsBooksEnFetched,
+        restUrlEn: bookRestUrlEn,
+        restUrlFa: bookRestUrlFa,
+      },
+      paper: {
+        fa: papersFa,
+        en: papersEn,
+        setEn: setPapersEn,
+        setFa: setPapersFa,
+        isFaFetched: isPapersFaFetched,
+        isEnFetched: isPapersEnFetched,
+        setIsFaFetched: setIsPapersFaFetched,
+        setIsEnFetched: setIsPapersEnFetched,
+        restUrlEn: paperRestUrlEn,
+        restUrlFa: paperRestUrlFa,
+      },
+      about: {
+        fa: aboutFa,
+        en: aboutEn,
+        setEn: setAboutEn,
+        setFa: setAboutFa,
+        isFaFetched: isAboutFaFetched,
+        isEnFetched: isAboutEnFetched,
+        setIsFaFetched: setIsAboutFaFetched,
+        setIsEnFetched: setIsAboutEnFetched,
+        restUrlEn: aboutRestUrlEn,
+        restUrlFa: aboutRestUrlFa,
+      },
+    }
+  
+    return (
+      <ResourceContext.Provider
+        value={{
+          resources, // all resources are now available simultaneously
+          resourceName, // this can still be used if you need to know the "active" resource
+          setResourceName, 
+          resourceHuman, 
+          setResourceHuman, 
+          mediaRestUrl, 
+          restNonce
+        }}
+      >
+        {children}
+      </ResourceContext.Provider>
+    )
   }
-
-  const paperResource = {
-    fa: papersFa,
-    en: papersEn,
-    setEn: setPapersEn,
-    setFa: setPapersFa,
-    isFaFetched: isPapersFaFetched,
-    isEnFetched: isPapersEnFetched,
-    setIsFaFetched: setIsPapersFaFetched,
-    setIsEnFetched: setIsPapersEnFetched,
-    restUrlEn: paperRestUrlEn,
-    restUrlFa: paperRestUrlFa,
-  }
-
-  const aboutResource = {
-    fa: aboutFa,
-    en: aboutEn,
-    setEn: setAboutEn,
-    setFa: setAboutFa,
-    isFaFetched: isAboutFaFetched,
-    isEnFetched: isAboutEnFetched,
-    setIsFaFetched: setIsAboutFaFetched,
-    setIsEnFetched: setIsAboutEnFetched,
-    restUrlEn: aboutRestUrlEn,
-    restUrlFa: aboutRestUrlFa,
-  }
-
-  let resource
-  switch (resourceName) {
-    case "book":
-      resource = bookResource
-      break
-    case "paper":
-      resource = paperResource
-      break
-    case "about":
-      resource = aboutResource
-      break
-  }
-  return (
-    <ResourceContext.Provider
-      value={{
-        resource,
-        resourceName,
-        setResourceName,
-        resourceHuman,
-        setResourceHuman,
-        mediaRestUrl,
-        restNonce,
-      }}
-    >
-      {children}
-    </ResourceContext.Provider>
-  )
-}
-
 export default ResourceContext

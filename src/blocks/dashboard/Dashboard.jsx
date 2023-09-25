@@ -12,6 +12,7 @@ import useLanguageContext from "../../context/useLanguageContext"
 import Shell from "../../components/dashboard/Shell"
 import { useState } from "@wordpress/element"
 import { ResourceProvider } from "../../context/ResourceContext"
+import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 
 const rtlCache = createEmotionCache({
   key: "mantine-rtl",
@@ -19,7 +20,7 @@ const rtlCache = createEmotionCache({
 })
 
 export default function Dashboard({ providedValues }) {
-  // const [colorScheme, toggleColorScheme] = useToggle(["light", "dark"])
+  useLanguageAndDirection()
   const [colorScheme, setColorScheme] = useState("light")
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"))

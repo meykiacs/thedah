@@ -36,7 +36,6 @@ window.addEventListener("DOMContentLoaded", () => {
     resourceHuman: root.dataset.resourceHuman,
   }
 
-  console.log(providedValues.aboutFa)
   render(
     <LanguageProvider>
       <Dashboard providedValues={providedValues} />

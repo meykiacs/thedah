@@ -4,8 +4,8 @@ import { Stack } from "@mantine/core"
 import useResourceContext from "../../context/useResourceContext"
 import { ResourceCard } from "./ResourceCard"
 
-export default function ResourceList() {
-  const { resource } = useResourceContext()
+export default function ResourceList({ resourceName }) {
+  const { resources } = useResourceContext()
   const {
     fa,
     en,
@@ -17,22 +17,23 @@ export default function ResourceList() {
     setEn,
     restUrlFa,
     restUrlEn,
-  } = resource
+  } = resources[resourceName]
   const { lang } = useLanguageContext()
-  const resources = lang === "fa" ? fa : en
+  const rs = lang === "fa" ? fa : en
 
   useEffect(() => {
     const fetchResource = async (url, setResource, setFetched) => {
       const response = await fetch(url)
       const data = await response.json()
-      const resources = data.map((r) => ({
+      const rs = data.map((r) => ({
         id: r.id,
         featured_media_urk: r.thumbnail,
         title: r.title.rendered,
         content: r.content.rendered,
         meta: r.meta,
+        type: r.type
       }))
-      setResource(resources)
+      setResource(rs)
       setFetched(true)
     }
 
@@ -57,8 +58,8 @@ export default function ResourceList() {
 
   return (
     <Stack maxW="container.md">
-      {resources.map((r) => (
-        <ResourceCard key={r.id} r={r} />
+      {rs.map((r) => (
+        <ResourceCard key={r.id} r={r} resourceName={resourceName} />
       ))}
     </Stack>
   )

@@ -11,41 +11,53 @@ import {
 } from "@mantine/core"
 import PictureDrop from "./PictureDrop"
 import { useEffect, useRef, useState } from "@wordpress/element"
-import useWPContext from "../../context/useWPContext"
 import useLanguageContext from "../../context/useLanguageContext"
-import useFetchPicture from "../../hooks/useFetchPicture"
 import DynamicInput from "./DynamicInput"
-import useDelete from "../../hooks/useDelete"
 import submitWPForm from "../../utils/submitWPForm"
 import { useTranslation } from "react-i18next"
 
-import useBooksContext from "../../context/useBooksContext"
 import useEditContext from "../../context/useEditContext"
-// import useGet from "../../hooks/useGet"
+import useResourceContext from "../../context/useResourceContext"
 
-export default function BookForm() {
-
-  let book = {}
+export default function BookForm({
+  featuredMediaId,
+  featuredMediaUrl,
+  setFeaturedMediaId,
+  setFeaturedMediaUrl,
+  setFiles,
+  isMediaUploading,
+  setIsMediaDeleting,
+  isMediaDeleting,
+}) {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
-  const { restNonce, bookRestUrlEn, bookRestUrlFa, mediaRestUrl } =
-    useWPContext()
-  const { booksFa, booksEn, setBooksFa, setBooksEn } = useBooksContext()
+  const { restNonce, resources } =
+    useResourceContext()
+  const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resources.book
   const { resource: editingBook, setResource: setEditingBook } =
     useEditContext()
 
-  const [files, setFiles] = useState([])
-  const [featuredMediaId, setFeaturedMediaId] = useState(0)
-  const [featuredMediaUrl, setFeaturedMediaUrl] = useState("")
-  const [coAuthors, setCoAuthors] = useState([""])
-  const [availability, setAvailability] = useState('available')
-  const [isMediaDeleting, setIsMediaDeleting] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
+    const [availability, setAvailability] = useState("available")
+    const [coAuthors, setCoAuthors] = useState([""])
+    
   const formRef = useRef(null)
 
-  const bookRestUrl = lang === "fa" ? bookRestUrlFa : bookRestUrlEn
-  const file = files[0] ?? null
+  const restUrl = lang === "fa" ? restUrlFa : restUrlEn
+
+  let book = {}
+
+  useEffect(() => {
+    if (editingBook !== null) {
+      setCoAuthors(editingBook.meta._thedah_book.coauthors)
+      setAvailability(editingBook.meta._thedah_book.availability)
+      formRef.current.scrollIntoView({ behavior: "smooth" })
+      formRef.current.focus()
+    }
+  }, [editingBook])
+
+
   const inputs = [
     { name: "title", placeholder: "Title", default: editingBook?.title ?? "" },
     {
@@ -85,55 +97,12 @@ export default function BookForm() {
     },
   ]
 
-  useEffect(() => {
-    if (editingBook !== null) {
-
-      setFeaturedMediaId(editingBook.featured_media)
-      setFeaturedMediaUrl(editingBook.featured_media_url)
-      setCoAuthors(editingBook.meta._thedah_book.coauthors)
-      setAvailability(editingBook.meta._thedah_book.availability)
-      formRef.current.scrollIntoView({behavior: 'smooth'})
-      formRef.current.focus()
-  
-      // console.log(editingBook)
-    }
-  }, [editingBook])
-
-  const [isMediaUploading, mediaUploadResponseData, mediaUploadError] =
-    useFetchPicture({ pictureFile: file, mediaRestUrl, restNonce })
-
-  useEffect(() => {
-    if (mediaUploadResponseData) {
-      setFeaturedMediaId(mediaUploadResponseData.id)
-      setFeaturedMediaUrl(mediaUploadResponseData.source_url)
-    }
-  }, [mediaUploadResponseData])
-
-  if (mediaUploadError) {
-    console.log(`Picture Post Error: ${mediaUploadError}`)
-  }
-
-  const [mediaDeleteResponseData, mediaDeleteError] = useDelete({
-    id: featuredMediaId,
-    isDeleting: isMediaDeleting,
-    setIsDeleting: setIsMediaDeleting,
-    restUrl: mediaRestUrl,
-  })
-
-  useEffect(() => {
-    if (mediaDeleteResponseData) {
-      // console.log(`Picture Delete Response: ${mediaDeleteError}`)
-      setFeaturedMediaId(0)
-      setFeaturedMediaUrl("")
-    }
-  }, [mediaDeleteResponseData, mediaDeleteError])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     const formData = new FormData(event.target)
     formData.append("status", "publish")
-    // coAuthors.forEach((c) => formData.append("ca[]", c))
     const bookData = {
       title: formData.get("title"),
       content: formData.get("content"),
@@ -156,7 +125,7 @@ export default function BookForm() {
     }
 
     const [responseData, error] = await submitWPForm(
-      bookRestUrl,
+      restUrl,
       restNonce,
       bookData,
       setIsSubmitting,
@@ -174,15 +143,15 @@ export default function BookForm() {
         book.meta = responseData.meta
         if (responseData.type === "thedah_book") {
           if (editingBook) {
-            setBooksEn(booksEn.map((b) => (b.id === book.id ? book : b)))
+            setEn(en.map((b) => (b.id === book.id ? book : b)))
           } else {
-            setBooksEn([book, ...booksEn])
+            setEn([book, ...en])
           }
         } else if (responseData.type === "thedah_bookfa") {
           if (editingBook) {
-            setBooksFa(booksFa.map((b) => (b.id === book.id ? book : b)))
+            setFa(fa.map((b) => (b.id === book.id ? book : b)))
           } else {
-            setBooksFa([book, ...booksFa])
+            setFa([book, ...fa])
           }
         } else {
           throw new Error("Error getting the submitted object back")

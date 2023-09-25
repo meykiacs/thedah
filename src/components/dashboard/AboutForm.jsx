@@ -17,15 +17,10 @@ export default function AboutForm({
 }) {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
-  const { resource, restNonce } = useResourceContext()
-  const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resource
-  // const {  resource: editingResource, setResource: setEditingResource } =
-  // useEditContext()
+  const { resources, restNonce, resourceName } = useResourceContext()
+  const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resources[resourceName]
   const aboutFromContext = lang === "fa" ? fa : en
   const [about, setAbout] = useState(aboutFromContext)
-  // useEffect(() => {
-  // setEditingResource(about)
-  // },[about, setEditingResource])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -61,7 +56,6 @@ export default function AboutForm({
     },
   ]
 
-  console.log(inputs)
   const handleSubmit = async (event) => {
     event.preventDefault()
 

@@ -9,8 +9,7 @@ import BookForm from "./BookForm"
 import AboutForm from "./AboutForm"
 
 export default function ResourceForm() {
-  const { resourceName, mediaRestUrl, restNonce } =
-    useResourceContext()
+  const { resourceName, mediaRestUrl, restNonce } = useResourceContext()
   const { resource: editingResource } = useEditContext()
 
   const [files, setFiles] = useState([])
@@ -18,7 +17,6 @@ export default function ResourceForm() {
   const [featuredMediaUrl, setFeaturedMediaUrl] = useState("")
   const [isMediaDeleting, setIsMediaDeleting] = useState(false)
 
-  
   const file = files[0] ?? null
 
   useEffect(() => {
@@ -51,7 +49,6 @@ export default function ResourceForm() {
 
   useEffect(() => {
     if (mediaDeleteResponseData) {
-      // console.log(`Picture Delete Response: ${mediaDeleteError}`)
       setFeaturedMediaId(0)
       setFeaturedMediaUrl("")
     }
@@ -71,6 +68,15 @@ export default function ResourceForm() {
     default:
   }
 
-  const props = {featuredMediaId, featuredMediaUrl, setFeaturedMediaId, setFeaturedMediaUrl, setFiles, isMediaUploading, setIsMediaDeleting, isMediaDeleting,}
+  const props = {
+    featuredMediaId,
+    featuredMediaUrl,
+    setFeaturedMediaId,
+    setFeaturedMediaUrl,
+    setFiles,
+    isMediaUploading,
+    setIsMediaDeleting,
+    isMediaDeleting,
+  }
   return <Component {...props} />
 }
