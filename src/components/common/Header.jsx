@@ -12,13 +12,11 @@ import { Root, Trigger } from "@radix-ui/react-dialog"
 import SearchModal from "./SearchModal"
 import MenuModal from "./MenuModal"
 import useResourceContext from "../../context/useResourceContext"
-import useLanguageContext from "../../context/useLanguageContext"
 
 export default function Header() {
   const { homeUrl } = useWPContext()
   const { t } = useTranslation()
   const { resourceName } = useResourceContext()
-  const { lang } = useLanguageContext()
   return (
     <header>
       <SuperHeader />
@@ -32,33 +30,33 @@ export default function Header() {
           
           >{t("Home")}</NavLink>
           <NavLink
-            href={`${homeUrl}book?lang=${lang}`}
+            href={`${homeUrl}book`}
             className={resourceName === "book" && "current-page"}
           >
             {t("Books")}
           </NavLink>
           <NavLink
-            href={`${homeUrl}gallery?lang=${lang}`}
+            href={`${homeUrl}gallery`}
             className={resourceName === "gallery" && "current-page"}
           >
             {t("Gallery")}
           </NavLink>
           <NavLink
-            href={`${homeUrl}paper?lang=${lang}`}
+            href={`${homeUrl}paper`}
             className={resourceName === "paper" && "current-page"}
           >
             {t("Papers")}
           </NavLink>
-          <NavLink href={`${homeUrl}course?lang=${lang}`}>
+          <NavLink href={`${homeUrl}course`}>
             {t("Courses")}
           </NavLink>
           <NavLink
-            href={`${homeUrl}about?lang=${lang}`}
+            href={`${homeUrl}about`}
             className={resourceName === "about" && "current-page"}
           >
             {t("About")}
           </NavLink>
-          <NavLink href={`${homeUrl}contact?lang=${lang}`}>
+          <NavLink href={`${homeUrl}contact`}>
             {t("Contact")}
           </NavLink>
         </DesktopNav>

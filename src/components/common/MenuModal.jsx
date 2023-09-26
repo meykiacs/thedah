@@ -8,13 +8,11 @@ import { keyframes } from "@emotion/react"
 import { IconX } from "@tabler/icons-react"
 import useWPContext from "../../context/useWPContext"
 import useResourceContext from "../../context/useResourceContext"
-import useLanguageContext from "../../context/useLanguageContext"
 
 export default function MenuModal() {
   const { t } = useTranslation()
   const { homeUrl } = useWPContext()
   const { resourceName } = useResourceContext()
-  const { lang } = useLanguageContext()
 
   return (
     <Portal>
@@ -36,38 +34,38 @@ export default function MenuModal() {
               {t("Home")}
             </NavLink>
             <NavLink
-              href={`${homeUrl}book?lang=${lang}`}
+              href={`${homeUrl}book`}
               className={resourceName === "book" && "current-page"}
             >
               {t("Books")}
             </NavLink>
             <NavLink
-              href={`${homeUrl}gallery?lang=${lang}`}
+              href={`${homeUrl}gallery`}
               className={resourceName === "gallery" && "current-page"}
             >
               {t("Gallery")}
             </NavLink>
             <NavLink
-              href={`${homeUrl}paper?lang=${lang}`}
+              href={`${homeUrl}paper`}
               className={resourceName === "paper" && "current-page"}
             >
               {t("Papers")}
             </NavLink>
-            <NavLink href={`${homeUrl}course?lang=${lang}`}>
+            <NavLink href={`${homeUrl}course`}>
               {t("Courses")}
             </NavLink>
             <NavLink
-              href={`${homeUrl}about?lang=${lang}`}
+              href={`${homeUrl}about`}
               className={resourceName === "about" && "current-page"}
             >
               {t("About")}
             </NavLink>
-            <NavLink href={`${homeUrl}contact?lang=${lang}`}>
+            <NavLink href={`${homeUrl}contact`}>
               {t("Contact")}
             </NavLink>
           </Nav>
           <Footer>
-            <SubLink href={`${homeUrl}contact?lang=${lang}`}>
+            <SubLink href={`${homeUrl}contact`}>
               {t("Contact")}
             </SubLink>
           </Footer>

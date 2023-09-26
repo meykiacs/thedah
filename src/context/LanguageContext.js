@@ -9,6 +9,7 @@ export const LanguageProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('language', lang)
     localStorage.setItem('direction', dir)
+    document.cookie = `language=${lang}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
   }, [lang, dir])
 
   return (
