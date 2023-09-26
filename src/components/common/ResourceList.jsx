@@ -5,7 +5,7 @@ import useResourceContext from "../../context/useResourceContext"
 import { PaperCard } from "../paperpage/PaperCard"
 import { RecentPaperCard } from "../paperpage/RecentPaperCard"
 
-export default function ResourceList({resource}) {
+export default function ResourceList({resourceName}) {
   const { resources } = useResourceContext()
 
   const {
@@ -19,7 +19,7 @@ export default function ResourceList({resource}) {
     setEn,
     restUrlEn,
     restUrlFa,
-  } = resources[resource]
+  } = resources[resourceName]
   const { lang } = useLanguageContext()
   const rs = lang === "fa" ? fa : en
 
@@ -58,7 +58,7 @@ export default function ResourceList({resource}) {
   ])
 
   let Component
-  switch (resource) {
+  switch (resourceName) {
     case "paper":
       Component = PaperCard
       break

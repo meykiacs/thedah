@@ -27,7 +27,7 @@ export default function PaperPage({ providedValues }) {
             <Header />
             <PaperBanner />
             <PaperListContainer color={theme.colors.white}>
-              <ResourceList resource='paper' />
+              <ResourceList resourceName='paper' />
             </PaperListContainer>
             <Footer />
             <SubFooter />
