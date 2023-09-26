@@ -1,11 +1,8 @@
 import { useEffect } from "@wordpress/element"
-import useLanguageContext from "../../context/useLanguageContext"
-import styled from "@emotion/styled"
-import useResourceContext from "../../context/useResourceContext"
-import { PaperCard } from "../paperpage/PaperCard"
-import { RecentPaperCard } from "../paperpage/RecentPaperCard"
+import useLanguageContext from "../context/useLanguageContext"
+import useResourceContext from "../context/useResourceContext"
 
-export default function ResourceList({resourceName}) {
+export default function useResourceList(resourceName) {
   const { resources } = useResourceContext()
 
   const {
@@ -57,32 +54,5 @@ export default function ResourceList({resourceName}) {
     setFa,
   ])
 
-  let Component
-  switch (resourceName) {
-    case "paper":
-      Component = PaperCard
-      break
-    default:
-      break
-  }
-  return (
-    <Wrapper>
-      {rs.map((r) => (
-        <>
-          <Component key={r.id} r={r} />
-          <RecentPaperCard key={r.id} r={r} />
-        </>
-      ))}
-    </Wrapper>
-  )
+  return rs
 }
-
-const Wrapper = styled.div`
-  padding-top: 40px;
-  padding-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  justify-content: space-between;
-  align-items: center;
-`

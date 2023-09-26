@@ -5,12 +5,9 @@ import { SectionTitle } from "../common/SectionTitle"
 import { useTranslation } from "react-i18next"
 import styled from "@emotion/styled"
 import { UnorderedList } from "./UnorderedList"
+import { OrderedList } from "./OrderedList"
 
-const StyledUnorderedList = styled(UnorderedList)`
-  margin-top: 25px;
-`
-
-const withResourceList = (titleKey, listKey) => {
+const withResourceList = (titleKey, listKey, ListComponent) => {
   return function CallbackComponent() {
     const { resources, resourceName } = useResourceContext()
     const { t } = useTranslation()
@@ -22,25 +19,33 @@ const withResourceList = (titleKey, listKey) => {
     return (
       <Section>
         <SectionTitle title={t(titleKey)} />
-        <StyledUnorderedList list={about?.meta?._thedah_about?.[listKey]} />
+        <ListComponent list={about?.meta?._thedah_about?.[listKey]} />
       </Section>
     )
   }
 }
 
+const StyledUnorderedList = styled(UnorderedList)`
+  margin-top: 25px;
+`
+
 export const AwardsAndHonors = withResourceList(
   "awardsAndHonors",
-  "awardsAndHonors"
+  "awardsAndHonors",
+  StyledUnorderedList
 )
 export const ExecutiveRecords = withResourceList(
   "executiveRecords",
-  "executiveRecords"
+  "executiveRecords",
+  StyledUnorderedList
 )
 export const Activities = withResourceList(
   "activities",
-  "activities"
+  "activities",
+  OrderedList
 )
 export const Education = withResourceList(
+  "Education",
   "education",
-  "education"
+  OrderedList
 )

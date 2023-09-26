@@ -274,7 +274,10 @@ export const SlickSliderWrapper = styled("div")`
   }
 
   /* Custom Slick Dots */
-
-
+  .slick-slide > div {
+      display: grid;
+      place-items: center;
+      margin: auto;
+    }
 `;
 

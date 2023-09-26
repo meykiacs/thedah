@@ -7,8 +7,10 @@ i18n.use(initReactI18next).init({
     en: {
       translation: {
         About: "About me",
+        activities: "Fields of Activities",
         Author: "Author",
         Available: "Available",
+        awardsAndHonors: 'Awards and Honors',
         bookQuoteMain:
           "Learning without thinking is useless, thinking without learning is dangerous.",
         bookQuoteBody:
@@ -34,6 +36,8 @@ i18n.use(initReactI18next).init({
         Edition: "Edition",
         edition: "edition",
         enrollInCourses: 'Enroll in Courses',
+        Education: 'Education',
+        executiveRecords: 'Executive Records',
         firstFooterTitle:
           "PhD in philosophy of education, member of the faculty of Tehran University",
         secondFooterTitle:
@@ -47,6 +51,7 @@ i18n.use(initReactI18next).init({
           "Dr. Afzal al-Sadat Hosseini, though being a professor at the University of Tehran, has always been concerned with educational reforms in the educational system and schools. She has worked for many years to achieve educational reforms and has designed a model that has trained thousands of teachers, administrators, and university professors over several decades…",
         ISBN: "ISBN",
         Link: "Link",
+        moreBooks: 'More Books',
         moreInfo: 'More information',
         numberOfPages: "Number of pages",
         Order: "Order",
@@ -76,8 +81,10 @@ i18n.use(initReactI18next).init({
     fa: {
       translation: {
         About: "درباره‌ی من",
+        activities: "زمینه‌های فعالیت",
         Author: "نویسنده",
         Available: "موجود",
+        awardsAndHonors: 'جوایز و افتخارات',
         Books: "کتابنامه",
         bookQuoteMain:
           "خواندن بی اندیشیدن بیهوده است، و اندیشیدن بدون خواندن خطرناک...",
@@ -102,7 +109,9 @@ i18n.use(initReactI18next).init({
         Designer: "یلدا دهشیری",
         Edition: "نوبت چاپ",
         edition: "چاپ",
+        Education: 'تحصیلات',
         enrollInCourses: 'ثبت‌نام در دوره‌ها',
+        executiveRecords: 'سوابق اجرایی',
         firstFooterTitle:
           "دکترای فلسفه تعلیم و تربیت, عضو هیئت علمی دانشگاه تهران",
         secondFooterTitle:
@@ -117,6 +126,7 @@ i18n.use(initReactI18next).init({
           "دکتر افضل السادات حسینی هرچند استاد دانشگاه تهران است، اما همواره دغدغه اصلاحات آموزشی در نظام آموزشی و مدارس را داشته است. او سالیان طولانی برای تحقق اصلاحات آموزشی تلاش کرده و مدلی را طراحی کرده است که طی چند دهه هزاران معلم، مدیر و استاد دانشگاه را آموزش داده...",
         ISBN: "شابک",
         Link: "لینک",
+        moreBooks: 'کتاب‌های بیشتر',
         moreInfo: 'آشنایی بیشتر',
         numberOfPages: "تعداد صفحات",
         Order: "سفارش خرید",

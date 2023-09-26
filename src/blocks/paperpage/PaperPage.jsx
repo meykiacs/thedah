@@ -4,7 +4,6 @@ import GlobalCss from "../../components/GlobalCss"
 import Footer from "../../components/common/Footer"
 import Header from "../../components/common/Header"
 import PageContainer from "../../components/common/PageContainer"
-import ResourceList from "../../components/common/ResourceList"
 import SubFooter from "../../components/common/SubFooter"
 import PaperBanner from "../../components/paperpage/PaperBanner"
 import { ResourceProvider } from "../../context/ResourceContext"
@@ -13,6 +12,7 @@ import { WPProvider } from "../../context/WPContext"
 import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
+import { PaperList } from "../../components/paperpage/PaperList"
 
 export default function PaperPage({ providedValues }) {
   useLanguageAndDirection()
@@ -27,7 +27,7 @@ export default function PaperPage({ providedValues }) {
             <Header />
             <PaperBanner />
             <PaperListContainer color={theme.colors.white}>
-              <ResourceList resourceName='paper' />
+              <PaperList />
             </PaperListContainer>
             <Footer />
             <SubFooter />

@@ -7,7 +7,7 @@ import Button from "../common/Button"
 import { useTheme } from "@emotion/react"
 
 export const Introduction = () => {
-  const { assetsImagesUrl } = useWPContext()
+  const { assetsImagesUrl, homeUrl } = useWPContext()
   const { t } = useTranslation()
   const theme = useTheme()
   return (
@@ -24,7 +24,7 @@ export const Introduction = () => {
         <Text pt={12}>{t("intro")}</Text>
         <StyledButton
           as="a"
-          href="https://google.com"
+          href={`${homeUrl}about`}
           variant="fill"
           br="7px"
           color={theme.colors.secondary}

@@ -29,9 +29,9 @@ $papers = $lang === 'fa' ? 'papersFa' : 'papersEn';
 $books = $lang === 'fa' ? 'booksFa' : 'booksEn';
 
 // either $aboutEn or $aboutFa
-$$about = $container->get(QueryResource::class)->getLastResource($postTypeAbout);
-$$papers = $container->get(QueryResource::class)->getResourceList($postTypePaper);
-$$books = $container->get(QueryResource::class)->getResourceList($postTypeBook);
+$$about = $container->get(QueryResource::class)->getLastResource($postTypeAbout, '_' . $container->get('prefix') . '_about');
+$$papers = $container->get(QueryResource::class)->getResourceList($postTypePaper, '_' . $container->get('prefix') . '_paper');
+$$books = $container->get(QueryResource::class)->getResourceList($postTypeBook, '_' . $container->get('prefix') . '_book');
 
 $aboutFaFetched = $lang === 'fa' ? '1' : '';
 $aboutEnFetched = $lang === 'en' ? '1' : '';
