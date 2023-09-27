@@ -28,6 +28,9 @@ const withResourceList = (titleKey, listKey, ListComponent) => {
 const StyledUnorderedList = styled(UnorderedList)`
   margin-top: 25px;
 `
+const StyledOrderedList = styled(OrderedList)`
+  margin-top: 25px;
+`
 
 export const AwardsAndHonors = withResourceList(
   "awardsAndHonors",
@@ -42,10 +45,10 @@ export const ExecutiveRecords = withResourceList(
 export const Activities = withResourceList(
   "activities",
   "activities",
-  OrderedList
+  StyledOrderedList
 )
 export const Education = withResourceList(
   "Education",
   "education",
-  OrderedList
+  StyledOrderedList
 )
