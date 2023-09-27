@@ -16,19 +16,22 @@ import {
 import PictureDrop from "./PictureDrop"
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
+import { useResourceMediaForm } from "../../hooks/useResourceMediaForm"
 
-export default function PaperForm({
-  featuredMediaId,
-  featuredMediaUrl,
-  setFeaturedMediaId,
-  setFeaturedMediaUrl,
-  setFiles,
-  isMediaUploading,
-  setIsMediaDeleting,
-  isMediaDeleting,
-}) {
+export function PaperForm() {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
+  const {
+    featuredMediaId,
+    featuredMediaUrl,
+    setFeaturedMediaId,
+    setFeaturedMediaUrl,
+    setFiles,
+    isMediaUploading,
+    setIsMediaDeleting,
+    isMediaDeleting,
+  } = useResourceMediaForm()
+
   const { resources, restNonce } = useResourceContext()
   const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resources.paper
   const { resource: editingPaper, setResource: setEditingPaper } =

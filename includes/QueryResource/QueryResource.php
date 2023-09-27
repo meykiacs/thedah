@@ -32,8 +32,8 @@ class QueryResource {
           'type'  =>  get_post_type(get_the_ID()),
           'title' => get_the_title(),
           'description' => get_the_content(),
-          'picture' => get_the_post_thumbnail_url($id, 'medium'),
-          'pictureId' => get_post_thumbnail_id($id),
+          'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
+          'featured_media' => get_post_thumbnail_id($id),
           'meta'  =>  [$metaField => get_post_meta($id, $metaField, true)],
         );
         array_push($resourceList, $resource);
@@ -61,8 +61,8 @@ class QueryResource {
         'type'  =>  get_post_type(get_the_ID()),
         'title' => get_the_title(),
         'description' => get_the_content(),
-        'picture' => get_the_post_thumbnail_url($id, 'medium'),
-        'pictureId' => get_post_thumbnail_id($id),
+        'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
+        'featured_media' => get_post_thumbnail_id($id),
         'meta'  =>  [$metaField => get_post_meta($id, $metaField, true)],
       );
     }

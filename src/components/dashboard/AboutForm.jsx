@@ -6,21 +6,31 @@ import { Box, Button, Card, Flex, Group, Stack, TextInput } from "@mantine/core"
 import PictureDrop from "./PictureDrop"
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
+import { useResourceMediaForm } from "../../hooks/useResourceMediaForm"
+import useResourceList from "../../hooks/useResourceList"
 
-export default function AboutForm({
-  featuredMediaId,
-  featuredMediaUrl,
-  setFiles,
-  isMediaUploading,
-  setIsMediaDeleting,
-  isMediaDeleting,
-}) {
+export function AboutForm() {
+  const {
+    featuredMediaId,
+    featuredMediaUrl,
+    setFiles,
+    isMediaUploading,
+    setIsMediaDeleting,
+    isMediaDeleting,
+  } = useResourceMediaForm()
+
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
   const { resources, restNonce, resourceName } = useResourceContext()
-  const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resources[resourceName]
-  const aboutFromContext = lang === "fa" ? fa : en
-  const [about, setAbout] = useState(aboutFromContext)
+  const { restUrlEn, restUrlFa, setEn, setFa } = resources[resourceName]
+  let about = useResourceList("about")
+  if (Array.isArray(about)) {
+    about = about[0]
+  }
+  console.log(about)
+  // const about = lang === "fa" ? fa : en
+  const setAbout = lang === "fa" ? setFa : setEn
+  // const [about, setAbout] = useState(aboutFromContext)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -34,9 +44,9 @@ export default function AboutForm({
   const restUrl = lang === "fa" ? restUrlFa : restUrlEn
 
   useEffect(() => {
-    setAbout(lang === 'fa' ? fa : en)
     formRef.current.reset()
-  }, [lang, en, fa])
+    //   setAbout(lang === "fa" ? fa : en)
+  }, [lang])
 
   useEffect(() => {
     setEducation(about?.meta?._thedah_about?.education ?? [""])
@@ -52,7 +62,7 @@ export default function AboutForm({
     {
       name: "academicRank",
       placeholder: "Academic Rank",
-      default: about?.meta._thedah_about?.academicRank ?? "",
+      default: about?.meta?._thedah_about?.academicRank ?? "",
     },
   ]
 
@@ -95,17 +105,7 @@ export default function AboutForm({
         newAbout.meta = responseData.meta
         if (responseData.type === "thedah_about") {
           setEn(newAbout)
-          // if (editingResource) {
-          //   setEn(en.map((b) => (b.id === paper.id ? paper : b)))
-          // } else {
-          //   setEn([paper, ...en])
-          // }
         } else if (responseData.type === "thedah_aboutfa") {
-          // if (editingPaper) {
-          //   setFa(fa.map((b) => (b.id === paper.id ? paper : b)))
-          // } else {
-          //   setFa([paper, ...fa])
-          // }
           setFa(newAbout)
         } else {
           throw new Error("Error getting the submitted object back")
@@ -114,12 +114,6 @@ export default function AboutForm({
       setAbout(newAbout)
     }
     if (error) console.error("Error submitting About", error)
-
-    // event.target.reset()
-    // setFeaturedMediaId(0)
-    // setFeaturedMediaUrl("")
-    // setCoAuthors([""])
-    // setFiles([])
   }
 
   return (

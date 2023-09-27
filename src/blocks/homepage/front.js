@@ -4,7 +4,7 @@ import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 import HomePage from "./HomePage"
 
 window.addEventListener("DOMContentLoaded", () => {
-  const root = document.getElementById("thedah-aboutpage")
+  const root = document.getElementById("thedah-homepage")
 
   const providedValues = {
     homeUrl: root.dataset.homeUrl,

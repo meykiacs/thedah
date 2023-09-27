@@ -1,147 +1,73 @@
 <?php
 
 use DI\Container;
+use Thedah\QueryResource\QueryResource;
 
 /**
  * @var Container $container
  */
 global $container;
 
-$booksEn = [];
-$booksFa = [];
+$lang = 'fa';
+
+if (isset($_COOKIE['language'])) {
+  $lang = $_COOKIE['language'];
+}
+
+$postTypeAbout = $lang === 'fa' ? 'thedah_aboutfa' : 'thedah_about';
+$postTypePaper = $lang === 'fa' ? 'thedah_paperfa' : 'thedah_paper';
+$postTypeBook = $lang === 'fa' ? 'thedah_bookfa' : 'thedah_book';
+
+$aboutEn = [];
+$aboutFa = [];
 $papersEn = [];
 $papersFa = [];
+$booksEn = [];
+$booksFa = [];
+$about = $lang === 'fa' ? 'aboutFa' : 'aboutEn';
+$papers = $lang === 'fa' ? 'papersFa' : 'papersEn';
+$books = $lang === 'fa' ? 'booksFa' : 'booksEn';
 
-$aboutEn = null;
-$aboutFa = null;
+// either $aboutEn or $aboutFa
+$$about = $container->get(QueryResource::class)->getLastResource($postTypeAbout, '_' . $container->get('prefix') . '_about');
+$$papers = $container->get(QueryResource::class)->getResourceList($postTypePaper, '_' . $container->get('prefix') . '_paper');
+$$books = $container->get(QueryResource::class)->getResourceList($postTypeBook, '_' . $container->get('prefix') . '_book');
 
-$query = new WP_Query(
-  [
-    'post_type' => 'thedah_bookfa',
-    'posts_per_page' => -1,
-  ]
-);
-
-if ($query->have_posts()) {
-  while ($query->have_posts()) {
-    $query->the_post();
-    $id = get_the_ID();
-    $book = array(
-      'id' => get_the_ID(),
-      'type' => get_post_type(get_the_ID()),
-      'title' => get_the_title(),
-      'content' => get_the_content(),
-      'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
-      'featured_media' => get_post_thumbnail_id($id),
-      'meta' => ['_thedah_book' => get_post_meta($id, '_thedah_book', true)],
-    );
-    array_push($booksFa, $book);
-  }
-}
-wp_reset_query();
-
-$query = new WP_Query(
-  [
-    'post_type' => 'thedah_paperfa',
-    'posts_per_page' => -1,
-  ]
-);
-
-if ($query->have_posts()) {
-  while ($query->have_posts()) {
-    $query->the_post();
-    $id = get_the_ID();
-    $paper = array(
-      'id' => get_the_ID(),
-      'type' => get_post_type(get_the_ID()),
-      'title' => get_the_title(),
-      'content' => get_the_content(),
-      'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
-      'featured_media' => get_post_thumbnail_id($id),
-      'meta' => ['_thedah_paper' => get_post_meta($id, '_thedah_paper', true)],
-    );
-    array_push($papersFa, $paper);
-  }
-}
-
-wp_reset_query();
-$query = new WP_Query(
-  [
-    'post_type' => 'thedah_aboutfa',
-    'posts_per_page' => -1,
-  ]
-);
-
-if ($query->have_posts()) {
-    $query->the_post();
-    $id = get_the_ID();
-    $aboutFa = array(
-      'id' => get_the_ID(),
-      'type' => get_post_type(get_the_ID()),
-      'title' => get_the_title(),
-      'content' => get_the_content(),
-      'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
-      'featured_media' => get_post_thumbnail_id($id),
-      'meta' => ['_thedah_about' => get_post_meta($id, '_thedah_about', true)],
-    );
-}
-wp_reset_query();
-
-wp_reset_query();
-$query = new WP_Query(
-  [
-    'post_type' => 'thedah_about',
-    'posts_per_page' => -1,
-  ]
-);
-
-if ($query->have_posts()) {
-    $query->the_post();
-    $id = get_the_ID();
-    $aboutEn = array(
-      'id' => get_the_ID(),
-      'type' => get_post_type(get_the_ID()),
-      'title' => get_the_title(),
-      'content' => get_the_content(),
-      'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
-      'featured_media' => get_post_thumbnail_id($id),
-      'meta' => ['_thedah_about' => get_post_meta($id, '_thedah_about', true)],
-    );
-}
-wp_reset_query();
-
+$aboutFaFetched = $lang === 'fa' ? '1' : '';
+$aboutEnFetched = $lang === 'en' ? '1' : '';
+$papersFaFetched = $lang === 'fa' ? '1' : '';
+$papersEnFetched = $lang === 'en' ? '1' : '';
+$booksFaFetched = $lang === 'fa' ? '1' : '';
+$booksEnFetched = $lang === 'en' ? '1' : '';
 
 ?>
-<div id="thedah-dashboard" data-is-rtl="<?php echo esc_attr(is_rtl()); ?>"
+<div id="thedah-dashboard"
   data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>"
   data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>"
+  data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>"
+  data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>"
+  data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>"
+  data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>"
+
+  data-about-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_about')); ?>"
+  data-about-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_aboutfa')); ?>"
   data-book-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_book')); ?>"
   data-book-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_bookfa')); ?>"
   data-paper-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paper')); ?>"
   data-paper-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paperfa')); ?>"
-  data-about-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_about')); ?>"
-  data-about-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_aboutfa')); ?>"
-  data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>"
-  data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>"
-  data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>"
-  data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>" 
-  data-books-en-fetched=""
-  data-books-fa-fetched="1"
-  data-papers-en-fetched=""
-  data-papers-fa-fetched="1"
-  data-about-en-fetched="1"
-  data-about-fa-fetched="1"
-  data-resource-name="book"
-  data-resource-human='Books'
-  >
+  data-about-en-fetched="<?php echo esc_attr($aboutEnFetched) ?>" data-about-fa-fetched="<?php echo esc_attr($aboutFaFetched) ?>"
+  data-books-en-fetched="<?php echo esc_attr($booksEnFetched) ?>" data-books-fa-fetched="<?php echo esc_attr($booksFaFetched) ?>"
+  data-papers-en-fetched="<?php echo esc_attr($papersEnFetched) ?>" data-papers-fa-fetched="<?php echo esc_attr($papersFaFetched) ?>"
+  data-resource-name="book">
 </div>
 
-<pre style="display: none !important" id="books-fa">
-  <?php echo wp_json_encode(array_values($booksFa)); ?>
+
+<pre style="display: none !important" id="about-fa">
+  <?php echo wp_json_encode($aboutFa); ?>
 </pre>
 
-<pre style="display: none !important" id="books-en">
-  <?php echo wp_json_encode(array_values($booksEn)); ?>
+<pre style="display: none !important" id="about-en">
+  <?php echo wp_json_encode($aboutEn); ?>
 </pre>
 
 <pre style="display: none !important" id="papers-fa">
@@ -152,10 +78,10 @@ wp_reset_query();
   <?php echo wp_json_encode(array_values($papersEn)); ?>
 </pre>
 
-<pre style="display: none !important" id="about-fa">
-  <?php echo wp_json_encode($aboutFa); ?>
+<pre style="display: none !important" id="books-fa">
+	<?php echo wp_json_encode(array_values($booksFa)); ?>
 </pre>
 
-<pre style="display: none !important" id="about-en">
-  <?php echo wp_json_encode($aboutEn); ?>
+<pre style="display: none !important" id="books-en">
+	<?php echo wp_json_encode(array_values($booksEn)); ?>
 </pre>

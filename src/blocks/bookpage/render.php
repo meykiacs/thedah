@@ -34,8 +34,8 @@ if ($query->have_posts()) {
       'type'  =>  get_post_type(get_the_ID()),
       'title' => get_the_title(),
       'description' => get_the_content(),
-      'picture' => get_the_post_thumbnail_url($id, 'full'),
-      'pictureId' => get_post_thumbnail_id($id),
+      'featured_media_url' => get_the_post_thumbnail_url($id, 'full'),
+      'featured_media' => get_post_thumbnail_id($id),
       'meta'  =>  get_post_meta($id, '_thedah_book', true),
     );
     array_push($$books, $book);

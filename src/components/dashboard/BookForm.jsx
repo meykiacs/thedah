@@ -18,30 +18,32 @@ import { useTranslation } from "react-i18next"
 
 import useEditContext from "../../context/useEditContext"
 import useResourceContext from "../../context/useResourceContext"
+import { useResourceMediaForm } from "../../hooks/useResourceMediaForm"
 
-export default function BookForm({
-  featuredMediaId,
-  featuredMediaUrl,
-  setFeaturedMediaId,
-  setFeaturedMediaUrl,
-  setFiles,
-  isMediaUploading,
-  setIsMediaDeleting,
-  isMediaDeleting,
-}) {
+export function BookForm() {
+  const {
+    featuredMediaId,
+    featuredMediaUrl,
+    setFeaturedMediaId,
+    setFeaturedMediaUrl,
+    setFiles,
+    isMediaUploading,
+    setIsMediaDeleting,
+    isMediaDeleting,
+  } = useResourceMediaForm()
+
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
-  const { restNonce, resources } =
-    useResourceContext()
+  const { restNonce, resources } = useResourceContext()
   const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resources.book
   const { resource: editingBook, setResource: setEditingBook } =
     useEditContext()
 
-    const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-    const [availability, setAvailability] = useState("available")
-    const [coAuthors, setCoAuthors] = useState([""])
-    
+  const [availability, setAvailability] = useState("available")
+  const [coAuthors, setCoAuthors] = useState([""])
+
   const formRef = useRef(null)
 
   const restUrl = lang === "fa" ? restUrlFa : restUrlEn
@@ -56,7 +58,6 @@ export default function BookForm({
       formRef.current.focus()
     }
   }, [editingBook])
-
 
   const inputs = [
     { name: "title", placeholder: "Title", default: editingBook?.title ?? "" },
@@ -96,7 +97,6 @@ export default function BookForm({
       default: editingBook?.meta?._thedah_book?.price ?? "",
     },
   ]
-
 
   const handleSubmit = async (event) => {
     event.preventDefault()

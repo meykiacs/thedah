@@ -15,12 +15,11 @@ export const HomeBookCard = ({ b }) => {
       ? "..." + str.slice(0, num)
       : str.slice(0, num) + "..."
   }
-console.log(b)
   return (
     <CardWrapper>
       <ImageWrapper>
-        {b.pictureId && b.pictureId > 0 ? (
-          <img src={b.picture} alt={b.title} />
+        {b.featured_media && b.featured_media > 0 ? (
+          <img src={b.featured_media_url} alt={b.title} />
         ) : (
           <img
             src={`${assetsImagesUrl}/image-placeholder.svg`}

@@ -1,9 +1,11 @@
 import { useEffect } from "@wordpress/element"
 import useLanguageContext from "../context/useLanguageContext"
 import useResourceContext from "../context/useResourceContext"
+import useWPContext from "../context/useWPContext"
 
 export default function useResourceList(resourceName) {
   const { resources } = useResourceContext()
+  const { mediaRestUrl } = useWPContext()
 
   const {
     fa,
@@ -24,14 +26,31 @@ export default function useResourceList(resourceName) {
     const fetchResource = async (url, setResource, setFetched) => {
       const response = await fetch(url)
       const data = await response.json()
-      const resource = data.map((r) => ({
-        id: r.id,
-        picture: r.thumbnail,
-        title: r.title.rendered,
-        description: r.content.rendered,
-        meta: r.meta,
-      }))
-      setResource(resource)
+
+      const resources = await Promise.all(
+        data.map(async (r) => {
+          let featured_media_url = ""
+          if (r.featured_media) {
+            const mediaResponse = await fetch(
+              `${mediaRestUrl}/${r.featured_media}`
+            )
+            const mediaData = await mediaResponse.json()
+            featured_media_url = mediaData.media_details.sizes.medium?.source_url
+          }
+
+          return {
+            id: r.id,
+            featured_media: r.featured_media,
+            featured_media_url: featured_media_url,
+            title: r.title.rendered,
+            description: r.content.rendered,
+            meta: r.meta,
+            type: r.type,
+          }
+        })
+      )
+
+      setResource(resources)
       setFetched(true)
     }
 
@@ -52,6 +71,7 @@ export default function useResourceList(resourceName) {
     setIsFaFetched,
     setEn,
     setFa,
+    mediaRestUrl,
   ])
 
   return rs

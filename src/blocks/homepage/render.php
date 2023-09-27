@@ -41,7 +41,7 @@ $booksFaFetched = $lang === 'fa' ? '1' : '';
 $booksEnFetched = $lang === 'en' ? '1' : '';
 
 ?>
-<div id="thedah-aboutpage"
+<div id="thedah-homepage"
   data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>"
   data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>"
   data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>"

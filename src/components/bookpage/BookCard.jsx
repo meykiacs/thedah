@@ -38,8 +38,8 @@ export function BookCard({ book }) {
       <ButDescription>
         <BookAndPrice>
           <ImageWrapper>
-            {book.pictureId && book.pictureId > 0 ? (
-              <img src={book.picture} alt={book.title} />
+            {book.featured_media_url && book.featured_media > 0 ? (
+              <img src={book.featured_media_url} alt={book.title} />
             ) : (
               <img
                 src={`${assetsImagesUrl}/image-placeholder.svg`}

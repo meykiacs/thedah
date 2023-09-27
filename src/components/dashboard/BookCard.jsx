@@ -17,7 +17,6 @@ import useEditContext from "../../context/useEditContext"
 export function BookCard({ r, isDeleting, setIsMediaDeleting, setIsDeleting }) {
   const { t } = useTranslation()
   const {setResource: setEditingResource} = useEditContext()
-
   return (
     <Card withBorder radius="md" p={0}>
       <Flex wrap="wrap" gap={50} justify="space-between">
@@ -83,7 +82,7 @@ export function BookCard({ r, isDeleting, setIsMediaDeleting, setIsDeleting }) {
           right="55px"
           loading={isDeleting}
           onClick={() => {
-            if (r.pictureId > 0) {
+            if (r.featured_media > 0) {
               setIsMediaDeleting(true)
             }
             setIsDeleting(true)

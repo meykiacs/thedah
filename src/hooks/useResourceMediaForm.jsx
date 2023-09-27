@@ -1,15 +1,11 @@
 import { useEffect, useState } from "@wordpress/element"
-import useFetchPicture from "../../hooks/useFetchPicture"
-import useDelete from "../../hooks/useDelete"
+import useFetchPicture from "../hooks/useFetchPicture"
+import useDelete from "../hooks/useDelete"
+import useEditContext from "../context/useEditContext"
+import useResourceContext from "../context/useResourceContext"
 
-import useEditContext from "../../context/useEditContext"
-import useResourceContext from "../../context/useResourceContext"
-import PaperForm from "./PaperForm"
-import BookForm from "./BookForm"
-import AboutForm from "./AboutForm"
-
-export default function ResourceForm() {
-  const { resourceName, mediaRestUrl, restNonce } = useResourceContext()
+export function useResourceMediaForm() {
+  const { mediaRestUrl, restNonce } = useResourceContext()
   const { resource: editingResource } = useEditContext()
 
   const [files, setFiles] = useState([])
@@ -54,21 +50,7 @@ export default function ResourceForm() {
     }
   }, [mediaDeleteResponseData, mediaDeleteError])
 
-  let Component
-  switch (resourceName) {
-    case "paper":
-      Component = PaperForm
-      break
-    case "book":
-      Component = BookForm
-      break
-    case "about":
-      Component = AboutForm
-      break
-    default:
-  }
-
-  const props = {
+  return {
     featuredMediaId,
     featuredMediaUrl,
     setFeaturedMediaId,
@@ -78,5 +60,4 @@ export default function ResourceForm() {
     setIsMediaDeleting,
     isMediaDeleting,
   }
-  return <Component {...props} />
 }
