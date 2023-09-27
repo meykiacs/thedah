@@ -17,6 +17,7 @@ if (isset($_COOKIE['language'])) {
 $postTypeAbout = $lang === 'fa' ? 'thedah_aboutfa' : 'thedah_about';
 $postTypePaper = $lang === 'fa' ? 'thedah_paperfa' : 'thedah_paper';
 $postTypeBook = $lang === 'fa' ? 'thedah_bookfa' : 'thedah_book';
+$postTypeSinglePost = $lang === 'fa' ? 'thedah_singlepostfa' : 'thedah_singlepost';
 
 $aboutEn = [];
 $aboutFa = [];
@@ -24,14 +25,17 @@ $papersEn = [];
 $papersFa = [];
 $booksEn = [];
 $booksFa = [];
+$singlePostsEn = [];
+$singlePostsFa = [];
 $about = $lang === 'fa' ? 'aboutFa' : 'aboutEn';
 $papers = $lang === 'fa' ? 'papersFa' : 'papersEn';
 $books = $lang === 'fa' ? 'booksFa' : 'booksEn';
+$singlePosts = $lang === 'fa' ? 'singlePostsFa' : 'singlePostsEn';
 
-// either $aboutEn or $aboutFa
 $$about = $container->get(QueryResource::class)->getLastResource($postTypeAbout, '_' . $container->get('prefix') . '_about');
 $$papers = $container->get(QueryResource::class)->getResourceList($postTypePaper, '_' . $container->get('prefix') . '_paper');
 $$books = $container->get(QueryResource::class)->getResourceList($postTypeBook, '_' . $container->get('prefix') . '_book');
+$$singlePosts = $container->get(QueryResource::class)->getResourceList($postTypeSinglePost, '_' . $container->get('prefix') . '_featuredMedia');
 
 $aboutFaFetched = $lang === 'fa' ? '1' : '';
 $aboutEnFetched = $lang === 'en' ? '1' : '';
@@ -39,6 +43,9 @@ $papersFaFetched = $lang === 'fa' ? '1' : '';
 $papersEnFetched = $lang === 'en' ? '1' : '';
 $booksFaFetched = $lang === 'fa' ? '1' : '';
 $booksEnFetched = $lang === 'en' ? '1' : '';
+
+$singlePostsFaFetched = $lang === 'fa' ? '1' : '';
+$singlePostsEnFetched = $lang === 'en' ? '1' : '';
 
 ?>
 <div id="thedah-dashboard"
@@ -55,9 +62,12 @@ $booksEnFetched = $lang === 'en' ? '1' : '';
   data-book-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_bookfa')); ?>"
   data-paper-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paper')); ?>"
   data-paper-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paperfa')); ?>"
+  data-singlepost-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_singlepost')); ?>"
+  data-singlepost-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_singlepostfa')); ?>"
   data-about-en-fetched="<?php echo esc_attr($aboutEnFetched) ?>" data-about-fa-fetched="<?php echo esc_attr($aboutFaFetched) ?>"
   data-books-en-fetched="<?php echo esc_attr($booksEnFetched) ?>" data-books-fa-fetched="<?php echo esc_attr($booksFaFetched) ?>"
   data-papers-en-fetched="<?php echo esc_attr($papersEnFetched) ?>" data-papers-fa-fetched="<?php echo esc_attr($papersFaFetched) ?>"
+  data-singleposts-en-fetched="<?php echo esc_attr($singlePostsEnFetched) ?>" data-singleposts-fa-fetched="<?php echo esc_attr($singlePostsFaFetched) ?>"
   data-resource-name="book">
 </div>
 
@@ -84,4 +94,12 @@ $booksEnFetched = $lang === 'en' ? '1' : '';
 
 <pre style="display: none !important" id="books-en">
 	<?php echo wp_json_encode(array_values($booksEn)); ?>
+</pre>
+
+<pre style="display: none !important" id="singleposts-fa">
+	<?php echo wp_json_encode(array_values($singlePostsFa)); ?>
+</pre>
+
+<pre style="display: none !important" id="singleposts-en">
+	<?php echo wp_json_encode(array_values($singlePostsEn)); ?>
 </pre>

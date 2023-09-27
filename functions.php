@@ -10,6 +10,7 @@ use Thedah\CPTResource\Model\CPTResource;
 use Thedah\CPTResource\Service\RegisterCPTResource;
 use Thedah\Models\Meta\AboutMeta;
 use Thedah\Models\Meta\BookMeta;
+use Thedah\Models\Meta\FeaturedImagesMeta;
 use Thedah\Models\Meta\PaperMeta;
 use Thedah\RegisterQueryVars\RegisterQueryVars;
 
@@ -95,6 +96,16 @@ $aboutCPTFa->metas[] = new AboutMeta();
 $aboutCPTResource = new CPTResource($aboutCPT);
 $aboutCPTFaResource = new CPTResource($aboutCPTFa);
 
+$singlePostCPT = new CPT('singlepost', 'Single Post');
+$singlePostCPT->public = true;
+$singlePostCPTFa = new CPT('singlepostfa', 'Single Post Fa');
+$singlePostCPTFa->public = true;
+
+$singlePostCPT->metas[] = new FeaturedImagesMeta();
+$singlePostCPTFa->metas[] = new FeaturedImagesMeta();
+$singlePostCPTResource = new CPTResource($singlePostCPT);
+$singlePostCPTFaResource = new CPTResource($singlePostCPTFa);
+
 $container->get(RegisterCPTResource::class)
   ->add($bookCPTResource)
   ->add($bookCPTFaResource)
@@ -102,6 +113,8 @@ $container->get(RegisterCPTResource::class)
   ->add($paperCPTFaResource)
   ->add($aboutCPTResource)
   ->add($aboutCPTFaResource)
+  ->add($singlePostCPTResource)
+  ->add($singlePostCPTFaResource)
   ->register();
 
 $registerQueryVars = $container->get(RegisterQueryVars::class);

@@ -94,6 +94,7 @@ export function NavbarSimple() {
     { link: "", label: "Books", icon: IconBook, name: "book" },
     { link: "", label: "Papers", icon: IconArticle, name: "paper" },
     { link: "", label: "About", icon: IconUser, name: "about" },
+    { link: "", label: "Single Post", icon: IconUser, name: "singlepost" },
   ]
 
   const { classes, cx } = useStyles()
