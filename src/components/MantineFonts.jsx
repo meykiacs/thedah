@@ -1,4 +1,4 @@
-import { Global } from "@mantine/core"
+import { Global } from "@emotion/react"
 import useWPContext from '../context/useWPContext'
 
 const MantineFonts = () => {
