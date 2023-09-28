@@ -58,6 +58,7 @@ $containerBuilder->addDefinitions([
   'prefix'  => 'thedah',
   'assets.fonts.url'  =>  get_theme_file_uri('assets/fonts'),
   'assets.images.url'  =>  get_theme_file_uri('assets/images'),
+  'node_modules.url'  => get_theme_file_uri('node_modules'),
   'query_vars' => ['lang'],
   RegisterQueryVars::class => function (ContainerInterface $c) {
     return new RegisterQueryVars($c);

@@ -1,6 +1,6 @@
 import { MantineProvider, createTheme } from "@mantine/core"
 import rtlPlugin from "stylis-plugin-rtl"
-import Fonts from "../../components/MantineFonts"
+import {MantineGlobal} from "../../components/MantineGlobal"
 import "../../utils/i18n"
 import { BooksProvider } from "../../context/BooksContext"
 import { WPProvider } from "../../context/WPContext"
@@ -9,8 +9,6 @@ import { Shell } from "../../components/dashboard/Shell"
 import { useState } from "@wordpress/element"
 import { ResourceProvider } from "../../context/ResourceContext"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
-import "../../../node_modules/@mantine/core/esm/index.css"
-import '@mantine/core/styles.css';
 
 export default function Dashboard({ providedValues }) {
   useLanguageAndDirection()
@@ -37,7 +35,7 @@ export default function Dashboard({ providedValues }) {
       <WPProvider providedValues={providedValues}>
         <ResourceProvider providedValues={providedValues}>
           <BooksProvider providedValues={providedValues}>
-            {/* <Fonts /> */}
+            <MantineGlobal />
             <Shell />
           </BooksProvider>
         </ResourceProvider>
