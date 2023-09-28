@@ -50,6 +50,25 @@
 //   )
 // }
 
+const links = [
+  {
+    link: "/about",
+    label: "Features",
+  },
+  {
+    link: "/pricing",
+    label: "Pricing",
+  },
+  {
+    link: "/learn",
+    label: "Learn",
+  },
+  {
+    link: "/community",
+    label: "Community",
+  },
+]
+
 import { useDisclosure } from "@mantine/hooks"
 import { AppShell, Burger, Group, Skeleton } from "@mantine/core"
 // import { MantineLogo } from '@mantine/ds';

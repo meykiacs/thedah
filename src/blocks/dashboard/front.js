@@ -1,6 +1,7 @@
 import { render } from "@wordpress/element"
 import { LanguageProvider } from "../../context/LanguageContext"
 import Dashboard from "./Dashboard"
+import "./front.css"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-dashboard")
