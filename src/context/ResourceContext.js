@@ -1,50 +1,52 @@
 import { createContext, useState } from "@wordpress/element"
+import useLanguageContext from "./useLanguageContext"
 
 const ResourceContext = createContext()
 
 export const ResourceProvider = ({ providedValues, children }) => {
+  const { lang } = useLanguageContext()
   const [resourceName, setResourceName] = useState(providedValues.resourceName)
   const [resourceHuman, setResourceHuman] = useState(
-    providedValues.resourceHuman
+    providedValues.resourceHuman,
   )
 
   const [booksFa, setBooksFa] = useState(providedValues.booksFa)
   const [booksEn, setBooksEn] = useState(providedValues.booksEn)
   const [isBooksFaFetched, setIsBooksFaFetched] = useState(
-    providedValues.isBooksFaFetched
+    providedValues.isBooksFaFetched,
   )
   const [isBooksEnFetched, setIsBooksEnFetched] = useState(
-    providedValues.isBooksEnFetched
+    providedValues.isBooksEnFetched,
   )
 
   const [papersFa, setPapersFa] = useState(providedValues.papersFa)
   const [papersEn, setPapersEn] = useState(providedValues.papersEn)
   const [isPapersFaFetched, setIsPapersFaFetched] = useState(
-    providedValues.isPapersFaFetched
+    providedValues.isPapersFaFetched,
   )
   const [isPapersEnFetched, setIsPapersEnFetched] = useState(
-    providedValues.isBooksEnFetched
+    providedValues.isBooksEnFetched,
   )
 
   const [singlePostsFa, setSinglePostsFa] = useState(
-    providedValues.singlePostsFa
+    providedValues.singlePostsFa,
   )
   const [singlePostsEn, setSinglePostsEn] = useState(
-    providedValues.singlePostsEn
+    providedValues.singlePostsEn,
   )
   const [isSinglePostsFaFetched, setIsSinglePostsFaFetched] = useState(
-    providedValues.isSinglePostsFaFetched
+    providedValues.isSinglePostsFaFetched,
   )
   const [isSinglePostsEnFetched, setIsSinglePostsEnFetched] = useState(
-    providedValues.isBooksEnFetched
+    providedValues.isBooksEnFetched,
   )
   const [aboutFa, setAboutFa] = useState(providedValues.aboutFa)
   const [aboutEn, setAboutEn] = useState(providedValues.aboutEn)
   const [isAboutFaFetched, setIsAboutFaFetched] = useState(
-    providedValues.isAboutFaFetched
+    providedValues.isAboutFaFetched,
   )
   const [isAboutEnFetched, setIsAboutEnFetched] = useState(
-    providedValues.isBooksEnFetched
+    providedValues.isBooksEnFetched,
   )
 
   const {
@@ -72,6 +74,9 @@ export const ResourceProvider = ({ providedValues, children }) => {
       setIsEnFetched: setIsBooksEnFetched,
       restUrlEn: bookRestUrlEn,
       restUrlFa: bookRestUrlFa,
+      rs: lang === 'fa' ? booksFa : booksEn,
+      setR: lang === 'fa' ? setBooksFa : setBooksEn,
+      restUrl: lang === 'fa' ? bookRestUrlFa : bookRestUrlEn
     },
     paper: {
       fa: papersFa,
@@ -84,8 +89,12 @@ export const ResourceProvider = ({ providedValues, children }) => {
       setIsEnFetched: setIsPapersEnFetched,
       restUrlEn: paperRestUrlEn,
       restUrlFa: paperRestUrlFa,
+      rs: lang === 'fa' ? papersFa : papersEn,
+      setR: lang === 'fa' ? setPapersFa : setPapersEn,
+      restUrl: lang === 'fa' ? paperRestUrlFa : paperRestUrlEn
+
     },
-    singlePost: {
+    singlepost: {
       fa: singlePostsFa,
       en: singlePostsEn,
       setEn: setSinglePostsEn,
@@ -96,6 +105,10 @@ export const ResourceProvider = ({ providedValues, children }) => {
       setIsEnFetched: setIsSinglePostsEnFetched,
       restUrlEn: singlePostRestUrlEn,
       restUrlFa: singlePostRestUrlFa,
+      rs: lang === 'fa' ? singlePostsFa : singlePostsEn,
+      setR: lang === 'fa' ? setSinglePostsFa : setSinglePostsEn,
+      restUrl: lang === 'fa' ? singlePostRestUrlFa : singlePostRestUrlEn
+
     },
     about: {
       fa: aboutFa,
@@ -108,6 +121,10 @@ export const ResourceProvider = ({ providedValues, children }) => {
       setIsEnFetched: setIsAboutEnFetched,
       restUrlEn: aboutRestUrlEn,
       restUrlFa: aboutRestUrlFa,
+      rs: lang === 'fa' ? aboutFa : aboutEn,
+      setR: lang === 'fa' ? setAboutFa : setAboutEn,
+      restUrl: lang === 'fa' ? aboutRestUrlFa : aboutRestUrlEn
+
     },
   }
 

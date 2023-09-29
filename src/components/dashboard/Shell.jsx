@@ -60,6 +60,7 @@ import ToggleTheme from "./ToggleTheme"
 import ToggleLanguage from "./ToggleLanguage"
 import { Box } from "react-feather"
 import { ThemeActionToggle } from "./ThemeActionToggle"
+import { CrudContextProvider } from "../../context/CrudContext"
 
 export function Shell() {
   const [opened, { toggle }] = useDisclosure()
@@ -77,50 +78,62 @@ export function Shell() {
   const [active, setActive] = useState(resourceName)
 
   return (
-    <AppShell
-      header={{ height: 100 }}
-      navbar={{
-        width: 300,
-        breakpoint: "sm",
-        collapsed: { mobile: !opened },
-      }}
-      padding="md"
-    >
-      <AppShell.Header px={{base: 'sm', md:'xl'}}>
-        <Flex justify="space-between" align="center" h='100%' direction='row-reverse'>
-          <Group>
-            <ThemeActionToggle />
-            <ToggleLanguage />
-          </Group>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-        </Flex>
-      </AppShell.Header>
-      <AppShell.Navbar p="md">
-        {data.map((item) => (
-          <NavLink
-            component="button"
-            active={active === item.name}
-            label={t(item.label)}
-            rightSection={<item.icon size="1rem" stroke={1.5} />}
-            key={item.label}
-            h={28}
-            mt="sm"
-            animate={false}
-            onClick={(event) => {
-              event.preventDefault()
-              if (resourceName !== item.name) {
-                setEditingResource(null)
-              }
-              setResourceName(item.name)
-              setResourceHuman(item.label)
-              setActive(item.name)
-            }}
-          />
-        ))}
-      </AppShell.Navbar>
-      <AppShell.Main>
-        <App />
-      </AppShell.Main>
-    </AppShell>
+    <CrudContextProvider>
+      <AppShell
+        header={{ height: 100 }}
+        navbar={{
+          width: 300,
+          breakpoint: "sm",
+          collapsed: { mobile: !opened },
+        }}
+        padding="md"
+      >
+        <AppShell.Header px={{ base: "sm", md: "xl" }}>
+          <Flex
+            justify="space-between"
+            align="center"
+            h="100%"
+            direction="row-reverse"
+          >
+            <Group>
+              <ThemeActionToggle />
+              <ToggleLanguage />
+            </Group>
+            <Burger
+              opened={opened}
+              onClick={toggle}
+              hiddenFrom="sm"
+              size="sm"
+            />
+          </Flex>
+        </AppShell.Header>
+        <AppShell.Navbar p="md">
+          {data.map((item) => (
+            <NavLink
+              component="button"
+              active={active === item.name}
+              label={t(item.label)}
+              rightSection={<item.icon size="1rem" stroke={1.5} />}
+              key={item.label}
+              h={28}
+              mt="sm"
+              animate={false}
+              onClick={(event) => {
+                event.preventDefault()
+                if (resourceName !== item.name) {
+                  setEditingResource(null)
+                }
+                setResourceName(item.name)
+                setResourceHuman(item.label)
+                setActive(item.name)
+              }}
+            />
+          ))}
+        </AppShell.Navbar>
+        <AppShell.Main>
+          <App />
+        </AppShell.Main>
+      </AppShell>
+    </CrudContextProvider>
   )
 }

@@ -7,7 +7,7 @@ export default function ResourceList({ resourceName }) {
   return (
     <Stack maxW="container.md">
       {rs.map((r) => (
-        <ResourceCard key={r.id} r={r} resourceName={resourceName} />
+        <ResourceCard r={r} key={r.id} resourceName={resourceName} />
       ))}
     </Stack>
   )

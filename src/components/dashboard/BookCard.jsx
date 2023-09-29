@@ -13,25 +13,24 @@ import {
 } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import useEditContext from "../../context/useEditContext"
+import useWPContext from "../../context/useWPContext"
 
 export function BookCard({ r, isDeleting, setIsMediaDeleting, setIsDeleting }) {
   const { t } = useTranslation()
-  const {setResource: setEditingResource} = useEditContext()
+  const { setResource: setEditingResource } = useEditContext()
+  const { assetsImagesUrl } = useWPContext()
   return (
     <Card withBorder radius="md" p={0}>
       <Flex wrap="wrap" gap={50} justify="space-between">
         <Group noWrap spacing={25} align="start">
           <Center pos="relative">
-            {r.featured_media_url ? (
-              <Image
-                src={r.featured_media_url}
-                height={300}
-                width={230}
-                alt={r.title}
-              />
-            ) : (
-              <Image src={null} height={300} width={230} withPlaceholder />
-            )}
+            <Image
+              src={r.featured_media_url}
+              height={300}
+              width={230}
+              alt={r.title}
+              fallbackSrc={`${assetsImagesUrl}/image-placeholder.svg`}
+            />
             <Badge pos="absolute" bottom={5}>
               {r.meta._thedah_book.availability}
             </Badge>

@@ -1,4 +1,4 @@
-import { Box } from "@mantine/core"
+import { Accordion, Box } from "@mantine/core"
 import useResourceContext from "../../context/useResourceContext"
 import ResourceList from "./ResourceList"
 import { PaperForm } from "../dashboard/PaperForm"
@@ -11,17 +11,26 @@ export default function App() {
     paper: PaperForm,
     book: BookForm,
     about: AboutForm,
-    singlepost: SinglePostForm
+    singlepost: SinglePostForm,
   }
-
-  const { resourceName } = useResourceContext()
+  const { resourceName, resourceHuman } = useResourceContext()
   const Form = FORM_MAP[resourceName]
+
   return (
     <>
       <Box mb={20}>
         <Form />
       </Box>
-      {(resourceName !== "about" && resourceName !== 'singlepost') && <ResourceList resourceName={resourceName} />}
+      {resourceName !== "about" && resourceName !== "singlepost" && (
+        <Accordion>
+          <Accordion.Item key="resourceList" value={resourceName}>
+            <Accordion.Control>{resourceHuman}</Accordion.Control>
+            <Accordion.Panel>
+              <ResourceList resourceName={resourceName} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        </Accordion>
+      )}
     </>
   )
   // )
