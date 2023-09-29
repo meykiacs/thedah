@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
+    // colorScheme: root.dataset.colorScheme,
     siteTitle: root.dataset.siteTitle,
     restNonce: root.dataset.restNonce,
     mediaRestUrl: root.dataset.mediaRestUrl,
