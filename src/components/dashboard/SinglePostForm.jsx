@@ -1,113 +1,57 @@
-import { useState } from "@wordpress/element"
-import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone"
-import useResourceContext from "../../context/useResourceContext"
-import {useCrudContext} from "../../context/CrudContext"
+import { useCrudContext } from "../../context/CrudContext"
+import { ImageList } from "./ImageList"
+import { ImageDropzone } from "./ImageDropZone"
+import { useHandleSubmit } from "../../hooks/useHandleSubmit"
+import useResourceList from "../../hooks/useResourceList"
 
-export const SinglePostForm = ({ postType }) => {
+export const SinglePostForm = ({ maxImages }) => {
   const {
     selectedPostId,
     isEditing,
     setIsEditing,
-    updatePost,
-    createPost,
+    uploadImage,
+    removeImage,
+    images,
   } = useCrudContext()
-  const { mediaRestUrl, restNonce, resources } = useResourceContext()
-  const [createImages, setCreateImages] = useState([])
-  const [editImages, setEditImages] = useState([])
+  const rs = useResourceList("singlepost")
 
-  const images = isEditing ? editImages : createImages
-  let post = null
+  let selectedPost = null
   if (selectedPostId) {
-    post = resources[postType].filter((p) => selectedPostId === p.id)
+    selectedPost = rs.find((p) => selectedPostId === p.id)
+  }
+  const meta = {
+    _thedah_featured_images: images,
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
-    const formData = new FormData(event.target)
-    formData.append("status", "publish")
-    const data = {
-      title: formData.get("title"),
-      content: formData.get("content"),
-      status: "publish",
-      meta: {
-        _thedah_featured_images:
-          selectedPostId === 0 ? createImages : editImages,
-      },
-    }
-    if (isEditing) {
-      updatePost(selectedPostId, data)
-    } else {
-      createPost(data)
-    }
-  }
-
-  const uploadImage = async (file) => {
-    const formData = new FormData()
-    formData.append("file", file)
-
-    const response = await fetch(mediaRestUrl, {
-      method: "POST",
-      headers: { "X-WP-Nonce": restNonce },
-      body: formData,
-    })
-
-    if (!response.ok) {
-      console.error("Upload failed:", response)
-      return
-    }
-
-    const data = await response.json()
-    console.log("Upload succeeded:", data)
-    const setImages = isEditing ? setEditImages : setCreateImages
-    setImages((images) => [
-      ...images,
-      {
-        id: data.id,
-        mediumUrl: data.media_details.sizes.medium?.source_url ?? "",
-        thumbnailUrl: data.media_details.sizes.thumbnail?.source_url ?? "",
-        mediumLargeUrl: data.media_details.sizes.medium_large?.source_url ?? "",
-        largeUrl: data.media_details.sizes.large?.source_url ?? "",
-        fullUrl: data.media_details.sizes.full?.source_url ?? "",
-      },
-    ])
-  }
-
-  const removeImage = async (id) => {
-    const response = await fetch(`${mediaRestUrl}/${id}`, { method: "DELETE" })
-
-    if (!response.ok) {
-      console.error("Delete failed:", response)
-      return
-    }
-
-    console.log("Delete succeeded:", id)
-    setCreateImages((images) => images.filter((image) => image.id !== id))
-    setEditImages((images) => images.filter((image) => image.id !== id))
-  }
-
+  const handleSubmit = useHandleSubmit()
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{isEditing ? "Edit Post" : "CreatePost"}</h2>
-      <input type="text" name="title" defaultValue={post?.title?.rendered} />
-      <textarea name="content" defaultValue={post?.content?.rendered} />
-      <Dropzone
-        onDrop={(files) => files.forEach((f) => uploadImage(f, true))}
-        accept={IMAGE_MIME_TYPE}
+    <form onSubmit={(event) => handleSubmit(event, meta)}>
+      <h2>{isEditing ? "Edit Post" : "Create Post"}</h2>
+      <input
+        type="text"
+        name="title"
+        defaultValue={
+          isEditing && selectedPost?.title ? selectedPost.title : ""
+        }
+      />
+      <textarea
+        name="content"
+        defaultValue={
+          isEditing && selectedPost?.content ? selectedPost.content : ""
+        }
+      />
+      <ImageDropzone
+        onDrop={(files) => files.forEach((f) => uploadImage(f, maxImages))}
       />
       <div>
-        {images.map((image) => (
-          <div key={image.id}>
-            <img src={image.mediumUrl} alt="" />
-            <button onClick={() => removeImage(image.id)}>Remove</button>
-          </div>
-        ))}
+        <ImageList images={images} onRemove={removeImage} />
       </div>
 
       <button type="submit">{isEditing ? "Update" : "Create"}</button>
       {isEditing && (
         <button
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault()
             setIsEditing(false)
           }}
         >

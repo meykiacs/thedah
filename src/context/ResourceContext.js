@@ -76,7 +76,10 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrlFa: bookRestUrlFa,
       rs: lang === 'fa' ? booksFa : booksEn,
       setR: lang === 'fa' ? setBooksFa : setBooksEn,
-      restUrl: lang === 'fa' ? bookRestUrlFa : bookRestUrlEn
+      restUrl: lang === 'fa' ? bookRestUrlFa : bookRestUrlEn,
+      isFetched: lang === 'fa' ? isBooksFaFetched : isBooksEnFetched,
+      setIsFetched: lang === 'fa' ? setIsBooksFaFetched : setIsBooksEnFetched,
+
     },
     paper: {
       fa: papersFa,
@@ -91,8 +94,9 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrlFa: paperRestUrlFa,
       rs: lang === 'fa' ? papersFa : papersEn,
       setR: lang === 'fa' ? setPapersFa : setPapersEn,
-      restUrl: lang === 'fa' ? paperRestUrlFa : paperRestUrlEn
-
+      restUrl: lang === 'fa' ? paperRestUrlFa : paperRestUrlEn,
+      isFetched: lang === 'fa' ? isPapersFaFetched : isPapersEnFetched,
+      setIsFetched: lang === 'fa' ? setIsPapersFaFetched : setIsPapersEnFetched,
     },
     singlepost: {
       fa: singlePostsFa,
@@ -107,7 +111,9 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrlFa: singlePostRestUrlFa,
       rs: lang === 'fa' ? singlePostsFa : singlePostsEn,
       setR: lang === 'fa' ? setSinglePostsFa : setSinglePostsEn,
-      restUrl: lang === 'fa' ? singlePostRestUrlFa : singlePostRestUrlEn
+      restUrl: lang === 'fa' ? singlePostRestUrlFa : singlePostRestUrlEn,
+      isFetched: lang === 'fa' ? isSinglePostsFaFetched : isSinglePostsEnFetched,
+      setIsFetched: lang === 'fa' ? setIsSinglePostsFaFetched : setIsSinglePostsEnFetched,
 
     },
     about: {
@@ -123,7 +129,9 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrlFa: aboutRestUrlFa,
       rs: lang === 'fa' ? aboutFa : aboutEn,
       setR: lang === 'fa' ? setAboutFa : setAboutEn,
-      restUrl: lang === 'fa' ? aboutRestUrlFa : aboutRestUrlEn
+      restUrl: lang === 'fa' ? aboutRestUrlFa : aboutRestUrlEn,
+      isFetched: lang === 'fa' ? isAboutFaFetched : isAboutEnFetched,
+      setIsFetched: lang === 'fa' ? setIsAboutFaFetched : setIsAboutEnFetched,
 
     },
   }

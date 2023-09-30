@@ -33,7 +33,7 @@ $singlePosts = $lang === 'fa' ? 'singlePostsFa' : 'singlePostsEn';
 $$about = $container->get(QueryResource::class)->getLastResource($postTypeAbout, '_' . $container->get('prefix') . '_about');
 $$papers = $container->get(QueryResource::class)->getResourceList($postTypePaper, '_' . $container->get('prefix') . '_paper');
 $$books = $container->get(QueryResource::class)->getResourceList($postTypeBook, '_' . $container->get('prefix') . '_book');
-$$singlePosts = $container->get(QueryResource::class)->getResourceList($postTypeSinglePost, '_' . $container->get('prefix') . '_featuredMedia');
+$$singlePosts = $container->get(QueryResource::class)->getResourceList($postTypeSinglePost, '_' . $container->get('prefix') . '_featured_images');
 
 $aboutFaFetched = $lang === 'fa' ? '1' : '';
 $aboutEnFetched = $lang === 'en' ? '1' : '';

@@ -1,27 +1,12 @@
 import { useEffect } from "@wordpress/element"
-import useLanguageContext from "../context/useLanguageContext"
 import useResourceContext from "../context/useResourceContext"
 import useWPContext from "../context/useWPContext"
 
 export default function useResourceList(resourceName) {
   const { resources } = useResourceContext()
   const { mediaRestUrl } = useWPContext()
-
-  const {
-    fa,
-    en,
-    isFaFetched,
-    isEnFetched,
-    setIsFaFetched,
-    setIsEnFetched,
-    setFa,
-    setEn,
-    restUrlEn,
-    restUrlFa,
-  } = resources[resourceName]
-  const { lang } = useLanguageContext()
-  const rs = lang === "fa" ? fa : en
-
+  
+  const { restUrl, setIsFetched, rs, setR, isFetched } = resources[resourceName]
   useEffect(() => {
     const fetchResource = async (url, setResource, setFetched) => {
       const response = await fetch(url)
@@ -32,10 +17,11 @@ export default function useResourceList(resourceName) {
           let featured_media_url = ""
           if (r.featured_media) {
             const mediaResponse = await fetch(
-              `${mediaRestUrl}/${r.featured_media}`
+              `${mediaRestUrl}/${r.featured_media}`,
             )
             const mediaData = await mediaResponse.json()
-            featured_media_url = mediaData.media_details.sizes.medium?.source_url
+            featured_media_url =
+              mediaData.media_details.sizes.medium?.source_url
           }
 
           return {
@@ -47,32 +33,17 @@ export default function useResourceList(resourceName) {
             meta: r.meta,
             type: r.type,
           }
-        })
+        }),
       )
 
       setResource(resources)
       setFetched(true)
     }
 
-    if (lang === "fa" && !isFaFetched) {
-      fetchResource(restUrlFa, setFa, setIsFaFetched)
+    if (!isFetched) {
+      fetchResource(restUrl, setR, setIsFetched)
     }
-
-    if (lang === "en" && !isEnFetched) {
-      fetchResource(restUrlEn, setEn, setIsEnFetched)
-    }
-  }, [
-    lang,
-    restUrlEn,
-    restUrlFa,
-    isEnFetched,
-    isFaFetched,
-    setIsEnFetched,
-    setIsFaFetched,
-    setEn,
-    setFa,
-    mediaRestUrl,
-  ])
+  }, [mediaRestUrl, restUrl, setIsFetched, isFetched, setR])
 
   return rs
 }

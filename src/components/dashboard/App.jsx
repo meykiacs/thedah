@@ -5,6 +5,7 @@ import { PaperForm } from "../dashboard/PaperForm"
 import { BookForm } from "../dashboard/BookForm"
 import { AboutForm } from "../dashboard/AboutForm"
 import { SinglePostForm } from "./SinglePostForm"
+import { SinglePostList } from "./SinglePostList"
 
 export default function App() {
   const FORM_MAP = {
@@ -31,6 +32,7 @@ export default function App() {
           </Accordion.Item>
         </Accordion>
       )}
+      {resourceName === "singlepost" && <SinglePostList postType="singlepost" />}
     </>
   )
   // )

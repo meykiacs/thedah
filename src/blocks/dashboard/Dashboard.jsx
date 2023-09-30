@@ -20,7 +20,6 @@ export default function Dashboard({ providedValues }) {
     headings: { fontFamily: "Vazirmatn, sans-serif" },
   })
 
-  console.log(providedValues.colorScheme)
   return (
     <DirectionProvider initialDirection={dir} detectDirection={false}>
       <MantineProvider

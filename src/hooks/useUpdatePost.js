@@ -2,13 +2,13 @@ import { useState } from "@wordpress/element"
 import { createPostObjectFromData } from "../utils/wp"
 import useResourceContext from "../context/useResourceContext"
 
-export const useUpdatePost = () => {
+export const useUpdatePost = ({ id }) => {
   const { resourceName, resources, restNonce } = useResourceContext()
   const { restUrl, rs, setR } = resources[resourceName]
 
   const [isUpdatingPost, setIsUpdatingPost] = useState(false)
 
-  async function updatePost(id, data) {
+  async function updatePost(data) {
     setIsUpdatingPost(true)
     const endpoint = `${restUrl}/${id}`
     const body = JSON.stringify(data)

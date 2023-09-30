@@ -7,28 +7,54 @@ import {
 import useDelete from "../hooks/useDelete"
 import { useUpdatePost } from "../hooks/useUpdatePost"
 import { useCreatePost } from "../hooks/useCreatePost"
+import { useImage } from "../hooks/useImage"
 
 const CrudContext = createContext()
 
 export const CrudContextProvider = ({ children }) => {
   const [isDeleting, setIsDeleting] = useState(false)
   const [selectedPostId, setSelectedPostId] = useState(0)
-  const [isEditing, setIsEditing] = useState(null)
-  const [deleteMedia, setDeleteMedia] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
 
-  const [updatePost, isUpdatingPost] = useUpdatePost()
+  // image upload and remove
+  const { images, uploadImage, removeImage } = useImage(
+    isEditing,
+    selectedPostId,
+  )
+
+  // post create and update
+  const [updatePost, isUpdatingPost] = useUpdatePost({ id: selectedPostId })
   const [createPost, isCreatingPost] = useCreatePost()
+  const createOrUpdatePost = isEditing ? updatePost : createPost
+  const isCreatingOrUpdating = isUpdatingPost || isCreatingPost
+  useEffect(() => {
+    if (isUpdatingPost) {
+      setIsEditing(true)
+    } else {
+      setIsEditing(false)
+    }
+  }, [isUpdatingPost])
 
-  if (isEditing && !selectedPostId) {
-    throw new Error("Editing while no post is selected")
-  }
+  useEffect(() => {
+    if (isUpdatingPost) {
+      setIsEditing(true)
+    } else {
+      setIsEditing(false)
+    }
+  }, [isUpdatingPost])
 
+  useEffect(() => {
+    if (isCreatingPost) {
+      setSelectedPostId(0)
+    }
+  }, [isCreatingPost])
+
+  // post deletion
   const [deletePostResult, deletePostError] = useDelete({
     id: selectedPostId,
     isDeleting,
     setIsDeleting,
   })
-
   useEffect(() => {
     if (deletePostResult && !deletePostError) {
       // handle post-deletion logic here, e.g., remove the post from the list
@@ -42,14 +68,13 @@ export const CrudContextProvider = ({ children }) => {
         setIsDeleting,
         selectedPostId,
         setSelectedPostId,
-        deleteMedia,
-        setDeleteMedia,
+        createOrUpdatePost,
+        isCreatingOrUpdating,
         isEditing,
         setIsEditing,
-        createPost,
-        updatePost,
-        isCreatingPost,
-        isUpdatingPost,
+        images,
+        uploadImage,
+        removeImage,
       }}
     >
       {children}

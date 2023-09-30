@@ -1,25 +1,24 @@
-import useSinglePostContext from "../../context/SinglePostContext"
+import { useCrudContext } from "../../context/CrudContext"
 
 export const SinglePostCard = ({ post }) => {
-  const { setDeletingPost, setSelectedPost } = useSinglePostContext()
-
+  const { setIsDeleting, setIsEditing } = useCrudContext()
   return (
     <div key={post.id}>
-      <h2>{post.title.raw}</h2>
-      <p>{post.content.raw}</p>
+      <h2>{post.title}</h2>
+      <p>{post.content}</p>
       {post.meta._thedah_featured_images.map((i) => (
         <img key={i.id} src={i.mediumUrl} alt={post.title} />
       ))}
       <button
         onClick={() => {
-          setDeletingPost(post)
+          setIsDeleting(true)
         }}
       >
         Delete
       </button>
       <button
         onClick={() => {
-          setSelectedPost(post)
+          setIsEditing(true)
         }}
       >
         Edit

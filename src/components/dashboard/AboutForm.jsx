@@ -27,7 +27,6 @@ export function AboutForm() {
   if (Array.isArray(about)) {
     about = about[0]
   }
-  console.log(about)
   // const about = lang === "fa" ? fa : en
   const setAbout = lang === "fa" ? setFa : setEn
   // const [about, setAbout] = useState(aboutFromContext)
