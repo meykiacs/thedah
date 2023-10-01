@@ -8,7 +8,7 @@ export const useUpdatePost = ({ id }) => {
 
   const [isUpdatingPost, setIsUpdatingPost] = useState(false)
 
-  async function updatePost(data) {
+  async function updatePost(data, event) {
     setIsUpdatingPost(true)
     const endpoint = `${restUrl}/${id}`
     const body = JSON.stringify(data)
@@ -25,6 +25,7 @@ export const useUpdatePost = ({ id }) => {
       if (responseData && "id" in responseData) {
         const post = createPostObjectFromData(responseData)
         setR(rs.map((r) => (r.id === post.id ? post : r)))
+        event.target.reset()
         return post
       }
     } catch (error) {

@@ -13,7 +13,7 @@ export const useHandleSubmit = () => {
       status: "publish",
       meta,
     }
-    await createOrUpdatePost(data)
+    await createOrUpdatePost(data, event)
   }
 
   return submit

@@ -29,7 +29,7 @@ export default function useResourceList(resourceName) {
             featured_media: r.featured_media,
             featured_media_url: featured_media_url,
             title: r.title.rendered,
-            description: r.content.rendered,
+            content: r.content.rendered,
             meta: r.meta,
             type: r.type,
           }

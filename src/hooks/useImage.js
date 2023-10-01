@@ -1,16 +1,13 @@
 import { useEffect, useState } from "@wordpress/element"
 import useResourceContext from "../context/useResourceContext"
-import useResourceList from "./useResourceList"
+import { useGetPostById } from "./useGetPostById"
 
 export const useImage = (isEditing, selectedPostId) => {
   const { restNonce, mediaRestUrl } = useResourceContext()
   const [images, setImages] = useState([])
-  const { resourceName } = useResourceContext()
-  const rs = useResourceList(resourceName)
-  let selectedPost = null
-  if (selectedPostId) {
-    selectedPost = rs.find((p) => selectedPostId === p.id)
-  }
+  const selectedPost = useGetPostById(selectedPostId)
+  const [isImageUploading, setIsImageUploading] = useState(false)
+  const [isImageDeleting, setIsImageDeleting] = useState(false)
 
   useEffect(() => {
     if (isEditing) {
@@ -27,6 +24,7 @@ export const useImage = (isEditing, selectedPostId) => {
       )
       return
     }
+    setIsImageUploading(true)
     const formData = new FormData()
     formData.append("file", file)
 
@@ -54,9 +52,11 @@ export const useImage = (isEditing, selectedPostId) => {
         fullUrl: data.media_details.sizes.full?.source_url ?? "",
       },
     ])
+    setIsImageUploading(false)
   }
 
   const removeImage = async (id) => {
+    setIsImageDeleting(true)
     const response = await fetch(`${mediaRestUrl}/${id}?force=1`, {
       method: "DELETE",
       headers: {
@@ -71,7 +71,8 @@ export const useImage = (isEditing, selectedPostId) => {
 
     console.log("Delete succeeded:", id)
     setImages((images) => images.filter((image) => image.id !== id))
+    setIsImageDeleting(false)
   }
 
-  return { images, uploadImage, removeImage, setImages }
+  return { images, uploadImage, removeImage, setImages, isImageUploading, isImageDeleting }
 }

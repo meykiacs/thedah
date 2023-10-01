@@ -7,7 +7,7 @@ export const useCreatePost = () => {
   const { restUrl, rs, setR } = resources[resourceName]
   const [isCreatingPost, setIsCreatingPost] = useState(false)
 
-  async function createPost(data) {
+  async function createPost(data, event) {
     setIsCreatingPost(true)
     const body = JSON.stringify(data)
     try {
@@ -23,6 +23,7 @@ export const useCreatePost = () => {
       if (responseData && "id" in responseData) {
         const post = createPostObjectFromData(responseData)
         setR([post, ...rs])
+        event.target.reset()
         return post
       }
     } catch (error) {

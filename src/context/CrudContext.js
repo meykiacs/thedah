@@ -12,12 +12,11 @@ import { useImage } from "../hooks/useImage"
 const CrudContext = createContext()
 
 export const CrudContextProvider = ({ children }) => {
-  const [isDeleting, setIsDeleting] = useState(false)
   const [selectedPostId, setSelectedPostId] = useState(0)
   const [isEditing, setIsEditing] = useState(false)
 
   // image upload and remove
-  const { images, uploadImage, removeImage } = useImage(
+  const { images, uploadImage, removeImage, isImageUploading, isImageDeleting } = useImage(
     isEditing,
     selectedPostId,
   )
@@ -26,7 +25,7 @@ export const CrudContextProvider = ({ children }) => {
   const [updatePost, isUpdatingPost] = useUpdatePost({ id: selectedPostId })
   const [createPost, isCreatingPost] = useCreatePost()
   const createOrUpdatePost = isEditing ? updatePost : createPost
-  const isCreatingOrUpdating = isUpdatingPost || isCreatingPost
+  const isCreatingOrUpdatingPost = isCreatingPost || isUpdatingPost
   useEffect(() => {
     if (isUpdatingPost) {
       setIsEditing(true)
@@ -50,31 +49,29 @@ export const CrudContextProvider = ({ children }) => {
   }, [isCreatingPost])
 
   // post deletion
-  const [deletePostResult, deletePostError] = useDelete({
-    id: selectedPostId,
-    isDeleting,
-    setIsDeleting,
-  })
+  const [deletePost, isDeleting] = useDelete(selectedPostId, removeImage)
   useEffect(() => {
-    if (deletePostResult && !deletePostError) {
-      // handle post-deletion logic here, e.g., remove the post from the list
+    if (!isDeleting) {
+      setSelectedPostId(0)
     }
-  }, [deletePostResult, deletePostError])
+  }, [isDeleting])
 
   return (
     <CrudContext.Provider
       value={{
         isDeleting,
-        setIsDeleting,
         selectedPostId,
         setSelectedPostId,
         createOrUpdatePost,
-        isCreatingOrUpdating,
         isEditing,
+        deletePost,
         setIsEditing,
         images,
         uploadImage,
         removeImage,
+        isImageUploading,
+        isImageDeleting,
+        isCreatingOrUpdatingPost
       }}
     >
       {children}

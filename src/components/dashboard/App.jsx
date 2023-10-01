@@ -1,11 +1,11 @@
-import { Accordion, Box } from "@mantine/core"
+import { Box, Container } from "@mantine/core"
 import useResourceContext from "../../context/useResourceContext"
 import ResourceList from "./ResourceList"
 import { PaperForm } from "../dashboard/PaperForm"
 import { BookForm } from "../dashboard/BookForm"
 import { AboutForm } from "../dashboard/AboutForm"
 import { SinglePostForm } from "./SinglePostForm"
-import { SinglePostList } from "./SinglePostList"
+import { PostList } from "./SinglePostList"
 
 export default function App() {
   const FORM_MAP = {
@@ -18,22 +18,18 @@ export default function App() {
   const Form = FORM_MAP[resourceName]
 
   return (
-    <>
+    <Container>
       <Box mb={20}>
-        <Form />
+        <Form maxImages={3} />
       </Box>
       {resourceName !== "about" && resourceName !== "singlepost" && (
-        <Accordion>
-          <Accordion.Item key="resourceList" value={resourceName}>
-            <Accordion.Control>{resourceHuman}</Accordion.Control>
-            <Accordion.Panel>
-              <ResourceList resourceName={resourceName} />
-            </Accordion.Panel>
-          </Accordion.Item>
-        </Accordion>
+        <ResourceList
+          resourceName={resourceName}
+          resourceHuman={resourceHuman}
+        />
       )}
-      {resourceName === "singlepost" && <SinglePostList postType="singlepost" />}
-    </>
+      {resourceName === "singlepost" && <PostList postType="singlepost" />}
+    </Container>
   )
   // )
 }
