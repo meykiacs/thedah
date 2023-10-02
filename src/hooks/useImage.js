@@ -1,21 +1,11 @@
-import { useEffect, useState } from "@wordpress/element"
+import { useState } from "@wordpress/element"
 import useResourceContext from "../context/useResourceContext"
-import { useGetPostById } from "./useGetPostById"
 
-export const useImage = (isEditing, selectedPostId) => {
+export const useImage = () => {
   const { restNonce, mediaRestUrl } = useResourceContext()
   const [images, setImages] = useState([])
-  const selectedPost = useGetPostById(selectedPostId)
   const [isImageUploading, setIsImageUploading] = useState(false)
   const [isImageDeleting, setIsImageDeleting] = useState(false)
-
-  useEffect(() => {
-    if (isEditing) {
-      setImages(selectedPost.meta._thedah_images)
-    } else {
-      setImages([])
-    }
-  }, [isEditing, selectedPost])
 
   const uploadImage = async (file, maxImages) => {
     if (images.length >= maxImages) {
@@ -74,5 +64,12 @@ export const useImage = (isEditing, selectedPostId) => {
     setIsImageDeleting(false)
   }
 
-  return { images, uploadImage, removeImage, setImages, isImageUploading, isImageDeleting }
+  return {
+    images,
+    uploadImage,
+    removeImage,
+    setImages,
+    isImageUploading,
+    isImageDeleting,
+  }
 }

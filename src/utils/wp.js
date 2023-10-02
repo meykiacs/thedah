@@ -10,3 +10,7 @@ export function createPostObjectFromData(responseData) {
     meta: responseData.meta,
   }
 }
+
+export function getImages(post) {
+  return Array.isArray(post?.meta?._thedah_images) ? post.meta._thedah_images : []
+}

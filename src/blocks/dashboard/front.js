@@ -36,8 +36,6 @@ window.addEventListener("DOMContentLoaded", () => {
     )
   })
 
-  console.log(providedValues)
-
   render(
     <LanguageProvider>
       <Dashboard providedValues={providedValues} />

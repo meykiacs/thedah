@@ -6,7 +6,6 @@ export const useCreatePost = () => {
   const { resourceName, resources, restNonce } = useResourceContext()
   const { restUrl, rs, setR } = resources[resourceName]
   const [isCreatingPost, setIsCreatingPost] = useState(false)
-  console.log(resourceName)
   async function createPost(data, event) {
     setIsCreatingPost(true)
     const body = JSON.stringify(data)

@@ -16,7 +16,6 @@ import useWPContext from "../../context/useWPContext"
 import { useCrudContext } from "../../context/CrudContext"
 
 export function BookCard({ post }) {
-  console.log(post.meta);
   const { t } = useTranslation()
   const { assetsImagesUrl } = useWPContext()
   const { isDeleting, deletePost, setIsEditing } = useCrudContext()

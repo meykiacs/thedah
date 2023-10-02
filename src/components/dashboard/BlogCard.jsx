@@ -10,8 +10,8 @@ import {
   Text,
   Title,
 } from "@mantine/core"
-import { useCrudContext } from "../../context/CrudContext"
 import { useTranslation } from "react-i18next"
+import { useCrudContext } from "../../context/CrudContext"
 
 export const BlogCard = ({ post, images }) => {
   const { setIsEditing, deletePost } = useCrudContext()
@@ -21,11 +21,12 @@ export const BlogCard = ({ post, images }) => {
       <Container size="xs">
         <Card.Section withBorder inheritPadding>
           <SimpleGrid cols={images.length}>
-            {images.length > 0 && images.map((i) => (
-              <Box key={i.id} w="150px">
-                <Image key={i.id} src={i.mediumUrl} alt={post.title} />
-              </Box>
-            ))}
+            {images.length > 0 &&
+              images.map((i) => (
+                <Box key={i.id} w="150px">
+                  <Image key={i.id} src={i.mediumUrl} alt={post.title} />
+                </Box>
+              ))}
           </SimpleGrid>
         </Card.Section>
         <Card.Section>

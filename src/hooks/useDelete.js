@@ -34,7 +34,6 @@ import useResourceContext from "../context/useResourceContext"
 import { useGetPostById } from "./useGetPostById"
 
 export default function useDelete(selectedPostId, removeImage) {
-
   const { restNonce, resources, resourceName } = useResourceContext()
   const { restUrl, setR } = resources[resourceName]
   const [isDeleting, setIsDeleting] = useState(false)
@@ -43,7 +42,13 @@ export default function useDelete(selectedPostId, removeImage) {
   const deleteResource = async (id) => {
     setIsDeleting(true)
     try {
-      selectedPost.meta._thedah_images.forEach(image => {removeImage(image.id)})
+      const images =
+        selectedPost?.meta._thedah_images?.length > 0
+          ? selectedPost?.meta._thedah_images?.length
+          : []
+      images.forEach((image) => {
+        removeImage(image.id)
+      })
       const response = await fetch(`${restUrl}/${id}?force=1`, {
         method: "DELETE",
         headers: {

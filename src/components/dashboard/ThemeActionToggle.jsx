@@ -6,7 +6,6 @@ import {
   Group,
 } from "@mantine/core"
 import { IconSun, IconMoon } from "@tabler/icons-react"
-import classes from "./ThemeActionToggle.module.css"
 
 export function ThemeActionToggle() {
   const { setColorScheme } = useMantineColorScheme()

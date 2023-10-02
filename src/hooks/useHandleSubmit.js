@@ -1,7 +1,4 @@
-import { useCrudContext } from "../context/CrudContext"
-
-export const useHandleSubmit = () => {
-  const { createOrUpdatePost } = useCrudContext()
+export const useHandleSubmit = (createOrUpdatePost) => {
 
   const submit = async (event, meta) => {
     event.preventDefault()

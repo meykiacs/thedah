@@ -1,7 +1,3 @@
-import { useCrudContext } from "../../context/CrudContext"
-import { ImageList } from "./ImageList"
-import { ImageDropzone } from "./ImageDropZone"
-import { useHandleSubmit } from "../../hooks/useHandleSubmit"
 import {
   Box,
   Button,
@@ -14,7 +10,12 @@ import {
   Title,
 } from "@mantine/core"
 import { useTranslation } from "react-i18next"
+import { useCrudContext } from "../../context/CrudContext"
 import { useGetPostById } from "../../hooks/useGetPostById"
+import { ImageDropzone } from "./ImageDropZone"
+import { ImageList } from "./ImageList"
+import { useEffect, useRef } from "@wordpress/element"
+import useLanguageContext from "../../context/useLanguageContext"
 
 export const BlogForm = ({ maxImages }) => {
   const {
@@ -25,15 +26,29 @@ export const BlogForm = ({ maxImages }) => {
     isCreatingOrUpdatingPost,
   } = useCrudContext()
   const { t } = useTranslation()
-  const handleSubmit = useHandleSubmit()
+  const { handleSubmit } = useCrudContext()
 
   const selectedPost = useGetPostById(selectedPostId)
   const meta = {
     _thedah_images: images,
   }
+  const formRef = useRef(null)
+  const { lang } = useLanguageContext()
+
+  useEffect(() => {
+    formRef.current.reset()
+  }, [lang])
+
+  useEffect(() => {
+    if (isEditing) {
+      formRef.current.scrollIntoView({ behavior: "smooth" })
+      formRef.current.focus()
+    }
+  }, [isEditing])
+
   return (
     <Card withBorder radius="md" p={15}>
-      <form onSubmit={(event) => handleSubmit(event, meta)}>
+      <form onSubmit={(event) => handleSubmit(event, meta)} ref={formRef}>
         <Flex wrap="wrap" gap={50} align="center">
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
@@ -44,6 +59,7 @@ export const BlogForm = ({ maxImages }) => {
             </Box>
             <Box pt={25}>
               <TextInput
+                required
                 label={t("Title")}
                 placeholder={t("Title")}
                 aria-label={t("Title")}
@@ -57,6 +73,7 @@ export const BlogForm = ({ maxImages }) => {
           </Group>
           <Stack pt={25} spacing={50} align="center">
             <Textarea
+              required
               label={t("Content")}
               aria-label={t("Content")}
               placeholder={t("Content")}
@@ -86,6 +103,7 @@ export const BlogForm = ({ maxImages }) => {
           </Button>
           {isEditing && (
             <Button
+              loading={isCreatingOrUpdatingPost}
               color="red"
               onClick={(e) => {
                 e.preventDefault()

@@ -8,6 +8,9 @@ import useDelete from "../hooks/useDelete"
 import { useUpdatePost } from "../hooks/useUpdatePost"
 import { useCreatePost } from "../hooks/useCreatePost"
 import { useImage } from "../hooks/useImage"
+import { useHandleSubmit } from "../hooks/useHandleSubmit"
+import { useGetPostById } from "../hooks/useGetPostById"
+import { getImages } from "../utils/wp"
 
 const CrudContext = createContext()
 
@@ -15,17 +18,14 @@ export const CrudContextProvider = ({ children }) => {
   const [selectedPostId, setSelectedPostId] = useState(0)
   const [isEditing, setIsEditing] = useState(false)
 
-  // image upload and remove
-  const { images, uploadImage, removeImage, isImageUploading, isImageDeleting } = useImage(
-    isEditing,
-    selectedPostId,
-  )
+  const selectedPost = useGetPostById(selectedPostId)
 
   // post create and update
   const [updatePost, isUpdatingPost] = useUpdatePost({ id: selectedPostId })
   const [createPost, isCreatingPost] = useCreatePost()
   const createOrUpdatePost = isEditing ? updatePost : createPost
   const isCreatingOrUpdatingPost = isCreatingPost || isUpdatingPost
+  const handleSubmit = useHandleSubmit(createOrUpdatePost)
   useEffect(() => {
     if (isUpdatingPost) {
       setIsEditing(true)
@@ -33,6 +33,24 @@ export const CrudContextProvider = ({ children }) => {
       setIsEditing(false)
     }
   }, [isUpdatingPost])
+
+  // image upload and remove
+  const {
+    images,
+    uploadImage,
+    removeImage,
+    setImages,
+    isImageUploading,
+    isImageDeleting,
+  } = useImage(isCreatingOrUpdatingPost, selectedPostId)
+
+  useEffect(() => {
+    if (isCreatingOrUpdatingPost || isEditing) {
+      setImages(getImages(selectedPost))
+    } else {
+      setImages([])
+    }
+  }, [isCreatingOrUpdatingPost, selectedPost, isEditing, setImages])
 
   useEffect(() => {
     if (isUpdatingPost) {
@@ -56,6 +74,9 @@ export const CrudContextProvider = ({ children }) => {
     }
   }, [isDeleting])
 
+
+  console.log('images:', images);
+  console.log('selectedpost:', selectedPost);
   return (
     <CrudContext.Provider
       value={{
@@ -71,7 +92,8 @@ export const CrudContextProvider = ({ children }) => {
         removeImage,
         isImageUploading,
         isImageDeleting,
-        isCreatingOrUpdatingPost
+        isCreatingOrUpdatingPost,
+        handleSubmit,
       }}
     >
       {children}
