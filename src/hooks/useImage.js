@@ -11,7 +11,7 @@ export const useImage = (isEditing, selectedPostId) => {
 
   useEffect(() => {
     if (isEditing) {
-      setImages(selectedPost.meta._thedah_featured_images)
+      setImages(selectedPost.meta._thedah_images)
     } else {
       setImages([])
     }

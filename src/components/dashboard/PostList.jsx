@@ -1,11 +1,19 @@
 import { Accordion, LoadingOverlay } from "@mantine/core"
 import useResourceList from "../../hooks/useResourceList"
-import { SinglePostCard } from "./SinglePostCard"
+import { BlogCard } from "./BlogCard"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
+import PaperCard from "./PaperCard"
+import { BookCard } from "./BookCard"
 
-export function PostList({ postType }) {
-  const rs = useResourceList(postType)
+export function PostList({ resourceName }) {
+  const CARD_MAP = {
+    paper: PaperCard,
+    book: BookCard,
+    blog: BlogCard,
+  }
+  const Card = CARD_MAP[resourceName]
+  const rs = useResourceList(resourceName)
   const { setSelectedPostId, isEditing, selectedPostId, isDeleting } =
     useCrudContext()
   const { t } = useTranslation()
@@ -17,7 +25,7 @@ export function PostList({ postType }) {
     >
       {rs.map((post) => (
         <Accordion.Item key={post.id} value={post.id.toString()}>
-          <Accordion.Control disabled={isEditing} fz='1.5rem' pr='32px' pl='16'>
+          <Accordion.Control disabled={isEditing} fz="1.25rem" pr="32px" pl="16" py='8px'>
             {post.title !== "" ? post.title : t("noTitle")}
           </Accordion.Control>
           <Accordion.Panel pos="relative">
@@ -30,7 +38,7 @@ export function PostList({ postType }) {
               overlayProps={{ radius: "sm", blur: 2 }}
               loaderProps={{ color: "blue", type: "bars" }}
             />
-            <SinglePostCard post={post} />
+            <Card post={post} images={post.meta._thedah_images}/>
           </Accordion.Panel>
         </Accordion.Item>
       ))}

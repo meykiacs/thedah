@@ -5,8 +5,8 @@ import useWPContext from "../context/useWPContext"
 export default function useResourceList(resourceName) {
   const { resources } = useResourceContext()
   const { mediaRestUrl } = useWPContext()
-  
-  const { restUrl, setIsFetched, rs, setR, isFetched } = resources[resourceName]
+
+  const { restUrl, setFetched, rs, setR, fetched } = resources[resourceName]
   useEffect(() => {
     const fetchResource = async (url, setResource, setFetched) => {
       const response = await fetch(url)
@@ -40,10 +40,10 @@ export default function useResourceList(resourceName) {
       setFetched(true)
     }
 
-    if (!isFetched) {
-      fetchResource(restUrl, setR, setIsFetched)
+    if (!fetched) {
+      fetchResource(restUrl, setR, setFetched)
     }
-  }, [mediaRestUrl, restUrl, setIsFetched, isFetched, setR])
+  }, [mediaRestUrl, restUrl, fetched, setFetched, setR])
 
   return rs
 }

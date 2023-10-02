@@ -43,7 +43,7 @@ export default function useDelete(selectedPostId, removeImage) {
   const deleteResource = async (id) => {
     setIsDeleting(true)
     try {
-      selectedPost.meta._thedah_featured_images.forEach(image => {removeImage(image.id)})
+      selectedPost.meta._thedah_images.forEach(image => {removeImage(image.id)})
       const response = await fetch(`${restUrl}/${id}?force=1`, {
         method: "DELETE",
         headers: {

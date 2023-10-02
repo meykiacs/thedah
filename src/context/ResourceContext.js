@@ -6,61 +6,65 @@ const ResourceContext = createContext()
 export const ResourceProvider = ({ providedValues, children }) => {
   const { lang } = useLanguageContext()
   const [resourceName, setResourceName] = useState(providedValues.resourceName)
+  
+  // const { resourceNames } = providedValues.resourceNames
   const [resourceHuman, setResourceHuman] = useState(
     providedValues.resourceHuman,
   )
 
-  const [booksFa, setBooksFa] = useState(providedValues.booksFa)
-  const [booksEn, setBooksEn] = useState(providedValues.booksEn)
-  const [isBooksFaFetched, setIsBooksFaFetched] = useState(
-    providedValues.isBooksFaFetched,
+
+  const {
+    bookEnRestUrl,
+    bookFaRestUrl,
+    paperEnRestUrl,
+    paperFaRestUrl,
+    mediaRestUrl,
+    restNonce,
+    aboutEnRestUrl,
+    aboutFaRestUrl,
+    blogEnRestUrl,
+    blogFaRestUrl,
+  } = providedValues
+
+
+  const [booksFa, setBooksFa] = useState(providedValues.bookFa)
+  const [booksEn, setBooksEn] = useState(providedValues.bookEn)
+  const [bookFaFetched, setBookFaFetched] = useState(
+    providedValues.bookFaFetched,
   )
-  const [isBooksEnFetched, setIsBooksEnFetched] = useState(
-    providedValues.isBooksEnFetched,
+  const [bookEnFetched, setBookEnFetched] = useState(
+    providedValues.bookEnFetched,
   )
 
-  const [papersFa, setPapersFa] = useState(providedValues.papersFa)
-  const [papersEn, setPapersEn] = useState(providedValues.papersEn)
-  const [isPapersFaFetched, setIsPapersFaFetched] = useState(
-    providedValues.isPapersFaFetched,
+  const [papersFa, setPapersFa] = useState(providedValues.paperFa)
+  const [papersEn, setPapersEn] = useState(providedValues.paperEn)
+  const [paperFaFetched, setPaperFaFetched] = useState(
+    providedValues.paperFaFetched,
   )
-  const [isPapersEnFetched, setIsPapersEnFetched] = useState(
-    providedValues.isBooksEnFetched,
+  const [paperEnFetched, setPaperEnFetched] = useState(
+    providedValues.paperEnFetched,
   )
 
-  const [singlePostsFa, setSinglePostsFa] = useState(
-    providedValues.singlePostsFa,
+  const [blogsFa, setBlogsFa] = useState(
+    providedValues.blogFa,
   )
-  const [singlePostsEn, setSinglePostsEn] = useState(
-    providedValues.singlePostsEn,
+  const [blogsEn, setBlogsEn] = useState(
+    providedValues.blogEn,
   )
-  const [isSinglePostsFaFetched, setIsSinglePostsFaFetched] = useState(
-    providedValues.isSinglePostsFaFetched,
+  const [blogFaFetched, setBlogFaFetched] = useState(
+    providedValues.blogFaFetched,
   )
-  const [isSinglePostsEnFetched, setIsSinglePostsEnFetched] = useState(
-    providedValues.isBooksEnFetched,
+  const [blogEnFetched, setBlogEnFetched] = useState(
+    providedValues.blogEnFetched,
   )
   const [aboutFa, setAboutFa] = useState(providedValues.aboutFa)
   const [aboutEn, setAboutEn] = useState(providedValues.aboutEn)
-  const [isAboutFaFetched, setIsAboutFaFetched] = useState(
-    providedValues.isAboutFaFetched,
+  const [aboutFaFetched, setAboutFaFetched] = useState(
+    providedValues.aboutFaFetched,
   )
-  const [isAboutEnFetched, setIsAboutEnFetched] = useState(
-    providedValues.isBooksEnFetched,
+  const [aboutEnFetched, setAboutEnFetched] = useState(
+    providedValues.aboutEnFetched,
   )
-
-  const {
-    bookRestUrlEn,
-    bookRestUrlFa,
-    paperRestUrlEn,
-    paperRestUrlFa,
-    mediaRestUrl,
-    restNonce,
-    aboutRestUrlEn,
-    aboutRestUrlFa,
-    singlePostRestUrlEn,
-    singlePostRestUrlFa,
-  } = providedValues
 
   const resources = {
     book: {
@@ -68,71 +72,69 @@ export const ResourceProvider = ({ providedValues, children }) => {
       en: booksEn,
       setEn: setBooksEn,
       setFa: setBooksFa,
-      isFaFetched: isBooksFaFetched,
-      isEnFetched: isBooksEnFetched,
-      setIsFaFetched: setIsBooksFaFetched,
-      setIsEnFetched: setIsBooksEnFetched,
-      restUrlEn: bookRestUrlEn,
-      restUrlFa: bookRestUrlFa,
-      rs: lang === 'fa' ? booksFa : booksEn,
-      setR: lang === 'fa' ? setBooksFa : setBooksEn,
-      restUrl: lang === 'fa' ? bookRestUrlFa : bookRestUrlEn,
-      isFetched: lang === 'fa' ? isBooksFaFetched : isBooksEnFetched,
-      setIsFetched: lang === 'fa' ? setIsBooksFaFetched : setIsBooksEnFetched,
-
+      faFetched: bookFaFetched,
+      enFetched: bookEnFetched,
+      setFaFetched: setBookFaFetched,
+      setEnFetched: setBookEnFetched,
+      restUrlEn: bookEnRestUrl,
+      restUrlFa: bookFaRestUrl,
+      rs: lang === "fa" ? booksFa : booksEn,
+      setR: lang === "fa" ? setBooksFa : setBooksEn,
+      restUrl: lang === "fa" ? bookFaRestUrl : bookEnRestUrl,
+      fetched: lang === "fa" ? bookFaFetched : bookEnFetched,
+      setFetched: lang === "fa" ? setBookFaFetched : setBookEnFetched,
     },
     paper: {
       fa: papersFa,
       en: papersEn,
       setEn: setPapersEn,
       setFa: setPapersFa,
-      isFaFetched: isPapersFaFetched,
-      isEnFetched: isPapersEnFetched,
-      setIsFaFetched: setIsPapersFaFetched,
-      setIsEnFetched: setIsPapersEnFetched,
-      restUrlEn: paperRestUrlEn,
-      restUrlFa: paperRestUrlFa,
-      rs: lang === 'fa' ? papersFa : papersEn,
-      setR: lang === 'fa' ? setPapersFa : setPapersEn,
-      restUrl: lang === 'fa' ? paperRestUrlFa : paperRestUrlEn,
-      isFetched: lang === 'fa' ? isPapersFaFetched : isPapersEnFetched,
-      setIsFetched: lang === 'fa' ? setIsPapersFaFetched : setIsPapersEnFetched,
-    },
-    singlepost: {
-      fa: singlePostsFa,
-      en: singlePostsEn,
-      setEn: setSinglePostsEn,
-      setFa: setSinglePostsFa,
-      isFaFetched: isSinglePostsFaFetched,
-      isEnFetched: isSinglePostsEnFetched,
-      setIsFaFetched: setIsSinglePostsFaFetched,
-      setIsEnFetched: setIsSinglePostsEnFetched,
-      restUrlEn: singlePostRestUrlEn,
-      restUrlFa: singlePostRestUrlFa,
-      rs: lang === 'fa' ? singlePostsFa : singlePostsEn,
-      setR: lang === 'fa' ? setSinglePostsFa : setSinglePostsEn,
-      restUrl: lang === 'fa' ? singlePostRestUrlFa : singlePostRestUrlEn,
-      isFetched: lang === 'fa' ? isSinglePostsFaFetched : isSinglePostsEnFetched,
-      setIsFetched: lang === 'fa' ? setIsSinglePostsFaFetched : setIsSinglePostsEnFetched,
+      faFetched: paperFaFetched,
+      enFetched: paperEnFetched,
+      setFaFetched: setPaperFaFetched,
+      setEnFetched: setPaperEnFetched,
+      restUrlEn: paperEnRestUrl,
+      restUrlFa: paperFaRestUrl,
+      rs: lang === "fa" ? papersFa : papersEn,
+      setR: lang === "fa" ? setPapersFa : setPapersEn,
+      restUrl: lang === "fa" ? paperFaRestUrl : paperEnRestUrl,
+      fetched: lang === "fa" ? paperFaFetched : paperEnFetched,
+      setFetched: lang === "fa" ? setPaperFaFetched : setPaperEnFetched,
 
+    },
+    blog: {
+      fa: blogsFa,
+      en: blogsEn,
+      setEn: setBlogsEn,
+      setFa: setBlogsFa,
+      faFetched: blogFaFetched,
+      enFetched: blogEnFetched,
+      setFaFetched: setBlogFaFetched,
+      setEnFetched: setBlogEnFetched,
+      restUrlEn: blogEnRestUrl,
+      restUrlFa: blogFaRestUrl,
+      rs: lang === "fa" ? blogsFa : blogsEn,
+      setR: lang === "fa" ? setBlogsFa : setBlogsEn,
+      restUrl: lang === "fa" ? blogFaRestUrl : blogEnRestUrl,
+      fetched: lang === "fa" ? blogFaFetched : blogEnFetched,
+      setFetched: lang === "fa" ? setBlogFaFetched : setBlogEnFetched,
     },
     about: {
       fa: aboutFa,
       en: aboutEn,
       setEn: setAboutEn,
       setFa: setAboutFa,
-      isFaFetched: isAboutFaFetched,
-      isEnFetched: isAboutEnFetched,
-      setIsFaFetched: setIsAboutFaFetched,
-      setIsEnFetched: setIsAboutEnFetched,
-      restUrlEn: aboutRestUrlEn,
-      restUrlFa: aboutRestUrlFa,
-      rs: lang === 'fa' ? aboutFa : aboutEn,
-      setR: lang === 'fa' ? setAboutFa : setAboutEn,
-      restUrl: lang === 'fa' ? aboutRestUrlFa : aboutRestUrlEn,
-      isFetched: lang === 'fa' ? isAboutFaFetched : isAboutEnFetched,
-      setIsFetched: lang === 'fa' ? setIsAboutFaFetched : setIsAboutEnFetched,
-
+      faFetched: aboutFaFetched,
+      enFetched: aboutEnFetched,
+      setFaFetched: setAboutFaFetched,
+      setEnFetched: setAboutEnFetched,
+      restUrlEn: aboutEnRestUrl,
+      restUrlFa: aboutFaRestUrl,
+      rs: lang === "fa" ? aboutFa : aboutEn,
+      setR: lang === "fa" ? setAboutFa : setAboutEn,
+      restUrl: lang === "fa" ? aboutFaRestUrl : aboutEnRestUrl,
+      fetched: lang === "fa" ? aboutFaFetched : aboutEnFetched,
+      setFetched: lang === "fa" ? setAboutFaFetched : setAboutEnFetched,
     },
   }
 

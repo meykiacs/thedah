@@ -2,10 +2,7 @@ import {
   Box,
   Button,
   Card,
-  CardSection,
-  Center,
   Container,
-  Flex,
   Group,
   Image,
   SimpleGrid,
@@ -16,15 +13,15 @@ import {
 import { useCrudContext } from "../../context/CrudContext"
 import { useTranslation } from "react-i18next"
 
-export const SinglePostCard = ({ post }) => {
+export const BlogCard = ({ post, images }) => {
   const { setIsEditing, deletePost } = useCrudContext()
   const { t } = useTranslation()
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">
         <Card.Section withBorder inheritPadding>
-          <SimpleGrid cols={post.meta._thedah_featured_images.length}>
-            {post.meta._thedah_featured_images.map((i) => (
+          <SimpleGrid cols={images.length}>
+            {images.length > 0 && images.map((i) => (
               <Box key={i.id} w="150px">
                 <Image key={i.id} src={i.mediumUrl} alt={post.title} />
               </Box>

@@ -16,7 +16,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { useGetPostById } from "../../hooks/useGetPostById"
 
-export const SinglePostForm = ({ maxImages }) => {
+export const BlogForm = ({ maxImages }) => {
   const {
     selectedPostId,
     isEditing,
@@ -29,7 +29,7 @@ export const SinglePostForm = ({ maxImages }) => {
 
   const selectedPost = useGetPostById(selectedPostId)
   const meta = {
-    _thedah_featured_images: images,
+    _thedah_images: images,
   }
   return (
     <Card withBorder radius="md" p={15}>

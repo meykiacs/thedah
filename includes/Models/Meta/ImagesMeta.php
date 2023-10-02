@@ -6,9 +6,9 @@ namespace Thedah\Models\Meta;
 
 use Thedah\CPTResource\Model\Meta;
 
-class FeaturedImagesMeta extends Meta {
+class ImagesMeta extends Meta {
 
-  public string $slug = 'featured_images';
+  public string $slug = 'images';
   public string $type = 'array';
 
 

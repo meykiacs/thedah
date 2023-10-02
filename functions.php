@@ -10,9 +10,8 @@ use Thedah\CPTResource\Model\CPTResource;
 use Thedah\CPTResource\Service\RegisterCPTResource;
 use Thedah\Models\Meta\AboutMeta;
 use Thedah\Models\Meta\BookMeta;
-use Thedah\Models\Meta\FeaturedImagesMeta;
+use Thedah\Models\Meta\ImagesMeta;
 use Thedah\Models\Meta\PaperMeta;
-use Thedah\RegisterQueryVars\RegisterQueryVars;
 
 function thedah_woocommerce_support() {
   add_theme_support('woocommerce');
@@ -60,11 +59,55 @@ $containerBuilder->addDefinitions([
   'assets.images.url'  =>  get_theme_file_uri('assets/images'),
   'node_modules.url'  => get_theme_file_uri('node_modules'),
   'query_vars' => ['lang'],
-  RegisterQueryVars::class => function (ContainerInterface $c) {
-    return new RegisterQueryVars($c);
-  },
+  'resources' => [
+    'en' => [
+      'book' => function (ContainerInterface $c) {
+        $bookCPT = new CPT('book', 'Book');
+        $bookCPT->metas[] = new BookMeta();
+        return new CPTResource($bookCPT);
+      },
+      'paper' => function (ContainerInterface $c) {
+        $paperCPT = new CPT('paper', 'Paper');
+        $paperCPT->metas[] = new PaperMeta();
+        return new CPTResource($paperCPT);
+      },
+      'about' => function (ContainerInterface $c) {
+        $aboutCPT = new CPT('about', 'About');
+        $aboutCPT->metas[] = new AboutMeta();
+        return new CPTResource($aboutCPT);
+      },
+      'blog' => function (ContainerInterface $c) {
+        $blogCPT = new CPT('blog', 'Blog Post');
+        $blogCPT->public = true;
+        $blogCPT->metas[] = new ImagesMeta();
+        return new CPTResource($blogCPT);
+      },
+    ],
+    'fa' => [
 
-
+      'book' => function (ContainerInterface $c) {
+        $bookCPTFa = new CPT('bookfa', 'BookFa');
+        $bookCPTFa->metas[] = new BookMeta();
+        return new CPTResource($bookCPTFa);
+      },
+      'paper' => function (ContainerInterface $c) {
+        $paperCPTFa = new CPT('paperfa', 'PaperFa');
+        $paperCPTFa->metas[] = new PaperMeta();
+        return new CPTResource($paperCPTFa);
+      },
+      'about' => function (ContainerInterface $c) {
+        $aboutCPTFa = new CPT('aboutfa', 'AboutFa');
+        $aboutCPTFa->metas[] = new AboutMeta();
+        return new CPTResource($aboutCPTFa);
+      },
+      'blog' => function (ContainerInterface $c) {
+        $blogCPTFa = new CPT('blogfa', 'Blog Post Fa');
+        $blogCPTFa->public = true;
+        $blogCPTFa->metas[] = new ImagesMeta();
+        return new CPTResource($blogCPTFa);
+      },
+    ]
+  ]
 ]);
 
 $container = $containerBuilder->build();
@@ -76,46 +119,15 @@ $container->get(Block::class)->add('bookpage')
   ->add('homepage')
   ->register();
 
-$bookCPT = new CPT('book', 'Book');
-$bookCPTFa = new CPT('bookfa', 'BookFa');
-$bookCPT->metas[] = new BookMeta();
-$bookCPTFa->metas[] = new BookMeta();
-$bookCPTResource = new CPTResource($bookCPT);
-$bookCPTFaResource = new CPTResource($bookCPTFa);
-
-$paperCPT = new CPT('paper', 'Paper');
-$paperCPTFa = new CPT('paperfa', 'PaperFa');
-$paperCPT->metas[] = new PaperMeta();
-$paperCPTFa->metas[] = new PaperMeta();
-$paperCPTResource = new CPTResource($paperCPT);
-$paperCPTFaResource = new CPTResource($paperCPTFa);
-
-$aboutCPT = new CPT('about', 'About');
-$aboutCPTFa = new CPT('aboutfa', 'AboutFa');
-$aboutCPT->metas[] = new AboutMeta();
-$aboutCPTFa->metas[] = new AboutMeta();
-$aboutCPTResource = new CPTResource($aboutCPT);
-$aboutCPTFaResource = new CPTResource($aboutCPTFa);
-
-$singlePostCPT = new CPT('singlepost', 'Single Post');
-$singlePostCPT->public = true;
-$singlePostCPTFa = new CPT('singlepostfa', 'Single Post Fa');
-$singlePostCPTFa->public = true;
-
-$singlePostCPT->metas[] = new FeaturedImagesMeta();
-$singlePostCPTFa->metas[] = new FeaturedImagesMeta();
-$singlePostCPTResource = new CPTResource($singlePostCPT);
-$singlePostCPTFaResource = new CPTResource($singlePostCPTFa);
-
 $container->get(RegisterCPTResource::class)
-  ->add($bookCPTResource)
-  ->add($bookCPTFaResource)
-  ->add($paperCPTResource)
-  ->add($paperCPTFaResource)
-  ->add($aboutCPTResource)
-  ->add($aboutCPTFaResource)
-  ->add($singlePostCPTResource)
-  ->add($singlePostCPTFaResource)
+  ->add($container->get('resources')['en']['book'])
+  ->add($container->get('resources')['en']['paper'])
+  ->add($container->get('resources')['en']['about'])
+  ->add($container->get('resources')['en']['blog'])
+  ->add($container->get('resources')['fa']['book'])
+  ->add($container->get('resources')['fa']['paper'])
+  ->add($container->get('resources')['fa']['about'])
+  ->add($container->get('resources')['fa']['blog'])
   ->register();
 
-$registerQueryVars = $container->get(RegisterQueryVars::class);
+// $registerQueryVars = $container->get(RegisterQueryVars::class);
