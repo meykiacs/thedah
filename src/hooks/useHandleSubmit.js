@@ -1,6 +1,6 @@
 export const useHandleSubmit = (createOrUpdatePost) => {
 
-  const submit = async (event, meta) => {
+  const submit = async (event, meta, featuredMediaId = 0) => {
     event.preventDefault()
     const formData = new FormData(event.target)
     formData.append("status", "publish")
@@ -8,6 +8,7 @@ export const useHandleSubmit = (createOrUpdatePost) => {
       title: formData.get("title"),
       content: formData.get("content"),
       status: "publish",
+      featured_media: featuredMediaId,
       meta,
     }
     await createOrUpdatePost(data, event)

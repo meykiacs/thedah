@@ -18,23 +18,24 @@ import { useEffect, useRef } from "@wordpress/element"
 import useLanguageContext from "../../context/useLanguageContext"
 
 export const BlogForm = ({ maxImages }) => {
+  const { t } = useTranslation()
+  const { lang } = useLanguageContext()
+  const formRef = useRef(null)
   const {
     selectedPostId,
     isEditing,
     setIsEditing,
     images,
     isCreatingOrUpdatingPost,
+    handleSubmit
   } = useCrudContext()
-  const { t } = useTranslation()
-  const { handleSubmit } = useCrudContext()
 
   const selectedPost = useGetPostById(selectedPostId)
   const meta = {
     _thedah_images: images,
   }
-  const formRef = useRef(null)
-  const { lang } = useLanguageContext()
 
+  // for the create form
   useEffect(() => {
     formRef.current.reset()
   }, [lang])

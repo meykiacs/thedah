@@ -1,14 +1,11 @@
 import { useEffect, useState } from "@wordpress/element"
 import useFetchPicture from "../hooks/useFetchPicture"
 import useDelete from "../hooks/useDelete"
-import useEditContext from "../context/useEditContext"
 import useResourceContext from "../context/useResourceContext"
 
-export function useResourceMediaForm() {
+export function UseFeturedImage() {
   const { mediaRestUrl, restNonce } = useResourceContext()
-  const { resource: editingResource } = useEditContext()
-
-  const [files, setFiles] = useState([])
+  
   const [featuredMediaId, setFeaturedMediaId] = useState(0)
   const [featuredMediaUrl, setFeaturedMediaUrl] = useState("")
   const [isMediaDeleting, setIsMediaDeleting] = useState(false)

@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "@wordpress/element"
-import useEditContext from "../../context/useEditContext"
-import submitWPForm from "../../utils/submitWPForm"
 import useLanguageContext from "../../context/useLanguageContext"
-import useResourceContext from "../../context/useResourceContext"
 import {
   Box,
   Button,
@@ -12,158 +9,116 @@ import {
   Stack,
   TextInput,
   Textarea,
+  Title,
 } from "@mantine/core"
-import PictureDrop from "./PictureDrop"
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
-import { useResourceMediaForm } from "../../hooks/useResourceMediaForm"
+import { useCrudContext } from "../../context/CrudContext"
+import { ImageDropzone } from "./ImageDropZone"
+import { ImageList } from "./ImageList"
 
-export function PaperForm() {
+export function PaperForm({maxImages}) {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
+  const formRef = useRef(null)
   const {
-    featuredMediaId,
-    featuredMediaUrl,
-    setFeaturedMediaId,
-    setFeaturedMediaUrl,
-    setFiles,
-    isMediaUploading,
-    setIsMediaDeleting,
-    isMediaDeleting,
-  } = useResourceMediaForm()
-
-  const { resources, restNonce } = useResourceContext()
-  const { restUrlEn, restUrlFa, en, fa, setEn, setFa } = resources.paper
-  const { resource: editingPaper, setResource: setEditingPaper } =
-    useEditContext()
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
+    handleSubmit,
+    isEditing,
+    selectedPost,
+    images,
+    isCreatingOrUpdatingPost,
+    setIsEditing,
+  } = useCrudContext()
 
   const [coAuthors, setCoAuthors] = useState([""])
 
-  const formRef = useRef(null)
-
-  const restUrl = lang === "fa" ? restUrlFa : restUrlEn
-
-  const paper = {}
+  // for the create form
+  useEffect(() => {
+    formRef.current.reset()
+  }, [lang])
 
   useEffect(() => {
-    if (editingPaper !== null) {
-      setCoAuthors(editingPaper?.meta?._thedah_paper?.coauthors ?? [""])
+    if (isEditing) {
+      formRef.current.scrollIntoView({ behavior: "smooth" })
+      formRef.current.focus()
+    }
+  }, [isEditing])
+
+  useEffect(() => {
+    if (isEditing !== null) {
+      setCoAuthors(selectedPost?.meta?._thedah_paper?.coauthors ?? [""])
 
       formRef.current.scrollIntoView({ behavior: "smooth" })
       formRef.current.focus()
     }
-  }, [editingPaper])
+  }, [isEditing, selectedPost])
 
   const inputs = [
-    { name: "title", placeholder: "Title", default: editingPaper?.title ?? "" },
+    {
+      name: "title",
+      placeholder: "Title",
+      default: isEditing ? selectedPost?.title : "",
+    },
     {
       name: "author",
       placeholder: "Author",
-      default: editingPaper?.meta?._thedah_paper?.author ?? "",
+      default: isEditing ? selectedPost?.meta?._thedah_paper?.author : "",
     },
     {
       name: "publisher",
       placeholder: "Publisher",
-      default: editingPaper?.meta?._thedah_paper?.publisher ?? "",
+      default: isEditing ? selectedPost?.meta?._thedah_paper?.publisher : "",
     },
     {
       name: "year",
       placeholder: "Year",
-      default: editingPaper?.meta?._thedah_paper?.year ?? "",
+      default: isEditing ? selectedPost?.meta?._thedah_paper?.year : "",
     },
     {
       name: "link",
       placeholder: "Link",
-      default: editingPaper?.meta?._thedah_paper?.link ?? "",
+      default: isEditing ? selectedPost?.meta?._thedah_paper?.link : "",
     },
   ]
 
-  const handleSubmit = async (event) => {
+  const customHandleSubmit = (event) => {
     event.preventDefault()
 
     const formData = new FormData(event.target)
-    formData.append("status", "publish")
-    const paperData = {
-      title: formData.get("title"),
-      content: formData.get("content"),
-      status: "publish",
-      featured_media: featuredMediaId,
-      meta: {
-        _thedah_paper: {
-          publisher: formData.get("publisher"),
-          year: formData.get("year"),
-          author: formData.get("author"),
-          coauthors: coAuthors,
-          summary: formData.get("summary"),
-          link: formData.get("link"),
-        },
+    const meta = {
+      _thedah_paper: {
+        publisher: formData.get("publisher"),
+        year: formData.get("year"),
+        author: formData.get("author"),
+        coauthors: coAuthors,
+        summary: formData.get("summary"),
+        link: formData.get("link"),
       },
+      _thedah_images: images,
     }
-
-    const [responseData, error] = await submitWPForm(
-      restUrl,
-      restNonce,
-      paperData,
-      setIsSubmitting,
-      editingPaper?.id ?? 0
-    )
-
-    if (responseData) {
-      if ("id" in responseData && responseData.id > 0) {
-        paper.id = responseData.id
-        paper.type = responseData.type
-        paper.title = responseData.title.raw
-        paper.content = responseData.content.raw
-        paper.featured_media_url = featuredMediaUrl
-        paper.featured_media = featuredMediaId
-        paper.meta = responseData.meta
-        if (responseData.type === "thedah_paper") {
-          if (editingPaper) {
-            setEn(en.map((b) => (b.id === paper.id ? paper : b)))
-          } else {
-            setEn([paper, ...en])
-          }
-        } else if (responseData.type === "thedah_paperfa") {
-          if (editingPaper) {
-            setFa(fa.map((b) => (b.id === paper.id ? paper : b)))
-          } else {
-            setFa([paper, ...fa])
-          }
-        } else {
-          throw new Error("Error getting the submitted object back")
-        }
-      }
-      setEditingPaper(null)
-    }
-    if (error) console.error("Error submitting paper", error)
-
-    event.target.reset()
-    setFeaturedMediaId(0)
-    setFeaturedMediaUrl("")
-    setCoAuthors([""])
-    setFiles([])
+    handleSubmit(event, meta)
   }
-
   return (
     <Card withBorder radius="md" p={15}>
-      <form onSubmit={handleSubmit} ref={formRef}>
+      <form
+        onSubmit={(e) => {
+          customHandleSubmit(e)
+        }}
+        ref={formRef}
+      >
         <Flex wrap="wrap" gap={50} align="center">
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
-              <PictureDrop
-                setFiles={setFiles}
-                imageUrl={featuredMediaUrl}
-                isUploading={isMediaUploading}
-                alt="Paper picture"
-                setIsDeleting={setIsMediaDeleting}
-                isDeleting={isMediaDeleting}
-              />
+              <Title order={1} size="h2" mb="32px">
+                {isEditing ? t("EditPaper") : t("NewPaper")}
+              </Title>
+              <ImageDropzone maxFiles={maxImages} />
             </Box>
             <Box pt={25}>
               {inputs.map((i) => (
                 <TextInput
+                  required
+                  label={t(i.placeholder)}
                   key={i}
                   placeholder={t(i.placeholder)}
                   aria-label={t(i.placeholder)}
@@ -188,7 +143,7 @@ export function PaperForm() {
               maxRows={10}
               miw="350px"
               name="summary"
-              defaultValue={editingPaper?.meta?._thedah_paper?.summary ?? ""}
+              defaultValue={selectedPost?.meta?._thedah_paper?.summary ?? ""}
             />
             <Textarea
               // label="Autosize with 4 rows max"
@@ -198,11 +153,33 @@ export function PaperForm() {
               maxRows={10}
               miw="350px"
               name="content"
-              defaultValue={editingPaper?.content ?? ""}
+              defaultValue={selectedPost?.content ?? ""}
             />
-            <Button type="submit" loading={isSubmitting}>
-              {t("Submit")}
-            </Button>
+            <Flex gap={20} wrap="wrap">
+              <ImageList images={images} />
+            </Flex>
+
+            <Group mt="24px" justify="center">
+              <Button
+                type="submit"
+                loading={isCreatingOrUpdatingPost}
+                color="green"
+              >
+                {t("Submit")}
+              </Button>
+              {isEditing && (
+                <Button
+                  loading={isCreatingOrUpdatingPost}
+                  color="red"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setIsEditing(false)
+                  }}
+                >
+                  Cancel
+                </Button>
+              )}
+            </Group>
           </Stack>
         </Flex>
       </form>

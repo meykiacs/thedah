@@ -75,13 +75,14 @@ export const CrudContextProvider = ({ children }) => {
   }, [isDeleting])
 
 
-  console.log('images:', images);
-  console.log('selectedpost:', selectedPost);
+  // console.log('images:', images);
+  // console.log('selectedpost:', selectedPost);
   return (
     <CrudContext.Provider
       value={{
         isDeleting,
         selectedPostId,
+        selectedPost,
         setSelectedPostId,
         createOrUpdatePost,
         isEditing,

@@ -64,11 +64,13 @@ $containerBuilder->addDefinitions([
       'book' => function (ContainerInterface $c) {
         $bookCPT = new CPT('book', 'Book');
         $bookCPT->metas[] = new BookMeta();
+        $bookCPT->metas[] = new ImagesMeta();
         return new CPTResource($bookCPT);
       },
       'paper' => function (ContainerInterface $c) {
         $paperCPT = new CPT('paper', 'Paper');
         $paperCPT->metas[] = new PaperMeta();
+        $paperCPT->metas[] = new ImagesMeta();
         return new CPTResource($paperCPT);
       },
       'about' => function (ContainerInterface $c) {
@@ -88,11 +90,13 @@ $containerBuilder->addDefinitions([
       'book' => function (ContainerInterface $c) {
         $bookCPTFa = new CPT('bookfa', 'BookFa');
         $bookCPTFa->metas[] = new BookMeta();
+        $bookCPTFa->metas[] = new ImagesMeta();
         return new CPTResource($bookCPTFa);
       },
       'paper' => function (ContainerInterface $c) {
         $paperCPTFa = new CPT('paperfa', 'PaperFa');
         $paperCPTFa->metas[] = new PaperMeta();
+        $paperCPTFa->metas[] = new ImagesMeta();
         return new CPTResource($paperCPTFa);
       },
       'about' => function (ContainerInterface $c) {

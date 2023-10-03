@@ -8,18 +8,31 @@ import { PostList } from "./PostList"
 
 export default function App() {
   const FORM_MAP = {
-    paper: PaperForm,
-    book: BookForm,
-    about: AboutForm,
-    blog: BlogForm,
+    paper: {
+      component: PaperForm,
+      maxImages: 1,
+    },
+    book: {
+      component: BookForm,
+      maxImages: 1,
+    },
+    about: {
+      component: AboutForm,
+      maxImages: 1,
+    },
+    blog: {
+      component: BlogForm,
+      maxImages: 3,
+    },
   }
   const { resourceName, resourceHuman } = useResourceContext()
-  const Form = FORM_MAP[resourceName]
+  const Form = FORM_MAP[resourceName].component
+  const maxImages = FORM_MAP[resourceName].maxImages
 
   return (
     <Container>
       <Box mb={20}>
-        <Form maxImages={3} />
+        <Form maxImages={maxImages} />
       </Box>
       {resourceName !== "about" && (
         <PostList resourceName={resourceName} resourceHuman={resourceHuman} />

@@ -24,7 +24,7 @@ export const BlogCard = ({ post, images }) => {
             {images.length > 0 &&
               images.map((i) => (
                 <Box key={i.id} w="150px">
-                  <Image key={i.id} src={i.mediumUrl} alt={post.title} />
+                  <Image src={i.mediumUrl} alt={post.title} />
                 </Box>
               ))}
           </SimpleGrid>

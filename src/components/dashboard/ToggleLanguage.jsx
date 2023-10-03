@@ -3,7 +3,7 @@ import useLanguageContext from "../../context/useLanguageContext"
 import { ActionIcon, useDirection } from "@mantine/core"
 import { IconTextDirectionLtr, IconTextDirectionRtl } from "@tabler/icons-react"
 
-export default function ToggleLanguage() {
+export default function ToggleLanguage({disabled}) {
   const { toggleDirection, dir } = useDirection()
   const { setDir, setLang } = useLanguageContext()
   const toggle = () => {
@@ -30,7 +30,7 @@ export default function ToggleLanguage() {
     document.body.dir = "rtl"
   }
   return (
-    <ActionIcon onClick={toggle} variant="default" radius="md" size="lg">
+    <ActionIcon onClick={toggle} variant="default" radius="md" size="lg" disabled={disabled}>
       {dir === "rtl" ? (
         <IconTextDirectionLtr stroke={1.5} />
       ) : (

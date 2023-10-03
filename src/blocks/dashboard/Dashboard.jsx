@@ -10,6 +10,7 @@ import { useState } from "@wordpress/element"
 import { ResourceProvider } from "../../context/ResourceContext"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import { EditContextProvider } from "../../context/EditContext"
+import { CrudContextProvider } from "../../context/CrudContext"
 
 export default function Dashboard({ providedValues }) {
   useLanguageAndDirection()
@@ -33,10 +34,10 @@ export default function Dashboard({ providedValues }) {
         <EditContextProvider>
           <WPProvider providedValues={providedValues}>
             <ResourceProvider providedValues={providedValues}>
-              <BooksProvider providedValues={providedValues}>
+              <CrudContextProvider>
                 <MantineGlobal />
                 <Shell />
-              </BooksProvider>
+              </CrudContextProvider>
             </ResourceProvider>
           </WPProvider>
         </EditContextProvider>

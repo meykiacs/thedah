@@ -6,7 +6,7 @@ import { Box, Button, Card, Flex, Group, Stack, TextInput } from "@mantine/core"
 import PictureDrop from "./PictureDrop"
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
-import { useResourceMediaForm } from "../../hooks/useResourceMediaForm"
+import { useResourceMediaForm } from "../../hooks/useFeaturedImage"
 import useResourceList from "../../hooks/useResourceList"
 
 export function AboutForm() {
