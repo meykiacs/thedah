@@ -1,68 +1,61 @@
 <?php
 
 use DI\Container;
+use Thedah\QueryResource\QueryResource;
 
 /**
  * @var Container $container
  */
 global $container;
+$lang = empty($_COOKIE['language']) ? 'fa' : $_COOKIE['language'];
+$colorScheme = empty($_COOKIE['colorscheme']) ? 'dark' : $_COOKIE['colorscheme'];
+$prefix = $container->get('prefix');
+$postTypes = ['paper'];
+$defaultResourceName = 'paper';
 
-$postType = 'thedah_paperfa';
+$data = [];
+$fetched = [];
+foreach ($postTypes as $postType) {
+  foreach (['en', 'fa'] as $language) {
+    $postTypeWithLang = $prefix . ($language === 'fa' ? "_{$postType}fa" : "_{$postType}");
 
-$lang = get_query_var('lang') === 'en' ? 'en' : 'fa';
-$postType = $lang === 'fa' ? 'thedah_paperfa' : 'thedah_paper';
-$papers = $lang === 'fa' ? 'papersFa' : 'papersEn';
-$faFetched = $lang === 'fa' ? '1' : '';
-$enFetched = $lang === 'en' ? '1' : '';
-$direction = $lang === 'en' ? 'ltr' : 'rtl';
+    $dataKey = $language === 'fa' ? "{$postType}Fa" : "{$postType}En";
+    $fetchedKey = $language === 'fa' ? "{$postType}FaFetched" : "{$postType}EnFetched";
 
-$papersEn = [];
-$papersFa = [];
+    if ($language === $lang) {
+      // Get the CPTResource instance
+      $cptResource = $container->get('resources')[$language][$postType];
 
-$query = new WP_Query(
-  [
-    'post_type' => $postType,
-    'posts_per_page' => -1,
-  ]
-);
+      // Get the metas of the CPT
+      $metas = $cptResource->cpt->metas;
 
-if ($query->have_posts()) {
-  while ($query->have_posts()) {
-    $query->the_post();
-    $id = get_the_ID();
-    $paper = array(
-      'id' => get_the_ID(),
-      'type' => get_post_type(get_the_ID()),
-      'title' => get_the_title(),
-      'content' => get_the_content(),
-      'featured_image_url' => get_the_post_thumbnail_url($id, 'full'),
-      'featured_image_id' => get_post_thumbnail_id($id),
-      'meta' => ['_thedah_paper' => get_post_meta($id, '_thedah_paper', true)],
-    );
-    array_push($$papers, $paper);
+      // Prepare the array of meta keys
+      $metaKeys = array_map(function ($meta) use ($container, $prefix) {
+        return '_' . $prefix . '_' . $meta->slug;
+      }, $metas);
+
+      $data[$dataKey] = $container->get(QueryResource::class)->getResourceList($postTypeWithLang, $metaKeys);
+      if ($dataKey === 'blogFa') {
+      }
+      $fetched[$fetchedKey] =  '1';
+    } else {
+      // If the language is not the specified language, set an empty array
+      $data[$dataKey] = [];
+      $fetched[$fetchedKey] = '';
+    }
   }
 }
-wp_reset_query();
 
 ?>
-<div id="thedah-paperpage" data-lang="<?php echo esc_attr($lang); ?>"
-  data-direction="<?php echo esc_attr($direction) ?>" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>"
-  data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>"
-  data-paper-rest-url-en="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paper')); ?>"
-  data-paper-rest-url-fa="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $container->get('prefix') . '_paperfa')); ?>"
-  data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>"
-  data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>"
-  data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>"
-  data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>"
-  data-papers-en-fetched="<?php echo esc_attr($enFetched) ?>"
-  data-papers-fa-fetched="<?php echo esc_attr($faFetched) ?>" data-resource-name="paper">
-
+<div id="<?php echo esc_attr($prefix); ?>-paperpage" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>" data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>" data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>" data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>" data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>" data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>" <?php foreach ($postTypes as $postType) : ?> data-<?php echo $postType; ?>-en-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}")); ?>" data-<?php echo $postType; ?>-fa-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}fa")); ?>" data-<?php echo $postType; ?>-en-fetched="<?php echo esc_attr($fetched["{$postType}EnFetched"]); ?>" data-<?php echo $postType; ?>-fa-fetched="<?php echo esc_attr($fetched["{$postType}FaFetched"]); ?>" <?php endforeach; ?> data-resource-name="<?php echo esc_attr($defaultResourceName); ?>" data-resource-human="Books" data-color-scheme="<?php echo esc_attr($colorScheme); ?>" data-resource-names="<?php echo esc_attr(wp_json_encode($postTypes)); ?>" data-prefix="<?php echo esc_attr($prefix); ?>">
 </div>
 
-<pre style="display: none !important" id="papers-fa">
-  <?php echo wp_json_encode(array_values($papersFa)); ?>
-</pre>
+<?php foreach ($postTypes as $postType) : ?>
+  <pre style="display: none !important" id="<?php echo $postType; ?>-fa">
+        <?php echo wp_json_encode($data["{$postType}Fa"]); ?>
+    </pre>
 
-<pre style="display: none !important" id="papers-en">
-  <?php echo wp_json_encode(array_values($papersEn)); ?>
-</pre>
+  <pre style="display: none !important" id="<?php echo $postType; ?>-en">
+        <?php echo wp_json_encode($data["{$postType}En"]); ?>
+    </pre>
+<?php endforeach; ?>

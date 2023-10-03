@@ -1,36 +1,48 @@
 import { render } from "@wordpress/element"
 import { LanguageProvider } from "../../context/LanguageContext"
-import PaperPage from "./PaperPage"
+import { PaperPage } from "./PaperPage"
 import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-paperpage")
-  document.documentElement.setAttribute("lang", root.dataset.lang)
-  document.body.dir = root.dataset.direction
+
+  const resourceNames = JSON.parse(root.dataset.resourceNames)
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,
     restNonce: root.dataset.restNonce,
-    paperRestUrlEn: root.dataset.paperRestUrlEn,
-    paperRestUrlFa: root.dataset.paperRestUrlFa,
     mediaRestUrl: root.dataset.mediaRestUrl,
     assetsFontsUrl: root.dataset.assetsFontsUrl,
     assetsImagesUrl: root.dataset.assetsImagesUrl,
-    isPapersFaFetched: !!root.dataset.papersFaFetched,
-    isPapersEnFetched: !!root.dataset.papersEnFetched,
     resourceName: root.dataset.resourceName,
-    papersFa: JSON.parse(document.getElementById("papers-fa").textContent),
-    papersEn: JSON.parse(document.getElementById("papers-en").textContent),
+    resourceHuman: root.dataset.resourceHuman,
+    prefix: root.dataset.prefix,
   }
+
+  resourceNames.forEach((resource) => {
+    providedValues[`${resource}EnRestUrl`] =
+      root.dataset[`${resource}EnRestUrl`]
+    providedValues[`${resource}FaRestUrl`] =
+      root.dataset[`${resource}FaRestUrl`]
+    providedValues[`${resource}FaFetched`] =
+      !!root.dataset[`${resource}FaFetched`]
+    providedValues[`${resource}EnFetched`] =
+      !!root.dataset[`${resource}EnFetched`]
+    providedValues[`${resource}Fa`] = JSON.parse(
+      document.getElementById(`${resource}-fa`).textContent,
+    )
+    providedValues[`${resource}En`] = JSON.parse(
+      document.getElementById(`${resource}-en`).textContent,
+    )
+  })
+
+  console.log(providedValues);
   render(
-    <LanguageProvider
-      language={root.dataset.lang}
-      direction={root.dataset.direction}
-    >
+    <LanguageProvider>
       <ColorSchemeProvider>
         <PaperPage providedValues={providedValues} />
       </ColorSchemeProvider>
     </LanguageProvider>,
-    root
+    root,
   )
 })

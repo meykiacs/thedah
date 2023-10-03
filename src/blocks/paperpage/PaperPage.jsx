@@ -14,7 +14,7 @@ import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
 import { PaperList } from "../../components/paperpage/PaperList"
 
-export default function PaperPage({ providedValues }) {
+export function PaperPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
 
