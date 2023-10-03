@@ -15,7 +15,7 @@ export function BookCard({ book }) {
   let buttonColorHover
   let buttonText
 
-  switch (book.meta.availability) {
+  switch (book.meta._thedah_book.availability) {
     case "available":
       buttonColor = "#81BA62"
       buttonColorHover = theme.colors.accent
@@ -33,19 +33,13 @@ export function BookCard({ book }) {
       break
   }
 
+  const imageUrl = book.meta._thedah_images[0]?.mediumUrl ??  `${assetsImagesUrl}/image-placeholder.svg`
   return (
     <Wrapper>
       <ButDescription>
         <BookAndPrice>
           <ImageWrapper>
-            {book.featured_media_url && book.featured_media > 0 ? (
-              <img src={book.featured_media_url} alt={book.title} />
-            ) : (
-              <img
-                src={`${assetsImagesUrl}/image-placeholder.svg`}
-                alt="book placeholder"
-              />
-            )}
+              <img src={imageUrl} alt={book.title} />
           </ImageWrapper>
           <Button
             variant="fill"
@@ -62,29 +56,32 @@ export function BookCard({ book }) {
         <BookInfo>
           <Title>{book.title}</Title>
           <Author>
-            {book.meta.author}
-            {book.meta.coauthors &&
-              book.meta.coauthors[0] !== "" &&
-              book.meta.coauthors.map((c) => (
+            {book.meta._thedah_book.author}
+            {book.meta._thedah_book.coauthors &&
+              book.meta._thedah_book.coauthors[0] !== "" &&
+              book.meta._thedah_book.coauthors.map((c) => (
                 <span key={c}>
                   {t("comma")} {c}
                 </span>
               ))}
           </Author>
-          <RestOfInfo>{book.meta.publisher}</RestOfInfo>
+          <RestOfInfo>{book.meta._thedah_book.publisher}</RestOfInfo>
           <RestOfInfo>
-            {t("edition")} {book.meta.edition} {book.meta.year}
+            {t("edition")} {book.meta._thedah_book.edition} {book.meta._thedah_book.year}
           </RestOfInfo>
           <RestOfInfo>
-            {book.meta.numberOfPages} {t("pages")}
+            {book.meta._thedah_book.numberOfPages} {t("pages")}
+          </RestOfInfo>
+          <RestOfInfo>
+          {t("ISBN")}: {book.meta._thedah_book.isbn}
           </RestOfInfo>
           <Price>
             {t("Price")}
-            {":"} {book.meta.price} {t("T")}
+            {":"} {book.meta._thedah_book.price} {t("T")}
           </Price>
         </BookInfo>
       </ButDescription>
-      <Description>{book.description}</Description>
+      <Description>{book.content}</Description>
     </Wrapper>
   )
 }

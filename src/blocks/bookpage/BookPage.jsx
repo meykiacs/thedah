@@ -15,7 +15,7 @@ import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
 
-export default function BookPage({ providedValues }) {
+export function BookPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
 
