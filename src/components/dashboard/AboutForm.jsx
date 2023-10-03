@@ -1,61 +1,53 @@
 import { useEffect, useRef, useState } from "@wordpress/element"
-import submitWPForm from "../../utils/submitWPForm"
-import useLanguageContext from "../../context/useLanguageContext"
-import useResourceContext from "../../context/useResourceContext"
-import { Box, Button, Card, Flex, Group, Stack, TextInput } from "@mantine/core"
-import PictureDrop from "./PictureDrop"
+import {
+  Box,
+  Button,
+  Card,
+  Flex,
+  Group,
+  Stack,
+  TextInput,
+  Title,
+} from "@mantine/core"
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
-import { useResourceMediaForm } from "../../hooks/useFeaturedImage"
-import useResourceList from "../../hooks/useResourceList"
+import { useCrudContext } from "../../context/CrudContext"
+import useResourceContext from "../../context/useResourceContext"
+import useLanguageContext from "../../context/useLanguageContext"
 
 export function AboutForm() {
-  const {
-    featuredMediaId,
-    featuredMediaUrl,
-    setFiles,
-    isMediaUploading,
-    setIsMediaDeleting,
-    isMediaDeleting,
-  } = useResourceMediaForm()
-
   const { t } = useTranslation()
-  const { lang } = useLanguageContext()
-  const { resources, restNonce, resourceName } = useResourceContext()
-  const { restUrlEn, restUrlFa, setEn, setFa } = resources[resourceName]
-  let about = useResourceList("about")
-  if (Array.isArray(about)) {
-    about = about[0]
-  }
-  // const about = lang === "fa" ? fa : en
-  const setAbout = lang === "fa" ? setFa : setEn
-  // const [about, setAbout] = useState(aboutFromContext)
+  const formRef = useRef(null)
+  const {lang} = useLanguageContext()
+  const {
+    handleSubmit,
+    setSelectedPostId,
+    isEditing,
+    isCreatingOrUpdatingPost,
+    setIsEditing,
+  } = useCrudContext()
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
+  const about = useResourceContext().resources.about.rs[0]
+  console.log(about)
   const [education, setEducation] = useState([""])
   const [activities, setActivities] = useState([""])
   const [executiveRecords, setExecutiveRecords] = useState([""])
   const [awardsAndHonors, setAwardsAndHonors] = useState([""])
 
-  const formRef = useRef(null)
-
-  const restUrl = lang === "fa" ? restUrlFa : restUrlEn
-
   useEffect(() => {
     formRef.current.reset()
-    //   setAbout(lang === "fa" ? fa : en)
   }, [lang])
 
   useEffect(() => {
-    setEducation(about?.meta?._thedah_about?.education ?? [""])
-    setActivities(about?.meta?._thedah_about?.activities ?? [""])
-    setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
-    setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
-
-    formRef.current.scrollIntoView({ behavior: "smooth" })
     formRef.current.focus()
-  }, [setEducation, about])
+    if (about) {
+      setSelectedPostId(about.id)
+      setEducation(about?.meta?._thedah_about?.education ?? [""])
+      setActivities(about?.meta?._thedah_about?.activities ?? [""])
+      setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
+      setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
+    }
+  }, [about, setSelectedPostId])
 
   const inputs = [
     {
@@ -65,74 +57,43 @@ export function AboutForm() {
     },
   ]
 
-  const handleSubmit = async (event) => {
+  const customHandleSubmit = async (event) => {
     event.preventDefault()
 
     const formData = new FormData(event.target)
-    formData.append("status", "publish")
-    const aboutData = {
-      title: "",
-      content: "",
-      status: "publish",
-      featured_media: featuredMediaId,
-      meta: {
-        _thedah_about: {
-          education,
-          activities,
-          executiveRecords,
-          awardsAndHonors,
-          academicRank: formData.get("academicRank"),
-        },
+    const meta = {
+      _thedah_about: {
+        education,
+        activities,
+        executiveRecords,
+        awardsAndHonors,
+        academicRank: formData.get("academicRank"),
       },
     }
-    const [responseData, error] = await submitWPForm(
-      restUrl,
-      restNonce,
-      aboutData,
-      setIsSubmitting,
-      about?.id ?? 0
-    )
-    const newAbout = {}
-    if (responseData) {
-      if ("id" in responseData && responseData.id > 0) {
-        newAbout.id = responseData.id
-        newAbout.type = responseData.type
-        newAbout.title = responseData.title.raw
-        newAbout.content = responseData.content.raw
-        newAbout.featured_media_url = featuredMediaUrl
-        newAbout.featured_media = featuredMediaId
-        newAbout.meta = responseData.meta
-        if (responseData.type === "thedah_about") {
-          setEn(newAbout)
-        } else if (responseData.type === "thedah_aboutfa") {
-          setFa(newAbout)
-        } else {
-          throw new Error("Error getting the submitted object back")
-        }
-      }
-      setAbout(newAbout)
-    }
-    if (error) console.error("Error submitting About", error)
+    handleSubmit(event, meta)
   }
 
   return (
     <Card withBorder radius="md" p={15}>
-      <form onSubmit={handleSubmit} ref={formRef}>
+      <form
+        onSubmit={(e) => {
+          customHandleSubmit(e)
+        }}
+        ref={formRef}
+      >
         <Flex wrap="wrap" gap={50} align="center">
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
-              <PictureDrop
-                setFiles={setFiles}
-                imageUrl={featuredMediaUrl}
-                isUploading={isMediaUploading}
-                alt="Paper picture"
-                setIsDeleting={setIsMediaDeleting}
-                isDeleting={isMediaDeleting}
-              />
+              <Title order={1} size="h2" mb="32px">
+                {isEditing ? t("EditAbout") : t("NewAbout")}
+              </Title>
             </Box>
             <Box pt={25}>
               {inputs.map((i) => (
                 <TextInput
+                  disabled={!isEditing}
+                  required
+                  label={t(i.placeholder)}
                   key={i}
                   placeholder={t(i.placeholder)}
                   aria-label={t(i.placeholder)}
@@ -142,21 +103,25 @@ export function AboutForm() {
                 />
               ))}
               <DynamicInput
+                disabled={!isEditing}
                 inputs={education}
                 setInputs={setEducation}
                 label={t("Education")}
               />
               <DynamicInput
+                disabled={!isEditing}
                 inputs={activities}
                 setInputs={setActivities}
                 label={t("Activities")}
               />
               <DynamicInput
+                disabled={!isEditing}
                 inputs={executiveRecords}
                 setInputs={setExecutiveRecords}
                 label={t("Executive Records")}
               />
               <DynamicInput
+                disabled={!isEditing}
                 inputs={awardsAndHonors}
                 setInputs={setAwardsAndHonors}
                 label={t("Awards and Honors")}
@@ -164,9 +129,41 @@ export function AboutForm() {
             </Box>
           </Group>
           <Stack pt={25} spacing={50} align="center">
-            <Button type="submit" loading={isSubmitting}>
-              {t("Submit")}
-            </Button>
+            <Group mt="24px" justify="center">
+              {isEditing ? (
+                <Button
+                  type="submit"
+                  loading={isCreatingOrUpdatingPost}
+                  color="green"
+                >
+                  {t("Submit")}
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  loading={isCreatingOrUpdatingPost}
+                  color="green"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setIsEditing(true)
+                  }}
+                >
+                  {t("Edit")}
+                </Button>
+              )}
+              {isEditing && (
+                <Button
+                  loading={isCreatingOrUpdatingPost}
+                  color="red"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setIsEditing(false)
+                  }}
+                >
+                  Cancel
+                </Button>
+              )}
+            </Group>
           </Stack>
         </Flex>
       </form>

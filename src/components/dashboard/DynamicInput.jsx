@@ -1,7 +1,7 @@
 import { ActionIcon, Group, Stack, TextInput } from "@mantine/core"
 import { IconMinus, IconPlus } from "@tabler/icons-react"
 
-export default function DynamicInput({ inputs, setInputs, label }) {
+export default function DynamicInput({ inputs, setInputs, label, disabled }) {
   const handleAddInput = () => {
     if (inputs.every((i) => i.trim() !== "")) {
       setInputs([...inputs, ""])
@@ -18,6 +18,7 @@ export default function DynamicInput({ inputs, setInputs, label }) {
       {inputs.map((c, index) => (
         <Group key={index}>
           <TextInput
+            disabled={disabled}
             value={c}
             aria-label={`${label} ${index + 1} `}
             placeholder={`${label} ${index + 1}`}
@@ -28,13 +29,16 @@ export default function DynamicInput({ inputs, setInputs, label }) {
             }}
           />
           {index !== 0 && (
-            <ActionIcon onClick={() => handleRemoveInput(index)}>
+            <ActionIcon
+              onClick={() => handleRemoveInput(index)}
+              disabled={disabled}
+            >
               <IconMinus />
             </ActionIcon>
           )}
         </Group>
       ))}
-      <ActionIcon onClick={handleAddInput}>
+      <ActionIcon onClick={handleAddInput} disabled={disabled}>
         <IconPlus />
       </ActionIcon>
     </Stack>
