@@ -40,6 +40,10 @@ class ImagesMeta extends Meta {
           'type'  => 'string',
           'format'  =>  'uri'
         ],
+        'source_url'  => [
+          'type'  => 'string',
+          'format'  =>  'uri'
+        ],
       ]
     ]
   ];

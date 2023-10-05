@@ -15,16 +15,16 @@ export function Shell() {
 
   const { resourceName, setResourceName, setResourceHuman } =
     useResourceContext()
-  const { isEditing } = useCrudContext()
+  const { isEditing, images } = useCrudContext()
   const { t } = useTranslation()
   const data = [
     { link: "", label: "Books", icon: IconBook, name: "book" },
     { link: "", label: "Papers", icon: IconArticle, name: "paper" },
     { link: "", label: "About", icon: IconUser, name: "about" },
     { link: "", label: "Blog", icon: IconUser, name: "blog" },
+    { link: "", label: "Course", icon: IconUser, name: "course" },
   ]
   const [active, setActive] = useState(resourceName)
-
   return (
     <AppShell
       header={{ height: 100 }}
@@ -44,7 +44,7 @@ export function Shell() {
         >
           <Group>
             <ThemeActionToggle />
-            <ToggleLanguage disabled={isEditing} />
+            <ToggleLanguage disabled={isEditing || images.length > 0} />
           </Group>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         </Flex>

@@ -24,6 +24,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
     aboutFaRestUrl,
     blogEnRestUrl,
     blogFaRestUrl,
+    courseEnRestUrl,
+    courseFaRestUrl,
   } = providedValues
 
 
@@ -57,6 +59,20 @@ export const ResourceProvider = ({ providedValues, children }) => {
   const [blogEnFetched, setBlogEnFetched] = useState(
     providedValues.blogEnFetched,
   )
+  
+  const [coursesFa, setCoursesFa] = useState(
+    providedValues.courseFa,
+  )
+  const [coursesEn, setCoursesEn] = useState(
+    providedValues.courseEn,
+  )
+  const [courseFaFetched, setCourseFaFetched] = useState(
+    providedValues.courseFaFetched,
+  )
+  const [courseEnFetched, setCourseEnFetched] = useState(
+    providedValues.courseEnFetched,
+  )
+
   const [aboutFa, setAboutFa] = useState(providedValues.aboutFa)
   const [aboutEn, setAboutEn] = useState(providedValues.aboutEn)
   const [aboutFaFetched, setAboutFaFetched] = useState(
@@ -118,6 +134,23 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrl: lang === "fa" ? blogFaRestUrl : blogEnRestUrl,
       fetched: lang === "fa" ? blogFaFetched : blogEnFetched,
       setFetched: lang === "fa" ? setBlogFaFetched : setBlogEnFetched,
+    },
+    course: {
+      fa: coursesFa,
+      en: coursesEn,
+      setEn: setCoursesEn,
+      setFa: setCoursesFa,
+      faFetched: courseFaFetched,
+      enFetched: courseEnFetched,
+      setFaFetched: setCourseFaFetched,
+      setEnFetched: setCourseEnFetched,
+      restUrlEn: courseEnRestUrl,
+      restUrlFa: courseFaRestUrl,
+      rs: lang === "fa" ? coursesFa : coursesEn,
+      setR: lang === "fa" ? setCoursesFa : setCoursesEn,
+      restUrl: lang === "fa" ? courseFaRestUrl : courseEnRestUrl,
+      fetched: lang === "fa" ? courseFaFetched : courseEnFetched,
+      setFetched: lang === "fa" ? setCourseFaFetched : setCourseEnFetched,
     },
     about: {
       fa: aboutFa,

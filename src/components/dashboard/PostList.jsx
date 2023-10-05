@@ -6,18 +6,20 @@ import { BlogCard } from "./BlogCard"
 import { BookCard } from "./BookCard"
 import PaperCard from "./PaperCard"
 import { getImages } from "../../utils/wp"
+import { CourseCard } from "./CourseCard"
 
 export function PostList({ resourceName }) {
   const CARD_MAP = {
     paper: PaperCard,
     book: BookCard,
     blog: BlogCard,
+    course: CourseCard,
   }
   const Card = CARD_MAP[resourceName]
 
   const rs = useResourceList(resourceName)
 
-  const { setSelectedPostId, isEditing, selectedPostId, isDeleting } =
+  const { setSelectedPostId, isEditing, selectedPostId, isDeleting, images } =
     useCrudContext()
   const { t } = useTranslation()
   return (
@@ -29,7 +31,7 @@ export function PostList({ resourceName }) {
       {rs.map((post) => (
         <Accordion.Item key={post.id} value={post.id.toString()}>
           <Accordion.Control
-            disabled={isEditing}
+            disabled={isEditing || images.length > 0}
             fz="1.25rem"
             pr="32px"
             pl="16"
@@ -47,12 +49,7 @@ export function PostList({ resourceName }) {
               overlayProps={{ radius: "sm", blur: 2 }}
               loaderProps={{ color: "blue", type: "bars" }}
             />
-            <Card
-              post={post}
-              images={
-                getImages(post)
-              }
-            />
+            <Card post={post} images={getImages(post)} />
           </Accordion.Panel>
         </Accordion.Item>
       ))}

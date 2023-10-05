@@ -17,7 +17,7 @@ class BlogMeta extends Meta {
     'properties'  => [
       'blogtype'  =>  [
         'type'  =>  'string',
-        'enum'  =>  ['article', 'event', 'news']
+        'enum'  =>  ['article', 'event', 'news', 'interview']
       ],
       'feature' =>  [
         'type'  => 'string',

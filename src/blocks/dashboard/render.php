@@ -8,7 +8,7 @@ use Thedah\QueryResource\QueryResource;
  */
 global $container;
 
-$postTypes = ['about', 'paper', 'book', 'blog'];
+$postTypes = ['about', 'paper', 'book', 'blog', 'course'];
 $defaultResourceName = 'book';
 
 $lang = empty($_COOKIE['language']) ? 'fa' : $_COOKIE['language'];

@@ -26,6 +26,8 @@ export const useImage = () => {
 
     if (!response.ok) {
       console.error("Upload failed:", response)
+      setIsImageUploading(false)
+
       return
     }
 
@@ -40,6 +42,7 @@ export const useImage = () => {
         mediumLargeUrl: data.media_details.sizes.medium_large?.source_url ?? "",
         largeUrl: data.media_details.sizes.large?.source_url ?? "",
         fullUrl: data.media_details.sizes.full?.source_url ?? "",
+        source_url: data.source_url ?? "",
       },
     ])
     setIsImageUploading(false)

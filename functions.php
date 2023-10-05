@@ -11,6 +11,7 @@ use Thedah\CPTResource\Service\RegisterCPTResource;
 use Thedah\Models\Meta\AboutMeta;
 use Thedah\Models\Meta\BlogMeta;
 use Thedah\Models\Meta\BookMeta;
+use Thedah\Models\Meta\CourseMeta;
 use Thedah\Models\Meta\ImagesMeta;
 use Thedah\Models\Meta\PaperMeta;
 
@@ -86,6 +87,13 @@ $containerBuilder->addDefinitions([
         $blogCPT->metas[] = new BlogMeta();
         return new CPTResource($blogCPT);
       },
+      'course' => function (ContainerInterface $c) {
+        $courseCPT = new CPT('course', 'Course');
+        $courseCPT->public = true;
+        $courseCPT->metas[] = new ImagesMeta();
+        $courseCPT->metas[] = new CourseMeta();
+        return new CPTResource($courseCPT);
+      },
     ],
     'fa' => [
 
@@ -113,6 +121,13 @@ $containerBuilder->addDefinitions([
         $blogCPTFa->metas[] = new BlogMeta();
         return new CPTResource($blogCPTFa);
       },
+      'course' => function (ContainerInterface $c) {
+        $courseCPT = new CPT('coursefa', 'CourseFa');
+        $courseCPT->public = true;
+        $courseCPT->metas[] = new ImagesMeta();
+        $courseCPT->metas[] = new CourseMeta();
+        return new CPTResource($courseCPT);
+      },
     ]
   ]
 ]);
@@ -131,10 +146,11 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['en']['paper'])
   ->add($container->get('resources')['en']['about'])
   ->add($container->get('resources')['en']['blog'])
+  ->add($container->get('resources')['en']['course'])
   ->add($container->get('resources')['fa']['book'])
   ->add($container->get('resources')['fa']['paper'])
   ->add($container->get('resources')['fa']['about'])
-  ->add($container->get('resources')['fa']['blog'])
+  ->add($container->get('resources')['fa']['course'])
   ->register();
 
 // $registerQueryVars = $container->get(RegisterQueryVars::class);

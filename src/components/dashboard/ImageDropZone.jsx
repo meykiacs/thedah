@@ -2,14 +2,16 @@ import { Text, Center } from "@mantine/core"
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
+const maxFileSize = 50*1024**2
 
-export function ImageDropzone({ maxFiles }) {
+export function ImageDropzone({ maxFiles, mimeTypes = IMAGE_MIME_TYPE, maxSize={maxFileSize} }) {
   const { uploadImage, isImageUploading } = useCrudContext()
   const { t } = useTranslation()
   return (
     <Dropzone
-      accept={IMAGE_MIME_TYPE}
+      accept={mimeTypes}
       maxFiles={maxFiles}
+      maxSize={maxSize}
       onDrop={(files) => files.forEach((f) => uploadImage(f, maxFiles))}
       loading={isImageUploading}
       mih={200}

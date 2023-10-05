@@ -5,6 +5,7 @@ import { BookForm } from "../dashboard/BookForm"
 import { AboutForm } from "../dashboard/AboutForm"
 import { BlogForm } from "./BlogForm"
 import { PostList } from "./PostList"
+import { CourseForm } from "./CourseForm"
 
 export default function App() {
   const FORM_MAP = {
@@ -23,6 +24,10 @@ export default function App() {
     blog: {
       component: BlogForm,
       maxImages: 3,
+    },
+    course: {
+      component: CourseForm,
+      maxImages: 1,
     },
   }
   const { resourceName, resourceHuman } = useResourceContext()
