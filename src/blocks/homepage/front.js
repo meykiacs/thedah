@@ -6,6 +6,7 @@ import HomePage from "./HomePage"
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-homepage")
 
+  const resourceNames = JSON.parse(root.dataset.resourceNames)
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,
@@ -13,33 +14,33 @@ window.addEventListener("DOMContentLoaded", () => {
     mediaRestUrl: root.dataset.mediaRestUrl,
     assetsFontsUrl: root.dataset.assetsFontsUrl,
     assetsImagesUrl: root.dataset.assetsImagesUrl,
-    aboutRestUrlEn: root.dataset.aboutRestUrlEn,
-    aboutRestUrlFa: root.dataset.aboutRestUrlFa,
-    bookRestUrlEn: root.dataset.bookRestUrlEn,
-    bookRestUrlFa: root.dataset.bookRestUrlFa,
-    paperRestUrlEn: root.dataset.paperRestUrlEn,
-    paperRestUrlFa: root.dataset.paperRestUrlFa,
-    isAboutFaFetched: !!root.dataset.aboutFaFetched,
-    isAboutEnFetched: !!root.dataset.aboutEnFetched,
-    isBooksFaFetched: !!root.dataset.booksFaFetched,
-    isBooksEnFetched: !!root.dataset.booksEnFetched,
-    isPapersFaFetched: !!root.dataset.papersFaFetched,
-    isPapersEnFetched: !!root.dataset.papersEnFetched,
-    aboutFa: JSON.parse(document.getElementById("about-fa").textContent),
-    aboutEn: JSON.parse(document.getElementById("about-en").textContent),
-    booksFa: JSON.parse(document.getElementById("books-fa").textContent),
-    booksEn: JSON.parse(document.getElementById("books-en").textContent),
-    papersFa: JSON.parse(document.getElementById("papers-fa").textContent),
-    papersEn: JSON.parse(document.getElementById("papers-en").textContent),
     resourceName: root.dataset.resourceName,
+    resourceHuman: root.dataset.resourceHuman,
+    prefix: root.dataset.prefix,
   }
 
+  resourceNames.forEach((resource) => {
+    providedValues[`${resource}EnRestUrl`] =
+      root.dataset[`${resource}EnRestUrl`]
+    providedValues[`${resource}FaRestUrl`] =
+      root.dataset[`${resource}FaRestUrl`]
+    providedValues[`${resource}FaFetched`] =
+      !!root.dataset[`${resource}FaFetched`]
+    providedValues[`${resource}EnFetched`] =
+      !!root.dataset[`${resource}EnFetched`]
+    providedValues[`${resource}Fa`] = JSON.parse(
+      document.getElementById(`${resource}-fa`).textContent,
+    )
+    providedValues[`${resource}En`] = JSON.parse(
+      document.getElementById(`${resource}-en`).textContent,
+    )
+  })
   render(
     <LanguageProvider>
       <ColorSchemeProvider>
         <HomePage providedValues={providedValues} />
       </ColorSchemeProvider>
     </LanguageProvider>,
-    root
+    root,
   )
 })
