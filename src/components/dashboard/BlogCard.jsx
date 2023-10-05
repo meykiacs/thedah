@@ -12,6 +12,7 @@ import {
 } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
+import HTMLReactParser from "html-react-parser"
 
 export const BlogCard = ({ post, images }) => {
   const { setIsEditing, deletePost } = useCrudContext()
@@ -40,7 +41,7 @@ export const BlogCard = ({ post, images }) => {
             {t("Content")}
           </Title>
           <Spoiler maxHeight={120} showLabel="Show more" hideLabel="Hide">
-            {post.content}
+            {HTMLReactParser(post.content)}
           </Spoiler>
         </Card.Section>
         <Group justify="center">

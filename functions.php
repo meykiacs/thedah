@@ -9,6 +9,7 @@ use Thedah\CPTResource\Model\CPT;
 use Thedah\CPTResource\Model\CPTResource;
 use Thedah\CPTResource\Service\RegisterCPTResource;
 use Thedah\Models\Meta\AboutMeta;
+use Thedah\Models\Meta\BlogMeta;
 use Thedah\Models\Meta\BookMeta;
 use Thedah\Models\Meta\ImagesMeta;
 use Thedah\Models\Meta\PaperMeta;
@@ -82,6 +83,7 @@ $containerBuilder->addDefinitions([
         $blogCPT = new CPT('blog', 'Blog Post');
         $blogCPT->public = true;
         $blogCPT->metas[] = new ImagesMeta();
+        $blogCPT->metas[] = new BlogMeta();
         return new CPTResource($blogCPT);
       },
     ],
@@ -108,6 +110,7 @@ $containerBuilder->addDefinitions([
         $blogCPTFa = new CPT('blogfa', 'Blog Post Fa');
         $blogCPTFa->public = true;
         $blogCPTFa->metas[] = new ImagesMeta();
+        $blogCPTFa->metas[] = new BlogMeta();
         return new CPTResource($blogCPTFa);
       },
     ]
