@@ -17,7 +17,6 @@ import { useCrudContext } from "../../context/CrudContext"
 export function GalleryCard({ post, images }) {
   const { t } = useTranslation()
   const { isDeleting, deletePost, setIsEditing } = useCrudContext()
-  console.log(post);
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">

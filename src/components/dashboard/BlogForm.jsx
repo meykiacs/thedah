@@ -100,7 +100,7 @@ export const BlogForm = ({ maxImages }) => {
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
               <Title order={1} size="h2" mb="32px">
-                {isEditing ? t("EditPost") : t("NewPost")}
+                {isEditing ? t("editPost") : t("newPost")}
               </Title>
               <ImageDropzone maxFiles={maxImages} />
             </Box>

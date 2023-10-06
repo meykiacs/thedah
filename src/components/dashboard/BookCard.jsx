@@ -12,9 +12,11 @@ import {
   Button,
   Container,
   SimpleGrid,
+  Spoiler,
 } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
+import HTMLReactParser from "html-react-parser"
 
 export function BookCard({ post, images }) {
   const { t } = useTranslation()
@@ -79,7 +81,10 @@ export function BookCard({ post, images }) {
               </Box>
             </Group>
             <Box pt={25}>
-              <Text>{post.content}</Text>
+              <Spoiler maxHeight={120} showLabel="Show more" hideLabel="Hide">
+                {/* {post.content} */}
+                {HTMLReactParser(post.content)}
+              </Spoiler>
             </Box>
           </Flex>
         </Card.Section>

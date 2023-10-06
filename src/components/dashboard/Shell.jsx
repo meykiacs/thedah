@@ -1,7 +1,7 @@
 import { useDisclosure } from "@mantine/hooks"
 import { AppShell, Burger, Flex, Group, NavLink } from "@mantine/core"
 
-import { IconBook, IconArticle, IconUser } from "@tabler/icons-react"
+import { IconBook, IconArticle, IconUser, IconPencil, IconSchool, IconPhotoEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import useResourceContext from "../../context/useResourceContext"
 import { useState } from "@wordpress/element"
@@ -21,9 +21,9 @@ export function Shell() {
     { link: "", label: "Books", icon: IconBook, name: "book" },
     { link: "", label: "Papers", icon: IconArticle, name: "paper" },
     { link: "", label: "About", icon: IconUser, name: "about" },
-    { link: "", label: "Blog", icon: IconUser, name: "blog" },
-    { link: "", label: "Course", icon: IconUser, name: "course" },
-    { link: "", label: "gallery", icon: IconUser, name: "gallery" },
+    { link: "", label: "blogPosts", icon: IconPencil, name: "blog" },
+    { link: "", label: "Courses", icon: IconSchool, name: "course" },
+    { link: "", label: "Gallery", icon: IconPhotoEdit, name: "gallery" },
   ]
   const [active, setActive] = useState(resourceName)
   return (

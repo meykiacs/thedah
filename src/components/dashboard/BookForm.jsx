@@ -17,6 +17,15 @@ import { useCrudContext } from "../../context/CrudContext"
 import { ImageDropzone } from "./ImageDropZone"
 import { ImageList } from "./ImageList"
 import useLanguageContext from "../../context/useLanguageContext"
+import { BlogRichText } from "./BlogRichText"
+import { useEditor } from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
+import Underline from "@tiptap/extension-underline"
+import Link from "@tiptap/extension-link"
+import Superscript from "@tiptap/extension-superscript"
+import Subscript from "@tiptap/extension-subscript"
+import Highlight from "@tiptap/extension-highlight"
+import TextAlign from "@tiptap/extension-text-align"
 
 export function BookForm({ maxImages }) {
   const [availability, setAvailability] = useState("available")
@@ -34,29 +43,12 @@ export function BookForm({ maxImages }) {
     setIsEditing,
   } = useCrudContext()
 
-  // for the create form
-  useEffect(() => {
-    formRef.current.reset()
-  }, [lang])
-
-  useEffect(() => {
-    if (isEditing) {
-      formRef.current.scrollIntoView({ behavior: "smooth" })
-      formRef.current.focus()
-    }
-  }, [isEditing])
-
-  useEffect(() => {
-    if (isEditing) {
-      setCoAuthors(selectedPost?.meta?._thedah_book?.coauthors ?? [""])
-      setAvailability(selectedPost?.meta?._thedah_book?.availability ?? 'available')
-      formRef.current.scrollIntoView({ behavior: "smooth" })
-      formRef.current.focus()
-    }
-  }, [isEditing, selectedPost])
-
   const inputs = [
-    { name: "title", placeholder: "Title", default: isEditing ? selectedPost?.title : "" },
+    {
+      name: "title",
+      placeholder: "Title",
+      default: isEditing ? selectedPost?.title : "",
+    },
     {
       name: "author",
       placeholder: "Author",
@@ -94,6 +86,59 @@ export function BookForm({ maxImages }) {
     },
   ]
 
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Underline,
+      Link,
+      Superscript,
+      Subscript,
+      Highlight,
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+    ],
+    content: isEditing && selectedPost?.content ? selectedPost.content : "",
+  })
+
+  // for the create form
+  useEffect(() => {
+    formRef.current.reset()
+  }, [lang])
+
+  useEffect(() => {
+    if (!isCreatingOrUpdatingPost) {
+      formRef.current.reset()
+      setCoAuthors([""])
+    }
+  }, [isCreatingOrUpdatingPost])
+
+  useEffect(() => {
+    if (isEditing) {
+      formRef.current.scrollIntoView({ behavior: "smooth" })
+      formRef.current.focus()
+    } else {
+      setCoAuthors([""])
+    }
+  }, [isEditing])
+
+  useEffect(() => {
+    if (isEditing) {
+      setCoAuthors(selectedPost?.meta?._thedah_book?.coauthors ?? [""])
+      setAvailability(
+        selectedPost?.meta?._thedah_book?.availability ?? "available",
+      )
+    }
+  }, [isEditing, selectedPost])
+
+  useEffect(() => {
+    if (editor && isEditing) {
+      editor.commands.setContent(
+        selectedPost?.content ? selectedPost.content : "",
+      )
+    } else if (editor) {
+      editor.commands.setContent("")
+    }
+  }, [isEditing, editor, selectedPost])
+
   const customHandleSubmit = (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
@@ -111,7 +156,8 @@ export function BookForm({ maxImages }) {
       },
       _thedah_images: images,
     }
-    handleSubmit(event, meta)
+    const content = editor.getHTML()
+    handleSubmit(event, meta, "", content)
   }
 
   return (
@@ -122,50 +168,52 @@ export function BookForm({ maxImages }) {
         }}
         ref={formRef}
       >
-        <Flex wrap="wrap" gap={50} align="center">
-          <Group noWrap align="center" spacing={40}>
-            <Box w={200} pos="relative">
-              <Title order={1} size="h2" mb="32px">
-                {isEditing ? t("EditBook") : t("NewBook")}
-              </Title>
-              <ImageDropzone maxFiles={maxImages} />
-            </Box>
-            <Box pt={25}>
-              {inputs.map((i) => (
-                <TextInput
-                  required
-                  label={t(i.placeholder)}
-                  key={i}
-                  placeholder={t(i.placeholder)}
-                  aria-label={t(i.placeholder)}
-                  mb={15}
-                  name={i.name}
-                  defaultValue={i.default}
-                />
-              ))}
-              <DynamicInput
-                inputs={coAuthors}
-                setInputs={setCoAuthors}
-                label={t("CoAuthor")}
+        <Flex wrap="wrap" gap={50} align="center" direction="column">
+          <Title order={1} size="h2" mb="32px">
+            {isEditing ? t("editBook") : t("newBook")}
+          </Title>
+          <Box w={200} pos="relative">
+            <ImageDropzone maxFiles={maxImages} />
+          </Box>
+          <Flex gap={20} wrap="wrap">
+            <ImageList images={images} />
+          </Flex>
+
+          <Flex pt={25} wrap="wrap" gap="15px" align="center" justify="center">
+            {inputs.map((i) => (
+              <TextInput
+                required
+                label={t(i.placeholder)}
+                key={i}
+                placeholder={t(i.placeholder)}
+                aria-label={t(i.placeholder)}
+                mb={15}
+                name={i.name}
+                defaultValue={i.default}
               />
-              <SegmentedControl
-                name="availability"
-                value={availability}
-                data={[
-                  { label: t("Available"), value: "available" },
-                  { label: t("Unavailable"), value: "unavailable" },
-                  { label: t("Soon"), value: "soon" },
-                ]}
-                aria-label={t("Availability")}
-                onChange={setAvailability}
-                defaultValue={
-                  selectedPost?.meta?._thedah_book?.availability ?? "available"
-                }
-              />
-            </Box>
-          </Group>
+            ))}
+            <DynamicInput
+              inputs={coAuthors}
+              setInputs={setCoAuthors}
+              label={t("CoAuthor")}
+            />
+          </Flex>
+          <SegmentedControl
+            name="availability"
+            value={availability}
+            data={[
+              { label: t("Available"), value: "available" },
+              { label: t("Unavailable"), value: "unavailable" },
+              { label: t("Soon"), value: "soon" },
+            ]}
+            aria-label={t("Availability")}
+            onChange={setAvailability}
+            defaultValue={
+              selectedPost?.meta?._thedah_book?.availability ?? "available"
+            }
+          />
           <Stack pt={25} spacing={50} align="center">
-            <Textarea
+            {/* <Textarea
               placeholder={t("Description")}
               label={t("Description")}
               autosize
@@ -174,11 +222,18 @@ export function BookForm({ maxImages }) {
               miw="350px"
               name="content"
               defaultValue={isEditing ? selectedPost?.content : ""}
+            /> */}
+            <BlogRichText
+              editor={editor}
+              label={t("Content")}
+              placeholder={t("Content")}
+              autosize
+              minHeight={120} // minRows equivalent
+              maxHeight={240} // maxRows equivalent
+              onChange={(value) => {
+                formRef.current.elements.content.value = value
+              }}
             />
-            <Flex gap={20} wrap="wrap">
-              <ImageList images={images} />
-            </Flex>
-
             <Group mt="24px" justify="center">
               <Button
                 type="submit"
@@ -196,7 +251,7 @@ export function BookForm({ maxImages }) {
                     setIsEditing(false)
                   }}
                 >
-                  Cancel
+                  {t("Cancel")}
                 </Button>
               )}
             </Group>

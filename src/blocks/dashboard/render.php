@@ -53,10 +53,10 @@ foreach ($postTypes as $postType) {
 
 <?php foreach ($postTypes as $postType) : ?>
   <pre style="display: none !important" id="<?php echo $postType; ?>-fa">
-        <?php echo wp_json_encode($data["{$postType}Fa"]); ?>
+        <?php echo json_encode($data["{$postType}Fa"], JSON_HEX_TAG); ?>
     </pre>
 
   <pre style="display: none !important" id="<?php echo $postType; ?>-en">
-        <?php echo wp_json_encode($data["{$postType}En"]); ?>
+        <?php echo json_encode($data["{$postType}En"], JSON_HEX_TAG); ?>
     </pre>
 <?php endforeach; ?>

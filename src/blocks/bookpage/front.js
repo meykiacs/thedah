@@ -29,10 +29,10 @@ window.addEventListener("DOMContentLoaded", () => {
     providedValues[`${resource}EnFetched`] =
       !!root.dataset[`${resource}EnFetched`]
     providedValues[`${resource}Fa`] = JSON.parse(
-      document.getElementById(`${resource}-fa`).textContent,
+      document.getElementById(`${resource}-fa`).innerHTML,
     )
     providedValues[`${resource}En`] = JSON.parse(
-      document.getElementById(`${resource}-en`).textContent,
+      document.getElementById(`${resource}-en`).innerHTML,
     )
   })
 

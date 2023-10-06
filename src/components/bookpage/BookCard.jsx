@@ -5,6 +5,7 @@ import Button from "../common/Button"
 import { useTheme } from "@emotion/react"
 import GenericText from "../common/GenericText"
 import { mq } from "../../utils/mq"
+import HTMLReactParser from "html-react-parser"
 
 export function BookCard({ book }) {
   const { t } = useTranslation()
@@ -33,13 +34,15 @@ export function BookCard({ book }) {
       break
   }
 
-  const imageUrl = book.meta._thedah_images[0]?.mediumUrl ??  `${assetsImagesUrl}/image-placeholder.svg`
+  const imageUrl =
+    book.meta._thedah_images[0]?.mediumUrl ??
+    `${assetsImagesUrl}/image-placeholder.svg`
   return (
     <Wrapper>
       <ButDescription>
         <BookAndPrice>
           <ImageWrapper>
-              <img src={imageUrl} alt={book.title} />
+            <img src={imageUrl} alt={book.title} />
           </ImageWrapper>
           <Button
             variant="fill"
@@ -48,7 +51,7 @@ export function BookCard({ book }) {
             br="7px"
             color={buttonColor}
             colorHover={buttonColorHover}
-            fw='400'
+            fw="400"
           >
             {t(buttonText)}
           </Button>
@@ -67,13 +70,14 @@ export function BookCard({ book }) {
           </Author>
           <RestOfInfo>{book.meta._thedah_book.publisher}</RestOfInfo>
           <RestOfInfo>
-            {t("edition")} {book.meta._thedah_book.edition} {book.meta._thedah_book.year}
+            {t("edition")} {book.meta._thedah_book.edition}{" "}
+            {book.meta._thedah_book.year}
           </RestOfInfo>
           <RestOfInfo>
             {book.meta._thedah_book.numberOfPages} {t("pages")}
           </RestOfInfo>
           <RestOfInfo>
-          {t("ISBN")}: {book.meta._thedah_book.isbn}
+            {t("ISBN")}: {book.meta._thedah_book.isbn}
           </RestOfInfo>
           <Price>
             {t("Price")}
@@ -81,7 +85,7 @@ export function BookCard({ book }) {
           </Price>
         </BookInfo>
       </ButDescription>
-      <Description>{book.content}</Description>
+      <Description>{HTMLReactParser(book.content)}</Description>
     </Wrapper>
   )
 }
@@ -97,22 +101,21 @@ const Wrapper = styled.article`
   flex-direction: column;
   align-items: center;
 
-  ${mq("md")} {
+  ${mq("lg")} {
     flex-direction: row;
     align-items: stretch;
+    justify-content: flex-start;
   }
 `
 
 const ButDescription = styled.div`
   display: flex;
   gap: 25px;
+  flex-direction: column;
+  align-items: center;
 
-  ${mq("md")} {
-    min-width: 350px;
-  }
-
-  ${mq("lg")} {
-    min-width: 450px;
+  ${mq("sm")} {
+    flex-direction: row;
   }
 `
 
@@ -138,6 +141,7 @@ const BookInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 285px;
 `
 
 const Title = styled.h3`
@@ -163,6 +167,16 @@ const Price = styled.p`
   font-size: 1.6rem;
   font-weight: 400;
 `
-const Description = styled(GenericText)`
+const Description = styled.div`
   text-align: justify;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 190%;
+  max-width: 450px;
+
+  & li {
+    list-style-type: disc;
+    line-height: 1.7;
+    transform: translateX(15px);
+  }
 `

@@ -1,37 +1,27 @@
 import styled from "@emotion/styled"
 import useWPContext from "../../context/useWPContext"
-import { useTheme } from "@emotion/react"
 import { useTranslation } from "react-i18next"
 
 export const HomeBookCard = ({ b }) => {
   const { assetsImagesUrl } = useWPContext()
-  const theme = useTheme()
-  const {t} = useTranslation()
-  const truncate = (str, num, direction) => {
-    if (str.length <= num) {
-      return str
-    }
-    return direction === "rtl"
-      ? "..." + str.slice(0, num)
-      : str.slice(0, num) + "..."
-  }
+  const { t } = useTranslation()
+
   return (
     <CardWrapper>
       <ImageWrapper>
-        {b.featured_media && b.featured_media > 0 ? (
-          <img src={b.featured_media_url} alt={b.title} />
-        ) : (
-          <img
-            src={`${assetsImagesUrl}/image-placeholder.svg`}
-            alt="book placeholder"
-          />
-        )}
+        <img
+          src={
+            b.meta._thedah_images[0]?.mediumUrl ??
+            `${assetsImagesUrl}/image-placeholder.svg`
+          }
+          alt={b.title}
+        />
       </ImageWrapper>
       <Text>
-        <Title>{truncate(b.title, 15, theme.direction)}</Title>
+        <Title>{b.title}</Title>
         <PublisherAndYear>
-          {truncate(b.meta?._thedah_book?.publisher ?? "", 25, theme.direction)}{t(",")}{' '}
-          {truncate(b.meta?._thedah_book?.year ?? "", 4, theme.direction)}
+          {b.meta?._thedah_book?.publisher ?? ""}
+          {t(",")} {b.meta?._thedah_book?.year ?? ""}
         </PublisherAndYear>
       </Text>
     </CardWrapper>
@@ -62,17 +52,23 @@ const ImageWrapper = styled.div`
 `
 
 const Text = styled.div`
-  text-align: ${(p) => (p.theme.direction === "rtl" ? "end" : "start")};
+  text-align: "flex-start";
 `
 
 const Title = styled.h4`
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 const PublisherAndYear = styled.h5`
   font-weight: 400;
   line-height: 2;
   font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
