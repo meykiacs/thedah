@@ -16,6 +16,7 @@ import { HomeBookSection } from "../../components/homepage/HomeBookSection"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { RecentPosts } from "../../components/homepage/RecentPosts"
+import { HomePaperSection } from "../../components/homepage/HomePaperSection"
 
 export default function HomePage({ providedValues }) {
   useLanguageAndDirection()
@@ -34,6 +35,7 @@ export default function HomePage({ providedValues }) {
             </PageContainer>
             <HomeBookSection />
             <RecentPosts />
+            <HomePaperSection />
             <Footer />
             <SubFooter />
           </ResourceProvider>

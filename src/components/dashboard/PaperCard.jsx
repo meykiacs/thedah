@@ -18,7 +18,6 @@ import { useCrudContext } from "../../context/CrudContext"
 export default function PaperCard({ post, images }) {
   const { t } = useTranslation()
   const { isDeleting, deletePost, setIsEditing } = useCrudContext()
-  console.log(post);
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">
@@ -32,7 +31,6 @@ export default function PaperCard({ post, images }) {
                     alt={post.title}
                     height={300}
                     width={230}
-                    // fallbackSrc={`${assetsImagesUrl}/image-placeholder.svg`}
                   />
                 </Center>
               ))}
@@ -46,6 +44,9 @@ export default function PaperCard({ post, images }) {
                   {post.title}
                 </Title>
                 <List listStyleType="none" spacing="xs">
+                  <List.Item fz="sm">
+                    {t("fullReference")}: {post.meta._thedah_paper.fullReference ?? ''}
+                  </List.Item>
                   <List.Item fz="sm">
                     {t("Author")}: {post.meta._thedah_paper.author}
                   </List.Item>
@@ -64,17 +65,26 @@ export default function PaperCard({ post, images }) {
                     {t("Year")}: {post.meta._thedah_paper.year}
                   </List.Item>
                   <List.Item>
-                  {t("Link")}: <a href={post.meta._thedah_paper.link} target="_blank" rel="noreferrer">{post.meta._thedah_paper.link}</a>
+                    {t("Link")}:{" "}
+                    <a
+                      href={post.meta._thedah_paper.link}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {post.meta._thedah_paper.link}
+                    </a>
                   </List.Item>
                 </List>
               </Box>
             </Group>
             <Box pt={25}>
-          <Text>{t('Summary ')}: {post.meta._thedah_paper.summary}</Text>
-        </Box>
-        <Box pt={25}>
-          <Text>{post.content}</Text>
-        </Box>
+              <Text>
+                {t("Summary ")}: {post.meta._thedah_paper.summary}
+              </Text>
+            </Box>
+            <Box pt={25}>
+              <Text>{post.content}</Text>
+            </Box>
           </Flex>
         </Card.Section>
 
@@ -107,4 +117,3 @@ export default function PaperCard({ post, images }) {
     </Card>
   )
 }
-      

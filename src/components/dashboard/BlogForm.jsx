@@ -93,7 +93,6 @@ export const BlogForm = ({ maxImages }) => {
     }
   }, [isEditing, editor, selectedPost])
 
-  console.log(selectedPost)
   return (
     <Card withBorder radius="md" p={15}>
       <form onSubmit={(event) => customHandleSubmit(event)} ref={formRef}>

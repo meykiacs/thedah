@@ -17,7 +17,7 @@ import { useCrudContext } from "../../context/CrudContext"
 import { ImageDropzone } from "./ImageDropZone"
 import { ImageList } from "./ImageList"
 
-export function PaperForm({maxImages}) {
+export function PaperForm({ maxImages }) {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
   const formRef = useRef(null)
@@ -55,6 +55,11 @@ export function PaperForm({maxImages}) {
 
   const inputs = [
     {
+      name: "fullReference",
+      placeholder: "fullReference",
+      default: isEditing ? selectedPost?.meta?._thedah_paper.fullReference : "",
+    },
+    {
       name: "title",
       placeholder: "Title",
       default: isEditing ? selectedPost?.title : "",
@@ -88,6 +93,7 @@ export function PaperForm({maxImages}) {
     const meta = {
       _thedah_paper: {
         publisher: formData.get("publisher"),
+        fullReference: formData.get("fullReference"),
         year: formData.get("year"),
         author: formData.get("author"),
         coauthors: coAuthors,
@@ -98,6 +104,7 @@ export function PaperForm({maxImages}) {
     }
     handleSubmit(event, meta)
   }
+
   return (
     <Card withBorder radius="md" p={15}>
       <form

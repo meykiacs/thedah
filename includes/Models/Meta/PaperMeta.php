@@ -25,6 +25,11 @@ class PaperMeta extends Meta {
       'author'  =>  [
         'type'  =>  'string'
       ],
+
+      'fullReference' =>  [
+        'type'  => 'string',
+        'required'  => true
+      ],
       'summary'  =>  [
         'type'  =>  'string'
       ],
