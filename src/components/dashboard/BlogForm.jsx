@@ -139,6 +139,7 @@ export const BlogForm = ({ maxImages }) => {
                   { label: t("Article"), value: "article" },
                   { label: t("News"), value: "news" },
                   { label: t("Event"), value: "event" },
+                  { label: t("Interview"), value: "interview" },
                 ]}
                 aria-label={t("Blog Type")}
                 onChange={setBlogtype}

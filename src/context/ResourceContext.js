@@ -169,6 +169,10 @@ export const ResourceProvider = ({ providedValues, children }) => {
       fetched: lang === "fa" ? aboutFaFetched : aboutEnFetched,
       setFetched: lang === "fa" ? setAboutFaFetched : setAboutEnFetched,
     },
+    recent: {
+      fa: providedValues.recentFa,
+      en: providedValues.recentEn
+    }
   }
 
   return (

@@ -150,6 +150,7 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['fa']['book'])
   ->add($container->get('resources')['fa']['paper'])
   ->add($container->get('resources')['fa']['about'])
+  ->add($container->get('resources')['fa']['blog'])
   ->add($container->get('resources')['fa']['course'])
   ->register();
 

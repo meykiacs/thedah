@@ -35,6 +35,9 @@ window.addEventListener("DOMContentLoaded", () => {
       document.getElementById(`${resource}-en`).textContent,
     )
   })
+
+  providedValues.recentFa = JSON.parse(document.getElementById("recent-fa").textContent)
+  providedValues.recentEn = JSON.parse(document.getElementById("recent-en").textContent)
   render(
     <LanguageProvider>
       <ColorSchemeProvider>

@@ -37,7 +37,7 @@ class QueryResource {
           'meta'  =>  array_reduce($metaFields, function ($carry, $metaField) use ($id) {
             $carry[$metaField] = get_post_meta($id, $metaField, true);
             return $carry;
-        }, [])
+          }, [])
         );
         array_push($resourceList, $resource);
       }
@@ -69,11 +69,51 @@ class QueryResource {
         'meta'  =>  array_reduce($metaFields, function ($carry, $metaField) use ($id) {
           $carry[$metaField] = get_post_meta($id, $metaField, true);
           return $carry;
-      }, [])
+        }, [])
       );
     }
     wp_reset_query();
 
     return $resource;
   }
+
+  public function getRecent(array $postTypesWithMetaFields, int $numberOfPosts): array {
+    $resourceList = [];
+
+    // var_dump($postTypesWithMetaFields); wp_die();
+    $this->query->query(
+      [
+        'post_type' => array_keys($postTypesWithMetaFields),
+        'posts_per_page' => $numberOfPosts,
+        'orderby' => 'date',
+        'order' => 'DESC'
+      ]
+    );
+
+    if ($this->query->have_posts()) {
+      while ($this->query->have_posts()) {
+        $this->query->the_post();
+        $id = get_the_ID();
+        $postType = get_post_type(get_the_ID());
+        $metaFields = $postTypesWithMetaFields[$postType];
+        $resource = array(
+          'id'  =>  get_the_ID(),
+          'type'  =>  $postType,
+          'title' => get_the_title(),
+          'content' => get_the_content(),
+          'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
+          'featured_media' => get_post_thumbnail_id($id),
+          'meta'  =>  array_reduce($metaFields, function ($carry, $metaField) use ($id) {
+            $carry[$metaField] = get_post_meta($id, $metaField, true);
+            return $carry;
+          }, [])
+        );
+        array_push($resourceList, $resource);
+      }
+    }
+    wp_reset_query();
+
+    return $resourceList;
+}
+
 }
