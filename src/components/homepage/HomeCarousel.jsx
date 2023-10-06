@@ -54,7 +54,7 @@ export const HomeCarousel = ({ className }) => {
                 fz="15px"
                 fw={500}
                 p="10px 42px"
-                as='a'
+                as="a"
                 href={buttons[index].href}
               >
                 {t(buttons[index].label)}
@@ -98,14 +98,18 @@ const StyledButton = styled(Button)`
   text-decoration: none;
   ${mq("md")} {
     display: inline-block;
-    transform: translate(375px, -115px);
+    transform: translate(
+      ${(p) => (p.theme.direction === "rtl" ? "-200px" : "200px")},
+      -115px
+    );
   }
 
   ${mq("lg")} {
-    transform: translate(425px, -145px);
+    transform: translate(${(p) => (p.theme.direction === "rtl" ? "-325px" : "325px")}, -145px);
   }
   ${mq("xl")} {
-    transform: translate(500px, -180px);
+    ${(p) => (p.theme.direction === "rtl" ? "-500px" : "500px")},
+    transform: translate(${(p) => (p.theme.direction === "rtl" ? "-500px" : "500px")}, -180px);
   }
 `
 
