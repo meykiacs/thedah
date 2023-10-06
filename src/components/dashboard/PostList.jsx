@@ -7,6 +7,7 @@ import { BookCard } from "./BookCard"
 import PaperCard from "./PaperCard"
 import { getImages } from "../../utils/wp"
 import { CourseCard } from "./CourseCard"
+import { GalleryCard } from "./GalleryCard"
 
 export function PostList({ resourceName }) {
   const CARD_MAP = {
@@ -14,6 +15,7 @@ export function PostList({ resourceName }) {
     book: BookCard,
     blog: BlogCard,
     course: CourseCard,
+    gallery: GalleryCard,
   }
   const Card = CARD_MAP[resourceName]
 

@@ -36,7 +36,6 @@ window.addEventListener("DOMContentLoaded", () => {
     )
   })
 
-  console.log(providedValues);
   render(
     <LanguageProvider>
       <ColorSchemeProvider>

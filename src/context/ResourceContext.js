@@ -26,6 +26,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
     blogFaRestUrl,
     courseEnRestUrl,
     courseFaRestUrl,
+    galleryEnRestUrl,
+    galleryFaRestUrl,
   } = providedValues
 
 
@@ -71,6 +73,19 @@ export const ResourceProvider = ({ providedValues, children }) => {
   )
   const [courseEnFetched, setCourseEnFetched] = useState(
     providedValues.courseEnFetched,
+  )
+  
+  const [galleriesFa, setGalleriesFa] = useState(
+    providedValues.galleryFa,
+  )
+  const [galleriesEn, setGalleriesEn] = useState(
+    providedValues.galleryEn,
+  )
+  const [galleryFaFetched, setGalleryFaFetched] = useState(
+    providedValues.galleryFaFetched,
+  )
+  const [galleryEnFetched, setGalleryEnFetched] = useState(
+    providedValues.galleryEnFetched,
   )
 
   const [aboutFa, setAboutFa] = useState(providedValues.aboutFa)
@@ -151,6 +166,23 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrl: lang === "fa" ? courseFaRestUrl : courseEnRestUrl,
       fetched: lang === "fa" ? courseFaFetched : courseEnFetched,
       setFetched: lang === "fa" ? setCourseFaFetched : setCourseEnFetched,
+    },
+    gallery: {
+      fa: galleriesFa,
+      en: galleriesEn,
+      setEn: setGalleriesEn,
+      setFa: setGalleriesFa,
+      faFetched: galleryFaFetched,
+      enFetched: galleryEnFetched,
+      setFaFetched: setGalleryFaFetched,
+      setEnFetched: setGalleryEnFetched,
+      restUrlEn: galleryEnRestUrl,
+      restUrlFa: galleryFaRestUrl,
+      rs: lang === "fa" ? galleriesFa : galleriesEn,
+      setR: lang === "fa" ? setGalleriesFa : setGalleriesEn,
+      restUrl: lang === "fa" ? galleryFaRestUrl : galleryEnRestUrl,
+      fetched: lang === "fa" ? galleryFaFetched : galleryEnFetched,
+      setFetched: lang === "fa" ? setGalleryFaFetched : setGalleryEnFetched,
     },
     about: {
       fa: aboutFa,

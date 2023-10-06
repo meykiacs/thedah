@@ -23,6 +23,7 @@ export function Shell() {
     { link: "", label: "About", icon: IconUser, name: "about" },
     { link: "", label: "Blog", icon: IconUser, name: "blog" },
     { link: "", label: "Course", icon: IconUser, name: "course" },
+    { link: "", label: "gallery", icon: IconUser, name: "gallery" },
   ]
   const [active, setActive] = useState(resourceName)
   return (

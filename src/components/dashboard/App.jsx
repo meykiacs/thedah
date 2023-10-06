@@ -6,6 +6,7 @@ import { AboutForm } from "../dashboard/AboutForm"
 import { BlogForm } from "./BlogForm"
 import { PostList } from "./PostList"
 import { CourseForm } from "./CourseForm"
+import { GalleryForm } from "./GalleryForm"
 
 export default function App() {
   const FORM_MAP = {
@@ -27,6 +28,10 @@ export default function App() {
     },
     course: {
       component: CourseForm,
+      maxImages: 1,
+    },
+    gallery: {
+      component: GalleryForm,
       maxImages: 1,
     },
   }

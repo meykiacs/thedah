@@ -28,7 +28,6 @@ export function AboutForm() {
   } = useCrudContext()
 
   const about = useResourceContext().resources.about.rs[0]
-  console.log(about)
   const [education, setEducation] = useState([""])
   const [activities, setActivities] = useState([""])
   const [executiveRecords, setExecutiveRecords] = useState([""])

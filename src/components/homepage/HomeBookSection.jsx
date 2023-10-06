@@ -9,7 +9,6 @@ import { useTheme } from "@emotion/react"
 
 export const HomeBookSection = () => {
   const { assetsImagesUrl, homeUrl } = useWPContext()
-  const { lang } = useLanguageContext()
   const { t } = useTranslation()
   const theme = useTheme()
   return (
@@ -20,7 +19,7 @@ export const HomeBookSection = () => {
           alt="book logo"
         />
       </BookLogoWrapper>
-      <HomeBookCarousel key={lang} />
+      <HomeBookCarousel />
       <MoreBooks
         variant='fill'
         as='a'

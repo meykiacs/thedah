@@ -94,6 +94,12 @@ $containerBuilder->addDefinitions([
         $courseCPT->metas[] = new CourseMeta();
         return new CPTResource($courseCPT);
       },
+      'gallery' => function (ContainerInterface $c) {
+        $galleryCPT = new CPT('gallery', 'Gallery');
+        $galleryCPT->public = true;
+        $galleryCPT->metas[] = new ImagesMeta();
+        return new CPTResource($galleryCPT);
+      },
     ],
     'fa' => [
 
@@ -128,6 +134,13 @@ $containerBuilder->addDefinitions([
         $courseCPT->metas[] = new CourseMeta();
         return new CPTResource($courseCPT);
       },
+      'gallery' => function (ContainerInterface $c) {
+        $galleryCPT = new CPT('galleryfa', 'Gallery Fa');
+        $galleryCPT->public = true;
+        $galleryCPT->metas[] = new ImagesMeta();
+        return new CPTResource($galleryCPT);
+      },
+
     ]
   ]
 ]);
@@ -147,11 +160,13 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['en']['about'])
   ->add($container->get('resources')['en']['blog'])
   ->add($container->get('resources')['en']['course'])
+  ->add($container->get('resources')['en']['gallery'])
   ->add($container->get('resources')['fa']['book'])
   ->add($container->get('resources')['fa']['paper'])
   ->add($container->get('resources')['fa']['about'])
   ->add($container->get('resources')['fa']['blog'])
   ->add($container->get('resources')['fa']['course'])
+  ->add($container->get('resources')['fa']['gallery'])
   ->register();
 
 // $registerQueryVars = $container->get(RegisterQueryVars::class);

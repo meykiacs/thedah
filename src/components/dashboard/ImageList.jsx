@@ -11,7 +11,6 @@ export const ImageList = ({ images }) => {
       setDeletingImageId(0)
     }
   }, [isImageDeleting])
-  console.log(images);
   return (
     <>
       {images.map((image) => (
@@ -21,7 +20,12 @@ export const ImageList = ({ images }) => {
             overlayBlur={2}
           />
 
-          <Image src={image.mediumUrl.length > 0 ? image.mediumUrl : image.source_url} alt="alt" />
+          <Image
+            src={
+              image.mediumUrl.length > 0 ? image.mediumUrl : image.source_url
+            }
+            alt="alt"
+          />
           <ActionIcon
             onClick={() => {
               setDeletingImageId(image.id)
