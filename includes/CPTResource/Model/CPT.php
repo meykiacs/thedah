@@ -11,7 +11,7 @@ class CPT
   // a page is an example of a hierarchical post type
   public bool $hierarchical = false;
   public bool $public = false;
-  public bool $showUI = true;
+  public bool $showUI = false;
   public bool $showInRest = true;
   public string $capabilityType = 'post';
   public ?string $icon = null;
