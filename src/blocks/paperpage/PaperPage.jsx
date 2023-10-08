@@ -1,5 +1,4 @@
 import { ThemeProvider } from "@emotion/react"
-import styled from "@emotion/styled"
 import GlobalCss from "../../components/GlobalCss"
 import Footer from "../../components/common/Footer"
 import Header from "../../components/common/Header"
@@ -12,7 +11,7 @@ import { WPProvider } from "../../context/WPContext"
 import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
-import { PaperList } from "../../components/paperpage/PaperList"
+import { RecentPapersSection } from "../../components/paperpage/RecentPapersSection"
 
 export function PaperPage({ providedValues }) {
   useLanguageAndDirection()
@@ -26,9 +25,9 @@ export function PaperPage({ providedValues }) {
             <GlobalCss />
             <Header />
             <PaperBanner />
-            <PaperListContainer color={theme.colors.white}>
-              <PaperList />
-            </PaperListContainer>
+            <PageContainer color={theme.colors.gray}>
+              <RecentPapersSection />
+            </PageContainer>
             <Footer />
             <SubFooter />
           </ResourceProvider>
@@ -37,8 +36,3 @@ export function PaperPage({ providedValues }) {
     </RtlProvider>
   )
 }
-
-const PaperListContainer = styled(PageContainer)`
-  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.25);
-  margin-bottom: 20px;
-`

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 
-export const HomeGalleryCard = ({ r }) => {
+export const GalleryCarouselCard = ({ r }) => {
 
   const image = r.meta._thedah_images[0]
   const imageUrl = image.mediumUrl ? image.mediumUrl : image.source_url

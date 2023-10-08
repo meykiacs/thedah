@@ -39,10 +39,10 @@ export function ResourceCard({ r, resourceName }) {
   }, [r, deleteResponseData, setEn, setFa])
 
   if (deleteError) {
-    console.log(deleteError)
+    console.error(deleteError)
   }
   if (deleteMediaError) {
-    console.log(deleteMediaError)
+    console.error(deleteMediaError)
   }
 
   let C

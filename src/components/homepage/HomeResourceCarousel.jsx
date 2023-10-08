@@ -32,7 +32,7 @@ export const HomeResourceCarousel = ({ resource, CarouselCard, density, ...deleg
     autoplay: false,
     autoplaySpeed: 2000,
     infinite: true,
-    slidesToShow: density === 'medium' ? 5 : density === 'high' ? 6 : 6,
+    slidesToShow: density === 'medium' ? 5 : density === 'high' ? 6 : 1,
     centerMode: true,
     centerPaddig: 0,
     slidesToScroll: 1,
@@ -44,19 +44,19 @@ export const HomeResourceCarousel = ({ resource, CarouselCard, density, ...deleg
       {
         breakpoint: breakpoints.xl,
         settings: {
-          slidesToShow: density === 'medium' ? 4 : density === 'high' ? 5 : 5,
+          slidesToShow: density === 'medium' ? 4 : density === 'high' ? 5 : 1,
         },
       },
       {
         breakpoint: breakpoints.lg,
         settings: {
-          slidesToShow: density === 'medium' ? 2 : density === 'high' ? 3 : 3,
+          slidesToShow: density === 'medium' ? 2 : density === 'high' ? 3 : 1,
         },
       },
       {
         breakpoint: breakpoints.md,
         settings: {
-          slidesToShow: density === 'medium' ? 1 : density === 'high' ? 2 : 2,
+          slidesToShow: density === 'medium' ? 1 : density === 'high' ? 2 : 1,
         },
       },
       {
@@ -83,9 +83,7 @@ export const HomeResourceCarousel = ({ resource, CarouselCard, density, ...deleg
 }
 
 const Wrapper = styled.div`
-  /* box-sizing: border-box; */
   width: clamp(300px, 100%, 1366px);
-  height: 262px;
   position: relative;
   overflow: hidden;
 
@@ -100,7 +98,7 @@ const Wrapper = styled.div`
       pointer-events: none;
     }
 
-    &:before {
+    &.has-gradient:before {
       background: linear-gradient(
         ${p => p.theme.direction === 'ltr' ? '90deg' : '270deg'},
         #e7e3cf 0%,
@@ -109,7 +107,7 @@ const Wrapper = styled.div`
         z-index: 15;
       }
       
-      &:after {
+      &.has-gradient:after {
         right: 0;
         background: linear-gradient(
         ${p => p.theme.direction === 'ltr' ? '270deg' : '90deg'},

@@ -16,6 +16,15 @@ import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
 import { ImageDropzone } from "./ImageDropZone"
 import { ImageList } from "./ImageList"
+import { useEditor } from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
+import Underline from "@tiptap/extension-underline"
+import Link from "@tiptap/extension-link"
+import Superscript from "@tiptap/extension-superscript"
+import Subscript from "@tiptap/extension-subscript"
+import Highlight from "@tiptap/extension-highlight"
+import TextAlign from "@tiptap/extension-text-align"
+import { BlogRichText } from "./BlogRichText"
 
 export function PaperForm({ maxImages }) {
   const { t } = useTranslation()
@@ -31,27 +40,20 @@ export function PaperForm({ maxImages }) {
   } = useCrudContext()
 
   const [coAuthors, setCoAuthors] = useState([""])
+  const extensions = [
+    StarterKit,
+    Underline,
+    Link,
+    Superscript,
+    Subscript,
+    Highlight,
+    TextAlign.configure({ types: ["heading", "paragraph"] }),
+  ]
 
-  // for the create form
-  useEffect(() => {
-    formRef.current.reset()
-  }, [lang])
-
-  useEffect(() => {
-    if (isEditing) {
-      formRef.current.scrollIntoView({ behavior: "smooth" })
-      formRef.current.focus()
-    }
-  }, [isEditing])
-
-  useEffect(() => {
-    if (isEditing !== null) {
-      setCoAuthors(selectedPost?.meta?._thedah_paper?.coauthors ?? [""])
-
-      formRef.current.scrollIntoView({ behavior: "smooth" })
-      formRef.current.focus()
-    }
-  }, [isEditing, selectedPost])
+  const editor = useEditor({
+    extensions,
+    content: isEditing ? selectedPost?.content ?? "" : "",
+  })
 
   const inputs = [
     {
@@ -102,9 +104,49 @@ export function PaperForm({ maxImages }) {
       },
       _thedah_images: images,
     }
-    handleSubmit(event, meta)
+
+    const content = editor.getHTML()
+    handleSubmit(event, meta, "", content)
   }
 
+  // for the create form
+  useEffect(() => {
+    formRef.current.reset()
+  }, [lang])
+
+  useEffect(() => {
+    if (!isCreatingOrUpdatingPost) {
+      formRef.current.reset()
+      setCoAuthors([""])
+    }
+  }, [isCreatingOrUpdatingPost])
+
+  useEffect(() => {
+    if (isEditing) {
+      formRef.current.scrollIntoView({ behavior: "smooth" })
+      formRef.current.focus()
+    }
+    else {
+      setCoAuthors([""])
+    }
+  }, [isEditing])
+
+  useEffect(() => {
+    if (isEditing !== null) {
+      setCoAuthors(selectedPost?.meta?._thedah_paper?.coauthors ?? [""])
+    }
+  }, [isEditing, selectedPost])
+
+  useEffect(() => {
+    if (editor && isEditing) {
+      editor.commands.setContent(
+        selectedPost?.content ? selectedPost.content : "",
+      )
+    } else if (editor) {
+      editor.commands.setContent("")
+    }
+  }, [isEditing, editor, selectedPost])
+  
   return (
     <Card withBorder radius="md" p={15}>
       <form
@@ -113,34 +155,35 @@ export function PaperForm({ maxImages }) {
         }}
         ref={formRef}
       >
-        <Flex wrap="wrap" gap={50} align="center">
-          <Group noWrap align="center" spacing={40}>
-            <Box w={200} pos="relative">
-              <Title order={1} size="h2" mb="32px">
-                {isEditing ? t("EditPaper") : t("NewPaper")}
-              </Title>
-              <ImageDropzone maxFiles={maxImages} />
-            </Box>
-            <Box pt={25}>
-              {inputs.map((i) => (
-                <TextInput
-                  required
-                  label={t(i.placeholder)}
-                  key={i}
-                  placeholder={t(i.placeholder)}
-                  aria-label={t(i.placeholder)}
-                  mb={15}
-                  name={i.name}
-                  defaultValue={i.default}
-                />
-              ))}
-              <DynamicInput
-                inputs={coAuthors}
-                setInputs={setCoAuthors}
-                label={t("CoAuthor")}
+        <Flex wrap="wrap" gap={50} align="center" direction="column">
+          <Title order={1} size="h2" mb="32px">
+            {isEditing ? t("editPaper") : t("newPaper")}
+          </Title>
+          <Box w={200} pos="relative">
+            <ImageDropzone maxFiles={maxImages} />
+          </Box>
+          <Flex gap={20} wrap="wrap">
+            <ImageList images={images} />
+          </Flex>
+          <Flex pt={25} wrap="wrap" gap="15px" align="center" justify="center">
+            {inputs.map((i) => (
+              <TextInput
+                required
+                label={t(i.placeholder)}
+                key={i}
+                placeholder={t(i.placeholder)}
+                aria-label={t(i.placeholder)}
+                mb={15}
+                name={i.name}
+                defaultValue={i.default}
               />
-            </Box>
-          </Group>
+            ))}
+            <DynamicInput
+              inputs={coAuthors}
+              setInputs={setCoAuthors}
+              label={t("CoAuthor")}
+            />
+          </Flex>
           <Stack pt={25} spacing={50} align="center">
             <Textarea
               aria-label={t("Summary")}
@@ -152,6 +195,19 @@ export function PaperForm({ maxImages }) {
               name="summary"
               defaultValue={selectedPost?.meta?._thedah_paper?.summary ?? ""}
             />
+            <BlogRichText
+              editor={editor}
+              label={t("Content")}
+              placeholder={t("Content")}
+              autosize
+              minHeight={120} // minRows equivalent
+              maxHeight={240} // maxRows equivalent
+              // onChange={(value) => {
+              //   formRef.current.elements.content.value = value
+              // }}
+            />
+
+            {/* 
             <Textarea
               // label="Autosize with 4 rows max"
               placeholder={t("Content")}
@@ -161,10 +217,7 @@ export function PaperForm({ maxImages }) {
               miw="350px"
               name="content"
               defaultValue={selectedPost?.content ?? ""}
-            />
-            <Flex gap={20} wrap="wrap">
-              <ImageList images={images} />
-            </Flex>
+            /> */}
 
             <Group mt="24px" justify="center">
               <Button

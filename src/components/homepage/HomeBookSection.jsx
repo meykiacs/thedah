@@ -1,11 +1,11 @@
 import styled from "@emotion/styled"
 import useWPContext from "../../context/useWPContext"
 import { Section } from "../common/Section"
-import { HomeBookCarousel } from "./HomeBookCarousel"
-import useLanguageContext from "../../context/useLanguageContext"
 import { useTranslation } from "react-i18next"
 import Button from "../common/Button"
 import { useTheme } from "@emotion/react"
+import { HomeResourceCarousel } from "./HomeResourceCarousel"
+import { BookCarouselCard } from "./BookCarouselCard"
 
 export const HomeBookSection = () => {
   const { assetsImagesUrl, homeUrl } = useWPContext()
@@ -19,18 +19,25 @@ export const HomeBookSection = () => {
           alt="book logo"
         />
       </BookLogoWrapper>
-      <HomeBookCarousel />
+      <HomeResourceCarousel
+        resource="book"
+        CarouselCard={BookCarouselCard}
+        density="high"
+        className='has-gradient'
+      />
       <MoreBooks
-        variant='fill'
-        as='a'
+        variant="fill"
+        as="a"
         href={`${homeUrl}book`}
         color={theme.colors.secondary}
         colorHover={theme.colors.secondary}
-        br='7px'
-        p='10px 30px'
-        fz='1.5rem'
+        br="7px"
+        p="10px 30px"
+        fz="1.5rem"
         fw={500}
-      >{t("moreBooks")}</MoreBooks>
+      >
+        {t("moreBooks")}
+      </MoreBooks>
     </StyledSection>
   )
 }

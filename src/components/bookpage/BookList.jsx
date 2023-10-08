@@ -1,6 +1,3 @@
-import { useEffect } from "@wordpress/element"
-import useWPContext from "../../context/useWPContext"
-import useLanguageContext from "../../context/useLanguageContext"
 import { BookCard } from "./BookCard"
 import styled from "@emotion/styled"
 import useResourceList from "../../hooks/useResourceList"

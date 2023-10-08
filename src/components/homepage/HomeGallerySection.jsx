@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import useWPContext from "../../context/useWPContext"
 import { Section } from "../common/Section"
 import { HomeResourceCarousel } from "./HomeResourceCarousel"
-import { HomeGalleryCard } from "./HomeGalleryCard"
+import { GalleryCarouselCard } from "./GalleryCarouselCard"
 
 export const HomeGallerySection = () => {
   const { assetsImagesUrl } = useWPContext()
@@ -16,8 +16,9 @@ export const HomeGallerySection = () => {
       </GalleryLogoWrapper>
       <HomeResourceCarousel
         resource="gallery"
-        CarouselCard={HomeGalleryCard}
+        CarouselCard={GalleryCarouselCard}
         density="medium"
+        className='has-gradient'
       />
     </StyledSection>
   )

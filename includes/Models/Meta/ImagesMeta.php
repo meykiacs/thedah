@@ -36,6 +36,10 @@ class ImagesMeta extends Meta {
           'type'  => 'string',
           'format'  =>  'uri'
         ],
+        'paperLandscapeUrl'  => [
+          'type'  => 'string',
+          'format'  =>  'uri'
+        ],
         'thumbnailUrl'  => [
           'type'  => 'string',
           'format'  =>  'uri'

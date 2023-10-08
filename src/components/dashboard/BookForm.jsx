@@ -7,7 +7,6 @@ import {
   SegmentedControl,
   Stack,
   TextInput,
-  Textarea,
   Title,
 } from "@mantine/core"
 import { useEffect, useRef, useState } from "@wordpress/element"

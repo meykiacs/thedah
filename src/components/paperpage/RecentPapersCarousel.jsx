@@ -1,0 +1,111 @@
+import styled from "@emotion/styled"
+import { useState } from "@wordpress/element"
+import SVG from "react-inlinesvg"
+import useResourceList from "../../hooks/useResourceList"
+import left from "../../icons/arrow-left.svg"
+import right from "../../icons/arrow-right.svg"
+import UnstyledButton from "../common/UnstyledButton"
+import { PaperCarouselCard } from "./PaperCarouselCard"
+import { CSSTransition, TransitionGroup } from "react-transition-group"
+
+export const RecentPapersCarousel = () => {
+  const papers = useResourceList("paper")
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState("")
+
+  const handleNext = () => {
+    setCurrentIndex((currentIndex + 1) % papers.length)
+    setDirection("next")
+  }
+
+  const handlePrev = () => {
+    setCurrentIndex((currentIndex - 1 + papers.length) % papers.length)
+    setDirection("prev")
+  }
+
+  return (
+    <Wrapper>
+      <PrevArrow onClick={handlePrev} />
+      {papers.length > 0 && <PaperCarouselCard r={papers[currentIndex]} />}
+      <NextArrow onClick={handleNext} />
+    </Wrapper>
+  )
+}
+
+const Wrapper = styled.div`
+  position: relative;
+
+  & .slide-next-enter {
+    position: absolute;
+    transform: translateX(100%);
+  }
+
+  & .slide-next-enter-active {
+    position: absolute;
+    transform: translateX(0);
+    transition: transform 500ms ease-in-out;
+  }
+
+  & .slide-next-exit {
+    transform: translateX(0);
+  }
+
+  & .slide-next-exit-active {
+    transform: translateX(-100%);
+    transition: transform 500ms ease-in-out;
+  }
+
+  & .slide-prev-enter {
+    position: absolute;
+    transform: translateX(-100%);
+  }
+
+  & .slide-prev-enter-active {
+    position: absolute;
+    transform: translateX(0);
+    transition: transform 500ms ease-in-out;
+  }
+
+  & .slide-prev-exit {
+    transform: translateX(0);
+  }
+
+  & .slide-prev-exit-active {
+    transform: translateX(100%);
+    transition: transform 500ms ease-in-out;
+  }
+`
+
+const NextArrow = ({ onClick }) => {
+  return (
+    <ArrowRight onClick={onClick}>
+      <SVG src={right} />
+    </ArrowRight>
+  )
+}
+const PrevArrow = ({ onClick }) => {
+  return (
+    <ArrowLeft onClick={onClick}>
+      <SVG src={left} />
+    </ArrowLeft>
+  )
+}
+
+const ArrowLeft = styled(UnstyledButton)`
+  position: absolute;
+  bottom: 100px;
+  right: ${(p) => (p.theme.direction === "ltr" ? "" : "32px")};
+  left: ${(p) => (p.theme.direction === "ltr" ? "32px" : "")};
+
+  z-index: 10;
+`
+
+const ArrowRight = styled(UnstyledButton)`
+  position: absolute;
+  bottom: 100px;
+
+  right: ${(p) => (p.theme.direction === "ltr" ? "32px" : "")};
+  left: ${(p) => (p.theme.direction === "ltr" ? "" : "32px")};
+
+  z-index: 10;
+`

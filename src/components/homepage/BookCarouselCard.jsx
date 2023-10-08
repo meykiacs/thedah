@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import useWPContext from "../../context/useWPContext"
 import { useTranslation } from "react-i18next"
 
-export const HomeBookCard = ({ b }) => {
+export const BookCarouselCard = ({ r }) => {
   const { assetsImagesUrl } = useWPContext()
   const { t } = useTranslation()
 
@@ -11,24 +11,24 @@ export const HomeBookCard = ({ b }) => {
       <ImageWrapper>
         <img
           src={
-            b.meta._thedah_images[0]?.mediumUrl ??
+            r.meta._thedah_images[0]?.mediumUrl ??
             `${assetsImagesUrl}/image-placeholder.svg`
           }
-          alt={b.title}
+          alt={r.title}
         />
       </ImageWrapper>
       <Text>
-        <Title>{b.title}</Title>
+        <Title>{r.title}</Title>
         <PublisherAndYear>
-          {b.meta?._thedah_book?.publisher ?? ""}
-          {t(",")} {b.meta?._thedah_book?.year ?? ""}
+          {r.meta?._thedah_book?.publisher ?? ""}
+          {t(",")} {r.meta?._thedah_book?.year ?? ""}
         </PublisherAndYear>
       </Text>
     </CardWrapper>
   )
 }
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.article`
   display: block;
   max-width: 160px;
   min-width: 160px;
@@ -52,10 +52,11 @@ const ImageWrapper = styled.div`
 `
 
 const Text = styled.div`
-  text-align: "flex-start";
+  /* text-align: left; */
 `
 
 const Title = styled.h4`
+  direction: ${(p) => (p.theme.direction === "ltr" ? "rtl" : "ltr")};
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 2;
@@ -65,6 +66,8 @@ const Title = styled.h4`
 `
 
 const PublisherAndYear = styled.h5`
+  direction: ${(p) => (p.theme.direction === "ltr" ? "rtl" : "ltr")};
+
   font-weight: 400;
   line-height: 2;
   font-size: 1rem;

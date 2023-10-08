@@ -11,9 +11,11 @@ import {
   Button,
   Container,
   SimpleGrid,
+  Spoiler,
 } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
+import HTMLReactParser from "html-react-parser"
 
 export default function PaperCard({ post, images }) {
   const { t } = useTranslation()
@@ -45,7 +47,8 @@ export default function PaperCard({ post, images }) {
                 </Title>
                 <List listStyleType="none" spacing="xs">
                   <List.Item fz="sm">
-                    {t("fullReference")}: {post.meta._thedah_paper.fullReference ?? ''}
+                    {t("fullReference")}:{" "}
+                    {post.meta._thedah_paper.fullReference ?? ""}
                   </List.Item>
                   <List.Item fz="sm">
                     {t("Author")}: {post.meta._thedah_paper.author}
@@ -79,11 +82,15 @@ export default function PaperCard({ post, images }) {
             </Group>
             <Box pt={25}>
               <Text>
-                {t("Summary ")}: {post.meta._thedah_paper.summary}
+              <Title order={4}>{t('Summary')}</Title>
+                {post.meta._thedah_paper.summary}
               </Text>
             </Box>
             <Box pt={25}>
-              <Text>{post.content}</Text>
+              <Title order={4}>{t('Content')}</Title>
+              <Spoiler maxHeight={120} showLabel="Show more" hideLabel="Hide">
+                {HTMLReactParser(post.content)}
+              </Spoiler>
             </Box>
           </Flex>
         </Card.Section>

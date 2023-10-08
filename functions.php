@@ -8,6 +8,7 @@ use Psr\Container\ContainerInterface;
 use Thedah\CPTResource\Model\CPT;
 use Thedah\CPTResource\Model\CPTResource;
 use Thedah\CPTResource\Service\RegisterCPTResource;
+use Thedah\Image\Image;
 use Thedah\Models\Meta\AboutMeta;
 use Thedah\Models\Meta\BlogMeta;
 use Thedah\Models\Meta\BookMeta;
@@ -169,4 +170,5 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['fa']['gallery'])
   ->register();
 
+$container->get(Image::class)->addImageSize('paperLandscape', 390, 300, ['center', 'center']);
 // $registerQueryVars = $container->get(RegisterQueryVars::class);
