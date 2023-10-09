@@ -7,6 +7,7 @@ import right from "../../icons/arrow-right.svg"
 import UnstyledButton from "../common/UnstyledButton"
 import { PaperCarouselCard } from "./PaperCarouselCard"
 import { CSSTransition, TransitionGroup } from "react-transition-group"
+import { mq } from "../../utils/mq"
 
 export const RecentPapersCarousel = () => {
   const papers = useResourceList("paper")
@@ -97,19 +98,37 @@ const PrevArrow = ({ onClick }) => {
 
 const ArrowLeft = styled(UnstyledButton)`
   position: absolute;
-  bottom: 100px;
-  right: ${(p) => (p.theme.direction === "ltr" ? "" : "32px")};
-  left: ${(p) => (p.theme.direction === "ltr" ? "32px" : "")};
-
   z-index: 10;
+  
+  bottom: 45%;
+  right: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
+  left: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
+  
+  ${mq('md')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "" : "64px")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "64px" : "")};
+  }
+  ${mq('lg')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
+  }
 `
 
 const ArrowRight = styled(UnstyledButton)`
   position: absolute;
-  bottom: 100px;
-
-  right: ${(p) => (p.theme.direction === "ltr" ? "32px" : "")};
-  left: ${(p) => (p.theme.direction === "ltr" ? "" : "32px")};
-
   z-index: 10;
+  
+  bottom: 45%;
+  right: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
+  left: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
+
+
+  ${mq('md')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "64px" : "")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "" : "64px")};
+  }
+  ${mq('lg')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
+  }
 `

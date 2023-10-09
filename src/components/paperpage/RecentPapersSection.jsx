@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next"
 import { Section } from "../common/Section"
 import { SectionTitle } from "../common/SectionTitle"
 import styled from "@emotion/styled"
-import { mq } from "../../utils/mq"
 import { RecentPapersCarousel } from "./RecentPapersCarousel"
 
 export const RecentPapersSection = () => {

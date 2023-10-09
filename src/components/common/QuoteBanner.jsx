@@ -53,8 +53,8 @@ const QuoteWrapper = styled.div`
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  /* width: clamp(300px, 90%, 500px); */
   max-width: 440px;
+  padding: 0 8px;
 
   gap: 25px;
   ${mq("md")} {
@@ -68,7 +68,6 @@ const QuoteWrapper = styled.div`
 `
 
 const MainQuote = styled.h3`
-  /* font-size: 2.4rem; */
   font-size: clamp(1.2rem, calc(1vw + 1rem), 2.4rem);
   color: ${(p) => p.theme.colors.primary};
   font-weight: 700;

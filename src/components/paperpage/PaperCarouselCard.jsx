@@ -8,16 +8,17 @@ import useWPContext from "../../context/useWPContext"
 export const PaperCarouselCard = ({ r }) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const {assetsImagesUrl} = useWPContext()
+  const { assetsImagesUrl } = useWPContext()
   const image = r.meta._thedah_images[0]
   const imageUrl = image?.paperLandscapeUrl
     ? image.paperLandscapeUrl
-    : image?.source_url ?`${assetsImagesUrl}/image-placeholder.svg` : ''
-
+    : image?.source_url
+    ? image?.source_url
+    : `${assetsImagesUrl}/image-placeholder.svg`
   return (
     <Wrapper>
       <ImageWrapper>
-        <img src={imageUrl} alt={r.title} />
+        <img src={imageUrl} alt={r.title} style={{ aspectRatio: "3.9 / 3" }} />
       </ImageWrapper>
       <InfoAndButtonWrapper>
         <PaperTitle>{r.title}</PaperTitle>
@@ -58,7 +59,6 @@ export const PaperCarouselCard = ({ r }) => {
             {t("toRead")}
           </Button>
         </ActionWrapper>
-
       </InfoAndButtonWrapper>
     </Wrapper>
   )
@@ -67,8 +67,8 @@ export const PaperCarouselCard = ({ r }) => {
 const Wrapper = styled.article`
   display: flex;
   border-radius: 10px;
-  box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.20);
-  background-color: ${p => p.theme.colors.white};
+  box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.2);
+  background-color: ${(p) => p.theme.colors.white};
 
   flex-direction: column;
   justify-content: center;
@@ -77,7 +77,7 @@ const Wrapper = styled.article`
   padding: 24px;
   width: clamp(350px, 100%, 400px);
 
-  ${mq('lg')} {
+  ${mq("lg")} {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
@@ -90,7 +90,7 @@ const Wrapper = styled.article`
 const ImageWrapper = styled.div`
   width: clamp(300px, 100%, 390px);
   border-radius: 10px;
-  box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.20);
+  box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.2);
   overflow: hidden;
   & > img {
     width: 100%;
@@ -100,14 +100,14 @@ const ImageWrapper = styled.div`
 
 const InfoAndButtonWrapper = styled.div`
   width: clamp(300px, 100%, 390px);
-  
   display: flex;
   flex-direction: column;
-  & > p, h5 {
-    margin-top: 15px;
+  & > p,
+  h5 {
+    margin-top: 8px;
   }
-  
-  ${mq('lg')} {
+
+  ${mq("lg")} {
     width: clamp(300px, 100%, 400px);
   }
 `
@@ -136,13 +136,19 @@ const Summary = styled.p`
   font-weight: 400;
   line-height: 1.7;
   text-align: justify;
+  height: 85px;
+  overflow-y: auto;
+  padding-right: 5px;
 `
 
 const ActionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: auto;
+  margin-top: 32px;
+  ${mq("lg")} {
+    margin-top: auto;
+  }
 `
 
 const ReadMore = styled.a`

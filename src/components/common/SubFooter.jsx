@@ -14,26 +14,21 @@ export default function SubFooter() {
 
 const Wrapper = styled.div`
   display: flex;
-  padding-left: 40px;
-  padding-right: 40px;
   justify-content: flex-end;
   background-color: ${(p) => p.theme.colors.black};
-  height: 65px;
   justify-content: space-between;
   align-items: center;
 
   flex-direction: column;
 
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 16px 16px;
 
-  ${mq("sm")} {
-    padding-left: 32px;
-    padding-right: 32px;
+  ${mq("md")} {
+    padding: 0 32px;
     flex-direction: row-reverse;
+    height: 65px;
   }
   ${mq("lg")} {
-    padding-left: 95px;
-    padding-right: 95px;
+    padding: 95px 0;
   }
 `

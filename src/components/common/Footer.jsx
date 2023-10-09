@@ -61,7 +61,7 @@ export default function Footer() {
 const Wrapper = styled.footer`
   background-color: ${(p) => p.theme.colors.primary};
   border-top: 7px solid ${(p) => p.theme.colors.accent};
-  padding-bottom: 50px;
+  padding: 0 16px 50px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,7 +118,7 @@ const Subscription = styled.div`
 `
 
 const SubscriptionTitle = styled.h5`
-  color: ${(p) => p.theme.colors.black};
+  color: ${(p) => p.theme.colors.text};
   font-size: 1.6rem;
   font-weight: 700;
 `
@@ -132,5 +132,6 @@ const SubscriptionDescription = styled.p`
 
 const Form = styled.form`
   display: flex;
+  flex-direction: row-reverse;
   gap: 13px;
 `

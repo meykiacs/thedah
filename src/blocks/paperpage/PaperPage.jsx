@@ -12,6 +12,7 @@ import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
 import { RecentPapersSection } from "../../components/paperpage/RecentPapersSection"
+import { PaperArchiveSection } from "../../components/paperpage/PaperArchiveSection"
 
 export function PaperPage({ providedValues }) {
   useLanguageAndDirection()
@@ -27,6 +28,9 @@ export function PaperPage({ providedValues }) {
             <PaperBanner />
             <PageContainer color={theme.colors.gray}>
               <RecentPapersSection />
+            </PageContainer>
+            <PageContainer color={theme.colors.white}>
+              <PaperArchiveSection />
             </PageContainer>
             <Footer />
             <SubFooter />
