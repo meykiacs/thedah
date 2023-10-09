@@ -19,7 +19,7 @@ import HTMLReactParser from "html-react-parser"
 
 export default function PaperCard({ post, images }) {
   const { t } = useTranslation()
-  const { isDeleting, deletePost, setIsEditing } = useCrudContext()
+  const { isDeleting, deletePost, setIsEditing, setIsLocked } = useCrudContext()
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">
@@ -115,6 +115,7 @@ export default function PaperCard({ post, images }) {
             right="250px"
             onClick={() => {
               setIsEditing(true)
+              setIsLocked(true)
             }}
           >
             {t("Edit")}

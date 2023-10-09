@@ -1,38 +1,47 @@
 import { render } from "@wordpress/element"
 import { LanguageProvider } from "../../context/LanguageContext"
+import { AboutPage } from "./AboutPage"
 import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
-import AboutPage from "./AboutPage"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-aboutpage")
-  document.documentElement.setAttribute("lang", root.dataset.lang)
-  document.body.dir = root.dataset.direction
 
+  const resourceNames = JSON.parse(root.dataset.resourceNames)
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
     siteTitle: root.dataset.siteTitle,
     restNonce: root.dataset.restNonce,
-    aboutRestUrlEn: root.dataset.aboutRestUrlEn,
-    aboutRestUrlFa: root.dataset.aboutRestUrlFa,
     mediaRestUrl: root.dataset.mediaRestUrl,
     assetsFontsUrl: root.dataset.assetsFontsUrl,
     assetsImagesUrl: root.dataset.assetsImagesUrl,
-    isAboutFaFetched: !!root.dataset.aboutFaFetched,
-    isAboutEnFetched: !!root.dataset.aboutEnFetched,
     resourceName: root.dataset.resourceName,
-    aboutFa: JSON.parse(document.getElementById("about-fa").textContent),
-    aboutEn: JSON.parse(document.getElementById("about-en").textContent),
+    resourceHuman: root.dataset.resourceHuman,
+    prefix: root.dataset.prefix,
   }
 
+  resourceNames.forEach((resource) => {
+    providedValues[`${resource}EnRestUrl`] =
+      root.dataset[`${resource}EnRestUrl`]
+    providedValues[`${resource}FaRestUrl`] =
+      root.dataset[`${resource}FaRestUrl`]
+    providedValues[`${resource}FaFetched`] =
+      !!root.dataset[`${resource}FaFetched`]
+    providedValues[`${resource}EnFetched`] =
+      !!root.dataset[`${resource}EnFetched`]
+    providedValues[`${resource}Fa`] = JSON.parse(
+      document.getElementById(`${resource}-fa`).innerHTML,
+    )
+    providedValues[`${resource}En`] = JSON.parse(
+      document.getElementById(`${resource}-en`).innerHTML,
+    )
+  })
+
   render(
-    <LanguageProvider
-      language={root.dataset.lang}
-      direction={root.dataset.direction}
-    >
+    <LanguageProvider>
       <ColorSchemeProvider>
         <AboutPage providedValues={providedValues} />
       </ColorSchemeProvider>
     </LanguageProvider>,
-    root
+    root,
   )
 })

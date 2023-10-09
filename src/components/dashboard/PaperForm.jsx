@@ -37,6 +37,7 @@ export function PaperForm({ maxImages }) {
     images,
     isCreatingOrUpdatingPost,
     setIsEditing,
+    setIsLocked,
   } = useCrudContext()
 
   const [coAuthors, setCoAuthors] = useState([""])
@@ -125,8 +126,7 @@ export function PaperForm({ maxImages }) {
     if (isEditing) {
       formRef.current.scrollIntoView({ behavior: "smooth" })
       formRef.current.focus()
-    }
-    else {
+    } else {
       setCoAuthors([""])
     }
   }, [isEditing])
@@ -146,7 +146,7 @@ export function PaperForm({ maxImages }) {
       editor.commands.setContent("")
     }
   }, [isEditing, editor, selectedPost])
-  
+
   return (
     <Card withBorder radius="md" p={15}>
       <form
@@ -207,18 +207,6 @@ export function PaperForm({ maxImages }) {
               // }}
             />
 
-            {/* 
-            <Textarea
-              // label="Autosize with 4 rows max"
-              placeholder={t("Content")}
-              autosize
-              minRows={5}
-              maxRows={10}
-              miw="350px"
-              name="content"
-              defaultValue={selectedPost?.content ?? ""}
-            /> */}
-
             <Group mt="24px" justify="center">
               <Button
                 type="submit"
@@ -234,6 +222,7 @@ export function PaperForm({ maxImages }) {
                   onClick={(e) => {
                     e.preventDefault()
                     setIsEditing(false)
+                    setIsLocked(false)
                   }}
                 >
                   Cancel

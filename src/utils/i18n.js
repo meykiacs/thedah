@@ -7,6 +7,7 @@ i18n.use(initReactI18next).init({
     en: {
       translation: {
         About: "About me",
+        academicRank: "Academic Rank",
         activities: "Fields of Activities",
         Author: "Author",
         Available: "Available",
@@ -39,6 +40,7 @@ i18n.use(initReactI18next).init({
         Edit: "Edit",
         Edition: "Edition",
         edition: "edition",
+        editAboutPage: "Edit About Page",
         editBook: "Edit Book",
         editPaper: "Edit Paper",
         editPost: "Edit Post",
@@ -97,6 +99,7 @@ i18n.use(initReactI18next).init({
     fa: {
       translation: {
         About: "درباره‌ی من",
+        academicRank: 'مرتبه علمی',
         activities: "زمینه‌های فعالیت",
         Author: "نویسنده",
         Available: "موجود",
@@ -129,6 +132,7 @@ i18n.use(initReactI18next).init({
         Edit: "ویرایش",
         Edition: "نوبت چاپ",
         edition: "چاپ",
+        editAboutPage: "ویرایش صفحه درباره من",
         editBook: "ویرایش کتاب",
         editPaper: "ویرایش مقاله",
         editPost: "ویرایش پست",

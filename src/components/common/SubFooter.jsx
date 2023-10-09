@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   background-color: ${(p) => p.theme.colors.black};
   justify-content: space-between;
   align-items: center;
-
+  gap: 5px;
   flex-direction: column;
 
   padding: 16px 16px;
@@ -27,8 +27,9 @@ const Wrapper = styled.div`
     padding: 0 32px;
     flex-direction: row-reverse;
     height: 65px;
+    gap: unset;
   }
   ${mq("lg")} {
-    padding: 95px 0;
+    padding: 0 95px;
   }
 `

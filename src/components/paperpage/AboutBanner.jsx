@@ -1,15 +1,11 @@
 import styled from "@emotion/styled"
 import { mq } from "../../utils/mq"
 import useWPContext from "../../context/useWPContext"
-import useResourceContext from "../../context/useResourceContext"
-import useLanguageContext from "../../context/useLanguageContext"
+import useResourceList from "../../hooks/useResourceList"
 
 export default function AboutBanner() {
-  const { lang } = useLanguageContext()
   const { assetsImagesUrl } = useWPContext()
-  const { resources, resourceName } = useResourceContext()
-  const { fa, en } = resources[resourceName]
-  const about = lang == "fa" ? fa : en
+  const about = useResourceList('about')[0]
   return (
     <Wrapper>
       <ImageWrapper>

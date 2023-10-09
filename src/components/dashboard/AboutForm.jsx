@@ -12,27 +12,28 @@ import {
 import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
-import useResourceContext from "../../context/useResourceContext"
 import useLanguageContext from "../../context/useLanguageContext"
+import useResourceList from "../../hooks/useResourceList"
 
 export function AboutForm() {
   const { t } = useTranslation()
   const formRef = useRef(null)
-  const {lang} = useLanguageContext()
+  const { lang } = useLanguageContext()
+  const aboutList = useResourceList("about")
   const {
     handleSubmit,
     setSelectedPostId,
-    isEditing,
     isCreatingOrUpdatingPost,
     setIsEditing,
+    setIsLocked,
   } = useCrudContext()
 
-  const about = useResourceContext().resources.about.rs[0]
   const [education, setEducation] = useState([""])
   const [activities, setActivities] = useState([""])
   const [executiveRecords, setExecutiveRecords] = useState([""])
   const [awardsAndHonors, setAwardsAndHonors] = useState([""])
-
+  const [isFormLocked, setIsFormLocked] = useState(true)
+  const about = aboutList[0]
   useEffect(() => {
     formRef.current.reset()
   }, [lang])
@@ -40,18 +41,19 @@ export function AboutForm() {
   useEffect(() => {
     formRef.current.focus()
     if (about) {
-      setSelectedPostId(about.id)
-      setEducation(about?.meta?._thedah_about?.education ?? [""])
-      setActivities(about?.meta?._thedah_about?.activities ?? [""])
-      setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
-      setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
+      setIsEditing(true)
     }
-  }, [about, setSelectedPostId])
+    setSelectedPostId(about?.id ?? 0)
+    setEducation(about?.meta?._thedah_about?.education ?? [""])
+    setActivities(about?.meta?._thedah_about?.activities ?? [""])
+    setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
+    setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
+  }, [about, setIsEditing, setSelectedPostId])
 
   const inputs = [
     {
       name: "academicRank",
-      placeholder: "Academic Rank",
+      placeholder: "academicRank",
       default: about?.meta?._thedah_about?.academicRank ?? "",
     },
   ]
@@ -84,13 +86,13 @@ export function AboutForm() {
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
               <Title order={1} size="h2" mb="32px">
-                {isEditing ? t("EditAbout") : t("NewAbout")}
+                {t("editAboutPage")}
               </Title>
             </Box>
             <Box pt={25}>
               {inputs.map((i) => (
                 <TextInput
-                  disabled={!isEditing}
+                  disabled={isFormLocked}
                   required
                   label={t(i.placeholder)}
                   key={i}
@@ -102,25 +104,25 @@ export function AboutForm() {
                 />
               ))}
               <DynamicInput
-                disabled={!isEditing}
+                disabled={isFormLocked}
                 inputs={education}
                 setInputs={setEducation}
                 label={t("Education")}
               />
               <DynamicInput
-                disabled={!isEditing}
+                disabled={isFormLocked}
                 inputs={activities}
                 setInputs={setActivities}
                 label={t("Activities")}
               />
               <DynamicInput
-                disabled={!isEditing}
+                disabled={isFormLocked}
                 inputs={executiveRecords}
                 setInputs={setExecutiveRecords}
                 label={t("Executive Records")}
               />
               <DynamicInput
-                disabled={!isEditing}
+                disabled={isFormLocked}
                 inputs={awardsAndHonors}
                 setInputs={setAwardsAndHonors}
                 label={t("Awards and Honors")}
@@ -129,7 +131,7 @@ export function AboutForm() {
           </Group>
           <Stack pt={25} spacing={50} align="center">
             <Group mt="24px" justify="center">
-              {isEditing ? (
+              {!isFormLocked ? (
                 <Button
                   type="submit"
                   loading={isCreatingOrUpdatingPost}
@@ -139,24 +141,25 @@ export function AboutForm() {
                 </Button>
               ) : (
                 <Button
-                  type="submit"
                   loading={isCreatingOrUpdatingPost}
                   color="green"
                   onClick={(e) => {
                     e.preventDefault()
-                    setIsEditing(true)
+                    setIsLocked(true)
+                    setIsFormLocked(false)
                   }}
                 >
                   {t("Edit")}
                 </Button>
               )}
-              {isEditing && (
+              {!isFormLocked && (
                 <Button
                   loading={isCreatingOrUpdatingPost}
                   color="red"
                   onClick={(e) => {
                     e.preventDefault()
-                    setIsEditing(false)
+                    setIsLocked(false)
+                    setIsFormLocked(true)
                   }}
                 >
                   Cancel

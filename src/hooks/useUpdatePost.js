@@ -7,7 +7,6 @@ export const useUpdatePost = ({ id }) => {
   const { restUrl, rs, setR } = resources[resourceName]
 
   const [isUpdatingPost, setIsUpdatingPost] = useState(false)
-
   async function updatePost(data, event) {
     setIsUpdatingPost(true)
     const endpoint = `${restUrl}/${id}`

@@ -1,7 +1,6 @@
 import {
   Card,
   Image,
-  Text,
   Group,
   Badge,
   Box,
@@ -20,7 +19,7 @@ import HTMLReactParser from "html-react-parser"
 
 export function BookCard({ post, images }) {
   const { t } = useTranslation()
-  const { isDeleting, deletePost, setIsEditing } = useCrudContext()
+  const { isDeleting, deletePost, setIsEditing, setIsLocked } = useCrudContext()
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">
@@ -109,6 +108,7 @@ export function BookCard({ post, images }) {
             right="250px"
             onClick={() => {
               setIsEditing(true)
+              setIsLocked(true)
             }}
           >
             {t("Edit")}

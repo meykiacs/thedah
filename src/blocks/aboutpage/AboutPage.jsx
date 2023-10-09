@@ -13,7 +13,7 @@ import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
 
-export default function AboutPage({ providedValues }) {
+export function AboutPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
 
