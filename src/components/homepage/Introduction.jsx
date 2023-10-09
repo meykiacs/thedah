@@ -42,15 +42,19 @@ export const Introduction = () => {
 
 const StyledSection = styled(Section)`
   gap: 32px;
+  
   ${mq("md")} {
     flex-direction: row;
     justify-content: space-around;
+    align-items: stretch;
   }
   ${mq("xl")} {
     flex-direction: row;
     justify-content: center;
     gap: 50px;
   }
+
+  justify-content: center;
 
 `
 
@@ -68,7 +72,7 @@ const TextAndActionWrapper = styled.div`
   flex-direction: column;
   padding: 0 16px;
   justify-content: space-around;
-  height: 303px;
+  /* height: 303px; */
   max-width: 380px;
   ${mq("lg")} {
     max-width: 450px;
@@ -87,7 +91,7 @@ const Text = styled.p`
 `
 
 const StyledButton = styled(Button)`
-  margin-top: 20px;
+  margin-top: 25px;
   align-self: flex-end;
   text-decoration: none;
 `

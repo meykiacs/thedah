@@ -55,7 +55,7 @@ export const PaperCarouselCard = ({ r }) => {
             fw="500"
             p="10px 50px"
           >
-            {t("Read")}
+            {t("toRead")}
           </Button>
         </ActionWrapper>
 

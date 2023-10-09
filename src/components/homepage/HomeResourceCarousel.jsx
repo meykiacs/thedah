@@ -8,9 +8,13 @@ import left from "../../icons/arrow-left.svg"
 import useResourceList from "../../hooks/useResourceList"
 import { breakpoints, mq } from "../../utils/mq"
 
-export const HomeResourceCarousel = ({ resource, CarouselCard, density, ...delegated }) => {
+export const HomeResourceCarousel = ({
+  resource,
+  CarouselCard,
+  density,
+  ...delegated
+}) => {
   const rs = useResourceList(resource)
-
   const NextArrow = ({ onClick }) => {
     return (
       <ArrowRight onClick={onClick}>
@@ -28,11 +32,11 @@ export const HomeResourceCarousel = ({ resource, CarouselCard, density, ...deleg
 
   const settings = {
     dots: false,
-    lazyload: true,
+    lazyload: false,
     autoplay: false,
     autoplaySpeed: 2000,
     infinite: true,
-    slidesToShow: density === 'medium' ? 5 : density === 'high' ? 6 : 1,
+    slidesToShow: density === "medium" ? 5 : density === "high" ? 6 : 1,
     centerMode: true,
     centerPaddig: 0,
     slidesToScroll: 1,
@@ -44,19 +48,19 @@ export const HomeResourceCarousel = ({ resource, CarouselCard, density, ...deleg
       {
         breakpoint: breakpoints.xl,
         settings: {
-          slidesToShow: density === 'medium' ? 4 : density === 'high' ? 5 : 1,
+          slidesToShow: density === "medium" ? 4 : density === "high" ? 5 : 1,
         },
       },
       {
         breakpoint: breakpoints.lg,
         settings: {
-          slidesToShow: density === 'medium' ? 2 : density === 'high' ? 3 : 1,
+          slidesToShow: density === "medium" ? 2 : density === "high" ? 3 : 1,
         },
       },
       {
         breakpoint: breakpoints.md,
         settings: {
-          slidesToShow: density === 'medium' ? 1 : density === 'high' ? 2 : 1,
+          slidesToShow: density === "medium" ? 1 : density === "high" ? 2 : 1,
         },
       },
       {
@@ -100,17 +104,17 @@ const Wrapper = styled.div`
 
     &.has-gradient:before {
       background: linear-gradient(
-        ${p => p.theme.direction === 'ltr' ? '90deg' : '270deg'},
+        ${(p) => (p.theme.direction === "ltr" ? "90deg" : "270deg")},
         #e7e3cf 0%,
         rgba(231, 227, 207, 0) 100%
-        );
-        z-index: 15;
-      }
-      
-      &.has-gradient:after {
-        right: 0;
-        background: linear-gradient(
-        ${p => p.theme.direction === 'ltr' ? '270deg' : '90deg'},
+      );
+      z-index: 15;
+    }
+
+    &.has-gradient:after {
+      right: 0;
+      background: linear-gradient(
+        ${(p) => (p.theme.direction === "ltr" ? "270deg" : "90deg")},
         #e7e3cf 0%,
         rgba(231, 227, 207, 0) 100%
       );

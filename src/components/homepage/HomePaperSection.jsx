@@ -4,20 +4,17 @@ import { ButtonV2 } from "../common/ButtonV2"
 import { useTheme } from "@emotion/react"
 import { useTranslation } from "react-i18next"
 import { mq } from "../../utils/mq"
-import useResourceContext from "../../context/useResourceContext"
-import useLanguageContext from "../../context/useLanguageContext"
 import { Section } from "../common/Section"
+import useResourceList from "../../hooks/useResourceList"
 
 export function HomePaperSection() {
   const { assetsImagesUrl } = useWPContext()
   const theme = useTheme()
+  const papers = useResourceList("paper").slice(0, 2)
   const { t } = useTranslation()
-  const { lang } = useLanguageContext()
   const prefix = "Read"
   const buttonText = "paperArchive"
   const imageUrl = `${assetsImagesUrl}/home-paper-section-image.png`
-  const { en, fa } = useResourceContext().resources.paper
-  const papers = lang === "fa" ? fa.slice(0, 2) : en.slice(0, 2)
   return (
     <StyledSection>
       <Wrapper>
@@ -25,11 +22,14 @@ export function HomePaperSection() {
           <img src={imageUrl} alt="Paper Logo" />
         </ImageWrapper>
         <Papers>
-            {papers.map((p) => (
-              <Title key={p.id}>{`${prefix}: ${
-                p.meta._thedah_paper?.fullReference ?? ""
-              }`}</Title>
-            ))}
+          {papers.map((p) => (
+            <A key={p.id} href={p.link ?? ""} target="_blank" rel="noreferrer">
+              <Title>
+                {`${t(prefix)}: ${p.meta._thedah_paper?.fullReference ?? ""}
+                  `}
+              </Title>
+            </A>
+          ))}
         </Papers>
         <StyledButtonV2
           variant="fill"
@@ -104,4 +104,9 @@ const StyledButtonV2 = styled(ButtonV2)`
   ${mq("md")} {
     margin-left: auto;
   }
+`
+
+const A = styled.a`
+  text-decoration: none;
+  color: ${(p) => p.theme.colors.text};
 `

@@ -3,7 +3,6 @@ import useWPContext from "../../context/useWPContext"
 import styled from "@emotion/styled"
 import Button from "../common/Button"
 import { useTheme } from "@emotion/react"
-import GenericText from "../common/GenericText"
 import { mq } from "../../utils/mq"
 import HTMLReactParser from "html-react-parser"
 
@@ -180,3 +179,4 @@ const Description = styled.div`
     transform: translateX(15px);
   }
 `
+

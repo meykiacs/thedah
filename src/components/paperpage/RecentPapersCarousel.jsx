@@ -34,6 +34,10 @@ export const RecentPapersCarousel = () => {
 
 const Wrapper = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   & .slide-next-enter {
     position: absolute;

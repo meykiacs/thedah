@@ -65,16 +65,16 @@ $recentPosts = $container->get(QueryResource::class)->getRecent($postTypesWithMe
 
 <?php foreach ($postTypes as $postType) : ?>
   <pre style="display: none !important" id="<?php echo $postType; ?>-fa">
-        <?php echo wp_json_encode($data["{$postType}Fa"]); ?>
+        <?php echo wp_json_encode($data["{$postType}Fa"], JSON_HEX_TAG); ?>
     </pre>
 
   <pre style="display: none !important" id="<?php echo $postType; ?>-en">
-        <?php echo wp_json_encode($data["{$postType}En"]); ?>
+        <?php echo wp_json_encode($data["{$postType}En"], JSON_HEX_TAG); ?>
     </pre>
 <?php endforeach; ?>
 <pre style="display: none !important" id="recent-en">
-    <?php echo wp_json_encode($recentPosts); ?>
+    <?php echo wp_json_encode($recentPosts, JSON_HEX_TAG); ?>
 </pre>
 <pre style="display: none !important" id="recent-fa">
-    <?php echo wp_json_encode($recentPostsFa); ?>
+    <?php echo wp_json_encode($recentPostsFa, JSON_HEX_TAG); ?>
 </pre>

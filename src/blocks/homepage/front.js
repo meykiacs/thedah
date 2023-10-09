@@ -29,15 +29,15 @@ window.addEventListener("DOMContentLoaded", () => {
     providedValues[`${resource}EnFetched`] =
       !!root.dataset[`${resource}EnFetched`]
     providedValues[`${resource}Fa`] = JSON.parse(
-      document.getElementById(`${resource}-fa`).textContent,
+      document.getElementById(`${resource}-fa`).innerHTML,
     )
     providedValues[`${resource}En`] = JSON.parse(
-      document.getElementById(`${resource}-en`).textContent,
+      document.getElementById(`${resource}-en`).innerHTML,
     )
   })
 
-  providedValues.recentFa = JSON.parse(document.getElementById("recent-fa").textContent)
-  providedValues.recentEn = JSON.parse(document.getElementById("recent-en").textContent)
+  providedValues.recentFa = JSON.parse(document.getElementById("recent-fa").innerHTML)
+  providedValues.recentEn = JSON.parse(document.getElementById("recent-en").innerHTML)
   render(
     <LanguageProvider>
       <ColorSchemeProvider>

@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next"
 export const BookCarouselCard = ({ r }) => {
   const { assetsImagesUrl } = useWPContext()
   const { t } = useTranslation()
-
   return (
     <CardWrapper>
       <ImageWrapper>
@@ -56,7 +55,8 @@ const Text = styled.div`
 `
 
 const Title = styled.h4`
-  direction: ${(p) => (p.theme.direction === "ltr" ? "rtl" : "ltr")};
+  /* direction: ${(p) => (p.theme.direction === "ltr" ? "rtl" : "ltr")}; */
+  direction: ltr;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 2;
@@ -66,8 +66,8 @@ const Title = styled.h4`
 `
 
 const PublisherAndYear = styled.h5`
-  direction: ${(p) => (p.theme.direction === "ltr" ? "rtl" : "ltr")};
-
+  /* direction: ${(p) => (p.theme.direction === "ltr" ? "rtl" : "ltr")}; */
+  direction: ltr;
   font-weight: 400;
   line-height: 2;
   font-size: 1rem;
