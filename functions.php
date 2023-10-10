@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Thedah\Block\Block;
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
+use Thedah\Auth\Auth;
 use Thedah\CPTResource\Model\CPT;
 use Thedah\CPTResource\Model\CPTResource;
 use Thedah\CPTResource\Service\RegisterCPTResource;
@@ -58,6 +59,8 @@ $containerBuilder->addDefinitions([
   'block.dirpath' => get_theme_file_path('build/blocks/'),
   'rest.namespace' => 'thedah/v1',
   'prefix'  => 'thedah',
+  'auth.slug'  => 'auth',
+  'auth.redirect_url'  => home_url('dashboard'),
   'assets.fonts.url'  =>  get_theme_file_uri('assets/fonts'),
   'assets.images.url'  =>  get_theme_file_uri('assets/images'),
   'node_modules.url'  => get_theme_file_uri('node_modules'),
@@ -153,6 +156,7 @@ $container->get(Block::class)->add('bookpage')
   ->add('paperpage')
   ->add('aboutpage')
   ->add('homepage')
+  ->add('auth')
   ->register();
 
 $container->get(RegisterCPTResource::class)
@@ -171,4 +175,10 @@ $container->get(RegisterCPTResource::class)
   ->register();
 
 $container->get(Image::class)->addImageSize('paperLandscape', 390, 300, ['center', 'center']);
+
+$container->get(Auth::class)
+  ->redirectNonAdminFromAdminPanel()
+  ->removeAdminBarForNonAdmins()
+  ->hideAdminBarOnFrontEnd()
+  ->changeLoginUrl($container->get('auth.slug'));
 // $registerQueryVars = $container->get(RegisterQueryVars::class);

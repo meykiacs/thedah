@@ -1,20 +1,30 @@
 import { useDisclosure } from "@mantine/hooks"
-import { AppShell, Burger, Flex, Group, NavLink } from "@mantine/core"
+import { AppShell, Burger, Flex, Group, NavLink, Space } from "@mantine/core"
 
-import { IconBook, IconArticle, IconUser, IconPencil, IconSchool, IconPhotoEdit } from "@tabler/icons-react"
+import {
+  IconBook,
+  IconArticle,
+  IconUser,
+  IconPencil,
+  IconSchool,
+  IconPhotoEdit,
+  IconLogout,
+} from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import useResourceContext from "../../context/useResourceContext"
 import { useState } from "@wordpress/element"
 import App from "./App"
 import ToggleLanguage from "./ToggleLanguage"
 import { ThemeActionToggle } from "./ThemeActionToggle"
-import {  useCrudContext } from "../../context/CrudContext"
+import { useCrudContext } from "../../context/CrudContext"
+import useWPContext from "../../context/useWPContext"
 
 export function Shell() {
   const [opened, { toggle }] = useDisclosure()
 
   const { resourceName, setResourceName, setResourceHuman } =
     useResourceContext()
+  const { logoutUrl } = useWPContext()
   const { isLocked, images } = useCrudContext()
   const { t } = useTranslation()
   const data = [
@@ -73,6 +83,13 @@ export function Shell() {
             }}
           />
         ))}
+        <Space h="xl" />
+        <NavLink
+          component="a"
+          label={t("logout")}
+          rightSection={<IconLogout size="1rem" stroke={1.5} />}
+          href={logoutUrl}
+        />
       </AppShell.Navbar>
       <AppShell.Main>
         <App />

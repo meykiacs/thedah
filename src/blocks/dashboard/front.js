@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const resourceNames = JSON.parse(root.dataset.resourceNames)
   const providedValues = {
     homeUrl: root.dataset.homeUrl,
+    logoutUrl: root.dataset.logoutUrl,
     siteTitle: root.dataset.siteTitle,
     restNonce: root.dataset.restNonce,
     mediaRestUrl: root.dataset.mediaRestUrl,

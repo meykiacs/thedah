@@ -8,6 +8,12 @@ use Thedah\QueryResource\QueryResource;
  */
 global $container;
 
+if (!is_user_logged_in()) {
+	global $container;
+	wp_safe_redirect(home_url($container->get('auth.slug')));
+	exit;
+}
+
 $postTypes = ['about', 'paper', 'book', 'blog', 'course', 'gallery'];
 $defaultResourceName = 'book';
 
@@ -48,7 +54,8 @@ foreach ($postTypes as $postType) {
 }
 
 ?>
-<div id="<?php echo esc_attr($prefix); ?>-dashboard" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>" data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>" data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>" data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>" data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>" data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>" <?php foreach ($postTypes as $postType) : ?> data-<?php echo $postType; ?>-en-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}")); ?>" data-<?php echo $postType; ?>-fa-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}fa")); ?>" data-<?php echo $postType; ?>-en-fetched="<?php echo esc_attr($fetched["{$postType}EnFetched"]); ?>" data-<?php echo $postType; ?>-fa-fetched="<?php echo esc_attr($fetched["{$postType}FaFetched"]); ?>" <?php endforeach; ?> data-resource-name="<?php echo esc_attr($defaultResourceName) ?>" data-resource-human="Books" data-color-scheme="<?php echo esc_attr($colorScheme); ?>" data-resource-names="<?php echo esc_attr(wp_json_encode($postTypes)); ?>" data-prefix="<?php echo esc_attr($prefix); ?>">
+<div id="<?php echo esc_attr($prefix); ?>-dashboard" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>" data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>"
+data-logout-url="<?php echo wp_logout_url(); ?>" data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>" data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>" data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>" data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>" <?php foreach ($postTypes as $postType) : ?> data-<?php echo $postType; ?>-en-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}")); ?>" data-<?php echo $postType; ?>-fa-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}fa")); ?>" data-<?php echo $postType; ?>-en-fetched="<?php echo esc_attr($fetched["{$postType}EnFetched"]); ?>" data-<?php echo $postType; ?>-fa-fetched="<?php echo esc_attr($fetched["{$postType}FaFetched"]); ?>" <?php endforeach; ?> data-resource-name="<?php echo esc_attr($defaultResourceName) ?>" data-resource-human="Books" data-color-scheme="<?php echo esc_attr($colorScheme); ?>" data-resource-names="<?php echo esc_attr(wp_json_encode($postTypes)); ?>" data-prefix="<?php echo esc_attr($prefix); ?>">
 </div>
 
 <?php foreach ($postTypes as $postType) : ?>
