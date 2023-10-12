@@ -58,7 +58,7 @@ $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
   'block.dirpath' => get_theme_file_path('build/blocks/'),
   'rest.namespace' => 'thedah/v1',
-  'prefix'  => 'thedah',
+  'prefix' => DI\value('thedah'),
   'auth.slug'  => 'auth',
   'auth.redirect_url'  => home_url('dashboard'),
   'assets.fonts.url'  =>  get_theme_file_uri('assets/fonts'),

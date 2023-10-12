@@ -7,7 +7,8 @@ import { useTheme } from "@emotion/react"
 import Input from "./Input"
 
 export default function Footer() {
-  const { assetsImagesUrl } = useWPContext()
+  const { assetsImagesUrl, restNonce, newsletterRestUrl } = useWPContext()
+  console.log(restNonce, newsletterRestUrl)
   const { t } = useTranslation()
   const theme = useTheme()
   return (
@@ -44,13 +45,14 @@ export default function Footer() {
             {t("Send")}
           </Button>
           <Input
+            name="email"
             label={t("Email")}
             w={238}
             fz={1.2}
             borderThickness={0}
             h={40}
-            type="email"
-            br='10'
+            type="text"
+            br="10"
           />
         </Form>
       </Subscription>

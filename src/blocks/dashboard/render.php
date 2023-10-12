@@ -8,14 +8,18 @@ use Thedah\QueryResource\QueryResource;
  */
 global $container;
 
+// here
 if (!is_user_logged_in()) {
 	global $container;
 	wp_safe_redirect(home_url($container->get('auth.slug')));
 	exit;
 }
+// here
+// logouturl
 
 $postTypes = ['about', 'paper', 'book', 'blog', 'course', 'gallery'];
 $defaultResourceName = 'book';
+
 
 $lang = empty($_COOKIE['language']) ? 'fa' : $_COOKIE['language'];
 $colorScheme = empty($_COOKIE['colorscheme']) ? 'dark' : $_COOKIE['colorscheme'];
