@@ -29,19 +29,19 @@ import TextAlign from "@tiptap/extension-text-align"
 export function BookForm({ maxImages }) {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
-  
-  const [availability, setAvailability] = useState("available")
-  const [coAuthors, setCoAuthors] = useState([""])
-
   const formRef = useRef(null)
   const {
-    handleSubmit,
-    isEditing,
     selectedPost,
+    isEditing,
+    setIsEditing,
+    handleSubmit,
     images,
     isCreatingOrUpdatingPost,
-    setIsEditing,
   } = useCrudContext()
+
+  // controlled inputs
+  const [availability, setAvailability] = useState("available")
+  const [coAuthors, setCoAuthors] = useState([""])
 
   const inputs = [
     {
@@ -99,6 +99,27 @@ export function BookForm({ maxImages }) {
     content: isEditing && selectedPost?.content ? selectedPost.content : "",
   })
 
+  const customHandleSubmit = (event) => {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const meta = {
+      _thedah_book: {
+        publisher: formData.get("publisher"),
+        year: formData.get("year"),
+        author: formData.get("author"),
+        edition: formData.get("edition"),
+        isbn: formData.get("isbn"),
+        price: formData.get("price"),
+        availability,
+        coauthors: coAuthors,
+        numberOfPages: formData.get("numberOfPages"),
+      },
+      _thedah_images: images,
+    }
+    const content = editor.getHTML()
+    handleSubmit(event, meta, "", content)
+  }
+
   // for the create form
   useEffect(() => {
     formRef.current.reset()
@@ -139,26 +160,6 @@ export function BookForm({ maxImages }) {
     }
   }, [isEditing, editor, selectedPost])
 
-  const customHandleSubmit = (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.target)
-    const meta = {
-      _thedah_book: {
-        publisher: formData.get("publisher"),
-        year: formData.get("year"),
-        author: formData.get("author"),
-        edition: formData.get("edition"),
-        isbn: formData.get("isbn"),
-        price: formData.get("price"),
-        availability,
-        coauthors: coAuthors,
-        numberOfPages: formData.get("numberOfPages"),
-      },
-      _thedah_images: images,
-    }
-    const content = editor.getHTML()
-    handleSubmit(event, meta, "", content)
-  }
 
   return (
     <Card withBorder radius="md" p={15}>

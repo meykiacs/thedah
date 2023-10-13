@@ -11,7 +11,6 @@ import {
 } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
-import { useGetPostById } from "../../hooks/useGetPostById"
 import { ImageDropzone } from "./ImageDropZone"
 import { ImageList } from "./ImageList"
 import { useEffect, useRef, useState } from "@wordpress/element"
@@ -30,25 +29,18 @@ export const BlogForm = ({ maxImages }) => {
   const { t } = useTranslation()
   const { lang } = useLanguageContext()
   const formRef = useRef(null)
-  const [feature, setFeature] = useState("none")
-  const [blogtype, setBlogtype] = useState("article")
   const {
-    selectedPostId,
+    selectedPost,
     isEditing,
     setIsEditing,
+    handleSubmit,
     images,
     isCreatingOrUpdatingPost,
-    handleSubmit,
   } = useCrudContext()
 
-  const selectedPost = useGetPostById(selectedPostId)
-  const meta = {
-    _thedah_images: images,
-    _thedah_blog: {
-      feature,
-      blogtype,
-    },
-  }
+  // controlled inputs
+  const [feature, setFeature] = useState("none")
+  const [blogtype, setBlogtype] = useState("article")
 
   const editor = useEditor({
     extensions: [
@@ -65,6 +57,13 @@ export const BlogForm = ({ maxImages }) => {
 
   const customHandleSubmit = (event) => {
     event.preventDefault()
+    const meta = {
+      _thedah_images: images,
+      _thedah_blog: {
+        feature,
+        blogtype,
+      },
+    }
     const content = editor.getHTML()
     handleSubmit(event, meta, "", content)
   }
@@ -75,11 +74,27 @@ export const BlogForm = ({ maxImages }) => {
   }, [lang])
 
   useEffect(() => {
+    if (!isCreatingOrUpdatingPost) {
+      formRef.current.reset()
+      setFeature("none")
+      setBlogtype("article")
+    }
+  }, [isCreatingOrUpdatingPost])
+
+  useEffect(() => {
     if (isEditing) {
       formRef.current.scrollIntoView({ behavior: "smooth" })
       formRef.current.focus()
+    } else {
+      setFeature("none")
+      setBlogtype("article")
+    }
+  }, [isEditing])
+
+  useEffect(() => {
+    if (isEditing) {
       setFeature(selectedPost?.meta?._thedah_blog?.feature ?? "none")
-      setBlogtype(selectedPost?.meta?._thedah_blog?.blogtype ?? "none")
+      setBlogtype(selectedPost?.meta?._thedah_blog?.blogtype ?? "article")
     }
   }, [isEditing, selectedPost])
 
@@ -123,7 +138,7 @@ export const BlogForm = ({ maxImages }) => {
                   { label: t("None"), value: "none" },
                   { label: t("Enroll"), value: "enroll" },
                   { label: t("Purchase"), value: "purchase" },
-                  { label: t("Pre-Purchase"), value: "prepurchase" },
+                  { label: t("PrePurchase"), value: "prepurchase" },
                 ]}
                 aria-label={t("Feature")}
                 onChange={setFeature}
@@ -149,20 +164,6 @@ export const BlogForm = ({ maxImages }) => {
             </Stack>
           </Group>
           <Stack pt={25} spacing={50} align="center">
-            {/* <Textarea
-              required
-              label={t("Content")}
-              aria-label={t("Content")}
-              placeholder={t("Content")}
-              autosize
-              minRows={5}
-              maxRows={10}
-              miw="350px"
-              name="content"
-              defaultValue={
-                isEditing && selectedPost?.content ? selectedPost.content : ""
-              }
-            /> */}
 
             <BlogRichText
               editor={editor}

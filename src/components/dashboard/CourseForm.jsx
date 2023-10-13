@@ -29,37 +29,14 @@ export function CourseForm({ maxImages }) {
   const { lang } = useLanguageContext()
   const formRef = useRef(null)
   const {
-    handleSubmit,
-    isEditing,
     selectedPost,
+    isEditing,
+    setIsEditing,
+    handleSubmit,
     images,
     isCreatingOrUpdatingPost,
-    setIsEditing,
     removeImage,
   } = useCrudContext()
-
-  // for the create form
-  useEffect(() => {
-    formRef.current.reset()
-  }, [lang])
-
-  useEffect(() => {
-    if (isEditing) {
-      formRef.current.scrollIntoView({ behavior: "smooth" })
-      formRef.current.focus()
-    }
-  }, [isEditing])
-
-  useEffect(() => {
-    if (isEditing) {
-      setCoTeachers(selectedPost?.meta?._thedah_course?.coTeachers ?? [""])
-      setAvailability(
-        selectedPost?.meta?._thedah_book?.availability ?? "available",
-      )
-      formRef.current.scrollIntoView({ behavior: "smooth" })
-      formRef.current.focus()
-    }
-  }, [isEditing, selectedPost])
 
   const inputs = [
     {
@@ -90,10 +67,34 @@ export function CourseForm({ maxImages }) {
     {
       name: "price",
       placeholder: "Price",
-      default: isEditing ? selectedPost?.meta?._thedah_book?.price : "",
+      default: isEditing ? selectedPost?.meta?._thedah_course?.price : "",
     },
   ]
 
+  // for the create form
+  useEffect(() => {
+    formRef.current.reset()
+  }, [lang])
+
+  useEffect(() => {
+    if (isEditing) {
+      formRef.current.scrollIntoView({ behavior: "smooth" })
+      formRef.current.focus()
+    }
+  }, [isEditing])
+
+  useEffect(() => {
+    if (isEditing) {
+      setCoTeachers(selectedPost?.meta?._thedah_course?.coTeachers ?? [""])
+      setAvailability(
+        selectedPost?.meta?._thedah_book?.availability ?? "available",
+      )
+      formRef.current.scrollIntoView({ behavior: "smooth" })
+      formRef.current.focus()
+    }
+  }, [isEditing, selectedPost])
+
+  
   const customHandleSubmit = (event) => {
     event.preventDefault()
     const formData = new FormData(event.target)
@@ -124,7 +125,7 @@ export function CourseForm({ maxImages }) {
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
               <Title order={1} size="h2" mb="32px">
-                {isEditing ? t("EditBook") : t("NewBook")}
+                {isEditing ? t("editCourse") : t("newCourse")}
               </Title>
               <ImageDropzone
                 maxFiles={maxImages}
