@@ -2,15 +2,12 @@ import styled from "@emotion/styled"
 import useWPContext from "../../context/useWPContext"
 import { mq } from "../../utils/mq"
 import { useTranslation } from "react-i18next"
-import Button from "./Button"
-import { useTheme } from "@emotion/react"
-import Input from "./Input"
+import { NewsletterForm } from "./NewsletterForm"
 
 export default function Footer() {
-  const { assetsImagesUrl, restNonce, newsletterRestUrl } = useWPContext()
-  console.log(restNonce, newsletterRestUrl)
+  const { assetsImagesUrl } = useWPContext()
   const { t } = useTranslation()
-  const theme = useTheme()
+
   return (
     <Wrapper>
       <Introduction>
@@ -31,30 +28,7 @@ export default function Footer() {
         <SubscriptionDescription>
           {t("subscribeDescription")}
         </SubscriptionDescription>
-        <Form>
-          <Button
-            variant="fill"
-            color={theme.colors.secondary}
-            colorHover={theme.colors.secondary}
-            fz="1.6rem"
-            fw="700"
-            p="7px 25px"
-            br="10px"
-            type="submit"
-          >
-            {t("Send")}
-          </Button>
-          <Input
-            name="email"
-            label={t("Email")}
-            w={238}
-            fz={1.2}
-            borderThickness={0}
-            h={40}
-            type="text"
-            br="10"
-          />
-        </Form>
+        <NewsletterForm />
       </Subscription>
     </Wrapper>
   )
@@ -130,10 +104,4 @@ const SubscriptionDescription = styled.p`
   font-size: 1.2rem;
   font-weight: 400;
   text-align: justify;
-`
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 13px;
 `

@@ -17,6 +17,7 @@ export function renderPage(PageComponent, rootId, handleSpecialCase) {
       resourceName: root.dataset.resourceName,
       resourceHuman: root.dataset.resourceHuman,
       prefix: root.dataset.prefix,
+      newsletterRestUrl: root.dataset.newsletterRestUrl,
     }
 
     resourceNames.forEach((resource) => {

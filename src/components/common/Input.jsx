@@ -11,7 +11,6 @@ const Input = ({
   type,
   ...delegated
 }) => {
-
   return (
     <Wrapper>
       <VisuallyHidden>{label}</VisuallyHidden>
@@ -22,8 +21,8 @@ const Input = ({
           "--width": w + "px",
           "--height": h + "px",
           "--border-thickness": borderThickness + "px",
-          "--font-size": fz  + "rem",
-          "--br": br  + "px",
+          "--font-size": fz + "rem",
+          "--br": br + "px",
         }}
       />
     </Wrapper>
@@ -33,11 +32,7 @@ const Input = ({
 const Wrapper = styled.label`
   display: block;
   position: relative;
-  color: ${p => p.theme.colors.gray};
-
-  &:hover {
-    color: ${p => p.theme.colors.black};
-  }
+  color: ${(p) => p.theme.colors.text};
 `
 
 const StyledInput = styled.input`
@@ -45,8 +40,9 @@ const StyledInput = styled.input`
   height: var(--height);
   font-size: var(--font-size);
   border: none;
-  border-bottom: var(--border-thickness) solid ${p => p.theme.colors.black};
-  padding-left: var(--height);
+  border-bottom: var(--border-thickness) solid ${(p) => p.theme.colors.black};
+  padding-left: 10px;
+  padding-right: 10px;
   color: inherit;
   font-weight: 700;
   outline-offset: 2px;
@@ -54,7 +50,7 @@ const StyledInput = styled.input`
 
   &::placeholder {
     font-weight: 400;
-    color: ${p => p.theme.colors.gray};
+    color: ${(p) => p.theme.colors.gray};
   }
 `
 
