@@ -25,7 +25,7 @@ export function Shell() {
   const { resourceName, setResourceName, setResourceHuman } =
     useResourceContext()
   const { logoutUrl } = useWPContext()
-  const { isLocked, images } = useCrudContext()
+  const { isLocked } = useCrudContext()
   const { t } = useTranslation()
   const data = [
     { link: "", label: "Books", icon: IconBook, name: "book" },
@@ -55,7 +55,7 @@ export function Shell() {
         >
           <Group>
             <ThemeActionToggle />
-            <ToggleLanguage disabled={isLocked || images.length > 0} />
+            <ToggleLanguage disabled={isLocked} />
           </Group>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         </Flex>
@@ -65,7 +65,7 @@ export function Shell() {
           <NavLink
             component="button"
             active={active === item.name}
-            disabled={isLocked || images.length > 0}
+            disabled={isLocked}
             label={t(item.label)}
             rightSection={<item.icon size="1rem" stroke={1.5} />}
             key={item.label}

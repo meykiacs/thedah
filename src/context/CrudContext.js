@@ -17,8 +17,6 @@ const CrudContext = createContext()
 export const CrudContextProvider = ({ children }) => {
   const [selectedPostId, setSelectedPostId] = useState(0)
   const [isEditing, setIsEditing] = useState(false)
-  const [isLocked, setIsLocked] = useState(false)
-
   const selectedPost = useGetPostById(selectedPostId)
 
   // post create and update
@@ -75,6 +73,7 @@ export const CrudContextProvider = ({ children }) => {
     }
   }, [isDeleting])
 
+  const isLocked = isDeleting || isEditing || images.length > 0
 
   return (
     <CrudContext.Provider
@@ -95,7 +94,6 @@ export const CrudContextProvider = ({ children }) => {
         isCreatingOrUpdatingPost,
         handleSubmit,
         isLocked,
-        setIsLocked
       }}
     >
       {children}

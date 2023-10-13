@@ -37,7 +37,6 @@ export function PaperForm({ maxImages }) {
     images,
     isCreatingOrUpdatingPost,
     setIsEditing,
-    setIsLocked,
   } = useCrudContext()
 
   const [coAuthors, setCoAuthors] = useState([""])
@@ -53,7 +52,7 @@ export function PaperForm({ maxImages }) {
 
   const editor = useEditor({
     extensions,
-    content: isEditing ? selectedPost?.content ?? "" : "",
+    content: isEditing && selectedPost?.content ? selectedPost.content : "",
   })
 
   const inputs = [
@@ -193,7 +192,7 @@ export function PaperForm({ maxImages }) {
               maxRows={10}
               miw="350px"
               name="summary"
-              defaultValue={selectedPost?.meta?._thedah_paper?.summary ?? ""}
+              defaultValue={ isEditing ? selectedPost?.meta?._thedah_paper?.summary : ""}
             />
             <BlogRichText
               editor={editor}
@@ -202,9 +201,6 @@ export function PaperForm({ maxImages }) {
               autosize
               minHeight={120} // minRows equivalent
               maxHeight={240} // maxRows equivalent
-              // onChange={(value) => {
-              //   formRef.current.elements.content.value = value
-              // }}
             />
 
             <Group mt="24px" justify="center">
@@ -222,7 +218,6 @@ export function PaperForm({ maxImages }) {
                   onClick={(e) => {
                     e.preventDefault()
                     setIsEditing(false)
-                    setIsLocked(false)
                   }}
                 >
                   Cancel

@@ -19,7 +19,7 @@ import HTMLReactParser from "html-react-parser"
 
 export function BookCard({ post, images }) {
   const { t } = useTranslation()
-  const { isDeleting, deletePost, setIsEditing, setIsLocked } = useCrudContext()
+  const { isDeleting, deletePost, setIsEditing } = useCrudContext()
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">
@@ -29,10 +29,10 @@ export function BookCard({ post, images }) {
               images.map((i) => (
                 <Center key={i.id} pos="relative">
                   <Image
-                    src={i.mediumUrl}
+                    src={i.mediumUrl ? i.mediumUrl : (i.source_url ?? '')}
                     alt={post.title}
-                    height={300}
-                    width={230}
+                    h={300}
+                    w={230}
                     // fallbackSrc={`${assetsImagesUrl}/image-placeholder.svg`}
                   />
                   <Badge pos="absolute" bottom={5}>
@@ -108,7 +108,6 @@ export function BookCard({ post, images }) {
             right="250px"
             onClick={() => {
               setIsEditing(true)
-              setIsLocked(true)
             }}
           >
             {t("Edit")}

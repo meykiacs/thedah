@@ -21,7 +21,7 @@ export function PostList({ resourceName }) {
 
   const rs = useResourceList(resourceName)
 
-  const { setSelectedPostId, isEditing, selectedPostId, isDeleting, images } =
+  const { setSelectedPostId, isEditing, selectedPostId, isDeleting, images, isLocked } =
     useCrudContext()
   const { t } = useTranslation()
   return (
@@ -33,7 +33,7 @@ export function PostList({ resourceName }) {
       {rs.map((post) => (
         <Accordion.Item key={post.id} value={post.id.toString()}>
           <Accordion.Control
-            disabled={isEditing || images.length > 0}
+            disabled={isLocked}
             fz="1.25rem"
             pr="32px"
             pl="16"

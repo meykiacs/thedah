@@ -27,11 +27,12 @@ import Highlight from "@tiptap/extension-highlight"
 import TextAlign from "@tiptap/extension-text-align"
 
 export function BookForm({ maxImages }) {
+  const { t } = useTranslation()
+  const { lang } = useLanguageContext()
+  
   const [availability, setAvailability] = useState("available")
   const [coAuthors, setCoAuthors] = useState([""])
 
-  const { t } = useTranslation()
-  const { lang } = useLanguageContext()
   const formRef = useRef(null)
   const {
     handleSubmit,
@@ -212,16 +213,6 @@ export function BookForm({ maxImages }) {
             }
           />
           <Stack pt={25} spacing={50} align="center">
-            {/* <Textarea
-              placeholder={t("Description")}
-              label={t("Description")}
-              autosize
-              minRows={5}
-              maxRows={10}
-              miw="350px"
-              name="content"
-              defaultValue={isEditing ? selectedPost?.content : ""}
-            /> */}
             <BlogRichText
               editor={editor}
               label={t("Content")}
@@ -229,9 +220,6 @@ export function BookForm({ maxImages }) {
               autosize
               minHeight={120} // minRows equivalent
               maxHeight={240} // maxRows equivalent
-              onChange={(value) => {
-                formRef.current.elements.content.value = value
-              }}
             />
             <Group mt="24px" justify="center">
               <Button

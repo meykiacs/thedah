@@ -44,7 +44,7 @@ export default function useDelete(selectedPostId, removeImage) {
     try {
       const images =
         selectedPost?.meta._thedah_images?.length > 0
-          ? selectedPost?.meta._thedah_images?.length
+          ? selectedPost?.meta._thedah_images
           : []
       images.forEach((image) => {
         removeImage(image.id)

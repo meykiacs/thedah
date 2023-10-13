@@ -25,7 +25,7 @@ export function AboutForm() {
     setSelectedPostId,
     isCreatingOrUpdatingPost,
     setIsEditing,
-    setIsLocked,
+    isEditing,
   } = useCrudContext()
 
   const [education, setEducation] = useState([""])
@@ -40,15 +40,20 @@ export function AboutForm() {
 
   useEffect(() => {
     formRef.current.focus()
-    if (about) {
-      setIsEditing(true)
-    }
     setSelectedPostId(about?.id ?? 0)
     setEducation(about?.meta?._thedah_about?.education ?? [""])
     setActivities(about?.meta?._thedah_about?.activities ?? [""])
     setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
     setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
   }, [about, setIsEditing, setSelectedPostId])
+
+  useEffect(() => {
+    if (isEditing) {
+      setIsFormLocked(false)
+    } else {
+      setIsFormLocked(true)
+    }
+  }, [isEditing])
 
   const inputs = [
     {
@@ -74,6 +79,7 @@ export function AboutForm() {
     handleSubmit(event, meta)
   }
 
+  console.log(isEditing);
   return (
     <Card withBorder radius="md" p={15}>
       <form
@@ -131,7 +137,7 @@ export function AboutForm() {
           </Group>
           <Stack pt={25} spacing={50} align="center">
             <Group mt="24px" justify="center">
-              {!isFormLocked ? (
+              {isEditing ? (
                 <Button
                   type="submit"
                   loading={isCreatingOrUpdatingPost}
@@ -145,24 +151,24 @@ export function AboutForm() {
                   color="green"
                   onClick={(e) => {
                     e.preventDefault()
-                    setIsLocked(true)
                     setIsFormLocked(false)
+                    setIsEditing(true)
                   }}
                 >
                   {t("Edit")}
                 </Button>
               )}
-              {!isFormLocked && (
+              {isEditing && (
                 <Button
                   loading={isCreatingOrUpdatingPost}
                   color="red"
                   onClick={(e) => {
                     e.preventDefault()
-                    setIsLocked(false)
                     setIsFormLocked(true)
+                    setIsEditing(false)
                   }}
                 >
-                  Cancel
+                  {t('Cancel')}
                 </Button>
               )}
             </Group>
