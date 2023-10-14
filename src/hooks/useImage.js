@@ -43,6 +43,7 @@ export const useImage = () => {
         mediumLargeUrl: data.media_details.sizes.medium_large?.source_url ?? "",
         largeUrl: data.media_details.sizes.large?.source_url ?? "",
         paperLandscapeUrl: data.media_details.sizes.paperLandscape?.source_url ?? "",
+        gallerySquareUrl: data.media_details.sizes.gallerySquare?.source_url ?? "",
         fullUrl: data.media_details.sizes.full?.source_url ?? "",
         source_url: data.source_url ?? "",
       },

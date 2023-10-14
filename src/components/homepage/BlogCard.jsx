@@ -14,11 +14,14 @@ export function BlogCard({ post }) {
   let imageUrl
   if (post.type.startsWith("thedah_course")) {
     prefix = "Course"
-    buttonText = "enroll"
+    buttonText = "Enroll"
     imageUrl = `${assetsImagesUrl}/course-thumbnail.png`
   } else if (post.type.startsWith("thedah_blog")) {
     buttonText = post.meta._thedah_blog.feature
-    buttonText === "none" ? "More" : buttonText
+    buttonText = buttonText === "none" ? "More" : buttonText
+    buttonText = buttonText === "enroll" ? "Enroll" : buttonText
+    buttonText = buttonText === "purchase" ? "Purchase" : buttonText
+    buttonText = buttonText === "prepurchase" ? "PrePurchase" : buttonText
     imageUrl = post.meta._thedah_images[0].thumbnailUrl
     imageUrl = imageUrl === '' ? post.meta._thedah_images[0].source_url : imageUrl
     imageUrl = imageUrl === '' ? `${assetsImagesUrl}/course-thumbnail.png`: imageUrl
@@ -43,7 +46,7 @@ export function BlogCard({ post }) {
           alt={post.title}
         />
       </ImageWrapper>
-      <Title>{`${prefix}: ${post.title}`}</Title>
+      <Title>{`${t(prefix)}: ${post.title}`}</Title>
       <StyledButtonV2
         variant="fill"
         br="7px"

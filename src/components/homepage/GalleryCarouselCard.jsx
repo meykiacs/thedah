@@ -3,7 +3,7 @@ import styled from "@emotion/styled"
 export const GalleryCarouselCard = ({ r }) => {
 
   const image = r.meta._thedah_images[0]
-  const imageUrl = image.mediumUrl ? image.mediumUrl : image.source_url
+  const imageUrl = image.gallerySquareUrl ? image.gallerySquareUrl : image.source_url
   return (
       <ImageWrapper>
           <img src={imageUrl} alt={r.title} />

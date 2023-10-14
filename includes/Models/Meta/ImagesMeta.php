@@ -40,6 +40,10 @@ class ImagesMeta extends Meta {
           'type'  => 'string',
           'format'  =>  'uri'
         ],
+        'gallerySquareUrl'  => [
+          'type'  => 'string',
+          'format'  =>  'uri'
+        ],
         'thumbnailUrl'  => [
           'type'  => 'string',
           'format'  =>  'uri'

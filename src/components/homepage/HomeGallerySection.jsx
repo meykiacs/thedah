@@ -30,8 +30,8 @@ const StyledSection = styled(Section)`
 `
 
 const GalleryLogoWrapper = styled.div`
-  width: 328px;
-  height: 250px;
+  width: 500px;
+  height: 216px;
   > img {
     width: 100%;
     height: 100%;

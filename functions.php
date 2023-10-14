@@ -174,7 +174,8 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['fa']['gallery'])
   ->register();
 
-$container->get(Image::class)->addImageSize('paperLandscape', 390, 300, ['center', 'center']);
+$container->get(Image::class)->addImageSize('paperLandscape', 390, 300, ['center', 'center'])
+->addImageSize('gallerySquare', 250, 268, ['center', 'center']);
 
 $container->get(Auth::class)
   ->redirectNonAdminFromAdminPanel()
