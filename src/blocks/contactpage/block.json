@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "thedah/single",
+	"name": "thedah/contactpage",
 	"version": "1.0.0",
-	"title": "Single Page",
+	"title": "Contact Page",
 	"category": "theme",
 	"icon": "menu",
-	"description": "The Single for The DAH",
+	"description": "The Contact page for The DAH",
 	"supports": {
 		"html": false
 	},

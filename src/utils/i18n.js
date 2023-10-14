@@ -36,6 +36,7 @@ i18n.use(initReactI18next).init({
         comma: ",",
         Contact: "Contact me",
         Content: "Content",
+        ContentOfEmail: "Content of the Email",
         Course: "Course",
         Courses: "Courses",
         Dashboard: "Dashboard",
@@ -57,6 +58,7 @@ i18n.use(initReactI18next).init({
         Event: 'Event',
         fullReference: "Full Reference",
         executiveRecords: "Executive Records",
+        firstAndLastName: 'Name and Lastname',
         firstFooterTitle:
           "PhD in philosophy of education, member of the faculty of Tehran University",
         secondFooterTitle:
@@ -99,6 +101,7 @@ i18n.use(initReactI18next).init({
         SearchInTheSite: "Search in the site",
         SearchFor: "Search for ...",
         Send: "Send",
+        sendingAnEmail: "Send an Email",
         Soon: "Soon",
         subscribeDescription:
           "Send us your e-mail address to know about the courses and the latest news.",
@@ -146,6 +149,7 @@ i18n.use(initReactI18next).init({
         comma: "،",
         Contact: "تماس با من",
         Content: "محتوا",
+        ContentOfEmail: "متن نامه",
         Course: "دوره آموزشی",
         Courses: "دوره‌ها",
         Dashboard: "داشبورد",
@@ -168,6 +172,7 @@ i18n.use(initReactI18next).init({
         executiveRecords: "سوابق اجرایی",
         firstFooterTitle:
           "دکترای فلسفه تعلیم و تربیت, عضو هیئت علمی دانشگاه تهران",
+        firstAndLastName: 'نام و نام خانوادگی',
         fullReference: "رفرنس",
         secondFooterTitle:
           "دانشیار متخصص در زمینه آموزش و روانشناسی تعلیم و تربیت",
@@ -210,6 +215,7 @@ i18n.use(initReactI18next).init({
         SearchInTheSite: "جستجو در سایت",
         SearchFor: "جستجو برای ...",
         Send: "ارسال",
+        sendingAnEmail: "ارسال یک نامه",
         Soon: "به زودی",
         subscribeDescription:
           "برای اطلاع از دوره‌ها و آخرین اخبار نشانی الکترونیکی خود را برای ما ارسال نمایید",

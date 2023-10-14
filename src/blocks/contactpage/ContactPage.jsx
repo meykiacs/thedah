@@ -6,17 +6,14 @@ import SubFooter from "../../components/common/SubFooter"
 import { ResourceProvider } from "../../context/ResourceContext"
 import { RtlProvider } from "../../context/RtlProvider"
 import { WPProvider } from "../../context/WPContext"
-import "../../utils/i18n"
-import { mq } from "../../utils/mq"
-import { HomeCarousel } from "../../components/homepage/HomeCarousel"
-import styled from "@emotion/styled"
-import { Introduction } from "../../components/homepage/Introduction"
-import PageContainer from "../../components/common/PageContainer"
-import { HomeBookSection } from "../../components/homepage/HomeBookSection"
-import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import { useCustomTheme } from "../../hooks/useCustomTheme"
+import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
+import "../../utils/i18n"
+import ContactBanner from "../../components/contactpage/ContactBanner"
+import PageContainer from "../../components/common/PageContainer"
+import { ContactFormSection } from "../../components/contactpage/ContactFormSection"
 
-export function Single({ providedValues }) {
+export function ContactPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
 
@@ -27,11 +24,10 @@ export function Single({ providedValues }) {
           <ResourceProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            <StyledHomeCarousel />
-            <PageContainer color={theme.colors.white}>
-              <Introduction />
+            <ContactBanner />
+            <PageContainer color={theme.colors.gray}>
+              <ContactFormSection />
             </PageContainer>
-            <HomeBookSection />
             <Footer />
             <SubFooter />
           </ResourceProvider>
@@ -40,11 +36,3 @@ export function Single({ providedValues }) {
     </RtlProvider>
   )
 }
-
-const StyledHomeCarousel = styled(HomeCarousel)`
-  display: none;
-
-  ${mq("md")} {
-    display: block;
-  }
-`

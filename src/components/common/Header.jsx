@@ -25,10 +25,12 @@ export default function Header() {
           <SiteLogo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href={`${homeUrl}`}
+          <NavLink
+            href={`${homeUrl}`}
             className={resourceName === "home" && "current-page"}
-          
-          >{t("Home")}</NavLink>
+          >
+            {t("Home")}
+          </NavLink>
           <NavLink
             href={`${homeUrl}book`}
             className={resourceName === "book" && "current-page"}
@@ -47,16 +49,17 @@ export default function Header() {
           >
             {t("Papers")}
           </NavLink>
-          <NavLink href={`${homeUrl}course`}>
-            {t("Courses")}
-          </NavLink>
+          <NavLink href={`${homeUrl}course`}>{t("Courses")}</NavLink>
           <NavLink
             href={`${homeUrl}about`}
             className={resourceName === "about" && "current-page"}
           >
             {t("About")}
           </NavLink>
-          <NavLink href={`${homeUrl}contact`}>
+          <NavLink
+            href={`${homeUrl}contact`}
+            className={resourceName === "contact" && "current-page"}
+          >
             {t("Contact")}
           </NavLink>
         </DesktopNav>

@@ -9,12 +9,14 @@ const Input = ({
   br,
   h,
   type,
+  placeholder,
   ...delegated
 }) => {
   return (
     <Wrapper>
       <VisuallyHidden>{label}</VisuallyHidden>
       <StyledInput
+        placeholder={placeholder}
         type={type}
         {...delegated}
         style={{
@@ -50,7 +52,7 @@ const StyledInput = styled.input`
 
   &::placeholder {
     font-weight: 400;
-    color: ${(p) => p.theme.colors.gray};
+    color: ${(p) => p.theme.colors.grayDark};
   }
 `
 

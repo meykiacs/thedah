@@ -3,7 +3,7 @@ import { useBlockProps } from '@wordpress/block-editor'
 export default function Edit() {
 	return (
 		<header {...useBlockProps()}>
-			<div>Single Page</div>
+			<div>Contact Page</div>
 		</header>
 	)
 }
