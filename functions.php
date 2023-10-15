@@ -87,6 +87,7 @@ $containerBuilder->addDefinitions([
       'blog' => function (ContainerInterface $c) {
         $blogCPT = new CPT('blog', 'Blog Post');
         $blogCPT->public = true;
+        $blogCPT->showUI = true;
         $blogCPT->metas[] = new ImagesMeta();
         $blogCPT->metas[] = new BlogMeta();
         return new CPTResource($blogCPT);
@@ -127,6 +128,7 @@ $containerBuilder->addDefinitions([
       'blog' => function (ContainerInterface $c) {
         $blogCPTFa = new CPT('blogfa', 'Blog Post Fa');
         $blogCPTFa->public = true;
+        $blogCPTFa->showUI = true;
         $blogCPTFa->metas[] = new ImagesMeta();
         $blogCPTFa->metas[] = new BlogMeta();
         return new CPTResource($blogCPTFa);
@@ -158,6 +160,7 @@ $container->get(Block::class)->add('bookpage')
   ->add('homepage')
   ->add('auth')
   ->add('contactpage')
+  ->add('blogpage')
   ->register();
 
 $container->get(RegisterCPTResource::class)

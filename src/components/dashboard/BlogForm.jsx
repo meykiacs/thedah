@@ -57,11 +57,13 @@ export const BlogForm = ({ maxImages }) => {
 
   const customHandleSubmit = (event) => {
     event.preventDefault()
+    const formData = new FormData(event.target)
     const meta = {
       _thedah_images: images,
       _thedah_blog: {
         feature,
         blogtype,
+        linkToFeature: formData.get("linkToFeature"),
       },
     }
     const content = editor.getHTML()
@@ -129,6 +131,16 @@ export const BlogForm = ({ maxImages }) => {
                 name="title"
                 defaultValue={
                   isEditing && selectedPost?.title ? selectedPost.title : ""
+                }
+              />
+              <TextInput
+                label={t("linkToFeature")}
+                placeholder={t("linkToFeature")}
+                aria-label={t("linkToFeature")}
+                mb={15}
+                name="linkToFeature"
+                defaultValue={
+                  isEditing && selectedPost?.meta?._thedah_blog?.linkToFeature ? selectedPost?.meta?._thedah_blog?.linkToFeature : ""
                 }
               />
               <SegmentedControl

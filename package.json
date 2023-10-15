@@ -50,6 +50,8 @@
     "@wordpress/i18n": "^4.38.0",
     "html-react-parser": "^4.2.2",
     "i18next": "^23.5.1",
+    "jalaali-js": "^1.2.6",
+    "moment-jalaali": "^0.10.0",
     "react-feather": "^2.0.10",
     "react-i18next": "^13.2.2",
     "react-inlinesvg": "^4.0.3",

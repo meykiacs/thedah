@@ -8,7 +8,7 @@ import { mq } from "../../utils/mq"
 export function BlogCard({ post }) {
   const { assetsImagesUrl } = useWPContext()
   const theme = useTheme()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   let prefix
   let buttonText
   let imageUrl
@@ -23,8 +23,10 @@ export function BlogCard({ post }) {
     buttonText = buttonText === "purchase" ? "Purchase" : buttonText
     buttonText = buttonText === "prepurchase" ? "PrePurchase" : buttonText
     imageUrl = post.meta._thedah_images[0].thumbnailUrl
-    imageUrl = imageUrl === '' ? post.meta._thedah_images[0].source_url : imageUrl
-    imageUrl = imageUrl === '' ? `${assetsImagesUrl}/course-thumbnail.png`: imageUrl
+    imageUrl =
+      imageUrl === "" ? post.meta._thedah_images[0].source_url : imageUrl
+    imageUrl =
+      imageUrl === "" ? `${assetsImagesUrl}/course-thumbnail.png` : imageUrl
     switch (post.meta._thedah_blog.blogtype) {
       case "interview":
         prefix = "Interview"
@@ -41,13 +43,14 @@ export function BlogCard({ post }) {
   return (
     <Wrapper>
       <ImageWrapper>
-        <img
-          src={imageUrl}
-          alt={post.title}
-        />
+        <img src={imageUrl} alt={post.title} />
       </ImageWrapper>
-      <Title>{`${t(prefix)}: ${post.title}`}</Title>
+      <A href={post.permalink}>
+        <Title>{`${t(prefix)}: ${post.title}`}</Title>
+      </A>
       <StyledButtonV2
+        as="a"
+        href={post.permalink}
         variant="fill"
         br="7px"
         h="50px"
@@ -73,7 +76,7 @@ const Wrapper = styled.article`
   padding: 32px;
   border-radius: 7px;
 
-  ${mq('lg')} {
+  ${mq("lg")} {
     flex-direction: row;
     gap: 50px;
     justify-content: space-between;
@@ -81,7 +84,7 @@ const Wrapper = styled.article`
     padding: 0;
     box-shadow: none;
     border-radius: 0;
-    width: clamp(740px,90%,1000px);
+    width: clamp(740px, 90%, 1000px);
   }
 `
 const ImageWrapper = styled.div`
@@ -103,4 +106,13 @@ const Title = styled.h3`
 
 const StyledButtonV2 = styled(ButtonV2)`
   margin-left: auto;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const A = styled.a`
+  text-decoration: none;
+  color: ${(p) => p.theme.colors.text};
 `

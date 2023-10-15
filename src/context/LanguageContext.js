@@ -2,9 +2,10 @@ import { createContext, useState, useEffect } from "@wordpress/element"
 
 const LanguageContext = createContext()
 
-export const LanguageProvider = ({ children }) => {
-  const [lang, setLang] = useState(localStorage.getItem('language') || 'fa')
-  const [dir, setDir] = useState(localStorage.getItem('direction') || 'rtl')
+export const LanguageProvider = ({ direction, language, children }) => {
+
+  const [lang, setLang] = useState(language || localStorage.getItem('language') || 'fa')
+  const [dir, setDir] = useState(direction || localStorage.getItem('direction') || 'rtl')
 
   useEffect(() => {
     localStorage.setItem('language', lang)

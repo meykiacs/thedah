@@ -22,6 +22,10 @@ class BlogMeta extends Meta {
       'feature' =>  [
         'type'  => 'string',
         'enum'  => ['none', 'enroll', 'purchase', 'prepurchase']
+      ],
+      'linkToFeature' => [
+        'type' => 'string',
+        'format'  => 'uri'
       ]
     ]
   ];

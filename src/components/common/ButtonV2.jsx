@@ -43,6 +43,7 @@ export const ButtonV2 = ({
 
 const ButtonBase = styled.button`
   cursor: pointer;
+  display: block;
   font-size: ${(p) => p.fz};
   font-weight: ${(p) => p.fw};
 
