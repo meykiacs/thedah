@@ -6,6 +6,7 @@ import {
 } from "../../utils/getDateTime"
 import useLanguageContext from "../../context/useLanguageContext"
 import { useTranslation } from "react-i18next"
+import { mq } from "../../utils/mq"
 
 export const BlogMetaData = () => {
   const { t } = useTranslation()
@@ -21,7 +22,8 @@ export const BlogMetaData = () => {
   return (
     <Wrapper>
       <div>
-        {t("WrittenBy")}{': '}
+        {t("WrittenBy")}
+        {": "}
         {author}
       </div>
       <div>{displayDateTime}</div>
@@ -30,6 +32,7 @@ export const BlogMetaData = () => {
 }
 
 const Wrapper = styled.div`
+  flex-direction: column;
   margin-top: 40px;
   border-radius: 10px;
   padding: 10px 20px;
@@ -43,4 +46,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 40px;
+  ${mq("sm")} {
+    flex-direction: row;
+  }
 `

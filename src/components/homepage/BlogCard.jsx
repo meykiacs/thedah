@@ -22,9 +22,9 @@ export function BlogCard({ post }) {
     buttonText = buttonText === "enroll" ? "Enroll" : buttonText
     buttonText = buttonText === "purchase" ? "Purchase" : buttonText
     buttonText = buttonText === "prepurchase" ? "PrePurchase" : buttonText
-    imageUrl = post.meta._thedah_images[0].thumbnailUrl
+    imageUrl = post.meta._thedah_images[0]?.thumbnailUrl ?? ''
     imageUrl =
-      imageUrl === "" ? post.meta._thedah_images[0].source_url : imageUrl
+      imageUrl === "" ? (post.meta._thedah_images[0]?.source_url ?? '') : imageUrl
     imageUrl =
       imageUrl === "" ? `${assetsImagesUrl}/course-thumbnail.png` : imageUrl
     switch (post.meta._thedah_blog.blogtype) {

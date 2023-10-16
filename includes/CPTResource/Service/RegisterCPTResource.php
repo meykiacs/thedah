@@ -114,6 +114,8 @@ class RegisterCPTResource {
       $supports[] = 'custom-fields';
     if ($cpt->hasAuthor)
       $supports[] = 'author';
+    if ($cpt->hasComments)
+      $supports[] = 'comments';
 
 
     return $supports;

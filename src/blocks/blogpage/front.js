@@ -11,6 +11,8 @@ window.addEventListener("DOMContentLoaded", () => {
     siteTitle: root.dataset.siteTitle,
     restNonce: root.dataset.restNonce,
     mediaRestUrl: root.dataset.mediaRestUrl,
+    commentsRestUrl: root.dataset.commentsRestUrl,
+    postId: root.dataset.postId,
     assetsFontsUrl: root.dataset.assetsFontsUrl,
     assetsImagesUrl: root.dataset.assetsImagesUrl,
     prefix: root.dataset.prefix,

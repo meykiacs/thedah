@@ -9,12 +9,14 @@ import { WPProvider } from "../../context/WPContext"
 import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
-import ContactBanner from "../../components/contactpage/ContactBanner"
 import PageContainer from "../../components/common/PageContainer"
 import { BlogPageTitle } from "../../components/blogpage/BlogPageTitle"
 import { BlogImages } from "../../components/blogpage/BlogImages"
 import { BlogContent } from "../../components/blogpage/BlogContent"
 import { BlogMetaData } from "../../components/blogpage/BlogMetaData"
+import { Comment } from "../../components/comments/Comment"
+import styled from "@emotion/styled"
+import { CommentProvider } from "../../context/CommentContext"
 
 export function BlogPage({ providedValues }) {
   useLanguageAndDirection()
@@ -26,12 +28,17 @@ export function BlogPage({ providedValues }) {
           <ResourceProvider providedValues={providedValues}>
             <GlobalCss />
             <Header />
-            <PageContainer color={theme.colors.white}>
+            <StyledPageContainer color={theme.colors.white}>
               <BlogPageTitle />
               <BlogImages />
               <BlogContent />
               <BlogMetaData />
-            </PageContainer>
+            </StyledPageContainer>
+            <StyledPageContainer color={theme.colors.white}>
+              <CommentProvider>
+                <Comment />
+              </CommentProvider>
+            </StyledPageContainer>
             <Footer />
             <SubFooter />
           </ResourceProvider>
@@ -40,3 +47,7 @@ export function BlogPage({ providedValues }) {
     </RtlProvider>
   )
 }
+
+const StyledPageContainer = styled(PageContainer)`
+  border-bottom: solid 2px ${(p) => p.theme.colors.gray};
+`

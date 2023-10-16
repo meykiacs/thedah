@@ -22,6 +22,7 @@ class CPT
   public bool $hasThumbnail = true;
   public bool $hasAuthor = true;
   public bool $hasMeta = true;
+  public bool $hasComments = false;
   
   public array $labels = [];
 

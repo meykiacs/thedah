@@ -48,6 +48,7 @@
     "@tiptap/starter-kit": "^2.1.11",
     "@wordpress/element": "^5.14.0",
     "@wordpress/i18n": "^4.38.0",
+    "date-fns": "^2.30.0",
     "html-react-parser": "^4.2.2",
     "i18next": "^23.5.1",
     "jalaali-js": "^1.2.6",

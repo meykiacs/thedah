@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import useWPContext from "../../context/useWPContext"
+import { mq } from "../../utils/mq"
 
 export const BlogImages = () => {
   const { images } = useWPContext()
@@ -19,10 +20,16 @@ const Wrapper = styled.div`
 `
 
 const ImageWrapper = styled.div`
-  width: 390px;
-  height: 300px;
+  width: 350;
+  height: 285px;
   img {
     width: 100%;
     height: 100%;
+  }
+  
+  ${mq('sm')} {
+    
+    width: 390;
+    height: 300px;
   }
 `

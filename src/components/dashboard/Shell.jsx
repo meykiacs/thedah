@@ -86,7 +86,7 @@ export function Shell() {
         <Space h="xl" />
         <NavLink
           component="a"
-          label={t("logout")}
+          label={t("Logout")}
           rightSection={<IconLogout size="1rem" stroke={1.5} />}
           href={logoutUrl}
         />

@@ -41,8 +41,8 @@ const StyledInput = styled.input`
   width: var(--width);
   height: var(--height);
   font-size: var(--font-size);
-  border: none;
-  border-bottom: var(--border-thickness) solid ${(p) => p.theme.colors.black};
+  /* border: none; */
+  border: var(--border-thickness) solid ${(p) => p.theme.colors.gray};
   padding-left: 10px;
   padding-right: 10px;
   color: inherit;

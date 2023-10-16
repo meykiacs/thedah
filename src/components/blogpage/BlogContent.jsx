@@ -4,10 +4,11 @@ import HTMLReactParser from "html-react-parser"
 import { useTheme } from "@emotion/react"
 import Button from "../common/Button"
 import { useTranslation } from "react-i18next"
+import { mq } from "../../utils/mq"
 
 export const BlogContent = () => {
   const { content, linkToFeature, feature } = useWPContext()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   let buttonText = null
   switch (feature) {
     case "enroll":
@@ -38,7 +39,6 @@ export const BlogContent = () => {
           p="10px 45px"
           fz="1.5rem"
           fw={500}
-          
         >
           {t(buttonText)}
         </StyledButton>
@@ -52,15 +52,36 @@ const Wrapper = styled.main`
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 2;
-  max-width: 1050px;
+  max-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   ul {
     list-style-type: disc;
-    transform: translateX(50px);
+    transform: translateX(15px);
   }
+  
+  ${mq("sm")} {
+    max-width: 450px;
+    ul {
+      transform: translateX(32px);
+    }
+  }
+
+  ${mq("md")} {
+    max-width: 575px;
+  }
+
+  ${mq("lg")} {
+    max-width: 750px;
+  }
+
+  ${mq("xl")} {
+    max-width: 1050px;
+  }
+
+
 
   p {
     margin-bottom: 20px;

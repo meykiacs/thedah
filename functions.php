@@ -88,6 +88,7 @@ $containerBuilder->addDefinitions([
         $blogCPT = new CPT('blog', 'Blog Post');
         $blogCPT->public = true;
         $blogCPT->showUI = true;
+        $blogCPT->hasComments = true;
         $blogCPT->metas[] = new ImagesMeta();
         $blogCPT->metas[] = new BlogMeta();
         return new CPTResource($blogCPT);
@@ -95,6 +96,7 @@ $containerBuilder->addDefinitions([
       'course' => function (ContainerInterface $c) {
         $courseCPT = new CPT('course', 'Course');
         $courseCPT->public = true;
+        $courseCPT->hasComments = true;
         $courseCPT->metas[] = new ImagesMeta();
         $courseCPT->metas[] = new CourseMeta();
         return new CPTResource($courseCPT);
@@ -129,6 +131,7 @@ $containerBuilder->addDefinitions([
         $blogCPTFa = new CPT('blogfa', 'Blog Post Fa');
         $blogCPTFa->public = true;
         $blogCPTFa->showUI = true;
+        $blogCPTFa->hasComments = true;
         $blogCPTFa->metas[] = new ImagesMeta();
         $blogCPTFa->metas[] = new BlogMeta();
         return new CPTResource($blogCPTFa);
@@ -136,6 +139,7 @@ $containerBuilder->addDefinitions([
       'course' => function (ContainerInterface $c) {
         $courseCPT = new CPT('coursefa', 'CourseFa');
         $courseCPT->public = true;
+        $courseCPT->hasComments = true;
         $courseCPT->metas[] = new ImagesMeta();
         $courseCPT->metas[] = new CourseMeta();
         return new CPTResource($courseCPT);
@@ -187,3 +191,5 @@ $container->get(Auth::class)
   ->hideAdminBarOnFrontEnd()
   ->changeLoginUrl($container->get('auth.slug'));
 // $registerQueryVars = $container->get(RegisterQueryVars::class);
+
+add_filter('rest_allow_anonymous_comments', '__return_true');
