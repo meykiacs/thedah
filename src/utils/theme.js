@@ -12,6 +12,7 @@ export const lightTheme = {
     green: "#81BA62",
     white: "#FFFFFF",
     backdrop: "rgba(32, 34, 36, 0.9)",
+    backgroundBlurred: "rgba(0,0,0,0.8)",
   },
 }
 

@@ -49,7 +49,12 @@ export default function Header() {
           >
             {t("Papers")}
           </NavLink>
-          <NavLink href={`${homeUrl}course`}>{t("Courses")}</NavLink>
+          <NavLink
+            href={`${homeUrl}course`}
+            className={resourceName === "course" && "current-page"}
+          >
+            {t("Courses")}
+          </NavLink>
           <NavLink
             href={`${homeUrl}about`}
             className={resourceName === "about" && "current-page"}

@@ -32,6 +32,7 @@ class QueryResource {
           'type'  =>  get_post_type(get_the_ID()),
           'title' => get_the_title(),
           'content' => get_the_content(),
+          'permalink' => get_permalink(),
           'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
           'featured_media' => get_post_thumbnail_id($id),
           'meta'  =>  array_reduce($metaFields, function ($carry, $metaField) use ($id) {
@@ -64,6 +65,7 @@ class QueryResource {
         'type'  =>  get_post_type(get_the_ID()),
         'title' => get_the_title(),
         'content' => get_the_content(),
+        'permalink' =>  get_permalink(),
         'featured_media_url' => get_the_post_thumbnail_url($id, 'medium'),
         'featured_media' => get_post_thumbnail_id($id),
         'meta'  =>  array_reduce($metaFields, function ($carry, $metaField) use ($id) {
