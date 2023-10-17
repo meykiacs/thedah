@@ -16,6 +16,9 @@ use Thedah\Models\Meta\BookMeta;
 use Thedah\Models\Meta\CourseMeta;
 use Thedah\Models\Meta\ImagesMeta;
 use Thedah\Models\Meta\PaperMeta;
+use Thedah\Rest\Model\Endpoints\EmailPost;
+use Thedah\Rest\Model\Route\Route;
+use Thedah\Rest\Service\Rest;
 
 function thedah_woocommerce_support() {
   add_theme_support('woocommerce');
@@ -64,6 +67,8 @@ $containerBuilder->addDefinitions([
   'assets.fonts.url'  =>  get_theme_file_uri('assets/fonts'),
   'assets.images.url'  =>  get_theme_file_uri('assets/images'),
   'node_modules.url'  => get_theme_file_uri('node_modules'),
+  'rest.namespace' => DI\value('thedah/v1'),
+  'endpoint.email'  => DI\value('email'),
   'query_vars' => ['lang'],
   'resources' => [
     'en' => [
@@ -193,5 +198,11 @@ $container->get(Auth::class)
   ->hideAdminBarOnFrontEnd()
   ->changeLoginUrl($container->get('auth.slug'));
 // $registerQueryVars = $container->get(RegisterQueryVars::class);
+
+$emailPost = $container->make(EmailPost::class);
+$emailRoute = new Route($container->get('rest.namespace'), $container->get('endpoint.email'));
+$emailRoute->addEndpoint($emailPost);
+$container->get(Rest::class)->addRoute($emailRoute)->register();
+
 
 add_filter('rest_allow_anonymous_comments', '__return_true');

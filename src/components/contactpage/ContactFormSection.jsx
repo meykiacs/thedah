@@ -13,18 +13,50 @@ import { ButtonV2 } from "../common/ButtonV2"
 import { useTheme } from "@emotion/react"
 import { mq } from "../../utils/mq"
 import { useEffect } from "@wordpress/element"
+import useWPContext from "../../context/useWPContext"
 
 export const ContactFormSection = () => {
   const { t } = useTranslation()
+  const { contactRestUrl, restNonce } = useWPContext()
   const theme = useTheme()
   useEffect(() => {
-    loadCaptchaEnginge(5,'white','black','numbers');
+    loadCaptchaEnginge(5, "white", "black", "numbers")
   }, [])
   const handleSubmit = (e) => {
     e.preventDefault()
     let user_captcha_value = document.getElementById("user_captcha_input").value
     if (validateCaptcha(user_captcha_value)) {
-      alert("Captcha Matched")
+      const name = document.getElementsByName("name")[0].value
+      const email = document.getElementsByName("email")[0].value
+      const content = document.getElementsByName("content")[0].value
+
+      fetch(contactRestUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-WP-Nonce": restNonce,
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          content,
+        }),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            return response
+              .json()
+              .then((data) => {
+                console.log(data);
+                alert("Email sent successfully")
+            })
+          } else if (response.status === 500) {
+            return response.json().then((data) => alert("Error sending email"))
+          }
+        })
+        .catch((error) => {
+          alert("Error sending email")
+        })
     } else {
       alert("Captcha Does Not Match")
     }
@@ -65,13 +97,13 @@ export const ContactFormSection = () => {
           placeholder={t("ContentOfEmail")}
           style={{ border: "1px solid #E7E3CF" }}
         ></Textarea>
-        < LoadCanvasTemplate reloadText={t('reloadCaptcha')} />
-        <CaptchaInput 
-        id="user_captcha_input"
-        type="text"
-        w={100}
-        h={25}
-        br={5}
+        <LoadCanvasTemplate reloadText={t("reloadCaptcha")} />
+        <CaptchaInput
+          id="user_captcha_input"
+          type="text"
+          w={100}
+          h={25}
+          br={5}
         />
 
         <Buttons>
@@ -119,7 +151,7 @@ const StyledInput = styled(Input)`
   }
 `
 const CaptchaInput = styled(Input)`
-  transform: translateY(-15px) ;
+  transform: translateY(-15px);
 `
 
 const Textarea = styled.textarea`
