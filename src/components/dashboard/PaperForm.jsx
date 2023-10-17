@@ -131,7 +131,7 @@ export function PaperForm({ maxImages }) {
   }, [isEditing])
 
   useEffect(() => {
-    if (isEditing !== null) {
+    if (isEditing) {
       setCoAuthors(selectedPost?.meta?._thedah_paper?.coauthors ?? [""])
     }
   }, [isEditing, selectedPost])

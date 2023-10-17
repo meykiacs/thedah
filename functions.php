@@ -80,6 +80,7 @@ $containerBuilder->addDefinitions([
       },
       'paper' => function (ContainerInterface $c) {
         $paperCPT = new CPT('paper', 'Paper');
+        $paperCPT->public = true;
         $paperCPT->metas[] = new PaperMeta();
         $paperCPT->metas[] = new ImagesMeta();
         return new CPTResource($paperCPT);
@@ -123,6 +124,7 @@ $containerBuilder->addDefinitions([
       },
       'paper' => function (ContainerInterface $c) {
         $paperCPTFa = new CPT('paperfa', 'PaperFa');
+        $paperCPTFa->public = true;
         $paperCPTFa->metas[] = new PaperMeta();
         $paperCPTFa->metas[] = new ImagesMeta();
         return new CPTResource($paperCPTFa);

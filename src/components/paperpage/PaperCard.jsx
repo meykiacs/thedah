@@ -35,7 +35,7 @@ export function PaperCard({ paper }) {
           {paper.meta._thedah_paper.summary ?? ""}
         </NormalText>
         {paper.meta._thedah_paper.link && (
-          <ReadMore href={paper.meta._thedah_paper.link ?? ""}>
+          <ReadMore href={paper.permalink ?? ""}>
             {t("toRead")}
           </ReadMore>
         )}

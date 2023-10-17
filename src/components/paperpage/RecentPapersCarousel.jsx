@@ -6,13 +6,12 @@ import left from "../../icons/arrow-left.svg"
 import right from "../../icons/arrow-right.svg"
 import UnstyledButton from "../common/UnstyledButton"
 import { PaperCarouselCard } from "./PaperCarouselCard"
-import { CSSTransition, TransitionGroup } from "react-transition-group"
 import { mq } from "../../utils/mq"
 
 export const RecentPapersCarousel = () => {
   const papers = useResourceList("paper")
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [direction, setDirection] = useState("")
+  const [, setDirection] = useState("")
 
   const handleNext = () => {
     setCurrentIndex((currentIndex + 1) % papers.length)

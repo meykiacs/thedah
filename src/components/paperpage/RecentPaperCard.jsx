@@ -54,6 +54,8 @@ export function RecentPaperCard({ r }) {
             {t("ReadMore")}
           </ReadMore>
           <Button
+            as="a"
+            href={paper.permalink}
             variant="fill"
             color={theme.colors.secondary}
             colorHover={theme.colors.secondary}

@@ -48,6 +48,9 @@ export const PaperCarouselCard = ({ r }) => {
             {r.meta._thedah_paper.link}
           </ReadMore>
           <Button
+            as="a"
+            href={r.permalink}
+            style={{textDecoration: 'none'}}
             variant="fill"
             color={theme.colors.secondary}
             colorHover={theme.colors.secondary}
