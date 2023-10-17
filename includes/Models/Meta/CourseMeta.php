@@ -38,7 +38,11 @@ class CourseMeta extends Meta {
       ],
       'availability'  =>  [
         'type'  =>  'string',
-        'enum'  =>  ['soon', 'available', 'unavailable']
+        'enum'  =>  ['soon', 'available', 'finished']
+      ],
+      'linkToCourse'  =>  [
+        'type'  =>  'string',
+        'format'  =>  'uri'
       ]
     ]
   ];

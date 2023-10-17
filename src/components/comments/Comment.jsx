@@ -8,8 +8,6 @@ import { mq } from "../../utils/mq"
 
 export const Comment = () => {
   const { allComments, writtenComments } = useCommentContext()
-  console.log(allComments)
-  console.log(writtenComments)
   return (
     <Section>
       <Wrapper>

@@ -4,13 +4,13 @@ import {
   Group,
   Badge,
   Box,
-  Center,
   Title,
   Flex,
   List,
   Button,
   Container,
   SimpleGrid,
+  Stack,
 } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
@@ -18,6 +18,7 @@ import { useCrudContext } from "../../context/CrudContext"
 export function CourseCard({ post, images }) {
   const { t } = useTranslation()
   const { isDeleting, deletePost, setIsEditing } = useCrudContext()
+  console.log(images);
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">
@@ -25,12 +26,12 @@ export function CourseCard({ post, images }) {
           <SimpleGrid cols={images.length}>
             {images.length > 0 &&
               images.map((i) => (
-                <Center key={i.id} pos="relative">
-                  <a href={i.mediumUrl}>File</a>
-                  <Badge pos="absolute" bottom={5}>
+                <Stack key={i.id} pos="relative">
+                  <a href={i.source_url}>{t('linkToVideo')}</a>
+                  <Badge>
                     {post.meta._thedah_course.availability}
                   </Badge>
-                </Center>
+                </Stack>
               ))}
           </SimpleGrid>
         </Card.Section>
@@ -46,7 +47,7 @@ export function CourseCard({ post, images }) {
                     {t("Teacher")}: {post.meta._thedah_course.teacher}
                   </List.Item>
                   <List.Item>
-                    {t("CoTeachers")}:
+                    {t("CoTeacher")}:
                     {post.meta._thedah_course.coTeachers &&
                       post.meta._thedah_course.coTeachers.map((t) => (
                         <span key={t}> {t}</span>

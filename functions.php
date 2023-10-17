@@ -165,6 +165,7 @@ $container->get(Block::class)->add('bookpage')
   ->add('auth')
   ->add('contactpage')
   ->add('blogpage')
+  ->add('coursepage')
   ->register();
 
 $container->get(RegisterCPTResource::class)

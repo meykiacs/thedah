@@ -43,31 +43,43 @@ export function CourseForm({ maxImages }) {
       name: "title",
       placeholder: "Title",
       default: isEditing ? selectedPost?.title : "",
+      required: true
     },
     {
       name: "teacher",
       placeholder: "Teacher",
       default: isEditing ? selectedPost?.meta?._thedah_course?.teacher : "",
+      required: true
     },
     {
       name: "organizer",
       placeholder: "Organizer",
       default: isEditing ? selectedPost?.meta?._thedah_course?.organizer : "",
+      required: false
     },
     {
       name: "duration",
       placeholder: "Duration",
       default: isEditing ? selectedPost?.meta?._thedah_course?.duration : "",
+      required: false
     },
     {
       name: "courseType",
       placeholder: "courseType",
       default: isEditing ? selectedPost?.meta?._thedah_course?.courseType : "",
+      required: true
     },
     {
       name: "price",
       placeholder: "Price",
       default: isEditing ? selectedPost?.meta?._thedah_course?.price : "",
+      required: true
+    },
+    {
+      name: "linkToCourse",
+      placeholder: "LinkToCourse",
+      default: isEditing ? selectedPost?.meta?._thedah_course?.linkToCourse : "",
+      required: false
     },
   ]
 
@@ -135,7 +147,7 @@ export function CourseForm({ maxImages }) {
             <Box pt={25}>
               {inputs.map((i) => (
                 <TextInput
-                  required
+                  required={i.required}
                   label={t(i.placeholder)}
                   key={i}
                   placeholder={t(i.placeholder)}
@@ -148,14 +160,14 @@ export function CourseForm({ maxImages }) {
               <DynamicInput
                 inputs={coTeachers}
                 setInputs={setCoTeachers}
-                label={t("CoTeachers")}
+                label={t("CoTeacher")}
               />
               <SegmentedControl
                 name="availability"
                 value={availability}
                 data={[
                   { label: t("Available"), value: "available" },
-                  { label: t("Unavailable"), value: "unavailable" },
+                  { label: t("Finished"), value: "finished" },
                   { label: t("Soon"), value: "soon" },
                 ]}
                 aria-label={t("Availability")}

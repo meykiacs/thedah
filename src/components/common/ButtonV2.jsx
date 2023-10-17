@@ -56,6 +56,10 @@ const ButtonBase = styled.button`
     outline-color: ${(p) => p.color};
     outline-offset: 4px;
   }
+
+  &:disabled {
+    cursor: default;
+  }
 `
 
 const FillButton = styled(ButtonBase)`
