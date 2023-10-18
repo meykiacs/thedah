@@ -68,13 +68,23 @@ export default function PaperCard({ post, images }) {
                     {t("Year")}: {post.meta._thedah_paper.year}
                   </List.Item>
                   <List.Item>
-                    {t("Link")}:{" "}
+                    {t("ExternalLink")}:{" "}
                     <a
                       href={post.meta._thedah_paper.link}
                       target="_blank"
                       rel="noreferrer"
                     >
                       {post.meta._thedah_paper.link}
+                    </a>
+                  </List.Item>
+                  <List.Item>
+                    {t("Link")}:{" "}
+                    <a
+                      href={post.permalink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {post.permalink}
                     </a>
                   </List.Item>
                 </List>

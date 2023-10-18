@@ -50,6 +50,7 @@ export const PaperCarouselCard = ({ r }) => {
           <Button
             as="a"
             href={r.permalink}
+            target='_blank'
             style={{textDecoration: 'none'}}
             variant="fill"
             color={theme.colors.secondary}

@@ -37,6 +37,7 @@ export const BlogCard = ({ post, images }) => {
               {post.title}
             </Text>
           </Title>
+          <a href={post.permalink} target="_blank" rel="noreferrer">{t('link')}</a>
           <Title order={3} size="h6" mb={4}>
             {t("Content")}
           </Title>

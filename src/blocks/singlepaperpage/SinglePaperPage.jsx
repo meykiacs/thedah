@@ -10,15 +10,13 @@ import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
 import PageContainer from "../../components/common/PageContainer"
-import { Comment } from "../../components/comments/Comment"
 import styled from "@emotion/styled"
-import { CommentProvider } from "../../context/CommentContext"
-import { VideoPlayer } from "./VideoPlayer"
-import { CourseInfo } from "./CourseInfo"
 import { mq } from "../../utils/mq"
-import { CourseIntroduction } from "./CourseIntroduction"
+import { SinglePaperImages } from "./SinglePaperImages"
+import { SinglePaperContent } from "./SinglePaperContent"
+import { SinglePaperInfo } from "./SinglePaperInfo"
 
-export function CoursePage({ providedValues }) {
+export function SinglePaperPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
   return (
@@ -29,17 +27,12 @@ export function CoursePage({ providedValues }) {
             <GlobalCss />
             <Header />
             <StyledPageContainer color={theme.colors.white}>
-              <CourseInfo />
-              <VideoPlayer />
+              <SinglePaperInfo />
+              <SinglePaperImages />
             </StyledPageContainer>
             <IntroPageContainer color={theme.colors.white}>
-              <CourseIntroduction />
+              <SinglePaperContent />
             </IntroPageContainer>
-            <PageContainer color={theme.colors.white}>
-              <CommentProvider>
-                <Comment />
-              </CommentProvider>
-            </PageContainer>
             <Footer />
             <SubFooter />
           </ResourceProvider>
@@ -52,6 +45,7 @@ export function CoursePage({ providedValues }) {
 const StyledPageContainer = styled(PageContainer)`
   margin-top: 90px;
   gap: 64px;
+  flex-direction: column-reverse;
   ${mq("xl")} {
     align-items: stretch;
     flex-direction: row;

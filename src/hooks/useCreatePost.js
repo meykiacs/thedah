@@ -20,6 +20,7 @@ export const useCreatePost = () => {
       })
       const responseData = await response.json()
       if (responseData && "id" in responseData) {
+        console.log(responseData);
         const post = createPostObjectFromData(responseData)
         setR([post, ...rs])
         event.target.reset()

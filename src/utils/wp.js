@@ -5,6 +5,7 @@ export function createPostObjectFromData(responseData) {
     title: responseData.title.raw,
     content: responseData.content.raw,
     featured_media_id: responseData.featured_media,
+    permalink: responseData.link,
     date: responseData.date,
     modified: responseData.modified,
     meta: responseData.meta,

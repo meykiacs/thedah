@@ -17,7 +17,7 @@ export const CourseIntroduction = () => {
 
 const Wrapper = styled.div`
   ${mq("xl")} {
-    max-width: 1114px;
+    /* max-width: 1114px; */
   }
 `
 
