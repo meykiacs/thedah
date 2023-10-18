@@ -14,7 +14,9 @@ export const CourseInfo = () => {
     organizer,
     courseType,
     availability,
+    linkToCourse,
   } = useWPContext()
+  console.log(linkToCourse);
   const theme = useTheme()
   const { t } = useTranslation()
   const button = {
@@ -26,7 +28,7 @@ export const CourseInfo = () => {
     available: {
       buttonText: "Enroll",
       disabled: false,
-      color: "seconsary",
+      color: "secondary",
     },
     finished: {
       buttonText: "Finished",
@@ -63,6 +65,8 @@ export const CourseInfo = () => {
         {courseType}
       </OtherInfo>
       <StyledButtonV2
+        as={linkToCourse ? 'a' : undefined}
+        href={linkToCourse}
         variant="fill"
         disabled={button[availability].disabled}
         br="7px"
@@ -89,10 +93,9 @@ const CourseTitle = styled.h1`
   font-weight: 700;
   color: ${(p) => p.theme.colors.primary};
   font-size: 2rem;
-  
-  ${mq('lg')} {
-    font-size: 2.4rem;
 
+  ${mq("lg")} {
+    font-size: 2.4rem;
   }
 `
 
@@ -103,4 +106,8 @@ const OtherInfo = styled.div`
 
 const StyledButtonV2 = styled(ButtonV2)`
   margin-top: auto;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `

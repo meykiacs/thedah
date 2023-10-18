@@ -27,7 +27,7 @@ export const BlogContent = () => {
   return (
     <Wrapper>
       <article>{HTMLReactParser(content)}</article>
-      {linkToFeature && (
+      {feature !== 'none' && (
         <StyledButton
           variant="fill"
           as="a"

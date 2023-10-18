@@ -134,9 +134,9 @@ export const BlogForm = ({ maxImages }) => {
                 }
               />
               <TextInput
-                label={t("linkToFeature")}
-                placeholder={t("linkToFeature")}
-                aria-label={t("linkToFeature")}
+                label={t("LinkToFeature")}
+                placeholder={t("LinkToFeature")}
+                aria-label={t("LinkToFeature")}
                 mb={15}
                 name="linkToFeature"
                 defaultValue={

@@ -28,9 +28,11 @@ $price = get_post_meta(get_the_ID(), '_thedah_course', true)['price'] ?? '';
 $organizer = get_post_meta(get_the_ID(), '_thedah_course', true)['organizer'] ?? '';
 $courseType = get_post_meta(get_the_ID(), '_thedah_course', true)['courseType'] ?? '';
 $availability = get_post_meta(get_the_ID(), '_thedah_course', true)['availability'] ?? '';
+$linkToCourse = get_post_meta(get_the_ID(), '_thedah_course', true)['linkToCourse'] ?? '';
 $dateTime = get_post_time('c', true, get_the_ID());
 ?>
-
+<pre>
+</pre>
 <div 
 id="thedah-coursepage" 
 data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>" 
@@ -57,5 +59,8 @@ data-organizer="<?php echo esc_attr($organizer); ?>"
 data-course-type="<?php echo esc_attr($courseType); ?>"
 data-availability="<?php echo esc_attr($availability); ?>"
 data-author="<?php echo esc_attr($author) ?>"
+data-link-to-course="<?php echo esc_attr($linkToCourse) ?>"
+
+
 >
 </div>

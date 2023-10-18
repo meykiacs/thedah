@@ -117,6 +117,7 @@ export function CourseForm({ maxImages }) {
         duration: formData.get("duration"),
         courseType: formData.get("courseType"),
         price: formData.get("price"),
+        linkToCourse:formData.get("linkToCourse"),
         availability,
         coTeachers: coTeachers,
       },

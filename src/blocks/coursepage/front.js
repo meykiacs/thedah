@@ -28,6 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
     organizer: root.dataset.organizer,
     courseType: root.dataset.courseType,
     availability: root.dataset.availability,
+    linkToCourse: root.dataset.linkToCourse,
   }
   console.log(providedValues.content)
   const direction = root.dataset.direction
