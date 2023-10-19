@@ -175,6 +175,7 @@ $container->get(Block::class)->add('bookpage')
   ->add('coursepage')
   ->add('coursespage')
   ->add('singlepaperpage')
+  ->add('searchpage')
   ->register();
 
 $container->get(RegisterCPTResource::class)

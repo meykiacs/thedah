@@ -3,12 +3,12 @@
 
 ## dashboard  for newsletter
 
-## search
-
-## paper front
-
 ## social
+
+## comments approval
 
 ## gallery
 
 ## seo
+
+## slider

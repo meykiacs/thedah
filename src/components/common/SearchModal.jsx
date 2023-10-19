@@ -5,23 +5,24 @@ import Icon from "./Icon"
 import UnstyledButton from "./UnstyledButton"
 import { useTranslation } from "react-i18next"
 import VisuallyHidden from "./VisuallyHidden"
+import useWPContext from "../../context/useWPContext"
 
 export default function SearchModal() {
   const { t } = useTranslation()
+  const { homeUrl } = useWPContext()
   return (
     <Portal>
-      {/* <DialogOverlay /> */}
       <SearchContent>
         <Close asChild>
           <SearchButton>
             <Icon id="close" color="#fff" size="48px" strokeWidth="1" />
           </SearchButton>
         </Close>
-        <Form>
+        <Form method="get" action={homeUrl}>
           <Title>{t("SearchInTheSite")}</Title>
           <label htmlFor="search">
             <VisuallyHidden>{t("Search")}</VisuallyHidden>
-            <Input id="search" placeholder={t("SearchFor")} />
+            <Input id="search" placeholder={t("SearchFor")} name="s" />
           </label>
         </Form>
       </SearchContent>

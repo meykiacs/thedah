@@ -24,7 +24,7 @@ export default function App() {
     },
     blog: {
       component: BlogForm,
-      maxImages: 3,
+      maxImages: 2,
     },
     course: {
       component: CourseForm,
