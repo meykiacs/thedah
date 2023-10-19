@@ -12,15 +12,6 @@ export default function useResourceList(resourceName) {
       // const resources = await Promise.all(
       setResource(
         data.map((r) => {
-          // let featured_media_url = ""
-          // if (r.featured_media) {
-          //   const mediaResponse = await fetch(
-          //     `${mediaRestUrl}/${r.featured_media}`,
-          //   )
-          //   const mediaData = await mediaResponse.json()
-          //   featured_media_url =
-          //     mediaData.media_details.sizes.medium?.source_url
-          // }
 
           return {
             id: r.id,
