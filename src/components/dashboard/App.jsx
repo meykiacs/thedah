@@ -7,6 +7,7 @@ import { BlogForm } from "./BlogForm"
 import { PostList } from "./PostList"
 import { CourseForm } from "./CourseForm"
 import { GalleryForm } from "./GalleryForm"
+import { NewsletterForm } from "./NewsletterForm"
 
 export default function App() {
   const FORM_MAP = {
@@ -32,6 +33,10 @@ export default function App() {
     },
     gallery: {
       component: GalleryForm,
+      maxImages: 1,
+    },
+    newsletter: {
+      component: NewsletterForm,
       maxImages: 1,
     },
   }

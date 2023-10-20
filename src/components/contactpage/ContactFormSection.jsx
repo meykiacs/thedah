@@ -47,7 +47,6 @@ export const ContactFormSection = () => {
             return response
               .json()
               .then((data) => {
-                console.log(data);
                 alert("Email sent successfully")
             })
           } else if (response.status === 500) {

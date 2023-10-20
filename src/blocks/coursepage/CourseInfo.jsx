@@ -16,7 +16,6 @@ export const CourseInfo = () => {
     availability,
     linkToCourse,
   } = useWPContext()
-  console.log(linkToCourse);
   const theme = useTheme()
   const { t } = useTranslation()
   const button = {

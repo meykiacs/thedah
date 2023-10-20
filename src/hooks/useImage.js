@@ -33,7 +33,6 @@ export const useImage = () => {
 
     const data = await response.json()
     console.log("Upload succeeded:", data)
-    console.log(data.media_details.size);
     setImages((images) => [
       ...images,
       {
@@ -42,8 +41,10 @@ export const useImage = () => {
         thumbnailUrl: data.media_details.sizes.thumbnail?.source_url ?? "",
         mediumLargeUrl: data.media_details.sizes.medium_large?.source_url ?? "",
         largeUrl: data.media_details.sizes.large?.source_url ?? "",
-        paperLandscapeUrl: data.media_details.sizes.paperLandscape?.source_url ?? "",
-        gallerySquareUrl: data.media_details.sizes.gallerySquare?.source_url ?? "",
+        paperLandscapeUrl:
+          data.media_details.sizes.paperLandscape?.source_url ?? "",
+        gallerySquareUrl:
+          data.media_details.sizes.gallerySquare?.source_url ?? "",
         fullUrl: data.media_details.sizes.full?.source_url ?? "",
         source_url: data.source_url ?? "",
       },

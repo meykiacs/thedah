@@ -18,7 +18,6 @@ window.addEventListener("DOMContentLoaded", () => {
     searchQuery: root.dataset.searchQuery,
     posts: JSON.parse(root.dataset.posts),
   }
-  console.log(providedValues)
   render(
     <LanguageProvider>
       <ColorSchemeProvider>

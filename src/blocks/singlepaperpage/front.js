@@ -31,7 +31,6 @@ window.addEventListener("DOMContentLoaded", () => {
     writer: root.dataset.writer,
 
   }
-  console.log(providedValues.images)
   const direction = root.dataset.direction
   const language = root.dataset.language
 

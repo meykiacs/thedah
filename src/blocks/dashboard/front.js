@@ -37,6 +37,9 @@ window.addEventListener("DOMContentLoaded", () => {
     )
   })
 
+  providedValues.newsletter = JSON.parse(document.getElementById('newsletter').innerHTML)
+  providedValues.newsletterRestUrl = document.getElementById('newsletter-data').dataset.restUrl
+  providedValues.newsletterFetched = document.getElementById('newsletter-data').dataset.fetched
   render(
     <LanguageProvider>
       <Dashboard providedValues={providedValues} />

@@ -70,4 +70,6 @@ data-logout-url="<?php echo wp_logout_url(); ?>" data-media-rest-url="<?php echo
   <pre style="display: none !important" id="<?php echo $postType; ?>-en">
         <?php echo json_encode($data["{$postType}En"], JSON_HEX_TAG); ?>
     </pre>
-<?php endforeach; ?>
+<?php endforeach; 
+tdn_render();
+?>

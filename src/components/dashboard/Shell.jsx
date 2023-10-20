@@ -9,6 +9,7 @@ import {
   IconSchool,
   IconPhotoEdit,
   IconLogout,
+  IconMailFast,
 } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import useResourceContext from "../../context/useResourceContext"
@@ -34,6 +35,7 @@ export function Shell() {
     { link: "", label: "blogPosts", icon: IconPencil, name: "blog" },
     { link: "", label: "Courses", icon: IconSchool, name: "course" },
     { link: "", label: "Gallery", icon: IconPhotoEdit, name: "gallery" },
+    { link: "", label: "Newsletter", icon: IconMailFast, name: "newsletter" },
   ]
   const [active, setActive] = useState(resourceName)
   return (

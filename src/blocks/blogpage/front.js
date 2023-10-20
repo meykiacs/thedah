@@ -25,7 +25,6 @@ window.addEventListener("DOMContentLoaded", () => {
     dateTime: root.dataset.dateTime,
     author: root.dataset.author,
   }
-  console.log(providedValues.images[0])
   const direction = root.dataset.direction
   const language = root.dataset.language
 

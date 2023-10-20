@@ -28,6 +28,7 @@ export const ResourceProvider = ({ providedValues, children }) => {
     courseFaRestUrl,
     galleryEnRestUrl,
     galleryFaRestUrl,
+    newsletterRestUrl
   } = providedValues
 
 
@@ -96,6 +97,9 @@ export const ResourceProvider = ({ providedValues, children }) => {
   const [aboutEnFetched, setAboutEnFetched] = useState(
     providedValues.aboutEnFetched,
   )
+
+  const [newsletter, setNewsletter] = useState(providedValues.newsletter)
+  const [newsletterFetched, setNewsletterFetched] = useState(providedValues.newsletterFetched)
 
   const resources = {
     book: {
@@ -204,6 +208,13 @@ export const ResourceProvider = ({ providedValues, children }) => {
     recent: {
       fa: providedValues.recentFa,
       en: providedValues.recentEn
+    },
+    newsletter: {
+      rs : newsletter,
+      setR: setNewsletter,
+      restUrl: newsletterRestUrl,
+      fetched: newsletterFetched,
+      setFetched: setNewsletterFetched
     }
   }
 

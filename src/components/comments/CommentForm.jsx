@@ -52,7 +52,6 @@ export const CommentForm = () => {
           console.error(res.message)
         } else {
           // Log the response data
-          console.log(res)
           setWrittenComments((prev) => [res, ...prev])
           formRef.current.reset()
           loadCaptchaEnginge(5, "white", "black", "numbers")

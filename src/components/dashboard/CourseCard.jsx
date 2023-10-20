@@ -18,7 +18,6 @@ import { useCrudContext } from "../../context/CrudContext"
 export function CourseCard({ post, images }) {
   const { t } = useTranslation()
   const { isDeleting, deletePost, setIsEditing } = useCrudContext()
-  console.log(images);
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">

@@ -79,7 +79,6 @@ export function AboutForm() {
     handleSubmit(event, meta)
   }
 
-  console.log(isEditing);
   return (
     <Card withBorder radius="md" p={15}>
       <form

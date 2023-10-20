@@ -29,7 +29,6 @@ export function NewsletterForm() {
     } else {
       alert(t('anErrorHappened'))
     }
-    console.log(data);
   }
 
   return (

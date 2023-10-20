@@ -21,8 +21,6 @@ export const AllCommentsButton = () => {
         },
       })
       const data = await response.json()
-      console.log(response);
-      console.log(data);
       setAllComments(data)
       setWrittenComments([])
     } catch (error) {

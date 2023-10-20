@@ -30,7 +30,6 @@ window.addEventListener("DOMContentLoaded", () => {
     availability: root.dataset.availability,
     linkToCourse: root.dataset.linkToCourse,
   }
-  console.log(providedValues.content)
   const direction = root.dataset.direction
   const language = root.dataset.language
 
