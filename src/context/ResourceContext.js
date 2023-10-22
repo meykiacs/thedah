@@ -28,7 +28,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
     courseFaRestUrl,
     galleryEnRestUrl,
     galleryFaRestUrl,
-    newsletterRestUrl
+    newsletterRestUrl,
+    socialRestUrl
   } = providedValues
 
 
@@ -100,6 +101,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
 
   const [newsletter, setNewsletter] = useState(providedValues.newsletter)
   const [newsletterFetched, setNewsletterFetched] = useState(providedValues.newsletterFetched)
+  const [social, setSocial] = useState(providedValues.social)
+  const [socialFetched, setSocialFetched] = useState(providedValues.socialFetched)
 
   const resources = {
     book: {
@@ -215,9 +218,15 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrl: newsletterRestUrl,
       fetched: newsletterFetched,
       setFetched: setNewsletterFetched
+    },
+    social: {
+      rs : social,
+      setR: setSocial,
+      restUrl: socialRestUrl,
+      fetched: socialFetched,
+      setFetched: setSocialFetched
     }
   }
-
   return (
     <ResourceContext.Provider
       value={{
@@ -228,6 +237,7 @@ export const ResourceProvider = ({ providedValues, children }) => {
         setResourceHuman,
         mediaRestUrl,
         restNonce,
+        singleResources: ['about', 'social']
       }}
     >
       {children}

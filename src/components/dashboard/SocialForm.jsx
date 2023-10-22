@@ -9,17 +9,14 @@ import {
   TextInput,
   Title,
 } from "@mantine/core"
-import DynamicInput from "./DynamicInput"
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
-import useLanguageContext from "../../context/useLanguageContext"
 import useResourceList from "../../hooks/useResourceList"
 
-export function AboutForm() {
+export function SocialForm() {
   const { t } = useTranslation()
   const formRef = useRef(null)
-  const { lang } = useLanguageContext()
-  const aboutList = useResourceList("about")
+  const socialList = useResourceList("social")
   const {
     handleSubmit,
     setSelectedPostId,
@@ -27,40 +24,70 @@ export function AboutForm() {
     setIsEditing,
   } = useCrudContext()
 
-  const [education, setEducation] = useState([""])
-  const [activities, setActivities] = useState([""])
-  const [executiveRecords, setExecutiveRecords] = useState([""])
-  const [awardsAndHonors, setAwardsAndHonors] = useState([""])
   const [isFormLocked, setIsFormLocked] = useState(true)
-  const about = aboutList[0]
-  useEffect(() => {
-    formRef.current.reset()
-  }, [lang])
+  const social = socialList[0]
 
   useEffect(() => {
     formRef.current.focus()
-    setSelectedPostId(about?.id ?? 0)
-    setEducation(about?.meta?._thedah_about?.education ?? [""])
-    setActivities(about?.meta?._thedah_about?.activities ?? [""])
-    setExecutiveRecords(about?.meta?._thedah_about?.executiveRecords ?? [""])
-    setAwardsAndHonors(about?.meta?._thedah_about?.awardsAndHonors ?? [""])
-  }, [about, setIsEditing, setSelectedPostId])
+    setSelectedPostId(social?.id ?? 0)
+  }, [social, setSelectedPostId])
 
   useEffect(() => {
-    if (about) {
+    if (social) {
       setIsEditing(true)
-    } else {
+    }
+    else {
       setIsEditing(false)
     }
     setIsFormLocked(true)
     // eslint-disable-next-line
-  }, [])
+  }, []) 
 
   const inputs = [
     {
-      name: "academicRank",
-      placeholder: "academicRank",
-      default: about?.meta?._thedah_about?.academicRank ?? "",
+      name: "instagram",
+      placeholder: "Instagram Id",
+      default: social?.meta?._tds_social?.instagram ?? "",
+    },
+    {
+      name: "linkedin",
+      placeholder: "Linkedin Id",
+      default: social?.meta?._tds_social?.linkedin ?? "",
+    },
+    {
+      name: "telegram",
+      placeholder: "Telegram Id",
+      default: social?.meta?._tds_social?.telegram ?? "",
+    },
+    {
+      name: "whatsapp",
+      placeholder: "Whatsapp Id",
+      default: social?.meta?._tds_social?.whatsapp ?? "",
+    },
+    {
+      name: "phone",
+      placeholder: "Phone Number",
+      default: social?.meta?._tds_social?.phone ?? "",
+    },
+    {
+      name: "email",
+      placeholder: "Email Address",
+      default: social?.meta?._tds_social?.email ?? "",
+    },
+    {
+      name: "twitter",
+      placeholder: "Twitter Id",
+      default: social?.meta?._tds_social?.twitter ?? "",
+    },
+    {
+      name: "eeta",
+      placeholder: "Eeta Id",
+      default: social?.meta?._tds_social?.eeta ?? "",
+    },
+    {
+      name: "youtube",
+      placeholder: "Youtube Id",
+      default: social?.meta?._tds_social?.youtube ?? "",
     },
   ]
 
@@ -69,12 +96,16 @@ export function AboutForm() {
 
     const formData = new FormData(event.target)
     const meta = {
-      _thedah_about: {
-        education,
-        activities,
-        executiveRecords,
-        awardsAndHonors,
-        academicRank: formData.get("academicRank"),
+      _tds_social: {
+        twitter: formData.get("twitter"),
+        telegram: formData.get("telegram"),
+        instagram: formData.get("instagram"),
+        linkedin: formData.get("linkedin"),
+        whatsapp: formData.get("whatsapp"),
+        phone: formData.get("phone"),
+        email: formData.get("email"),
+        eeta: formData.get("eeta"),
+        youtube: formData.get("youtube"),
       },
     }
     handleSubmit(event, meta)
@@ -92,47 +123,22 @@ export function AboutForm() {
           <Group noWrap align="center" spacing={40}>
             <Box w={200} pos="relative">
               <Title order={1} size="h2" mb="32px">
-                {t("editAboutPage")}
+                {t("editSocial")}
               </Title>
             </Box>
             <Box pt={25}>
               {inputs.map((i) => (
                 <TextInput
                   disabled={isFormLocked}
-                  required
                   label={t(i.placeholder)}
                   key={i}
-                  placeholder={t(i.placeholder)}
+                  // placeholder={t(i.placeholder)}
                   aria-label={t(i.placeholder)}
                   mb={15}
                   name={i.name}
                   defaultValue={i.default}
                 />
               ))}
-              <DynamicInput
-                disabled={isFormLocked}
-                inputs={education}
-                setInputs={setEducation}
-                label={t("Education")}
-              />
-              <DynamicInput
-                disabled={isFormLocked}
-                inputs={activities}
-                setInputs={setActivities}
-                label={t("Activities")}
-              />
-              <DynamicInput
-                disabled={isFormLocked}
-                inputs={executiveRecords}
-                setInputs={setExecutiveRecords}
-                label={t("Executive Records")}
-              />
-              <DynamicInput
-                disabled={isFormLocked}
-                inputs={awardsAndHonors}
-                setInputs={setAwardsAndHonors}
-                label={t("Awards and Honors")}
-              />
             </Box>
           </Group>
           <Stack pt={25} spacing={50} align="center">

@@ -4,29 +4,61 @@ import telegram from "./telegram.svg"
 import email from "./email.svg"
 import instagram from "./instagram.svg"
 import linkedin from "./linkedin.svg"
-import eta from "./eta.svg"
+import eeta from "./eta.svg"
 import whatsapp from "./whatsapp.svg"
 import styled from "@emotion/styled"
-
-const socials = [
-  { name: "phone", icon: phone, value: "021-009009009" },
-  { name: "email", icon: email, value: "021-009009009" },
-  { name: "telegram", icon: telegram, value: "021-009009009" },
-  { name: "linkedin", icon: linkedin, value: "021-009009009" },
-  { name: "whatsapp", icon: whatsapp, value: "021-009009009" },
-  { name: "instagram", icon: instagram, value: "021-009009009" },
-  { name: "eta", icon: eta, value: "021-009009009" },
-]
+import useResourceList from "../../hooks/useResourceList"
 
 export const SocialList = () => {
+  const socialList = useResourceList("social")[0]
+  const socials = [
+    {
+      name: "phone",
+      icon: phone,
+      value: socialList.meta?._tds_social?.phone ?? "",
+    },
+    {
+      name: "email",
+      icon: email,
+      value: socialList.meta?._tds_social?.email ?? "",
+    },
+    {
+      name: "telegram",
+      icon: telegram,
+      value: socialList.meta?._tds_social?.telegram ?? "",
+    },
+    {
+      name: "linkedin",
+      icon: linkedin,
+      value: socialList.meta?._tds_social?.linkedin ?? "",
+    },
+    {
+      name: "whatsapp",
+      icon: whatsapp,
+      value: socialList.meta?._tds_social?.whatsapp ?? "",
+    },
+    {
+      name: "instagram",
+      icon: instagram,
+      value: socialList.meta?._tds_social?.instagram ?? "",
+    },
+    {
+      name: "eeta",
+      icon: eeta,
+      value: socialList.meta?._tds_social?.eeta ?? "",
+    },
+  ]
   return (
     <Ul>
-      {socials.map((i) => (
-        <ItemWrapper key={i.name}>
-          <Icon width={35} src={i.icon} />
-          <SocialValue>{i.value}</SocialValue>
-        </ItemWrapper>
-      ))}
+      {socials.map(
+        (i) =>
+          i.value && (
+            <ItemWrapper key={i.name}>
+              <Icon width={35} src={i.icon} />
+              <SocialValue>{i.value}</SocialValue>
+            </ItemWrapper>
+          ),
+      )}
     </Ul>
   )
 }
@@ -40,8 +72,9 @@ const Ul = styled.ul`
 
 const ItemWrapper = styled.li`
   display: flex;
-  gap: 52px;
   align-items: center;
+  justify-content: space-between;
+  width: 300px;
 `
 
 const SocialValue = styled.div`

@@ -115,6 +115,10 @@ export function PaperForm({ maxImages }) {
   }, [lang])
 
   useEffect(() => {
+    setIsEditing(false)
+  }, [])
+
+  useEffect(() => {
     if (!isCreatingOrUpdatingPost) {
       formRef.current.reset()
       setCoAuthors([""])
@@ -192,7 +196,9 @@ export function PaperForm({ maxImages }) {
               maxRows={10}
               miw="350px"
               name="summary"
-              defaultValue={ isEditing ? selectedPost?.meta?._thedah_paper?.summary : ""}
+              defaultValue={
+                isEditing ? selectedPost?.meta?._thedah_paper?.summary : ""
+              }
             />
             <BlogRichText
               editor={editor}

@@ -74,6 +74,9 @@ export const BlogForm = ({ maxImages }) => {
   useEffect(() => {
     formRef.current.reset()
   }, [lang])
+  useEffect(() => {
+    setIsEditing(false)
+  },[])
 
   useEffect(() => {
     if (!isCreatingOrUpdatingPost) {

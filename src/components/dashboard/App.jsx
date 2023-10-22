@@ -8,6 +8,7 @@ import { PostList } from "./PostList"
 import { CourseForm } from "./CourseForm"
 import { GalleryForm } from "./GalleryForm"
 import { NewsletterForm } from "./NewsletterForm"
+import { SocialForm } from "./SocialForm"
 
 export default function App() {
   const FORM_MAP = {
@@ -39,17 +40,20 @@ export default function App() {
       component: NewsletterForm,
       maxImages: 1,
     },
+    social: {
+      component: SocialForm,
+      maxImages: 1,
+    },
   }
-  const { resourceName, resourceHuman } = useResourceContext()
+  const { resourceName, resourceHuman, singleResources } = useResourceContext()
   const Form = FORM_MAP[resourceName].component
   const maxImages = FORM_MAP[resourceName].maxImages
-
   return (
     <Container>
       <Box mb={20}>
         <Form maxImages={maxImages} />
       </Box>
-      {resourceName !== "about" && (
+      {!singleResources.includes(resourceName) && (
         <PostList resourceName={resourceName} resourceHuman={resourceHuman} />
       )}
     </Container>

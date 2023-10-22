@@ -1,10 +1,6 @@
 
 # TODOS
 
-## dashboard  for newsletter
-
-## social
-
 ## comments approval
 
 ## gallery

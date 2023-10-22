@@ -126,6 +126,10 @@ export function BookForm({ maxImages }) {
   }, [lang])
 
   useEffect(() => {
+    setIsEditing(false)
+  },[])
+
+  useEffect(() => {
     if (!isCreatingOrUpdatingPost) {
       formRef.current.reset()
       setCoAuthors([""])

@@ -22,7 +22,6 @@ export default function NewsletterCard({ post }) {
   const { restUrl } = resources.newsletter
   const [isSent, setIsSent] = useState(post.meta._tdn_newsletter?.sent ?? false)
   const [isLoading, setIsLoading] = useState(false)
-  console.log(post)
   const handleSend = async (e) => {
     e.preventDefault()
     setIsLoading(true)
@@ -41,7 +40,6 @@ export default function NewsletterCard({ post }) {
       }),
     })
     const data = await response.json()
-    console.log(data)
     if (data.sent) {
       setIsSent(true)
     }

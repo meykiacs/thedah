@@ -57,6 +57,7 @@ i18n.use(initReactI18next).init({
         editBook: "Edit Book",
         editPaper: "Edit Paper",
         editPost: "Edit Post",
+        editSocial: 'Edit social network info', 
         Enroll: "Enroll",
         enrollInCourses: "Enroll in Courses",
         Education: "Education",
@@ -121,6 +122,7 @@ i18n.use(initReactI18next).init({
         Send: "Send",
         SendComment: "Send Comment",
         sendingAnEmail: "Send an Email",
+        SocialNetwork: 'Social Network',
         Soon: "Soon",
         subscribeDescription:
           "Send us your e-mail address to know about the courses and the latest news.",
@@ -192,6 +194,7 @@ i18n.use(initReactI18next).init({
         editBook: "ویرایش کتاب",
         editPaper: "ویرایش مقاله",
         editPost: "ویرایش پست",
+        editSocial: 'ویرایش اطلاعات شبکه‌های اجتماعی', 
         Education: "تحصیلات",
         Enroll: "ثبت نام",
         Event: 'رویداد',
@@ -257,6 +260,7 @@ i18n.use(initReactI18next).init({
         Send: "ارسال",
         SendComment: "ارسال دیدگاه",
         sendingAnEmail: "ارسال یک نامه",
+        SocialNetwork: 'شبکه‌های اجتماعی',
         Soon: "به زودی",
         subscribeDescription:
           "برای اطلاع از دوره‌ها و آخرین اخبار نشانی الکترونیکی خود را برای ما ارسال نمایید",

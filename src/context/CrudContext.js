@@ -11,6 +11,7 @@ import { useImage } from "../hooks/useImage"
 import { useHandleSubmit } from "../hooks/useHandleSubmit"
 import { useGetPostById } from "../hooks/useGetPostById"
 import { getImages } from "../utils/wp"
+import useResourceContext from "./useResourceContext"
 
 const CrudContext = createContext()
 
@@ -18,7 +19,7 @@ export const CrudContextProvider = ({ children }) => {
   const [selectedPostId, setSelectedPostId] = useState(0)
   const [isEditing, setIsEditing] = useState(false)
   const selectedPost = useGetPostById(selectedPostId)
-
+  const { resourceName, singleResources } = useResourceContext()
   // post create and update
   const [updatePost, isUpdatingPost] = useUpdatePost({ id: selectedPostId })
   const [createPost, isCreatingPost] = useCreatePost()
@@ -73,7 +74,11 @@ export const CrudContextProvider = ({ children }) => {
     }
   }, [isDeleting])
 
-  const isLocked = isDeleting || isEditing || images.length > 0
+  const isLocked =
+    (isEditing && !singleResources.includes(resourceName)) ||
+    isCreatingOrUpdatingPost ||
+    isDeleting ||
+    images.length > 0
 
   return (
     <CrudContext.Provider

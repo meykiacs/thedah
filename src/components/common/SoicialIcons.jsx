@@ -7,46 +7,57 @@ import telegram from "../../icons/telegram.svg"
 import linkedin from "../../icons/linkedin.svg"
 import SVG from "react-inlinesvg"
 import styled from "@emotion/styled"
+import { useEffect, useState } from "@wordpress/element"
+import useWPContext from "../../context/useWPContext"
 
-export default function SoicialIcons() {
+export default function SocialIcons() {
+  const { restNonce, homeUrl } = useWPContext()
+  const [socials, setSocials] = useState(null)
+  
+  const icons = {
+    instagram,
+    twitter,
+    youtube,
+    facebook,
+    whatsapp,
+    telegram,
+    linkedin
+  }
+
+  useEffect(() => {
+    let responseData
+    let error
+    const getSocial = async () => {
+      try {
+        const response = await fetch(`${homeUrl}wp-json/wp/v2/tds_social`, {
+          method: "GET",
+          headers: {
+            "X-WP-Nonce": restNonce,
+          },
+        })
+        console.log(response)
+        responseData = await response.json()
+        setSocials(responseData[0].meta._tds_social)
+      } catch (e) {
+        error = e
+      }
+    }
+    getSocial()
+    console.log(responseData)
+  }, [])
+
   return (
     <nav>
       <Ul>
-        <li>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <SVG src={youtube} />
-          </a>
-        </li>
-        <li>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <SVG src={facebook} />
-          </a>
-        </li>
-        <li>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <SVG src={linkedin} />
-          </a>
-        </li>
-        <li>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <SVG src={telegram} />
-          </a>
-        </li>
-        <li>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <SVG src={twitter} />
-          </a>
-        </li>
-        <li>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <SVG src={whatsapp} />
-          </a>
-        </li>
-        <li>
-          <a href="https://google.com" target="_blank" rel="noreferrer">
-            <SVG src={instagram} />
-          </a>
-        </li>
+        {socials && Object.keys(socials).map(s => (
+          icons[s] && socials[s] !== "" && (
+            <li key={s}>
+              <a href={`https://${s}.com/${socials[s]}`} target="_blank" rel="noreferrer">
+                <SVG src={icons[s]} />
+              </a>
+            </li>
+          )
+        ))}
       </Ul>
     </nav>
   )

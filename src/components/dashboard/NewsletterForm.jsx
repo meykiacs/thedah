@@ -69,6 +69,9 @@ export function NewsletterForm() {
   useEffect(() => {
     formRef.current.reset()
   }, [lang])
+  useEffect(() => {
+    setIsEditing(false)
+  },[])
 
   useEffect(() => {
     if (!isCreatingOrUpdatingPost) {

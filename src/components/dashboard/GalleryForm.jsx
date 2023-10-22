@@ -33,6 +33,9 @@ export function GalleryForm({ maxImages }) {
   useEffect(() => {
     formRef.current.reset()
   }, [lang])
+  useEffect(() => {
+    setIsEditing(false)
+  },[])
 
   useEffect(() => {
     if (isEditing) {

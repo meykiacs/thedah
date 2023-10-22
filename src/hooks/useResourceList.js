@@ -9,7 +9,6 @@ export default function useResourceList(resourceName) {
     const fetchResource = async (url, setResource, setFetched) => {
       const response = await fetch(url)
       const data = await response.json()
-      // const resources = await Promise.all(
       setResource(
         data.map((r) => {
 
