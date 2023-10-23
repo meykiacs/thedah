@@ -11,6 +11,7 @@ import {
   IconLogout,
   IconMailFast,
   IconSocial,
+  IconMessageCircle2,
 } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import useResourceContext from "../../context/useResourceContext"
@@ -38,6 +39,7 @@ export function Shell() {
     { link: "", label: "Gallery", icon: IconPhotoEdit, name: "gallery" },
     { link: "", label: "Newsletter", icon: IconMailFast, name: "newsletter" },
     { link: "", label: "SocialNetwork", icon: IconSocial, name: "social" },
+    { link: "", label: "UnapprovedComments", icon: IconMessageCircle2, name: "unapprovedComments" },
   ]
   const [active, setActive] = useState(resourceName)
   return (

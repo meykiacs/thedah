@@ -62,11 +62,12 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 15px;
-  box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.2);
   padding: 32px;
   border-radius: 7px;
 
   ${mq("lg")} {
+    box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.2);
+
     flex-direction: row;
     gap: 50px;
     justify-content: space-between;

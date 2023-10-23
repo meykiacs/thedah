@@ -3,6 +3,7 @@ import useWPContext from "../../context/useWPContext"
 import { Section } from "../common/Section"
 import { HomeResourceCarousel } from "./HomeResourceCarousel"
 import { GalleryCarouselCard } from "./GalleryCarouselCard"
+import { mq } from "../../utils/mq"
 
 export const HomeGallerySection = () => {
   const { assetsImagesUrl } = useWPContext()
@@ -30,10 +31,14 @@ const StyledSection = styled(Section)`
 `
 
 const GalleryLogoWrapper = styled.div`
-  width: 500px;
+  width: 350px;
   height: 216px;
   > img {
     width: 100%;
     height: 100%;
+  }
+
+  ${mq('sm')} {
+  width: 500px;
   }
 `

@@ -43,6 +43,13 @@ window.addEventListener("DOMContentLoaded", () => {
   providedValues.social = JSON.parse(document.getElementById('social').innerHTML)
   providedValues.socialRestUrl = document.getElementById('social-data').dataset.restUrl
   providedValues.socialFetched = document.getElementById('social-data').dataset.fetched
+  
+  providedValues.unapprovedCommentsEn = JSON.parse(document.getElementById('unapproved-comments-en').innerHTML)
+  providedValues.unapprovedCommentsFa = JSON.parse(document.getElementById('unapproved-comments-fa').innerHTML)
+  providedValues.unapprovedCommentsFaRestUrl = document.getElementById('comments-data').dataset.restUrl
+  providedValues.unapprovedCommentsEnRestUrl = document.getElementById('comments-data').dataset.restUrl
+  providedValues.unapprovedCommentsEnFetched = document.getElementById('comments-data').dataset.fetched
+  providedValues.unapprovedCommentsFaFetched = document.getElementById('comments-data').dataset.fetched
   render(
     <LanguageProvider>
       <Dashboard providedValues={providedValues} />

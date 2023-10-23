@@ -40,10 +40,10 @@ export default function SocialIcons() {
         setSocials(responseData[0].meta._tds_social)
       } catch (e) {
         error = e
+        console.log(error);
       }
     }
     getSocial()
-    console.log(responseData)
   }, [])
 
   return (

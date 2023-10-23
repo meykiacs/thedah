@@ -58,7 +58,7 @@ export default function useDelete(selectedPostId, removeImage) {
       const responseData = await response.json()
       if (responseData && responseData.deleted === true) {
         const deletedPostId = responseData.previous.id
-        if (deletedPostId !== id) {
+        if (deletedPostId != id) {
           throw new Error(
             "deleted post id not the same as the id to be deleted",
           )

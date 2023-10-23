@@ -22,9 +22,9 @@ export function BlogCard({ post }) {
     buttonText = buttonText === "enroll" ? "Enroll" : buttonText
     buttonText = buttonText === "purchase" ? "Purchase" : buttonText
     buttonText = buttonText === "prepurchase" ? "PrePurchase" : buttonText
-    imageUrl = post.meta._thedah_images[0]?.thumbnailUrl ?? ''
+    imageUrl = post.meta._thedah_images[0]?.thumbnailUrl ?? ""
     imageUrl =
-      imageUrl === "" ? (post.meta._thedah_images[0]?.source_url ?? '') : imageUrl
+      imageUrl === "" ? post.meta._thedah_images[0]?.source_url ?? "" : imageUrl
     imageUrl =
       imageUrl === "" ? `${assetsImagesUrl}/course-thumbnail.png` : imageUrl
     switch (post.meta._thedah_blog.blogtype) {
@@ -35,7 +35,7 @@ export function BlogCard({ post }) {
         prefix = "Soon"
         break
       default:
-        prefix = "More"
+        prefix = "Read"
         break
     }
   }
@@ -72,11 +72,11 @@ const Wrapper = styled.article`
   justify-content: center;
   align-items: center;
   gap: 15px;
-  box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.2);
   padding: 32px;
   border-radius: 7px;
-
+  
   ${mq("lg")} {
+    box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.2);
     flex-direction: row;
     gap: 50px;
     justify-content: space-between;
@@ -105,11 +105,14 @@ const Title = styled.h3`
 `
 
 const StyledButtonV2 = styled(ButtonV2)`
-  margin-left: auto;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${mq("lg")} {
+    margin-left: auto;
+  }
 `
 
 const A = styled.a`

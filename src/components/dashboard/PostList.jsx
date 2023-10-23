@@ -9,6 +9,7 @@ import { getImages } from "../../utils/wp"
 import { CourseCard } from "./CourseCard"
 import { GalleryCard } from "./GalleryCard"
 import NewsletterCard from "./NewsletterCard"
+import { UnapprovedCommentsCard } from "./UnapprovedCommentsCard"
 
 export function PostList({ resourceName }) {
   const CARD_MAP = {
@@ -18,12 +19,13 @@ export function PostList({ resourceName }) {
     course: CourseCard,
     gallery: GalleryCard,
     newsletter: NewsletterCard,
+    unapprovedComments: UnapprovedCommentsCard,
   }
   const Card = CARD_MAP[resourceName]
 
   const rs = useResourceList(resourceName)
 
-  const { setSelectedPostId, isEditing, selectedPostId, isDeleting, images, isLocked } =
+  const { setSelectedPostId, isEditing, selectedPostId, isDeleting, isLocked } =
     useCrudContext()
   const { t } = useTranslation()
   return (

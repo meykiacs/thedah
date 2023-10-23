@@ -46,17 +46,21 @@ export default function App() {
     },
   }
   const { resourceName, resourceHuman, singleResources } = useResourceContext()
-  const Form = FORM_MAP[resourceName].component
-  const maxImages = FORM_MAP[resourceName].maxImages
+  let Form, maxImages
+  if (resourceName !== "unapprovedComments") {
+    Form = FORM_MAP[resourceName].component
+    maxImages = FORM_MAP[resourceName].maxImages
+  }
   return (
     <Container>
-      <Box mb={20}>
-        <Form maxImages={maxImages} />
-      </Box>
+      {resourceName !== "unapprovedComments" && (
+        <Box mb={20}>
+          <Form maxImages={maxImages} />
+        </Box>
+      )}
       {!singleResources.includes(resourceName) && (
         <PostList resourceName={resourceName} resourceHuman={resourceHuman} />
       )}
     </Container>
   )
-  // )
 }

@@ -1,7 +1,7 @@
 
 # TODOS
 
-## comments approval
+## pagination for comments and newsletter and what else?
 
 ## gallery
 
