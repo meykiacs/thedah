@@ -11,6 +11,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
 import useResourceContext from "../../context/useResourceContext"
+import { useEffect } from "@wordpress/element"
 
 export function UnapprovedCommentsCard({ post }) {
   const { t } = useTranslation()

@@ -35,12 +35,11 @@ export default function SocialIcons() {
             "X-WP-Nonce": restNonce,
           },
         })
-        console.log(response)
         responseData = await response.json()
         setSocials(responseData[0].meta._tds_social)
       } catch (e) {
         error = e
-        console.log(error);
+        console.error(error);
       }
     }
     getSocial()

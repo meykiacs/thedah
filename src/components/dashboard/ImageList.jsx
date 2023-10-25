@@ -3,7 +3,7 @@ import { useCrudContext } from "../../context/CrudContext"
 import { IconTrash } from "@tabler/icons-react"
 import { useEffect, useState } from "@wordpress/element"
 
-export const ImageList = ({ images }) => {
+export const ImageList = ({ images, noEdit }) => {
   const { removeImage, isImageDeleting } = useCrudContext()
   const [deletingImageId, setDeletingImageId] = useState(0)
   useEffect(() => {
@@ -26,18 +26,20 @@ export const ImageList = ({ images }) => {
             }
             alt="alt"
           />
-          <ActionIcon
-            onClick={() => {
-              setDeletingImageId(image.id)
-              removeImage(image.id)
-            }}
-            pos="absolute"
-            top={5}
-            left={5}
-            variant="filled"
-          >
-            <IconTrash size="25px" />
-          </ActionIcon>
+          {!noEdit && (
+            <ActionIcon
+              onClick={() => {
+                setDeletingImageId(image.id)
+                removeImage(image.id)
+              }}
+              pos="absolute"
+              top={5}
+              left={5}
+              variant="filled"
+            >
+              <IconTrash size="25px" />
+            </ActionIcon>
+          )}
         </Box>
       ))}
     </>

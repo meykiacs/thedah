@@ -42,7 +42,7 @@ export const CrudContextProvider = ({ children }) => {
     setImages,
     isImageUploading,
     isImageDeleting,
-  } = useImage(isCreatingOrUpdatingPost, selectedPostId)
+  } = useImage()
 
   useEffect(() => {
     if (isCreatingOrUpdatingPost || isEditing) {
@@ -88,6 +88,8 @@ export const CrudContextProvider = ({ children }) => {
         selectedPost,
         setSelectedPostId,
         createOrUpdatePost,
+        createPost,
+        updatePost,
         isEditing,
         deletePost,
         setIsEditing,

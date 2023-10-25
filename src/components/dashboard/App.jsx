@@ -9,6 +9,7 @@ import { CourseForm } from "./CourseForm"
 import { GalleryForm } from "./GalleryForm"
 import { NewsletterForm } from "./NewsletterForm"
 import { SocialForm } from "./SocialForm"
+import { SliderForm } from "./SliderForm"
 
 export default function App() {
   const FORM_MAP = {
@@ -43,6 +44,10 @@ export default function App() {
     social: {
       component: SocialForm,
       maxImages: 1,
+    },
+    slider: {
+      component: SliderForm,
+      maxImages: 3,
     },
   }
   const { resourceName, resourceHuman, singleResources } = useResourceContext()

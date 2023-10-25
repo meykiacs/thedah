@@ -113,6 +113,12 @@ $containerBuilder->addDefinitions([
         $galleryCPT->metas[] = new ImagesMeta();
         return new CPTResource($galleryCPT);
       },
+      'slider' => function (ContainerInterface $c) {
+        $cpt = new CPT('slider', 'Slider');
+        $cpt->public = true;
+        $cpt->metas[] = new ImagesMeta();
+        return new CPTResource($cpt);
+      },
     ],
     'fa' => [
 
@@ -157,6 +163,11 @@ $containerBuilder->addDefinitions([
         $galleryCPT->metas[] = new ImagesMeta();
         return new CPTResource($galleryCPT);
       },
+      'slider' => function (ContainerInterface $c) {
+        $cpt = new CPT('sliderfa', 'Slider Fa');
+        $cpt->public = true;$cpt->metas[] = new ImagesMeta();
+        return new CPTResource($cpt);
+      },
 
     ]
   ]
@@ -185,23 +196,25 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['en']['blog'])
   ->add($container->get('resources')['en']['course'])
   ->add($container->get('resources')['en']['gallery'])
+  ->add($container->get('resources')['en']['slider'])
   ->add($container->get('resources')['fa']['book'])
   ->add($container->get('resources')['fa']['paper'])
   ->add($container->get('resources')['fa']['about'])
   ->add($container->get('resources')['fa']['blog'])
   ->add($container->get('resources')['fa']['course'])
   ->add($container->get('resources')['fa']['gallery'])
+  ->add($container->get('resources')['fa']['slider'])
   ->register();
 
 $container->get(Image::class)->addImageSize('paperLandscape', 390, 300, ['center', 'center'])
-->addImageSize('gallerySquare', 250, 268, ['center', 'center']);
+  ->addImageSize('gallerySquare', 250, 268, ['center', 'center'])
+  ->addImageSize('bannerSlider', 1366, 528, ['center', 'center']);
 
 $container->get(Auth::class)
   ->redirectNonAdminFromAdminPanel()
   ->removeAdminBarForNonAdmins()
   ->hideAdminBarOnFrontEnd()
   ->changeLoginUrl($container->get('auth.slug'));
-// $registerQueryVars = $container->get(RegisterQueryVars::class);
 
 $emailPost = $container->make(EmailPost::class);
 $emailRoute = new Route($container->get('rest.namespace'), $container->get('endpoint.email'));

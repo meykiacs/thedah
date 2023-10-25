@@ -28,6 +28,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
     courseFaRestUrl,
     galleryEnRestUrl,
     galleryFaRestUrl,
+    sliderEnRestUrl,
+    sliderFaRestUrl,
     newsletterRestUrl,
     socialRestUrl,
     unapprovedCommentsFaRestUrl,
@@ -90,6 +92,19 @@ export const ResourceProvider = ({ providedValues, children }) => {
   )
   const [galleryEnFetched, setGalleryEnFetched] = useState(
     providedValues.galleryEnFetched,
+  )
+
+  const [sliderFa, setSliderFa] = useState(
+    providedValues.sliderFa,
+  )
+  const [sliderEn, setSliderEn] = useState(
+    providedValues.sliderEn,
+  )
+  const [sliderFaFetched, setSliderFaFetched] = useState(
+    providedValues.sliderFaFetched,
+  )
+  const [sliderEnFetched, setSliderEnFetched] = useState(
+    providedValues.sliderEnFetched,
   )
 
 
@@ -207,6 +222,23 @@ export const ResourceProvider = ({ providedValues, children }) => {
       fetched: lang === "fa" ? galleryFaFetched : galleryEnFetched,
       setFetched: lang === "fa" ? setGalleryFaFetched : setGalleryEnFetched,
     },
+    slider: {
+      fa: sliderFa,
+      en: sliderEn,
+      setEn: setSliderEn,
+      setFa: setSliderFa,
+      faFetched: sliderFaFetched,
+      enFetched: sliderEnFetched,
+      setFaFetched: setSliderFaFetched,
+      setEnFetched: setSliderEnFetched,
+      restUrlEn: sliderEnRestUrl,
+      restUrlFa: sliderFaRestUrl,
+      rs: lang === "fa" ? sliderFa : sliderEn,
+      setR: lang === "fa" ? setSliderFa : setSliderEn,
+      restUrl: lang === "fa" ? sliderFaRestUrl : sliderEnRestUrl,
+      fetched: lang === "fa" ? sliderFaFetched : sliderEnFetched,
+      setFetched: lang === "fa" ? setSliderFaFetched : setSliderEnFetched,
+    },
     unapprovedComments: {
       fa: unapprovedCommentsFa,
       en: unapprovedCommentsEn,
@@ -270,7 +302,7 @@ export const ResourceProvider = ({ providedValues, children }) => {
         setResourceHuman,
         mediaRestUrl,
         restNonce,
-        singleResources: ['about', 'social']
+        singleResources: ['about', 'social', 'slider']
       }}
     >
       {children}

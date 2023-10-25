@@ -44,6 +44,10 @@ class ImagesMeta extends Meta {
           'type'  => 'string',
           'format'  =>  'uri'
         ],
+        'bannerSliderUrl'  => [
+          'type'  => 'string',
+          'format'  =>  'uri'
+        ],
         'thumbnailUrl'  => [
           'type'  => 'string',
           'format'  =>  'uri'

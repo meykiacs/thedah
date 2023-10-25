@@ -10,6 +10,7 @@ import { CourseCard } from "./CourseCard"
 import { GalleryCard } from "./GalleryCard"
 import NewsletterCard from "./NewsletterCard"
 import { UnapprovedCommentsCard } from "./UnapprovedCommentsCard"
+import { useEffect } from "@wordpress/element"
 
 export function PostList({ resourceName }) {
   const CARD_MAP = {
@@ -25,9 +26,12 @@ export function PostList({ resourceName }) {
 
   const rs = useResourceList(resourceName)
 
-  const { setSelectedPostId, isEditing, selectedPostId, isDeleting, isLocked } =
+  const { setSelectedPostId, isEditing, selectedPostId, isDeleting, isLocked, setIsEditing } =
     useCrudContext()
   const { t } = useTranslation()
+  useEffect(() => {
+    setIsEditing(false)
+  },[])
   return (
     <Accordion
       value={selectedPostId.toString()}

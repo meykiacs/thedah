@@ -7,9 +7,9 @@ export const useUpdatePost = ({ id }) => {
   const { restUrl, rs, setR } = resources[resourceName]
 
   const [isUpdatingPost, setIsUpdatingPost] = useState(false)
-  async function updatePost(data, event) {
+  async function updatePost(data, event, postId=id) {
     setIsUpdatingPost(true)
-    const endpoint = `${restUrl}/${id}`
+    const endpoint = `${restUrl}/${postId}`
     const body = JSON.stringify(data)
     try {
       const response = await fetch(endpoint, {
@@ -24,7 +24,9 @@ export const useUpdatePost = ({ id }) => {
       if (responseData && "id" in responseData) {
         const post = createPostObjectFromData(responseData)
         setR(rs.map((r) => (r.id === post.id ? post : r)))
-        event.target.reset()
+        if (event && event.target) {
+          event.target.reset()
+        }
         return post
       }
     } catch (error) {

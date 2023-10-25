@@ -45,6 +45,8 @@ export const useImage = () => {
           data.media_details.sizes.paperLandscape?.source_url ?? "",
         gallerySquareUrl:
           data.media_details.sizes.gallerySquare?.source_url ?? "",
+        bannerSliderUrl:
+          data.media_details.sizes.bannerSlider?.source_url ?? "",
         fullUrl: data.media_details.sizes.full?.source_url ?? "",
         source_url: data.source_url ?? "",
       },

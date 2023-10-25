@@ -1,8 +1,5 @@
 import Slider from "react-slick"
 
-import img1 from "../../../assets/images/home-carousel-image-1.png"
-import img2 from "../../../assets/images/home-carousel-image-2.png"
-import img3 from "../../../assets/images/home-carousel-image-3.png"
 import styled from "@emotion/styled"
 import { mq } from "../../utils/mq"
 import { SlickSliderWrapper } from "./SlickSliderWrapper"
@@ -11,8 +8,13 @@ import { useTheme } from "@emotion/react"
 import useWPContext from "../../context/useWPContext"
 import Button from "../common/Button"
 import { useTranslation } from "react-i18next"
+import useResourceContext from "../../context/useResourceContext"
 export const HomeCarousel = ({ className }) => {
-  const images = [img1, img2, img3]
+  const { slider } = useResourceContext().resources
+  const ims  = slider.rs[0].meta._thedah_images
+  console.log(ims);
+  const images = ims.map(i => (i.bannerSliderUrl ? i.bannerSliderUrl : i.fullUrl))
+  // const images = [img1, img2, img3]
   const [imageIndex, setImageIndex] = useState(0)
   const theme = useTheme()
   const { homeUrl } = useWPContext()
@@ -105,11 +107,15 @@ const StyledButton = styled(Button)`
   }
 
   ${mq("lg")} {
-    transform: translate(${(p) => (p.theme.direction === "rtl" ? "-325px" : "325px")}, -145px);
+    transform: translate(
+      ${(p) => (p.theme.direction === "rtl" ? "-325px" : "325px")},
+      -145px
+    );
   }
   ${mq("xl")} {
     ${(p) => (p.theme.direction === "rtl" ? "-500px" : "500px")},
-    transform: translate(${(p) => (p.theme.direction === "rtl" ? "-500px" : "500px")}, -180px);
+    transform: translate(${(p) =>
+      p.theme.direction === "rtl" ? "-500px" : "500px"}, -180px);
   }
 `
 

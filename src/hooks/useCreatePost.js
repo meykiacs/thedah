@@ -22,7 +22,9 @@ export const useCreatePost = () => {
       if (responseData && "id" in responseData) {
         const post = createPostObjectFromData(responseData)
         setR([post, ...rs])
-        event.target.reset()
+        if (event && event.target) {
+          event.target.reset()
+        }
         return post
       }
     } catch (error) {

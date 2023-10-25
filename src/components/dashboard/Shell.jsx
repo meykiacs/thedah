@@ -40,6 +40,7 @@ export function Shell() {
     { link: "", label: "Newsletter", icon: IconMailFast, name: "newsletter" },
     { link: "", label: "SocialNetwork", icon: IconSocial, name: "social" },
     { link: "", label: "UnapprovedComments", icon: IconMessageCircle2, name: "unapprovedComments" },
+    { link: "", label: "Slider", icon: IconMessageCircle2, name: "slider" },
   ]
   const [active, setActive] = useState(resourceName)
   return (
