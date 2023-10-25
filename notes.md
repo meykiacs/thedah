@@ -7,4 +7,3 @@
 
 ## seo
 
-## slider

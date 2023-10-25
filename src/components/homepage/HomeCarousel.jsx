@@ -11,8 +11,7 @@ import { useTranslation } from "react-i18next"
 import useResourceContext from "../../context/useResourceContext"
 export const HomeCarousel = ({ className }) => {
   const { slider } = useResourceContext().resources
-  const ims  = slider.rs[0].meta._thedah_images
-  console.log(ims);
+  const ims  = slider.rs[0]?.meta?._thedah_images ?? []
   const images = ims.map(i => (i.bannerSliderUrl ? i.bannerSliderUrl : i.fullUrl))
   // const images = [img1, img2, img3]
   const [imageIndex, setImageIndex] = useState(0)
