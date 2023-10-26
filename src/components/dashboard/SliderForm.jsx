@@ -1,26 +1,35 @@
-import { Box, Card, Title } from "@mantine/core"
+import { Box, Card, Center, Text, Title } from "@mantine/core"
 import { useTranslation } from "react-i18next"
 import useResourceList from "../../hooks/useResourceList"
 import useResourceContext from "../../context/useResourceContext"
-import { Dropzone } from "@mantine/dropzone"
+import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { createPostObjectFromData } from "../../utils/wp"
-import { useState } from "@wordpress/element"
+import { useEffect, useState } from "@wordpress/element"
+import useLanguageContext from "../../context/useLanguageContext"
 
 export function SliderForm() {
   const { t } = useTranslation()
   const { restNonce, mediaRestUrl, resources } = useResourceContext()
   const { restUrl, setR } = resources.slider
+  const [isLoading, setIsLoading] = useState(false)
 
   let sliderList = useResourceList("slider") // this could be an empty array if no post of type slider exists
   let pslider = sliderList[0] // the first post of an array of slider posts objects
   // Set the maximum number of images to 3
   const [slider, setSlider] = useState(pslider)
   const maxImages = 3
-  const images = slider.meta?._thedah_images ?? []
+  const images = slider?.meta?._thedah_images ?? []
+  // const { lang } = useLanguageContext()
+
+  useEffect(() => {
+    setSlider(pslider)
+  }, [pslider])
 
   // Function to handle file upload
   const handleUpload = async (files) => {
     try {
+      setIsLoading(true)
+      let newSlider = slider
       // Check if a slider post exists
       if (!slider) {
         // Create a new slider post
@@ -38,11 +47,14 @@ export function SliderForm() {
         })
 
         if (!createResponse.ok) {
+          setIsLoading(false)
           throw new Error("Creation of new slider post failed")
         }
 
         const createData = await createResponse.json()
-        setSlider(createPostObjectFromData(createData))
+        newSlider = createPostObjectFromData(createData)
+
+        setSlider(newSlider)
 
         setR((prev) => [slider, ...prev])
       }
@@ -85,7 +97,7 @@ export function SliderForm() {
       }))
 
       // Update the slider post with the new images
-      const updateResponse = await fetch(`${restUrl}/${slider.id}`, {
+      const updateResponse = await fetch(`${restUrl}/${newSlider.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,6 +111,7 @@ export function SliderForm() {
       })
 
       if (!updateResponse.ok) {
+        setIsLoading(false)
         throw new Error("Update failed")
       }
 
@@ -106,7 +119,9 @@ export function SliderForm() {
 
       setSlider(createPostObjectFromData(updateData))
       console.log("Update successful")
+      setIsLoading(false)
     } catch (error) {
+      setIsLoading(false)
       console.error(error)
     }
   }
@@ -160,11 +175,22 @@ export function SliderForm() {
   return (
     <Card withBorder radius="md" p={15}>
       <Title order={1} size="h2" mb="32px">
-        {t("editSlides")}
+        {t("chooseSlideImages")}
       </Title>
       <Box w={200} pos="relative">
-        <Dropzone maxFiles={maxImages} onDrop={handleUpload} />
-        {/* Display the images related to the slider post */}
+        <Dropzone
+          maxFiles={maxImages}
+          onDrop={handleUpload}
+          accept={IMAGE_MIME_TYPE}
+          mih={200}
+          loading={isLoading}
+        >
+          <Center h={100}>
+            <Text c="dimmed" align="center" fz="sm">
+              {t("imageDrop")}
+            </Text>
+          </Center>
+        </Dropzone>
         {images &&
           images.map((image) => (
             <div key={image.id}>
