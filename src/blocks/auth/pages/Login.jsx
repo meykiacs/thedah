@@ -7,6 +7,7 @@ import {
   Container,
   Stack,
   Center,
+  useComputedColorScheme,
 } from "@mantine/core"
 import useWPContext from "../../../context/useWPContext"
 import SiteLogo from "../../../components/common/SiteLogo"
@@ -17,13 +18,21 @@ export default function Login({ setMode }) {
     e.preventDefault()
     setMode("lostpassword")
   }
+  const colorScheme = useComputedColorScheme()
 
   return (
     <Container>
       <Stack>
         <div style={{ marginTop: "36px" }}>
           <a href={homeUrl}>
-            <SiteLogo style={{ filter: "invert(1)", textAlign: "center" }} />
+          <SiteLogo
+              style={
+                colorScheme === "dark"
+                  ? { filter: "invert(1)", textAlign: "center" }
+                  : {}
+              }
+            />
+
           </a>
         </div>
         <div style={{ marginTop: "64px" }}>

@@ -1,4 +1,13 @@
-import { Paper, Text, Input, Button, Grid, Container } from "@mantine/core"
+import {
+  Paper,
+  Text,
+  Input,
+  Button,
+  Grid,
+  Container,
+  Stack,
+  useComputedColorScheme,
+} from "@mantine/core"
 import SiteLogo from "../../../components/common/SiteLogo"
 import useWPContext from "../../../context/useWPContext"
 
@@ -8,13 +17,20 @@ export default function RP({ setMode }) {
     e.preventDefault()
     setMode("login")
   }
+  const colorScheme = useComputedColorScheme()
 
   return (
     <Container>
       <Stack>
         <div style={{ marginTop: "36px" }}>
           <a href={homeUrl}>
-            <SiteLogo style={{ filter: "invert(1)", textAlign: "center" }} />
+            <SiteLogo
+              style={
+                colorScheme === "dark"
+                  ? { filter: "invert(1)", textAlign: "center" }
+                  : {}
+              }
+            />
           </a>
         </div>
         <div style={{ marginTop: "64px" }}>

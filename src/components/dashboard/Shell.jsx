@@ -1,5 +1,14 @@
 import { useDisclosure } from "@mantine/hooks"
-import { AppShell, Burger, Flex, Group, NavLink, Space } from "@mantine/core"
+import {
+  AppShell,
+  Burger,
+  Flex,
+  Group,
+  NavLink,
+  Space,
+  useComputedColorScheme,
+  useMantineTheme,
+} from "@mantine/core"
 
 import {
   IconBook,
@@ -21,13 +30,14 @@ import ToggleLanguage from "./ToggleLanguage"
 import { ThemeActionToggle } from "./ThemeActionToggle"
 import { useCrudContext } from "../../context/CrudContext"
 import useWPContext from "../../context/useWPContext"
+import SiteLogo from "../common/SiteLogo"
 
 export function Shell() {
   const [opened, { toggle }] = useDisclosure()
 
   const { resourceName, setResourceName, setResourceHuman } =
     useResourceContext()
-  const { logoutUrl } = useWPContext()
+  const { logoutUrl, homeUrl } = useWPContext()
   const { isLocked } = useCrudContext()
   const { t } = useTranslation()
   const data = [
@@ -39,10 +49,17 @@ export function Shell() {
     { link: "", label: "Gallery", icon: IconPhotoEdit, name: "gallery" },
     { link: "", label: "Newsletter", icon: IconMailFast, name: "newsletter" },
     { link: "", label: "SocialNetwork", icon: IconSocial, name: "social" },
-    { link: "", label: "UnapprovedComments", icon: IconMessageCircle2, name: "unapprovedComments" },
+    {
+      link: "",
+      label: "UnapprovedComments",
+      icon: IconMessageCircle2,
+      name: "unapprovedComments",
+    },
     { link: "", label: "Slider", icon: IconMessageCircle2, name: "slider" },
   ]
   const [active, setActive] = useState(resourceName)
+  const colorScheme = useComputedColorScheme()
+
   return (
     <AppShell
       header={{ height: 100 }}
@@ -64,6 +81,15 @@ export function Shell() {
             <ThemeActionToggle />
             <ToggleLanguage disabled={isLocked} />
           </Group>
+          <a href={homeUrl}>
+            <SiteLogo
+              style={
+                colorScheme === "dark"
+                  ? { filter: "invert(1)", textAlign: "center" }
+                  : {}
+              }
+            />
+          </a>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         </Flex>
       </AppShell.Header>
