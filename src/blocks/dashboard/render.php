@@ -17,7 +17,7 @@ if (!is_user_logged_in()) {
 // here
 // logouturl
 
-$postTypes = ['about', 'paper', 'book', 'blog', 'course', 'gallery', 'slider'];
+$postTypes = ['about', 'paper', 'book', 'blog', 'course', 'gallery', 'slider', 'quote'];
 $defaultResourceName = 'book';
 
 

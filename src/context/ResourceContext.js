@@ -18,6 +18,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
     bookFaRestUrl,
     paperEnRestUrl,
     paperFaRestUrl,
+    quoteEnRestUrl,
+    quoteFaRestUrl,
     mediaRestUrl,
     restNonce,
     aboutEnRestUrl,
@@ -53,6 +55,15 @@ export const ResourceProvider = ({ providedValues, children }) => {
   )
   const [paperEnFetched, setPaperEnFetched] = useState(
     providedValues.paperEnFetched,
+  )
+
+  const [quotesFa, setQuotesFa] = useState(providedValues.quoteFa)
+  const [quotesEn, setQuotesEn] = useState(providedValues.quoteEn)
+  const [quoteFaFetched, setQuoteFaFetched] = useState(
+    providedValues.quoteFaFetched,
+  )
+  const [quoteEnFetched, setQuoteEnFetched] = useState(
+    providedValues.quoteEnFetched,
   )
 
   const [blogsFa, setBlogsFa] = useState(
@@ -169,7 +180,23 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrl: lang === "fa" ? paperFaRestUrl : paperEnRestUrl,
       fetched: lang === "fa" ? paperFaFetched : paperEnFetched,
       setFetched: lang === "fa" ? setPaperFaFetched : setPaperEnFetched,
-
+    },
+    quote: {
+      fa: quotesFa,
+      en: quotesEn,
+      setEn: setQuotesEn,
+      setFa: setQuotesFa,
+      faFetched: quoteFaFetched,
+      enFetched: quoteEnFetched,
+      setFaFetched: setQuoteFaFetched,
+      setEnFetched: setQuoteEnFetched,
+      restUrlEn: quoteEnRestUrl,
+      restUrlFa: quoteFaRestUrl,
+      rs: lang === "fa" ? quotesFa : quotesEn,
+      setR: lang === "fa" ? setQuotesFa : setQuotesEn,
+      restUrl: lang === "fa" ? quoteFaRestUrl : quoteEnRestUrl,
+      fetched: lang === "fa" ? quoteFaFetched : quoteEnFetched,
+      setFetched: lang === "fa" ? setQuoteFaFetched : setQuoteEnFetched,
     },
     blog: {
       fa: blogsFa,
@@ -302,7 +329,7 @@ export const ResourceProvider = ({ providedValues, children }) => {
         setResourceHuman,
         mediaRestUrl,
         restNonce,
-        singleResources: ['about', 'social', 'slider']
+        singleResources: ['about', 'social', 'slider', 'quote']
       }}
     >
       {children}

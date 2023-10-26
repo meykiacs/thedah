@@ -16,6 +16,7 @@ use Thedah\Models\Meta\BookMeta;
 use Thedah\Models\Meta\CourseMeta;
 use Thedah\Models\Meta\ImagesMeta;
 use Thedah\Models\Meta\PaperMeta;
+use Thedah\Models\Meta\QuoteMeta;
 use Thedah\Rest\Model\Endpoints\EmailPost;
 use Thedah\Rest\Model\Route\Route;
 use Thedah\Rest\Service\Rest;
@@ -85,6 +86,11 @@ $containerBuilder->addDefinitions([
         $paperCPT->metas[] = new ImagesMeta();
         return new CPTResource($paperCPT);
       },
+      'quote' => function (ContainerInterface $c) {
+        $cpt = new CPT('quote', 'Quote');
+        $cpt->metas[] = new QuoteMeta();
+        return new CPTResource($cpt);
+      },
       'about' => function (ContainerInterface $c) {
         $aboutCPT = new CPT('about', 'About');
         $aboutCPT->metas[] = new AboutMeta();
@@ -109,13 +115,11 @@ $containerBuilder->addDefinitions([
       },
       'gallery' => function (ContainerInterface $c) {
         $galleryCPT = new CPT('gallery', 'Gallery');
-        $galleryCPT->public = true;
         $galleryCPT->metas[] = new ImagesMeta();
         return new CPTResource($galleryCPT);
       },
       'slider' => function (ContainerInterface $c) {
         $cpt = new CPT('slider', 'Slider');
-        $cpt->public = true;
         $cpt->metas[] = new ImagesMeta();
         return new CPTResource($cpt);
       },
@@ -134,6 +138,11 @@ $containerBuilder->addDefinitions([
         $paperCPTFa->metas[] = new PaperMeta();
         $paperCPTFa->metas[] = new ImagesMeta();
         return new CPTResource($paperCPTFa);
+      },
+      'quote' => function (ContainerInterface $c) {
+        $cpt = new CPT('quotefa', 'QuoteFa');
+        $cpt->metas[] = new QuoteMeta();
+        return new CPTResource($cpt);
       },
       'about' => function (ContainerInterface $c) {
         $aboutCPTFa = new CPT('aboutfa', 'AboutFa');
@@ -159,13 +168,12 @@ $containerBuilder->addDefinitions([
       },
       'gallery' => function (ContainerInterface $c) {
         $galleryCPT = new CPT('galleryfa', 'Gallery Fa');
-        $galleryCPT->public = true;
         $galleryCPT->metas[] = new ImagesMeta();
         return new CPTResource($galleryCPT);
       },
       'slider' => function (ContainerInterface $c) {
         $cpt = new CPT('sliderfa', 'Slider Fa');
-        $cpt->public = true;$cpt->metas[] = new ImagesMeta();
+        $cpt->metas[] = new ImagesMeta();
         return new CPTResource($cpt);
       },
 
@@ -197,6 +205,7 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['en']['course'])
   ->add($container->get('resources')['en']['gallery'])
   ->add($container->get('resources')['en']['slider'])
+  ->add($container->get('resources')['en']['quote'])
   ->add($container->get('resources')['fa']['book'])
   ->add($container->get('resources')['fa']['paper'])
   ->add($container->get('resources')['fa']['about'])
@@ -204,6 +213,7 @@ $container->get(RegisterCPTResource::class)
   ->add($container->get('resources')['fa']['course'])
   ->add($container->get('resources')['fa']['gallery'])
   ->add($container->get('resources')['fa']['slider'])
+  ->add($container->get('resources')['fa']['quote'])
   ->register();
 
 $container->get(Image::class)->addImageSize('paperLandscape', 390, 300, ['center', 'center'])
