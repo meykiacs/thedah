@@ -119,19 +119,19 @@ export function AboutForm() {
                 disabled={isFormLocked}
                 inputs={activities}
                 setInputs={setActivities}
-                label={t("Activities")}
+                label={t("activities")}
               />
               <DynamicInput
                 disabled={isFormLocked}
                 inputs={executiveRecords}
                 setInputs={setExecutiveRecords}
-                label={t("Executive Records")}
+                label={t("executiveRecords")}
               />
               <DynamicInput
                 disabled={isFormLocked}
                 inputs={awardsAndHonors}
                 setInputs={setAwardsAndHonors}
-                label={t("Awards and Honors")}
+                label={t("awardsAndHonors")}
               />
             </Box>
           </Group>

@@ -19,7 +19,7 @@ export default function DynamicInput({ inputs, setInputs, label, disabled }) {
         <Group key={index}>
           <TextInput
             disabled={disabled}
-            label={`${label}`}
+            label={index === 0 ? `${label}` : ''}
             value={c}
             aria-label={`${label} ${index + 1} `}
             placeholder={`${label} ${index + 1}`}
