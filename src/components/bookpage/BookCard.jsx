@@ -150,13 +150,13 @@ const Title = styled.h3`
 `
 
 const Author = styled.p`
-  color: ${(p) => p.theme.colors.black};
+  color: ${(p) => p.theme.colors.text};
   font-size: 1.4rem;
   font-weight: 400;
 `
 
 const RestOfInfo = styled.p`
-  color: ${(p) => p.theme.colors.black};
+  color: ${(p) => p.theme.colors.text};
   font-size: 1.2rem;
   font-weight: 400;
 `
