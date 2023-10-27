@@ -21,6 +21,12 @@ use Thedah\Rest\Model\Endpoints\EmailPost;
 use Thedah\Rest\Model\Route\Route;
 use Thedah\Rest\Service\Rest;
 
+function thedah_add_favicon() {
+  $favicon_url = get_stylesheet_directory_uri() . '/favicon.ico';
+  echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
+}
+add_action( 'wp_head', 'thedah_add_favicon' );
+
 function thedah_woocommerce_support() {
   add_theme_support('woocommerce');
 }
