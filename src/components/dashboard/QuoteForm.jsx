@@ -3,7 +3,15 @@ import useResourceList from "../../hooks/useResourceList"
 import useResourceContext from "../../context/useResourceContext"
 import { createPostObjectFromData } from "../../utils/wp"
 import { useEffect, useState } from "@wordpress/element"
-import { Button, Container, Grid, Loader, Paper, Stack, TextInput, Textarea } from "@mantine/core"
+import {
+  Button,
+  Container,
+  Loader,
+  Paper,
+  Stack,
+  TextInput,
+  Textarea,
+} from "@mantine/core"
 
 export function QuoteForm() {
   const { t } = useTranslation()
@@ -122,93 +130,115 @@ export function QuoteForm() {
   console.log(quote)
 
   return (
-    
     <form onSubmit={handleSubmit}>
-      <Container size='xs'>
-        <Stack>
-          <div style={{ marginBottom: "20px" }}>
-            <h3>Course Page Quote</h3>
+      <Container size="xs">
+        <Stack spacing="xl">
+          <Paper p="md" shadow="xs">
+            <h3>{t("CoursesPageQuote")}</h3>
             <Textarea
-              label="Main Quote:"
+              label={t("MainQuote")}
               id="mainQuote"
               name="mainQuote"
               value={quoteMeta.coursePageQuote.mainQuote}
+              autosize
+              minRows={3}
               onChange={(e) => handleInputChange(e, "coursePageQuote")}
+              mb="md"
             />
             <TextInput
-              label="From:"
+              label={t("From")}
               id="from"
               name="from"
               value={quoteMeta.coursePageQuote.from}
+              mb="md"
               onChange={(e) => handleInputChange(e, "coursePageQuote")}
             />
             <Textarea
-              label="Description:"
+              label={t("Description")}
               id="description"
               name="description"
               value={quoteMeta.coursePageQuote.description}
+              autosize
+              minRows={3}
+              mb="md"
               onChange={(e) => handleInputChange(e, "coursePageQuote")}
             />
-          </div>
+          </Paper>
 
-          <div style={{ marginBottom: "20px" }}>
-            <h3>Paper Page Quote</h3>
+          <Paper p="md" shadow="xs">
+            <h3>{t("PapersPageQuote")}</h3>
             <Textarea
-              label="Main Quote:"
+              label={t("MainQuote")}
               id="mainQuote"
               name="mainQuote"
               value={quoteMeta.paperPageQuote.mainQuote}
+              autosize
+              mb="md"
+              minRows={3}
               onChange={(e) => handleInputChange(e, "paperPageQuote")}
             />
             <TextInput
-              label="From:"
+              label={t("From")}
               id="from"
               name="from"
+              mb="md"
               value={quoteMeta.paperPageQuote.from}
               onChange={(e) => handleInputChange(e, "paperPageQuote")}
             />
             <Textarea
-              label="Description:"
+              label={t("Description")}
               id="description"
               name="description"
               value={quoteMeta.paperPageQuote.description}
+              autosize
+              mb="md"
+              minRows={3}
               onChange={(e) => handleInputChange(e, "paperPageQuote")}
             />
-          </div>
+          </Paper>
 
-          <div style={{ marginBottom: "20px" }}>
-            <h3>Book Page Quote</h3>
+          <Paper p="md" shadow="xs">
+            <h3>{t("BooksPageQuote")}</h3>
             <Textarea
-              label="Main Quote:"
+              label={t("MainQuote")}
               id="mainQuote"
               name="mainQuote"
+              autosize
+              mb="md"
+              minRows={3}
               value={quoteMeta.bookPageQuote.mainQuote}
               onChange={(e) => handleInputChange(e, "bookPageQuote")}
             />
             <TextInput
-              label="From:"
+              label={t("From")}
               id="from"
               name="from"
+              mb="md"
               value={quoteMeta.bookPageQuote.from}
               onChange={(e) => handleInputChange(e, "bookPageQuote")}
             />
             <Textarea
-              label="Description:"
+              label={t("Description")}
               id="description"
               name="description"
+              autosize
+              minRows={3}
+              mb="md"
               value={quoteMeta.bookPageQuote.description}
               onChange={(e) => handleInputChange(e, "bookPageQuote")}
             />
-          </div>
+          </Paper>
         </Stack>
 
-        <Button
-          type="submit"
-          disabled={isLoading}
-          style={{ marginTop: "20px" }}
-        >
-          {isLoading ? <Loader /> : "Submit"}
-        </Button>
+        <Paper p="md">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            style={{ marginTop: "20px" }}
+          >
+            {isLoading ? <Loader /> : t("Submit")}
+          </Button>
+        </Paper>
       </Container>
     </form>
   )

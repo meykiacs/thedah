@@ -12,10 +12,11 @@ export default function QuoteBanner({ pathToImgFile, alt, quote }) {
       </ImageWrapper>
       <QuoteWrapper>
         <MainQuote>
-          {t("openQuote") + t(quote.main) + t("closeQuote")}
-          <QuoteFrom> {t(quote.from)}</QuoteFrom>
+          {t("openQuote") + quote.mainQuote ?? '' + t("closeQuote")}
+          <br />
+          <QuoteFrom> {quote.from ?? ''}</QuoteFrom>
         </MainQuote>
-        <GenericText>{t(quote.body)}</GenericText>
+        <GenericText>{quote.description ?? ''}</GenericText>
       </QuoteWrapper>
     </Wrapper>
   )
@@ -27,14 +28,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${p => p.theme.direction === 'ltr' ? '50px' : 0};
-  
+  gap: ${(p) => (p.theme.direction === "ltr" ? "50px" : 0)};
+
   ${mq("md")} {
     flex-direction: row-reverse;
     justify-content: center;
-    gap: ${p => p.theme.direction === 'ltr' ? '50px' : '25px'};
+    gap: ${(p) => (p.theme.direction === "ltr" ? "50px" : "25px")};
   }
-
 `
 
 const ImageWrapper = styled.div`

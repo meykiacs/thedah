@@ -19,6 +19,7 @@ export default function DynamicInput({ inputs, setInputs, label, disabled }) {
         <Group key={index}>
           <TextInput
             disabled={disabled}
+            label={`${label}`}
             value={c}
             aria-label={`${label} ${index + 1} `}
             placeholder={`${label} ${index + 1}`}
@@ -38,7 +39,7 @@ export default function DynamicInput({ inputs, setInputs, label, disabled }) {
           )}
         </Group>
       ))}
-      <ActionIcon onClick={handleAddInput} disabled={disabled}>
+      <ActionIcon onClick={handleAddInput} disabled={disabled} mt='-8px'>
         <IconPlus />
       </ActionIcon>
     </Stack>
