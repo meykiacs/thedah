@@ -27,8 +27,8 @@ const A = styled.a`
 
     background: linear-gradient(
       180deg,
-      rgba(231, 227, 207, 0.51) 0%,
-      rgba(255, 255, 255, 0.25) 100%
+      ${p => p.theme.colors.gray}
+        ${p => p.theme.colors.white}
     );
   }
 
@@ -39,8 +39,9 @@ const A = styled.a`
       transition: all 100ms;
       background: linear-gradient(
         180deg,
-        rgba(231, 227, 207, 0.51) 0%,
-        rgba(255, 255, 255, 0.25) 100%
+        ${p => p.theme.colors.gray}
+        ${p => p.theme.colors.white}
+
       );
     }
   }

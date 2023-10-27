@@ -12,7 +12,7 @@ export default function ToggleColorScheme() {
       <Icon
         id={colorScheme === "dark" ? "sun" : "moon"}
         size={15}
-        color={theme.colors.white}
+        color={theme.colors.primary}
       />
       <VisuallyHidden>Toggle theme</VisuallyHidden>
     </UnstyledButton>

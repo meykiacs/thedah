@@ -28,7 +28,7 @@ export default function ToggleLanguage() {
 
 const Btn = styled.div`
   background-color: transparent;
-  color: ${(p) => p.theme.colors.white};
+  color: ${(p) => p.theme.colors.primary};
   box-shadow: none;
   font-size: 1.1rem;
 `

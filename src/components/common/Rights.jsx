@@ -9,7 +9,7 @@ export default function Rights() {
 }
 
 const P = styled.p`
-  color: ${p => p.theme.colors.white};
+  color: ${p => p.theme.colors.text};
 `
 
 const A = styled.a`

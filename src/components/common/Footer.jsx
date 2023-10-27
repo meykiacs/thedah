@@ -3,18 +3,25 @@ import useWPContext from "../../context/useWPContext"
 import { mq } from "../../utils/mq"
 import { useTranslation } from "react-i18next"
 import { NewsletterForm } from "./NewsletterForm"
+import { useColorSchemeContext } from "../../context/useColorSchemeContext"
 
 export default function Footer() {
   const { assetsImagesUrl } = useWPContext()
   const { t } = useTranslation()
+  const { colorScheme } = useColorSchemeContext()
 
   return (
-    <Wrapper>
+    <Wrapper colorScheme={colorScheme}>
       <Introduction>
         <ImageWrapper>
           <img
             src={`${assetsImagesUrl}/site-logo-340x110.png`}
             alt="Site logo"
+            style={
+              colorScheme === "dark"
+                ? { filter: "invert(1)", textAlign: "center" }
+                : {}
+            }
           />
         </ImageWrapper>
         <Info>
@@ -35,7 +42,8 @@ export default function Footer() {
 }
 
 const Wrapper = styled.footer`
-  background-color: ${(p) => p.theme.colors.primary};
+  background-color: ${(p) =>
+    p.colorScheme === "light" ? p.theme.colors.primary : p.theme.colors.black};
   border-top: 7px solid ${(p) => p.theme.colors.accent};
   padding: 0 16px 50px 16px;
   display: flex;
@@ -67,7 +75,6 @@ const Introduction = styled.div`
   align-items: center;
   gap: 20px;
 `
-
 const ImageWrapper = styled.div`
   width: 340px;
   height: 110px;
@@ -79,7 +86,7 @@ const ImageWrapper = styled.div`
 const Info = styled.div``
 
 const FooterTitle = styled.p`
-  color: ${(p) => p.theme.colors.white};
+  color: ${(p) => p.theme.colors.text};
   font-size: 1.4rem;
   font-weight: normal;
   line-height: 2;
@@ -101,7 +108,7 @@ const SubscriptionTitle = styled.h5`
 `
 
 const SubscriptionDescription = styled.p`
-  color: ${(p) => p.theme.colors.white};
+  color: ${(p) => p.theme.colors.text};
   font-size: 1.2rem;
   font-weight: 400;
   text-align: justify;

@@ -18,17 +18,19 @@ export const lightTheme = {
 
 export const darkTheme = {
   colors: {
-    primary: "#71b1b0",
-    secondary: "#EE4F2F",
-    accent: "#8fe0d5",
-    text: "#ffffff",
-    background: "#000000",
-    gray: "#121212",
-    grayMiddle: "#c4c4c4",
-    grayDark: "#999999",
-    black: "#959290",
-    green: "#acd195",
-    white: "#000000",
-    backdrop: "rgba(32, 34, 36, 0.9)",
-  },
+    primary: "#00CED1",
+    secondary: "#FF6347",
+    accent: "#48D1CC",
+    text: "#BDB76B",
+    background: "#2F4F4F",
+    gray: "#262626", // Very Dark Gray
+    grayMiddle: "#708090",
+    grayDark: "#2F4F4F",
+    black: "#191919", // Very Dark Gray
+    green: "#556B2F",
+    white: "#1C3939", // Very Dark Greenish-Gray
+    backdrop: "rgba(105, 105, 105, 0.9)",
+    backgroundBlurred: "rgba(105,105,105,0.8)",
+}
+
 }
