@@ -64,6 +64,7 @@ const Wrapper = styled.footer`
 const Introduction = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 `
 
