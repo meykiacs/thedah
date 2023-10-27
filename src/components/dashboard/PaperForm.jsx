@@ -60,31 +60,37 @@ export function PaperForm({ maxImages }) {
       name: "fullReference",
       placeholder: "fullReference",
       default: isEditing ? selectedPost?.meta?._thedah_paper.fullReference : "",
+      required: true
     },
     {
       name: "title",
       placeholder: "Title",
       default: isEditing ? selectedPost?.title : "",
+      required: true
     },
     {
       name: "author",
       placeholder: "Author",
       default: isEditing ? selectedPost?.meta?._thedah_paper?.author : "",
+      required: true
     },
     {
       name: "publisher",
       placeholder: "Publisher",
       default: isEditing ? selectedPost?.meta?._thedah_paper?.publisher : "",
+      required: true
     },
     {
       name: "year",
       placeholder: "Year",
       default: isEditing ? selectedPost?.meta?._thedah_paper?.year : "",
+      required: true
     },
     {
       name: "link",
       placeholder: "Link",
       default: isEditing ? selectedPost?.meta?._thedah_paper?.link : "",
+      required: false
     },
   ]
 
@@ -171,7 +177,7 @@ export function PaperForm({ maxImages }) {
           <Flex pt={25} wrap="wrap" gap="15px" align="center" justify="center">
             {inputs.map((i) => (
               <TextInput
-                required
+                required={i.required}
                 label={t(i.placeholder)}
                 key={i}
                 placeholder={t(i.placeholder)}

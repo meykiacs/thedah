@@ -17,8 +17,8 @@ export const PaperCarouselCard = ({ r }) => {
     : `${assetsImagesUrl}/image-placeholder.svg`
   return (
     <Wrapper>
-      <ImageWrapper>
-        <img src={imageUrl} alt={r.title} style={{ aspectRatio: "3.9 / 3" }} />
+      <ImageWrapper >
+        <img src={imageUrl} alt={r.title} />
       </ImageWrapper>
       <InfoAndButtonWrapper>
         <PaperTitle>{r.title}</PaperTitle>
@@ -79,7 +79,6 @@ const Wrapper = styled.article`
   align-items: center;
   gap: 24px;
   padding: 24px;
-  width: clamp(350px, 100%, 400px);
 
   ${mq("lg")} {
     flex-direction: row;
@@ -92,7 +91,8 @@ const Wrapper = styled.article`
 `
 
 const ImageWrapper = styled.div`
-  width: clamp(300px, 100%, 390px);
+  width: 300px;
+  height: 230px;
   border-radius: 10px;
   box-shadow: 0px 0px 7px 0px rgba(35, 30, 26, 0.2);
   overflow: hidden;
@@ -100,10 +100,15 @@ const ImageWrapper = styled.div`
     width: 100%;
     height: 100%;
   }
+
+  ${mq('sm')} {
+    width: 390px;
+    height: 300px;
+  } 
 `
 
 const InfoAndButtonWrapper = styled.div`
-  width: clamp(300px, 100%, 390px);
+  width: 300px;
   display: flex;
   flex-direction: column;
   & > p,
@@ -111,8 +116,8 @@ const InfoAndButtonWrapper = styled.div`
     margin-top: 8px;
   }
 
-  ${mq("lg")} {
-    width: clamp(300px, 100%, 400px);
+  ${mq("sm")} {
+    width: 390px;
   }
 `
 

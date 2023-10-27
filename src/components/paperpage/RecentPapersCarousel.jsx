@@ -99,17 +99,25 @@ const ArrowLeft = styled(UnstyledButton)`
   position: absolute;
   z-index: 10;
   
-  bottom: 45%;
-  right: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
-  left: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
+  bottom: 50%;
+  right: ${(p) => (p.theme.direction === "ltr" ? "" : "-10px")};
+  left: ${(p) => (p.theme.direction === "ltr" ? "-10px" : "")};
   
+  ${mq('sm')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "" : "-32px")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "-32pxpx" : "")};
+  }
   ${mq('md')} {
-    right: ${(p) => (p.theme.direction === "ltr" ? "" : "64px")};
-    left: ${(p) => (p.theme.direction === "ltr" ? "64px" : "")};
+    right: ${(p) => (p.theme.direction === "ltr" ? "" : "-64px")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "-64px" : "")};
   }
   ${mq('lg')} {
-    right: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
-    left: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
+    right: ${(p) => (p.theme.direction === "ltr" ? "" : "-10px")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "-10px" : "")};
+  }
+  ${mq('xl')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "" : "-64px")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "-64" : "")};
   }
 `
 
@@ -117,17 +125,25 @@ const ArrowRight = styled(UnstyledButton)`
   position: absolute;
   z-index: 10;
   
-  bottom: 45%;
-  right: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
-  left: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
+  bottom: 50%;
+  right: ${(p) => (p.theme.direction === "ltr" ? "-10px" : "")};
+  left: ${(p) => (p.theme.direction === "ltr" ? "" : "-10px")};
 
 
+  ${mq('sm')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "-32px" : "")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "" : "-32px")};
+  }
   ${mq('md')} {
-    right: ${(p) => (p.theme.direction === "ltr" ? "64px" : "")};
-    left: ${(p) => (p.theme.direction === "ltr" ? "" : "64px")};
+    right: ${(p) => (p.theme.direction === "ltr" ? "-64px" : "")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "" : "-64px")};
   }
   ${mq('lg')} {
-    right: ${(p) => (p.theme.direction === "ltr" ? "0px" : "")};
-    left: ${(p) => (p.theme.direction === "ltr" ? "" : "0px")};
+    right: ${(p) => (p.theme.direction === "ltr" ? "-10px" : "")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "" : "-10px")};
+  }
+  ${mq('xl')} {
+    right: ${(p) => (p.theme.direction === "ltr" ? "-64px" : "")};
+    left: ${(p) => (p.theme.direction === "ltr" ? "" : "-64px")};
   }
 `

@@ -39,7 +39,7 @@ export default function PaperCard({ post, images }) {
           </SimpleGrid>
         </Card.Section>
         <Card.Section>
-          <Flex wrap="wrap" gap={50} justify="space-between">
+          <Flex direction="column" gap={50} justify="space-between">
             <Group noWrap spacing={25} align="start">
               <Box pt={25}>
                 <Title order={4} color="blue.5" mb={5}>
@@ -68,7 +68,7 @@ export default function PaperCard({ post, images }) {
                     {t("Year")}: {post.meta._thedah_paper.year}
                   </List.Item>
                   <List.Item>
-                    {t("ExternalLink")}:{" "}
+                    {t("externalLink")}:{" "}
                     <a
                       href={post.meta._thedah_paper.link}
                       target="_blank"
@@ -78,7 +78,7 @@ export default function PaperCard({ post, images }) {
                     </a>
                   </List.Item>
                   <List.Item>
-                    {t("Link")}:{" "}
+                    {t("LinkToPage")}:{" "}
                     <a
                       href={post.permalink}
                       target="_blank"
