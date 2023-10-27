@@ -68,6 +68,9 @@ export function BookCard({ post, images }) {
                     {t("Edition")}: {post.meta._thedah_book.edition}
                   </List.Item>
                   <List.Item>
+                    {t("Year")}: {post.meta._thedah_book.year}
+                  </List.Item>
+                  <List.Item>
                     {t("numberOfPages")}: {post.meta._thedah_book.numberOfPages}
                   </List.Item>
                   <List.Item>
@@ -75,6 +78,9 @@ export function BookCard({ post, images }) {
                   </List.Item>
                   <List.Item>
                     {t("Price")}: {post.meta._thedah_book.price} {t("T")}
+                  </List.Item>
+                  <List.Item>
+                    {t("externalLink")}: {post.meta._thedah_book.externalLink ?? ''}
                   </List.Item>
                 </List>
               </Box>

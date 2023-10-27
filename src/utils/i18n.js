@@ -70,6 +70,7 @@ i18n.use(initReactI18next).init({
         emailAlreadyExists: "You've already been subscribed before",
         Event: 'Event',
         executiveRecords: "Executive Records",
+        externalLink: 'External link',
         firstAndLastName: 'Name and Lastname',
         Finished: "Finished",
         From: 'From',
@@ -219,6 +220,7 @@ i18n.use(initReactI18next).init({
         emailAlreadyExists: "شما قبلا عضو شده اید",
         enrollInCourses: "ثبت‌نام در دوره‌ها",
         executiveRecords: "سوابق اجرایی",
+        externalLink: 'لینک خارجی',
         firstFooterTitle:
           "دکترای فلسفه تعلیم و تربیت, عضو هیئت علمی دانشگاه تهران",
         firstAndLastName: 'نام و نام خانوادگی',

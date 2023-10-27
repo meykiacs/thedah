@@ -46,6 +46,10 @@ class BookMeta extends Meta {
       'availability'  =>  [
         'type'  =>  'string',
         'enum'  =>  ['soon', 'available', 'unavailable']
+      ],
+      'externalLink'  =>  [
+        'type'  =>  'string',
+        'format'  =>  'uri'
       ]
     ]
   ];

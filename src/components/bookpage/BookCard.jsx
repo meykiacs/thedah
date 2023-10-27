@@ -14,7 +14,6 @@ export function BookCard({ book }) {
   let buttonColor
   let buttonColorHover
   let buttonText
-
   switch (book.meta._thedah_book.availability) {
     case "available":
       buttonColor = "#81BA62"
@@ -49,8 +48,9 @@ export function BookCard({ book }) {
             fz="1.5rem"
             br="7px"
             color={buttonColor}
-            colorHover={buttonColorHover}
+            colorHover={buttonColor}
             fw="400"
+            style={{cursor: book.meta._thedah_book.externalLink ? 'pointer' : 'default'}}
           >
             {t(buttonText)}
           </Button>

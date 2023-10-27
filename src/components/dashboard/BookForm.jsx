@@ -48,41 +48,55 @@ export function BookForm({ maxImages }) {
       name: "title",
       placeholder: "Title",
       default: isEditing ? selectedPost?.title : "",
+      required: true,
     },
     {
       name: "author",
       placeholder: "Author",
       default: isEditing ? selectedPost?.meta?._thedah_book?.author : "",
+      required: true,
     },
     {
       name: "publisher",
       placeholder: "Publisher",
       default: isEditing ? selectedPost?.meta?._thedah_book?.publisher : "",
+      required: true,
     },
     {
       name: "year",
       placeholder: "Year",
       default: isEditing ? selectedPost?.meta?._thedah_book?.year : "",
+      required: true,
     },
     {
       name: "edition",
       placeholder: "Edition",
       default: isEditing ? selectedPost?.meta?._thedah_book?.edition : "",
+      required: true,
     },
     {
       name: "numberOfPages",
       placeholder: "numberOfPages",
       default: isEditing ? selectedPost?.meta?._thedah_book?.numberOfPages : "",
+      required: true,
     },
     {
       name: "isbn",
       placeholder: "ISBN",
       default: isEditing ? selectedPost?.meta?._thedah_book?.isbn : "",
+      required: true,
     },
     {
       name: "price",
       placeholder: "Price",
       default: isEditing ? selectedPost?.meta?._thedah_book?.price : "",
+      required: true,
+    },
+    {
+      name: "externalLink",
+      placeholder: "externalLink",
+      default: isEditing ? selectedPost?.meta?._thedah_book?.externalLink : "",
+      required: false,
     },
   ]
 
@@ -113,6 +127,7 @@ export function BookForm({ maxImages }) {
         availability,
         coauthors: coAuthors,
         numberOfPages: formData.get("numberOfPages"),
+        externalLink: formData.get("externalLink"),
       },
       _thedah_images: images,
     }
@@ -127,7 +142,7 @@ export function BookForm({ maxImages }) {
 
   useEffect(() => {
     setIsEditing(false)
-  },[])
+  }, [])
 
   useEffect(() => {
     if (!isCreatingOrUpdatingPost) {
@@ -164,7 +179,6 @@ export function BookForm({ maxImages }) {
     }
   }, [isEditing, editor, selectedPost])
 
-
   return (
     <Card withBorder radius="md" p={15}>
       <form
@@ -187,7 +201,7 @@ export function BookForm({ maxImages }) {
           <Flex pt={25} wrap="wrap" gap="15px" align="center" justify="center">
             {inputs.map((i) => (
               <TextInput
-                required
+                required={i.required}
                 label={t(i.placeholder)}
                 key={i}
                 placeholder={t(i.placeholder)}
