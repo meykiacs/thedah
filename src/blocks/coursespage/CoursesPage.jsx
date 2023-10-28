@@ -13,10 +13,12 @@ import "../../utils/i18n"
 import CoursesBanner from "./CoursesBanner"
 import { RecentCoursesSection } from "./RecentCoursesSection"
 import { CoursesArchiveSection } from "./CoursesArchiveSection"
+import { useTitleAndMeta } from "../../hooks/useTitleAndMeta"
 
 export function CoursesPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
+  useTitleAndMeta(providedValues.title, providedValues.description)
 
   return (
     <RtlProvider>

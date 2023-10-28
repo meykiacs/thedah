@@ -12,10 +12,12 @@ import "../../utils/i18n"
 import ContactBanner from "../../components/contactpage/ContactBanner"
 import PageContainer from "../../components/common/PageContainer"
 import { ContactFormSection } from "../../components/contactpage/ContactFormSection"
+import { useTitleAndMeta } from "../../hooks/useTitleAndMeta"
 
 export function ContactPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
+  useTitleAndMeta(providedValues.title, providedValues.description)
 
   return (
     <RtlProvider>

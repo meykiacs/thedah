@@ -2,6 +2,7 @@ import { render } from "@wordpress/element"
 import { LanguageProvider } from "../../context/LanguageContext"
 import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 import { CoursePage } from "./CoursePage"
+import { setMeta, setPageTitle } from "../../utils/meta"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-coursepage")
@@ -32,6 +33,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   const direction = root.dataset.direction
   const language = root.dataset.language
+
+  setPageTitle("دوره آموزشی - " + providedValues.postTitle)
+  setMeta("description", "دوره آموزشی - " + providedValues.postTitle)
 
   render(
     <LanguageProvider language={language} direction={direction}>

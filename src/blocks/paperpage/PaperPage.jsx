@@ -13,10 +13,12 @@ import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
 import { RecentPapersSection } from "../../components/paperpage/RecentPapersSection"
 import { PaperArchiveSection } from "../../components/paperpage/PaperArchiveSection"
+import { useTitleAndMeta } from "../../hooks/useTitleAndMeta"
 
 export function PaperPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
+  useTitleAndMeta(providedValues.title, providedValues.description)
 
   return (
     <RtlProvider>

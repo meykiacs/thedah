@@ -2,6 +2,7 @@ import { render } from "@wordpress/element"
 import { LanguageProvider } from "../../context/LanguageContext"
 import { ColorSchemeProvider } from "../../context/ColorSchemeContext"
 import { BlogPage } from "./BlogPage"
+import { setMeta } from "../../utils/meta"
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("thedah-blogpage")
@@ -27,6 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   const direction = root.dataset.direction
   const language = root.dataset.language
+  setMeta('description', providedValues.postTitle)
 
   render(
     <LanguageProvider language={language} direction={direction}>

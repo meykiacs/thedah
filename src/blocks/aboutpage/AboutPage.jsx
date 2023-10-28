@@ -12,10 +12,12 @@ import { WPProvider } from "../../context/WPContext"
 import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { useLanguageAndDirection } from "../../hooks/useLangugaAndDirection"
 import "../../utils/i18n"
+import { useTitleAndMeta } from "../../hooks/useTitleAndMeta"
 
 export function AboutPage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
+  useTitleAndMeta(providedValues.title, providedValues.description)
 
   return (
     <RtlProvider>
