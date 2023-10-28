@@ -18,11 +18,12 @@ import { useCustomTheme } from "../../hooks/useCustomTheme"
 import { RecentPosts } from "../../components/homepage/RecentPosts"
 import { HomePaperSection } from "../../components/homepage/HomePaperSection"
 import { HomeGallerySection } from "../../components/homepage/HomeGallerySection"
+import { useTitleAndMeta } from "../../hooks/useTitleAndMeta"
 
 export default function HomePage({ providedValues }) {
   useLanguageAndDirection()
   const theme = useCustomTheme()
-
+  useTitleAndMeta(providedValues.title, providedValues.description)
   return (
     <RtlProvider>
       <ThemeProvider theme={theme}>
