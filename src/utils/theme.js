@@ -28,7 +28,7 @@ export const darkTheme = {
     grayDark: "#2F4F4F",
     black: "#191919", // Very Dark Gray
     green: "#556B2F",
-    white: "#1C3939", // Very Dark Greenish-Gray
+    white: "##2F4F4F", // Very Dark Greenish-Gray
     backdrop: "rgba(105, 105, 105, 0.9)",
     backgroundBlurred: "rgba(105,105,105,0.8)",
 }
