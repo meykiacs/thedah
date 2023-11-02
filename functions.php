@@ -61,9 +61,6 @@ function remove_global_styles() {
 define('TEXTDOMAIN', 'thedah');
 require __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
   'block.dirpath' => get_theme_file_path('build/blocks/'),
