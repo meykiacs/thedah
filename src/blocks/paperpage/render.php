@@ -15,4 +15,4 @@ $titleFa = "دکتر افضل السادات حسینی - مقالات تحقی�
 
 
 $postTypes = ['paper', 'quote'];
-$container->get(Render::class)->generalTemplate($postTypes, 'paper', 'Papers', 'paperpage')->jsonInPre(['en' => $titleEn, 'fa' => $titleFa], 'title')->jsonInPre(['en' => $descriptionTagEn, 'fa' => $descriptionTagFa], 'description');
+$container->get(Render::class)->generalTemplate($postTypes, 'paper', 'Papers', 'paperpage', 12)->jsonInPre(['en' => $titleEn, 'fa' => $titleFa], 'title')->jsonInPre(['en' => $descriptionTagEn, 'fa' => $descriptionTagFa], 'description');

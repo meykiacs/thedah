@@ -17,7 +17,7 @@ class Render {
     $this->prefix = $container->get('prefix');
   }
 
-  public function generalTemplate(array $postTypes, string $defaultResourceName, string $resourceHuman, string $divId): self {
+  public function generalTemplate(array $postTypes, string $defaultResourceName, string $resourceHuman, string $divId, int $maxNumber = -1): self {
 
 
     $lang = empty($_COOKIE['language']) ? 'fa' : $_COOKIE['language'];
@@ -43,7 +43,7 @@ class Render {
             return '_' . $this->prefix . '_' . $meta->slug;
           }, $metas);
 
-          $data[$dataKey] = $this->container->get(QueryResource::class)->getResourceList($postTypeWithLang, $metaKeys);
+          $data[$dataKey] = $this->container->get(QueryResource::class)->getResourceList($postTypeWithLang, $metaKeys, $maxNumber);
           if ($dataKey === 'blogFa') {
           }
           $fetched[$fetchedKey] =  '1';
