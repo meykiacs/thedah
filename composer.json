@@ -7,17 +7,19 @@
         }
     ],
     "require-dev": {
-        "php-stubs/wordpress-stubs": "^6.2",
-        "php-stubs/woocommerce-stubs": "^8.0"
+        "php-stubs/wordpress-stubs": "^6.3"
     },
     "require": {
-        "php-di/php-di": "^7.0",
-        "vlucas/phpdotenv": "^5.5",
-        "automattic/woocommerce": "^3.1"
+        "php-di/php-di": "^7.0"
     },
     "autoload": {
         "psr-4": {
             "Thedah\\": "includes/"
+        },
+        "config": {
+            "platform": {
+                "php": "7.4.21"
+            }
         }
     }
 }
