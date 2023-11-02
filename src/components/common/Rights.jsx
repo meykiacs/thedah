@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next"
 export default function Rights() {
   const {t} = useTranslation()
   return (
-    <P>{t('rights')} {t('Design')} <A href="https://google.com" target="_blank" rel='noreferrer'>{t('Designer')}</A></P>
+    <P>{t('rights')}  {t('Design')} &nbsp; <A href="#" target="_blank" rel='noreferrer'>{t('Designer')}</A></P>
   )
 }
 
 const P = styled.p`
-  color: ${p => p.theme.colors.text};
+  color: ${p => p.theme.colors.white};
 `
 
 const A = styled.a`
