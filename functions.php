@@ -71,7 +71,6 @@ $containerBuilder->addDefinitions([
   'assets.fonts.url'  =>  get_theme_file_uri('assets/fonts'),
   'assets.images.url'  =>  get_theme_file_uri('assets/images'),
   'node_modules.url'  => get_theme_file_uri('node_modules'),
-  'rest.namespace' => DI\value('thedah/v1'),
   'endpoint.email'  => DI\value('email'),
   'query_vars' => ['lang'],
   'resources' => [
@@ -200,6 +199,7 @@ $container->get(Block::class)->add('bookpage')
   ->add('searchpage')
   ->add('four04')
   ->add('gallerypage')
+  ->add('infopage')
   ->register();
 
 $container->get(RegisterCPTResource::class)

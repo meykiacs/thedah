@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "thedah/infopage",
+	"version": "1.0.0",
+	"title": "Info Page",
+	"category": "theme",
+	"icon": "menu",
+	"description": "The Info page for The DAH",
+	"supports": {
+		"html": false
+	},
+	"textdomain": "thedah",
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}
