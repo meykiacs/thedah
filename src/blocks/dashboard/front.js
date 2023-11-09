@@ -40,6 +40,10 @@ window.addEventListener("DOMContentLoaded", () => {
   providedValues.newsletter = JSON.parse(document.getElementById('newsletter').innerHTML)
   providedValues.newsletterRestUrl = document.getElementById('newsletter-data').dataset.restUrl
   providedValues.newsletterFetched = document.getElementById('newsletter-data').dataset.fetched
+  
+  providedValues.sendNewsletterRestUrl = document.getElementById('newsletter-data').dataset.sendNewsletterRestUrl
+
+
   providedValues.social = JSON.parse(document.getElementById('social').innerHTML)
   providedValues.socialRestUrl = document.getElementById('social-data').dataset.restUrl
   providedValues.socialFetched = document.getElementById('social-data').dataset.fetched

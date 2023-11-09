@@ -14,37 +14,36 @@ import { useCrudContext } from "../../context/CrudContext"
 import HTMLReactParser from "html-react-parser"
 import { useState } from "@wordpress/element"
 import useResourceContext from "../../context/useResourceContext"
+import useWPContext from "../../context/useWPContext"
 
 export default function NewsletterCard({ post }) {
   const { t } = useTranslation()
   const { isDeleting, deletePost, setIsEditing } = useCrudContext()
-  const { resources, restNonce } = useResourceContext()
-  const { restUrl } = resources.newsletter
-  const [isSent, setIsSent] = useState(post.meta._tdn_newsletter?.sent ?? false)
+  const { restNonce } = useResourceContext()
+  const { sendNewsletterRestUrl } = useWPContext()
+  const [isSent, setIsSent] = useState(post.meta._tdn_newsletter ?? false)
   const [isLoading, setIsLoading] = useState(false)
   const handleSend = async (e) => {
     e.preventDefault()
     setIsLoading(true)
-    const response = await fetch(`${restUrl}/${post.id}`, {
+    const response = await fetch(sendNewsletterRestUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-WP-Nonce": restNonce,
       },
       body: JSON.stringify({
-        meta: {
-          _tdn_newsletter: {
-            sent: true,
-          },
-        },
+        post_id: post.id,
       }),
     })
     const data = await response.json()
-    if (data.sent) {
+    console.log(data)
+    if (data.success) {
       setIsSent(true)
     }
     setIsLoading(false)
   }
+
   return (
     <Card shadow="sm" radius="md">
       <Container size="xs">
@@ -56,9 +55,9 @@ export default function NewsletterCard({ post }) {
             <List listStyleType="none" spacing="xs">
               <List.Item fz="sm">
                 {t("sent")}:{" "}
-                {post.meta._tdn_newsletter?.sent
-                  ? post.meta._tdn_newsletter?.sent
-                  : "false"}
+                {isSent
+                  ? t('sent')
+                  : t('no sent')}
               </List.Item>
             </List>
           </Stack>
