@@ -10,7 +10,6 @@ export function BookCard({ book }) {
   const { t } = useTranslation()
   const { assetsImagesUrl } = useWPContext()
   const theme = useTheme()
-
   let buttonColor
   let buttonColorHover
   let buttonText
@@ -22,12 +21,10 @@ export function BookCard({ book }) {
       break
     case "unavailable":
       buttonColor = "#c4c4c4"
-      buttonColorHover = "#c4c4c4"
       buttonText = "Unavailable"
       break
     case "soon":
       buttonColor = theme.colors.secondary
-      buttonColorHover = theme.colors.secondary
       buttonText = "Soon"
       break
   }
@@ -43,6 +40,8 @@ export function BookCard({ book }) {
             <img src={imageUrl} alt={book.title} />
           </ImageWrapper>
           <Button
+            as={book.meta._thedah_book.externalLink ? "a" : "btn"}
+            href={book.meta._thedah_book.externalLink ??  ""}
             variant="fill"
             p="5px 23px"
             fz="1.5rem"
@@ -50,7 +49,13 @@ export function BookCard({ book }) {
             color={buttonColor}
             colorHover={buttonColor}
             fw="400"
-            style={{cursor: book.meta._thedah_book.externalLink ? 'pointer' : 'default'}}
+            style={{
+              cursor: book.meta._thedah_book.externalLink
+                ? "pointer"
+                : "default",
+              textDecoration: 'none',
+              textAlign: 'center'
+            }}
           >
             {t(buttonText)}
           </Button>
@@ -179,4 +184,3 @@ const Description = styled.div`
     transform: translateX(15px);
   }
 `
-
