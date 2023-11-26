@@ -41,7 +41,7 @@ export const PaperCarouselCard = ({ r }) => {
         <Summary>{r.meta._thedah_paper?.summary ?? ""}</Summary>
         <ActionWrapper>
           <ReadMore
-            href={r.meta._thedah_paper.link}
+            href={r.meta._thedah_paper}
             target="_blank"
             rel="noreferrer"
           >

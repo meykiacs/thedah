@@ -25,8 +25,11 @@ export const GalleryGrid = () => {
       c='gray'
     >
       <Image src={article.meta._thedah_images[0].paperLandscapeUrl} />
-      <Text className={classes.title} mt={5} fz="xl">
+      <Text mt={10} fz="xl" fw='bold'>
         {article.title}
+      </Text>
+      <Text mt={5} fz="xl">
+        {article.content}
       </Text>
     </Card>
   ))

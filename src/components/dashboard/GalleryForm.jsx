@@ -35,7 +35,7 @@ export function GalleryForm({ maxImages }) {
   }, [lang])
   useEffect(() => {
     setIsEditing(false)
-  },[])
+  }, [])
 
   useEffect(() => {
     if (isEditing) {
@@ -101,13 +101,13 @@ export function GalleryForm({ maxImages }) {
           </Group>
           <Stack pt={25} spacing={50} align="center">
             <Textarea
+              name="content"
               aria-label={t("Description")}
               placeholder={t("Description")}
               autosize
               minRows={5}
               maxRows={10}
               miw="350px"
-              name="description"
               defaultValue={selectedPost?.content ?? ""}
             />
             <Flex gap={20} wrap="wrap">

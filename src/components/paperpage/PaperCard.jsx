@@ -5,7 +5,7 @@ import styled from "@emotion/styled"
 export function PaperCard({ paper }) {
   const { t } = useTranslation()
   const { assetsImagesUrl } = useWPContext()
-
+  console.log(paper);
   const imageUrl =
     paper.meta._thedah_images[0]?.mediumUrl ??
     paper.meta._thedah_images[0]?.source_url ??
@@ -34,7 +34,7 @@ export function PaperCard({ paper }) {
         <NormalText className="summary">
           {paper.meta._thedah_paper.summary ?? ""}
         </NormalText>
-        {paper.meta._thedah_paper.link && (
+        {paper.permalink && (
           <ReadMore href={paper.permalink ?? ""}>
             {t("toRead")}
           </ReadMore>
