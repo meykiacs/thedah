@@ -83,7 +83,7 @@ export const CommentForm = () => {
       />
       <StyledInput
         dir="ltr"
-        name="email"
+        name="author_email"
         label={t("Email")}
         w={350}
         fz={1.4}
