@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { useCrudContext } from "../../context/CrudContext"
 const maxFileSize = 50*1024**2
 
-export function ImageDropzone({ maxFiles, mimeTypes = IMAGE_MIME_TYPE, maxSize={maxFileSize} }) {
+export function ImageDropzone({ maxFiles, mimeTypes = IMAGE_MIME_TYPE, maxSize={maxFileSize}, text="imageDrop" }) {
   const { uploadImage, isImageUploading } = useCrudContext()
   const { t } = useTranslation()
   return (
@@ -18,7 +18,7 @@ export function ImageDropzone({ maxFiles, mimeTypes = IMAGE_MIME_TYPE, maxSize={
     >
       <Center h={100}>
         <Text c="dimmed" align="center" fz="sm">
-          {t("imageDrop")}
+          {t(text)}
         </Text>
       </Center>
     </Dropzone>

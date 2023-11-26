@@ -131,7 +131,7 @@ export function GalleryForm({ maxImages }) {
                     setIsEditing(false)
                   }}
                 >
-                  Cancel
+                  {t("Cancel")}
                 </Button>
               )}
             </Group>

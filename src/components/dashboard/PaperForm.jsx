@@ -232,7 +232,7 @@ export function PaperForm({ maxImages }) {
                     setIsEditing(false)
                   }}
                 >
-                  Cancel
+                  {t("Cancel")}
                 </Button>
               )}
             </Group>

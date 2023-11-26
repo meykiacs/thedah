@@ -52,7 +52,7 @@ export const BlogCard = ({ post, images }) => {
               deletePost(post.id)
             }}
           >
-            Delete
+            {t("Delete")}
           </Button>
           <Button
             color="green"
@@ -60,7 +60,7 @@ export const BlogCard = ({ post, images }) => {
               setIsEditing(true)
             }}
           >
-            Edit
+            {t("Edit")}
           </Button>
         </Group>
       </Container>

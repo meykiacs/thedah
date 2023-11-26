@@ -215,7 +215,7 @@ export const BlogForm = ({ maxImages }) => {
                 setIsEditing(false)
               }}
             >
-              Cancel
+              {t("Cancel")}
             </Button>
           )}
         </Group>

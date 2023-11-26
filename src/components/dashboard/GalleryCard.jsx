@@ -46,7 +46,7 @@ export function GalleryCard({ post, images }) {
             </Group>
             <Box pt={25}>
               <Text>
-                {t("Description ")}: {post.content}
+                {t("Description")}: {post.content}
               </Text>
             </Box>
           </Flex>

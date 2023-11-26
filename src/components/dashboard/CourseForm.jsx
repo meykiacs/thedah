@@ -16,7 +16,6 @@ import { useTranslation } from "react-i18next"
 import DynamicInput from "./DynamicInput"
 import { useCrudContext } from "../../context/CrudContext"
 import { ImageDropzone } from "./ImageDropZone"
-// import { ImageList } from "./ImageList"
 import useLanguageContext from "../../context/useLanguageContext"
 import { MIME_TYPES } from "@mantine/dropzone"
 import { IconTrash } from "@tabler/icons-react"
@@ -146,6 +145,7 @@ export function CourseForm({ maxImages }) {
               <ImageDropzone
                 maxFiles={maxImages}
                 mimeTypes={[MIME_TYPES.mp4]}
+                text="videoDrop"
               />
             </Box>
             <Box pt={25}>
@@ -226,7 +226,7 @@ export function CourseForm({ maxImages }) {
                     setIsEditing(false)
                   }}
                 >
-                  Cancel
+                  {t("Cancel")}
                 </Button>
               )}
             </Group>
