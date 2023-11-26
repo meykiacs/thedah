@@ -19,6 +19,7 @@ export default function AboutBanner() {
           <img src={`${assetsImagesUrl}/banner-logo.png`} alt="banner logo" />
         </BannerLogo>
         <Rank>{about?.meta?._thedah_about?.academicRank}</Rank>
+        <P>{about.content}</P>
       </AboutWrapper>
     </Wrapper>
   )
@@ -56,9 +57,9 @@ const AboutWrapper = styled.div`
   width: clamp(300px, 90%, 500px);
 
   gap: 25px;
-  ${mq("lg")} {
+  /* ${mq("lg")} {
     gap: 50px;
-  }
+  } */
 `
 
 const BannerLogo = styled.div`
@@ -74,4 +75,8 @@ const BannerLogo = styled.div`
 const Rank = styled.span`
   font-size: 1.6rem;
   font-weight: 700;
+`
+
+const P = styled.p`
+  font-size: 1.6rem;
 `

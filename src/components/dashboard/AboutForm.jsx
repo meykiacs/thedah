@@ -7,6 +7,7 @@ import {
   Group,
   Stack,
   TextInput,
+  Textarea,
   Title,
 } from "@mantine/core"
 import DynamicInput from "./DynamicInput"
@@ -109,6 +110,18 @@ export function AboutForm() {
                   defaultValue={i.default}
                 />
               ))}
+              <Textarea
+                disabled={isFormLocked}
+                name="content"
+                aria-label={t("Description")}
+                placeholder={t("Description")}
+                autosize
+                minRows={5}
+                maxRows={10}
+                miw="350px"
+                defaultValue={about?.content ?? ""}
+              />
+
               <DynamicInput
                 disabled={isFormLocked}
                 inputs={education}
