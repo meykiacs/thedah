@@ -175,7 +175,7 @@ export function SliderForm() {
   return (
     <Card withBorder radius="md" p={15}>
       <Title order={1} size="h2" mb="32px">
-        {t("chooseSlideImages")}
+        {t("chooseSliderImages")}
       </Title>
       <Box w={200} pos="relative">
         <Dropzone
