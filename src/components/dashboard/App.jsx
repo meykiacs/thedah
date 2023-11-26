@@ -57,13 +57,13 @@ export default function App() {
   }
   const { resourceName, resourceHuman, singleResources } = useResourceContext()
   let Form, maxImages
-  if (resourceName !== "unapprovedComments") {
+  if (resourceName !== "unapprovedComments" && resourceName !== "approvedComments") {
     Form = FORM_MAP[resourceName].component
     maxImages = FORM_MAP[resourceName].maxImages
   }
   return (
     <Container>
-      {resourceName !== "unapprovedComments" && (
+      {(resourceName !== "unapprovedComments" && resourceName !== "approvedComments") && (
         <Box mb={20}>
           <Form maxImages={maxImages} />
         </Box>

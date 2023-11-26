@@ -11,6 +11,7 @@ import { GalleryCard } from "./GalleryCard"
 import NewsletterCard from "./NewsletterCard"
 import { UnapprovedCommentsCard } from "./UnapprovedCommentsCard"
 import { useEffect } from "@wordpress/element"
+import { ApprovedCommentsCard } from "./ApprovedCommentsCard"
 
 export function PostList({ resourceName }) {
   const CARD_MAP = {
@@ -21,6 +22,7 @@ export function PostList({ resourceName }) {
     gallery: GalleryCard,
     newsletter: NewsletterCard,
     unapprovedComments: UnapprovedCommentsCard,
+    approvedComments: ApprovedCommentsCard,
   }
   const Card = CARD_MAP[resourceName]
 

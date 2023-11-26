@@ -48,7 +48,7 @@ foreach ($postTypes as $postType) {
       $data[$dataKey] = $container->get(QueryResource::class)->getResourceList($postTypeWithLang, $metaKeys);
       if ($dataKey === 'blogFa') {
       }
-      $fetched[$fetchedKey] =  '1';
+      $fetched[$fetchedKey] = '1';
     } else {
       // If the language is not the specified language, set an empty array
       $data[$dataKey] = [];
@@ -58,17 +58,27 @@ foreach ($postTypes as $postType) {
 }
 
 ?>
-<div id="<?php echo esc_attr($prefix); ?>-dashboard" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>" data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>" data-logout-url="<?php echo wp_logout_url(); ?>" data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>" data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>" data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>" data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>" <?php foreach ($postTypes as $postType) : ?> data-<?php echo $postType; ?>-en-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}")); ?>" data-<?php echo $postType; ?>-fa-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}fa")); ?>" data-<?php echo $postType; ?>-en-fetched="<?php echo esc_attr($fetched["{$postType}EnFetched"]); ?>" data-<?php echo $postType; ?>-fa-fetched="<?php echo esc_attr($fetched["{$postType}FaFetched"]); ?>" <?php endforeach; ?> data-resource-name="<?php echo esc_attr($defaultResourceName) ?>" data-resource-human="Books" data-color-scheme="<?php echo esc_attr($colorScheme); ?>" data-resource-names="<?php echo esc_attr(wp_json_encode($postTypes)); ?>" data-prefix="<?php echo esc_attr($prefix); ?>">
+<div id="<?php echo esc_attr($prefix); ?>-dashboard" data-home-url="<?php echo esc_attr(esc_url(home_url('/'))) ?>"
+  data-site-title="<?php echo esc_attr((get_bloginfo('name'))) ?>" data-logout-url="<?php echo wp_logout_url(); ?>"
+  data-media-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/media")); ?>"
+  data-rest-nonce="<?php echo esc_attr(wp_create_nonce('wp_rest')); ?>"
+  data-assets-fonts-url="<?php echo esc_attr(($container->get('assets.fonts.url'))) ?>"
+  data-assets-images-url="<?php echo esc_attr(($container->get('assets.images.url'))) ?>" <?php foreach ($postTypes as $postType): ?> data-<?php echo $postType; ?>-en-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}")); ?>" data-<?php echo $postType; ?>-fa-rest-url="<?php echo esc_attr(get_rest_url(null, "/wp/v2/" . $prefix . "_{$postType}fa")); ?>"
+    data-<?php echo $postType; ?>-en-fetched="<?php echo esc_attr($fetched["{$postType}EnFetched"]); ?>" data-<?php echo $postType; ?>-fa-fetched="<?php echo esc_attr($fetched["{$postType}FaFetched"]); ?>" <?php endforeach; ?>
+  data-resource-name="<?php echo esc_attr($defaultResourceName) ?>" data-resource-human="Books"
+  data-color-scheme="<?php echo esc_attr($colorScheme); ?>"
+  data-resource-names="<?php echo esc_attr(wp_json_encode($postTypes)); ?>"
+  data-prefix="<?php echo esc_attr($prefix); ?>">
 </div>
 
-<?php foreach ($postTypes as $postType) : ?>
+<?php foreach ($postTypes as $postType): ?>
   <pre style="display: none !important" id="<?php echo $postType; ?>-fa">
-        <?php echo json_encode($data["{$postType}Fa"], JSON_HEX_TAG); ?>
-    </pre>
+          <?php echo json_encode($data["{$postType}Fa"], JSON_HEX_TAG); ?>
+      </pre>
 
   <pre style="display: none !important" id="<?php echo $postType; ?>-en">
-        <?php echo json_encode($data["{$postType}En"], JSON_HEX_TAG); ?>
-    </pre>
+          <?php echo json_encode($data["{$postType}En"], JSON_HEX_TAG); ?>
+      </pre>
 <?php endforeach;
 if (function_exists('tdn_render')) {
   tdn_render();
@@ -79,11 +89,12 @@ if (function_exists('tds_render')) {
 
 
 
-function get_unapproved_comments($post_types) {
+function get_unapproved_comments($post_types, $status)
+{
   $all_comments = array();
   foreach ($post_types as $post_type) {
     $args = array(
-      'status' => 'hold',
+      'status' => $status,
       'post_type' => $post_type,
     );
     $comments_query = new WP_Comment_Query;
@@ -111,17 +122,25 @@ function get_unapproved_comments($post_types) {
   return $all_comments;
 }
 
-$unapproved_comments_fa = get_unapproved_comments(['thedah_blogfa', 'thedah_coursefa']);
-$unapproved_comments_en = get_unapproved_comments(['thedah_blog', 'thedah_course']);
+$unapproved_comments_fa = get_unapproved_comments(['thedah_blogfa', 'thedah_coursefa'], 'hold');
+$unapproved_comments_en = get_unapproved_comments(['thedah_blog', 'thedah_course'], 'hold');
+$approved_comments_fa = get_unapproved_comments(['thedah_blogfa', 'thedah_coursefa'], 'approve');
+$approved_comments_en = get_unapproved_comments(['thedah_blog', 'thedah_course'], 'approve');
 ?>
 
 <pre style="display: none !important" id="unapproved-comments-fa">
-        <?php echo json_encode($unapproved_comments_fa,  JSON_HEX_TAG); ?>
-    </pre>
+  <?php echo json_encode($unapproved_comments_fa, JSON_HEX_TAG); ?>
+</pre>
 <pre style="display: none !important" id="unapproved-comments-en">
-        <?php echo json_encode($unapproved_comments_en,  JSON_HEX_TAG); ?>
-    </pre>
+  <?php echo json_encode($unapproved_comments_en, JSON_HEX_TAG); ?>
+</pre>
 
-    <div id="comments-data" data-rest-url="<?php echo esc_attr(get_rest_url(null, '/wp/v2/comments')) ?>"
-      data-fetched="1"
-    ></div>
+<pre style="display: none !important" id="approved-comments-fa">
+  <?php echo json_encode($approved_comments_fa, JSON_HEX_TAG); ?>
+</pre>
+<pre style="display: none !important" id="approved-comments-en">
+  <?php echo json_encode($approved_comments_en, JSON_HEX_TAG); ?>
+</pre>
+
+<div id="comments-data" data-rest-url="<?php echo esc_attr(get_rest_url(null, '/wp/v2/comments')) ?>" data-fetched="1">
+</div>

@@ -13,37 +13,38 @@ import { useCrudContext } from "../../context/CrudContext"
 import useResourceContext from "../../context/useResourceContext"
 
 const trimWords = (input, words, end) => {
-  const split = input.split(" ")
+  const split = input.split(' ')
   if (split.length > words) {
-    return split.slice(0, words).join(" ") + end
+    return split.slice(0, words).join(' ') + end
   }
   return input
 }
 
-export function UnapprovedCommentsCard({ post }) {
+export function ApprovedCommentsCard({ post }) {
   const { t } = useTranslation()
   const { isDeleting, deletePost } = useCrudContext()
   const { restNonce, resources } = useResourceContext()
-  const { restUrl, setR } = resources.unapprovedComments
-  const { setR: setRApproved } = resources.approvedComments
+  const { restUrl, setR } = resources.approvedComments
+  const {  setR : setRUnapproved } = resources.unapprovedComments
 
-  // Function to approve the comment
-  const approveComment = async () => {
+ 
+  // Function to disapprove the comment
+  const disapproveComment = async () => {
     try {
-      // Call your API to approve the comment
-      const response = await fetch(`${restUrl}/${post.id}?_embed`, {
+      // Call your API to disapprove the comment
+      const response = await fetch(`${restUrl}/${post.id}?_embed  `, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-WP-Nonce": restNonce,
         },
-        body: JSON.stringify({ status: "approve" }),
+        body: JSON.stringify({ status: "hold" }),
       })
 
       const data = await response.json()
       const comment = {
         id: data.id,
-        title: trimWords(data.content.raw, 4, "..."),
+        title: trimWords(data.content.raw, 4, '...'),
         content: data.content.raw,
         author: data.author_name,
         author_email: data.author_email,
@@ -53,11 +54,12 @@ export function UnapprovedCommentsCard({ post }) {
         },
       }
 
-      // Update the list of unapproved comments
+      // Update the list of approved comments
       setR((prevState) => prevState.filter((comment) => comment.id !== post.id))
-      setRApproved((prevState) => [...prevState, comment])
+      setRUnapproved((prevState) => [...prevState, comment])
+
     } catch (error) {
-      console.error("Failed to approve the comment:", error)
+      console.error("Failed to disapprove the comment:", error)
     }
   }
 
@@ -107,13 +109,13 @@ export function UnapprovedCommentsCard({ post }) {
             {t("Remove")}
           </Button>
           <Button
-            color="green"
+            color="orange"
             pos="absolute"
             bottom="40px"
             right="250px"
-            onClick={approveComment}
+            onClick={disapproveComment}
           >
-            {t("Approve")}
+            {t("Disapprove")}
           </Button>
         </Box>
       </Container>

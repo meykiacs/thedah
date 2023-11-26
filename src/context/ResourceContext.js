@@ -36,6 +36,8 @@ export const ResourceProvider = ({ providedValues, children }) => {
     socialRestUrl,
     unapprovedCommentsFaRestUrl,
     unapprovedCommentsEnRestUrl,
+    approvedCommentsFaRestUrl,
+    approvedCommentsEnRestUrl,
   } = providedValues
 
 
@@ -130,6 +132,19 @@ export const ResourceProvider = ({ providedValues, children }) => {
   )
   const [unapprovedCommentsEnFetched, setUnapprovedCommentsEnFetched] = useState(
     providedValues.unapprovedCommentsEnFetched,
+  )
+
+  const [approvedCommentsFa, setApprovedCommentsFa] = useState(
+    providedValues.approvedCommentsFa,
+  )
+  const [approvedCommentsEn, setApprovedCommentsEn] = useState(
+    providedValues.approvedCommentsEn,
+  )
+  const [approvedCommentsFaFetched, setApprovedCommentsFaFetched] = useState(
+    providedValues.approvedCommentsFaFetched,
+  )
+  const [approvedCommentsEnFetched, setApprovedCommentsEnFetched] = useState(
+    providedValues.approvedCommentsEnFetched,
   )
 
   const [aboutFa, setAboutFa] = useState(providedValues.aboutFa)
@@ -282,6 +297,23 @@ export const ResourceProvider = ({ providedValues, children }) => {
       restUrl: lang === "fa" ? unapprovedCommentsFaRestUrl : unapprovedCommentsEnRestUrl,
       fetched: lang === "fa" ? unapprovedCommentsFaFetched : unapprovedCommentsEnFetched,
       setFetched: lang === "fa" ? setUnapprovedCommentsFaFetched : setUnapprovedCommentsEnFetched,
+    },
+    approvedComments: {
+      fa: approvedCommentsFa,
+      en: approvedCommentsEn,
+      setEn: setApprovedCommentsEn,
+      setFa: setApprovedCommentsFa,
+      faFetched: approvedCommentsFaFetched,
+      enFetched: approvedCommentsEnFetched,
+      setFaFetched: setApprovedCommentsFaFetched,
+      setEnFetched: setApprovedCommentsEnFetched,
+      restUrlEn: approvedCommentsEnRestUrl,
+      restUrlFa: approvedCommentsFaRestUrl,
+      rs: lang === "fa" ? approvedCommentsFa : approvedCommentsEn,
+      setR: lang === "fa" ? setApprovedCommentsFa : setApprovedCommentsEn,
+      restUrl: lang === "fa" ? approvedCommentsFaRestUrl : approvedCommentsEnRestUrl,
+      fetched: lang === "fa" ? approvedCommentsFaFetched : approvedCommentsEnFetched,
+      setFetched: lang === "fa" ? setApprovedCommentsFaFetched : setApprovedCommentsEnFetched,
     },
     about: {
       fa: aboutFa,

@@ -60,6 +60,12 @@ export function Shell() {
       icon: IconMessageCircle2,
       name: "unapprovedComments",
     },
+    {
+      link: "",
+      label: "ApprovedComments",
+      icon: IconMessageCircle2,
+      name: "approvedComments",
+    },
     { link: "", label: "Slider", icon: IconPhotoExclamation, name: "slider" },
   ]
   const [active, setActive] = useState(resourceName)

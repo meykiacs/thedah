@@ -54,6 +54,12 @@ window.addEventListener("DOMContentLoaded", () => {
   providedValues.unapprovedCommentsEnRestUrl = document.getElementById('comments-data').dataset.restUrl
   providedValues.unapprovedCommentsEnFetched = document.getElementById('comments-data').dataset.fetched
   providedValues.unapprovedCommentsFaFetched = document.getElementById('comments-data').dataset.fetched
+  providedValues.approvedCommentsEn = JSON.parse(document.getElementById('approved-comments-en').innerHTML)
+  providedValues.approvedCommentsFa = JSON.parse(document.getElementById('approved-comments-fa').innerHTML)
+  providedValues.approvedCommentsFaRestUrl = document.getElementById('comments-data').dataset.restUrl
+  providedValues.approvedCommentsEnRestUrl = document.getElementById('comments-data').dataset.restUrl
+  providedValues.approvedCommentsEnFetched = document.getElementById('comments-data').dataset.fetched
+  providedValues.approvedCommentsFaFetched = document.getElementById('comments-data').dataset.fetched
   render(
     <LanguageProvider>
       <Dashboard providedValues={providedValues} />
